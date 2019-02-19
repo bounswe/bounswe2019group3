@@ -2,7 +2,7 @@
 
 # Description
 
-This is a github repository that we use for Boğaziçi University's dual courses CMPE352 and CMPE451 in 2019. Through out the year, we will work on a project to make a language learning platform that students and experts can benefit from. 
+This is the github repository that we use for Boğaziçi University's dual courses CMPE352 and CMPE451 in 2019. Through out the year, we will work on a project to make a language learning platform that students and experts can benefit from. 
 
 
 ## Group Members
