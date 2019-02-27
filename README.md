@@ -13,8 +13,7 @@ This is the github repository that we use for Boğaziçi University's dual cours
 
 [![Burak İlkay Akgün](https://avatars2.githubusercontent.com/u/44066588?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Burak-İlkay-Akgün) | [![Bartu Ören](https://avatars0.githubusercontent.com/u/32355842?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Bartu-Ören) | [![Orkan Akısü](https://avatars0.githubusercontent.com/u/36167517?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Orkan-Akısü) |
 |---|---|---|
-|[Burak İlkay Akgün](https://github.com/bounswe/bounswe2019group3/wiki/Burak-İlkay-Akgün) | 
-| [Bartu Ören](https://github.com/bounswe/bounswe2019group3/wiki/Bartu-Ören) | [Orkan Akısü](https://github.com/bounswe/bounswe2019group3/wiki/Orkan-Akısü) 
+|[Burak İlkay Akgün](https://github.com/bounswe/bounswe2019group3/wiki/Burak-İlkay-Akgün) | [Bartu Ören](https://github.com/bounswe/bounswe2019group3/wiki/Bartu-Ören) | [Orkan Akısü](https://github.com/bounswe/bounswe2019group3/wiki/Orkan-Akısü) 
 
 
 [![Muhammet Ekrem Gezgen](https://avatars0.githubusercontent.com/u/47948423?s=400&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Muhammet-Ekrem-Gezgen)| [![Ahmet Mert Tahran](https://avatars2.githubusercontent.com/u/44242500?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Ahmet-Mert-Tahran) | [![Yağmur Kahyaoğlu](https://avatars0.githubusercontent.com/u/32355500?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Yağmur-Kahyaoğlu) |
