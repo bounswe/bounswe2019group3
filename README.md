@@ -20,6 +20,6 @@ This is the github repository that we use for Boğaziçi University's dual cours
 |---|---|---|
 |[Muhammet Ekrem Gezgen](https://github.com/bounswe/bounswe2019group3/wiki/Muhammet-Ekrem-Gezgen)| [Ahmet Mert Tahran](https://github.com/bounswe/bounswe2019group3/wiki/Ahmet-Mert-Tahran) | [Yağmur Kahyaoğlu](https://github.com/bounswe/bounswe2019group3/wiki/Yağmur-Kahyaoğlu) |
 
-[![Sabri Bayrakdar](https://avatars0.githubusercontent.com/u/32673244?s=310&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Sabri-Bayrakdar)|
-|---|
-|[Sabri Bayrakdar](https://github.com/bounswe/bounswe2019group3/wiki/Sabri-Bayrakdar)|
+[![Sabri Bayrakdar](https://avatars0.githubusercontent.com/u/32673244?s=310&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Sabri-Bayrakdar) | [![Hilal Demir](https://avatars1.githubusercontent.com/u/32465046?s=400&u=d863895b92814db0c3fc99e20e811c9a54d17136&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Hilal-Demir)|
+|---|---|
+|[Sabri Bayrakdar](https://github.com/bounswe/bounswe2019group3/wiki/Sabri-Bayrakdar) | [Hilal Demir](https://github.com/bounswe/bounswe2019group3/wiki/Hilal-Demir)| 
