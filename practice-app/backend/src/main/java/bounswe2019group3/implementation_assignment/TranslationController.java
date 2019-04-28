@@ -34,7 +34,7 @@ public class TranslationController {
 				in.close();
 		String output=a.substring(a.indexOf("[")+2,a.indexOf("]")-1);
 		out.close();
-        return output
+        return output;
 	}
 
 	public static class ParameterStringBuilder {
@@ -55,5 +55,4 @@ public class TranslationController {
 	          : resultString;
 	    }
 	}
-}
 }
