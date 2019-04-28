@@ -11,8 +11,15 @@ import java.util.*;
 public class TranslationController {
 
     @RequestMapping("/translate")
-    public String translate(@RequestParam(value="str", defaultValue="") String str)throws UnsupportedEncodingException, IOException {
-		URL url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate");
+    public String translate(@RequestParam(value="str", defaultValue=" ") String str)throws UnsupportedEncodingException, IOException {
+		String output="";
+		if(str=="") {
+			str=" ";
+		}
+    	URL url;
+		try {
+			url = new URL("https://translate.yandex.net/api/v1.5/tr.json/translate");
+		
 		HttpURLConnection con = (HttpURLConnection) url.openConnection();
 		con.setRequestMethod("GET");
 		Map<String, String> parameters = new HashMap<>();
@@ -32,8 +39,11 @@ public class TranslationController {
 				    a=inputLine;
 				}
 				in.close();
-		String output=a.substring(a.indexOf("[")+2,a.indexOf("]")-1);
+		output=a.substring(a.indexOf("[")+2,a.indexOf("]")-1);
 		out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
         return output;
 	}
 
