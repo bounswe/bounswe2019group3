@@ -18,7 +18,7 @@ mvnw.cmd spring-boot:run
 * "/translate": Translation Feature
 * "/lyrics_song_search": Lyrics & Song Search Feature
 * "/image_search": Image Search Feature
-* "/wiki_search": Wiki Search Feature
+* "/synonyms_search": Synonyms Search Feature
 
 ### Example:
 http://localhost:8080/translate?str=hello
