@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
+import org.json.*;
+
 @RestController
 public class TranslationController {
 
@@ -23,8 +25,12 @@ public class TranslationController {
 				"&text="+str;
 
 		output=template.getForObject(url, String.class);
-		output=output.substring(output.indexOf("[")+2,output.indexOf("]")-1);
-
+		try{
+			JSONObject obj = new JSONObject(output);
+			output = obj.getJSONArray("text").getString(0);
+		}catch(JSONException e){
+			output = null;
+		}
 		return output;
 	}
 }
