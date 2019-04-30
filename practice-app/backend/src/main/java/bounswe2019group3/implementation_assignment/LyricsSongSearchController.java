@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
 
 class Song {
@@ -99,6 +100,7 @@ class Song {
 @RestController
 public class LyricsSongSearchController {
 
+	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(
 			value = "/lyrics_song_search", 
 			method = RequestMethod.GET, 

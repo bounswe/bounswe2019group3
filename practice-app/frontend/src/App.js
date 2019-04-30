@@ -1,18 +1,27 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import ImageSearch from './ImageSearch.js'
 import LyricsSongSearch from './LyricsSongSearch.js'
 import SynonymsSearch from './SynonymsSearch.js'
 import logo from './logo.png';
-
-let translation = "hello world";
-let word = "deneme"
-let waiting_for_word = false
-
+import axios from 'axios';
 
 
 function App() {
+  const [translation, setTranslation] = useState("");
+  const [word, setWord] = useState(undefined);
+  const [searchWord, setSearchWord] = useState("");
+
+  const [data, setData] = useState([]);
+  
+  function translate(){
+    setWord(null);
+    axios.get('http://localhost:8080/translate?str='+searchWord)
+    .then((res) => setWord(res.data))
+    .catch((e) => console.log("error:", e));
+  }
+
   return (
     <div>
       <div class="text-center">
@@ -23,20 +32,21 @@ function App() {
           type="text"
           id="search_input"
           placeholder="type a word."
+          onChange={(event) => setSearchWord(event.target.value)}
         />
-        <button className="button">Search!</button>
-        <div>Translation: {translation}</div>
+        <button className="button" onClick={translate.bind(this)}>Search!</button>
+        <div>Translation: {word}</div>
       </div>
       <div class="container">
         <div class="row">
           <div class="col-md">
-            <ImageSearch word={word} waiting_for_word={waiting_for_word}/>
+            <ImageSearch word={word}/>
           </div>
           <div class="col-md">
-            <LyricsSongSearch word={word} waiting_for_word={waiting_for_word}/>
+            <LyricsSongSearch word={word}/>
           </div>
           <div class="col-md">
-            <SynonymsSearch word={word} waiting_for_word={waiting_for_word}/>
+            <SynonymsSearch word={word}/>
           </div>
         </div>
       </div>
