@@ -4,15 +4,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ImageSearch from './ImageSearch.js'
 import LyricsSongSearch from './LyricsSongSearch.js'
 import SynonymsSearch from './SynonymsSearch.js'
+import logo from './logo.png';
 
 let translation = "hello world";
 let word = "deneme"
 let waiting_for_word = false
 
 
+
 function App() {
   return (
     <div>
+      <div class="text-center">
+        <img src={logo} alt="logo" align="middle" width="200" height="200" />
+      </div>
       <div class="text-center">
         <input
           type="text"
