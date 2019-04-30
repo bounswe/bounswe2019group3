@@ -24,14 +24,14 @@ function App() {
 
   return (
     <div>
-      <div class="text-center">
+      <div className="text-center">
         <img src={logo} alt="logo" align="middle" width="200" height="200" />
       </div>
-      <div class="text-center">
+      <div className="text-center">
         <input
           type="text"
           id="search_input"
-          placeholder="type a word."
+          placeholder="Type a Turkish Word"
           onChange={(event) => setSearchWord(event.target.value)}
           onKeyDown={(e) => {
             if(e.keyCode == 13){
@@ -42,15 +42,15 @@ function App() {
         <button className="button" onClick={translate.bind(this)}>Search!</button>
         <div><b><u>Translation:</u></b> {word}</div>
       </div>
-      <div class="container">
-        <div class="row">
-          <div class="col-md">
+      <div className="container">
+        <div className="row">
+          <div className="col-md">
             <ImageSearch word={word}/>
           </div>
-          <div class="col-md">
+          <div className="col-md">
             <LyricsSongSearch word={word}/>
           </div>
-          <div class="col-md">
+          <div className="col-md">
             <SynonymsSearch word={word}/>
           </div>
         </div>

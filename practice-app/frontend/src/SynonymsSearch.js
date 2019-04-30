@@ -4,8 +4,10 @@ import axios from 'axios';
 
 function SynonymsSearch(props) {
     const [data,setData] = useState([]);
+    const [word,setWord] = useState("");
 
-    if(props.word != undefined && props.word != null){
+    if(props.word && props.word != word){
+        setWord(props.word);
         axios.get('http://localhost:8080/synonyms_search?str=' + props.word)
         .then((res) => setData(res.data))
         .catch((e) => console.log("error:", e));
@@ -14,7 +16,9 @@ function SynonymsSearch(props) {
     return (
         <div>
             <b><u>Synonyms</u></b>
-            {data.map((s) => (<div>{s}</div>))}
+            <ul>
+                {data.map((s) => (<li>{s}</li>))}
+            </ul>
         </div>
     );
 }
