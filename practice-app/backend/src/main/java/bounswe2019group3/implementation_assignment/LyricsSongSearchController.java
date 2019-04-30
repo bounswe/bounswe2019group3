@@ -1,5 +1,6 @@
 package bounswe2019group3.implementation_assignment;
 
+import org.json.*;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,7 +14,6 @@ class Song {
 	String name = "";
 	String artist = "";
 	String album = "";
-	String type = "";
 	String rating = "";
 	String has_lyrics = "No";
 	String has_subtitles = "No";
@@ -21,14 +21,13 @@ class Song {
 	
 	public Song(){}
 
-	public Song(String name, String artist, String album,String type,String rating,String has_lyrics,String has_subtitles,String updated_time){
+	public Song(String name, String artist, String album,String rating,String has_lyrics,String has_subtitles,String updated_time){
 		this.name = name;
 		this.artist = artist;
 		this.album = album;
 		this.rating = rating;
 		this.has_lyrics = has_lyrics;
 		this.last_updated_time = updated_time;
-		this.type = type;
 		this.has_subtitles = has_subtitles;
 	}
 
@@ -38,14 +37,6 @@ class Song {
 
 	public void setHas_subtitles(String has_subtitles) {
 		this.has_subtitles = has_subtitles;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
 	}
 
 	public String getUpdated_time() {
@@ -112,64 +103,35 @@ public class LyricsSongSearchController {
 		return songs;
 	}
 
-
 	public Song[] songsFromApi(String str){
 		
 		Song[] songs = new Song[5];
 		final String uri = "http://api.musixmatch.com/ws/1.1/track.search?q_track="+str+"&page_size=5&page=1&s_track_rating=desc&apikey=12154629a3c690adcc1f939dff615213";
 	     
-	    RestTemplate restTemplate = new RestTemplate();
-	    String result = restTemplate.getForObject(uri, String.class);
+	   	RestTemplate restTemplate = new RestTemplate();
+	    	String result = restTemplate.getForObject(uri, String.class);
 	    
-	    String s = result;
-	    int start = 0;
-	    for(int i=0; i<5; i++){
-	    	Song song = new Song();
-	    	int index = s.indexOf("track_name",start);
-	    	if(index > 0){
-	    		start = index + 13;
-	    		index = s.indexOf("\"",start);
-	    		song.name = s.substring(start, index);
-	    		index = s.indexOf("track_rating",index);
-	    		start = index + 14;
-	    		index = s.indexOf(",",start);
-	    		song.rating = s.substring(start,index) ;
-	    		index = s.indexOf("has_lyrics",index);
-	    		start = index + 12;
-	    		index = s.indexOf(",",start);
-	    		String lyrics = s.substring(start,index) ;
-	    		if(lyrics.equals("1")) {
+	    	for(int i =0;i<5;i++) {
+	    		Song song = new Song();
+	    		JSONObject obj = new JSONObject(result);
+			JSONArray arr = obj.getJSONObject("message").getJSONObject("body").getJSONArray("track_list");
+			JSONObject obj2=arr.getJSONObject(i);
+		    
+	    		song.name = obj2.getJSONObject("track").getString("track_name");
+	    		song.artist = obj2.getJSONObject("track").getString("artist_name");
+	    		song.album= obj2.getJSONObject("track").getString("album_name");
+	    		song.rating = obj2.getJSONObject("track").getString("track_rating");
+	    		String str1 = obj2.getJSONObject("track").getString("has_lyrics");
+	    		if(str1.equals("1"))
 	    			song.has_lyrics = "Yes";
-	    		}
-	    		index = s.indexOf("has_subtitles",index);
-	    		start = index + 15;
-	    		index = s.indexOf(",",start);
-	    		String subtitle = s.substring(start,index) ;
-	    		if(subtitle.equals("1")) {
+	    		String str2 = obj2.getJSONObject("track").getString("has_subtitles");
+	    		if(str2.equals("1"))
 	    			song.has_subtitles = "Yes";
-	    		}
-	    		index = s.indexOf("album_name", index);
-	    		start = index + 13;
-	    		index = s.indexOf("\"",start);
-	    		song.album = s.substring(start, index);
-	    		index = s.indexOf("artist_name",index);
-	    		start = index + 14;
-	    		index = s.indexOf("\"",start);
-	    		song.artist = s.substring(start, index);
-	    		index = s.indexOf("updated_time",start);
-	    		start = index + 15;
-	    		index = s.indexOf("\"",start);
-	    		song.last_updated_time = s.substring(start, index);
-	    		index = s.indexOf("music_genre_name",start);
-	    		start = index + 19;
-	    		index = s.indexOf("\"",start);
-	    		song.type = s.substring(start, index);
-	    	} 
-	    	else break;
-	    	songs[i] = song;
-	    }
+	    		song.last_updated_time = obj2.getJSONObject("track").getString("updated_time");
+	    		songs[i]= song;
+	   	}
       
-		return songs;
+			return songs;
 	}
 
 
