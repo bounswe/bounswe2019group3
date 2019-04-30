@@ -1,4 +1,3 @@
-import React from 'react';
 import axios from 'axios';
 import React, {useState} from 'react';
 
@@ -11,27 +10,30 @@ let lyrics="yes";
 let subtitles="yes";
 
 
-
 function LyricsSongSearch(props) {
     
     const [data,setData] = useState([]);
     
-    function songSearch() {
-    axios.get('http://localhost:3000/lyrics_song_search?str=' + props.word)
-    .then((res) => setData(res.data) 
-    .catch((e) => console.log("error",e));
-
-  }
+   
+    if(props.word != undefined && props.word != null) {
+    axios.get('http://localhost:8080/lyrics_song_search?str=' + props.word)
+    .then((res) => setData(res.data))
+    .catch((e) => console.log("error: ",e));
+    }
+   
     return (
         <div>
-        <div><b>LyricsSongSearch word: </b>{props.word}</div>
-        <div><b>Name: </b>{name}</div>
-        <div><b>Artist: </b>{artist}</div>
-        <div><b>Album: </b>{album}</div>
-        <div><b>Type: </b>{type}</div>
-        <div><b>Rating: </b>{rating}</div>
-        <div><b>Lyrics: </b>{lyrics}</div>
-        <div><b>Subtitles: </b>{subtitles}</div>
+        <div><b><u>Songs</u></b></div>
+        
+            {data.map((o) => (<div><div><b>Name: </b>{o.name}</div>
+        <div><b>Artist: </b>{o.artist}</div>
+        <div><b>Album: </b>{o.album}</div>
+        <div><b>Type: </b>{o.type}</div>
+        <div><b>Rating: </b>{o.rating}</div>
+        <div><b>Lyrics: </b>{o.lyrics}</div>
+        <div><b>Subtitles: </b>{o.subtitles}</div></div>))}
+
+        
         </div>
     );
 }
