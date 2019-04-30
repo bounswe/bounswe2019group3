@@ -33,9 +33,14 @@ function App() {
           id="search_input"
           placeholder="type a word."
           onChange={(event) => setSearchWord(event.target.value)}
+          onKeyDown={(e) => {
+            if(e.keyCode == 13){
+              translate()
+            }
+          }}
         />
         <button className="button" onClick={translate.bind(this)}>Search!</button>
-        <div>Translation: {word}</div>
+        <div><b><u>Translation:</u></b> {word}</div>
       </div>
       <div class="container">
         <div class="row">
