@@ -94,7 +94,6 @@ public class LyricsSongSearchController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(
 			value = "/lyrics_song_search", 
-			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	@ResponseBody
@@ -113,26 +112,32 @@ public class LyricsSongSearchController {
 	    
 	    	for(int i =0;i<5;i++) {
 	    		Song song = new Song();
-	    		JSONObject obj = new JSONObject(result);
+	    		JSONObject obj;
+				try {
+					obj = new JSONObject(result);
+				
 			JSONArray arr = obj.getJSONObject("message").getJSONObject("body").getJSONArray("track_list");
 			JSONObject obj2=arr.getJSONObject(i);
 		    
 	    		song.name = obj2.getJSONObject("track").getString("track_name");
 	    		song.artist = obj2.getJSONObject("track").getString("artist_name");
 	    		song.album= obj2.getJSONObject("track").getString("album_name");
-	    		song.rating = obj2.getJSONObject("track").getString("track_rating");
-	    		String str1 = obj2.getJSONObject("track").getString("has_lyrics");
+	    		song.rating = obj2.getJSONObject("track").getInt("track_rating") + "";
+	    		String str1 = obj2.getJSONObject("track").getInt("has_lyrics") + "";
 	    		if(str1.equals("1"))
 	    			song.has_lyrics = "Yes";
-	    		String str2 = obj2.getJSONObject("track").getString("has_subtitles");
+	    		String str2 = obj2.getJSONObject("track").getInt("has_subtitles") + "";
 	    		if(str2.equals("1"))
 	    			song.has_subtitles = "Yes";
 	    		song.last_updated_time = obj2.getJSONObject("track").getString("updated_time");
 	    		songs[i]= song;
+	    		} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 	   	}
       
 			return songs;
 	}
-
 
 }
