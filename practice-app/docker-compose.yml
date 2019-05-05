@@ -1,0 +1,32 @@
+version: '3'
+services:
+  nginx:
+   container_name: practice-app-nginx
+   image: nginx:1.13
+   restart: always
+   ports:
+   - 80:80
+   - 443:443
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+   - ./frontend:/frontend
+   depends_on:
+   - backend
+   - frontend
+  
+  backend:
+    restart: always
+    build: ./backend
+    working_dir: /backend
+    volumes:
+      - ./backend:/backend
+    expose:
+      - "8080"
+    command: ./mvnw clean spring-boot:run
+  
+  frontend:
+    build: ./frontend
+    working_dir: /frontend
+    volumes:
+      - ./frontend:/frontend
+    command: [sh, -c, "npm run-script build"]
