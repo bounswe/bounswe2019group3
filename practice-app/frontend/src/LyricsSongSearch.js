@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, {useState, useEffect} from 'react';
+import {getDomain} from './utility'
 
 
 function LyricsSongSearch(props) {
@@ -9,7 +10,7 @@ function LyricsSongSearch(props) {
     
     if(props.word && props.word != word){
       setWord(props.word);
-      axios.get('http://localhost:8080/lyrics_song_search?str=' + props.word)
+      axios.get(getDomain() + '/lyrics_song_search?str=' + props.word)
       .then((res) => setData(res.data))
       .catch((e) => console.log("error: ",e));
     }

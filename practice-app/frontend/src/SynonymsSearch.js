@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import axios from 'axios';
+import {getDomain} from './utility'
 
 
 function SynonymsSearch(props) {
@@ -8,7 +9,7 @@ function SynonymsSearch(props) {
 
     if(props.word && props.word != word){
         setWord(props.word);
-        axios.get('http://localhost:8080/synonyms_search?str=' + props.word)
+        axios.get(getDomain() + '/synonyms_search?str=' + props.word)
         .then((res) => setData(res.data))
         .catch((e) => console.log("error:", e));
     }
