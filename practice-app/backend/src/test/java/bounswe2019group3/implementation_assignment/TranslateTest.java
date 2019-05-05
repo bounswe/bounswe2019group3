@@ -34,4 +34,15 @@ public class TranslateTest {
         this.mockMvc.perform(get("/translate?str=")).andDo(print()).andExpect(status().isOk())
                 .andExpect(content().string(containsString("")));
     }
+	@Test
+    public void shouldReturnHiWLowerCases() throws Exception {
+        this.mockMvc.perform(get("/translate?str=merhaba")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("hi")));
+    }
+	
+	@Test
+    public void shouldReturnNumberWLetters() throws Exception {
+        this.mockMvc.perform(get("/translate?str=1863")).andDo(print()).andExpect(status().isOk())
+                .andExpect(content().string(containsString("One thousand eight hundred sixty three")));
+    }
 }
