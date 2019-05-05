@@ -6,6 +6,7 @@ import LyricsSongSearch from './LyricsSongSearch.js'
 import SynonymsSearch from './SynonymsSearch.js'
 import logo from './logo.png';
 import axios from 'axios';
+import {getDomain} from './utility'
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
   
   function translate(){
     setWord(null);
-    axios.get('http://localhost:8080/translate?str='+searchWord)
+    axios.get(getDomain() + '/translate?str=' + searchWord)
     .then((res) => setWord(res.data))
     .catch((e) => console.log("error:", e));
   }
