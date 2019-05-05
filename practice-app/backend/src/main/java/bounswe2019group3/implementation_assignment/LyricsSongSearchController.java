@@ -94,7 +94,6 @@ public class LyricsSongSearchController {
 	@CrossOrigin(origins = "http://localhost:3000")
 	@RequestMapping(
 			value = "/lyrics_song_search", 
-			method = RequestMethod.GET, 
 			produces = MediaType.APPLICATION_JSON_VALUE
 			)
 	@ResponseBody
@@ -104,35 +103,38 @@ public class LyricsSongSearchController {
 	}
 
 	public Song[] songsFromApi(String str){
-		
 		Song[] songs = new Song[5];
 		final String uri = "http://api.musixmatch.com/ws/1.1/track.search?q_track="+str+"&page_size=5&page=1&s_track_rating=desc&apikey=12154629a3c690adcc1f939dff615213";
 	     
 	   	RestTemplate restTemplate = new RestTemplate();
-	    	String result = restTemplate.getForObject(uri, String.class);
-	    
-	    	for(int i =0;i<5;i++) {
-	    		Song song = new Song();
-	    		JSONObject obj = new JSONObject(result);
-			JSONArray arr = obj.getJSONObject("message").getJSONObject("body").getJSONArray("track_list");
-			JSONObject obj2=arr.getJSONObject(i);
-		    
-	    		song.name = obj2.getJSONObject("track").getString("track_name");
-	    		song.artist = obj2.getJSONObject("track").getString("artist_name");
-	    		song.album= obj2.getJSONObject("track").getString("album_name");
-	    		song.rating = obj2.getJSONObject("track").getString("track_rating");
-	    		String str1 = obj2.getJSONObject("track").getString("has_lyrics");
-	    		if(str1.equals("1"))
-	    			song.has_lyrics = "Yes";
-	    		String str2 = obj2.getJSONObject("track").getString("has_subtitles");
-	    		if(str2.equals("1"))
-	    			song.has_subtitles = "Yes";
-	    		song.last_updated_time = obj2.getJSONObject("track").getString("updated_time");
-	    		songs[i]= song;
-	   	}
-      
-			return songs;
-	}
+	    String result = restTemplate.getForObject(uri, String.class);
+		JSONObject obj = new JSONObject(result);
+		JSONArray arr = obj.getJSONObject("message").getJSONObject("body").getJSONArray("track_list");
+		
+		for(int i =0;i<5;i++) {
+			Song song = new Song();
+			try {
+				JSONObject obj2=arr.getJSONObject(i).getJSONObject("track");
+				song.name = obj2.getString("track_name");
+				song.artist = obj2.getString("artist_name");
+				song.album= obj2.getString("album_name");
+				song.rating = String.valueOf(obj2.getInt("track_rating"));
 
+				if(obj2.getInt("has_lyrics") == 1)
+					song.has_lyrics = "Yes";
+
+				if(obj2.getInt("has_subtitles") == 1)
+					song.has_subtitles = "Yes";
+				
+				song.last_updated_time = obj2.getString("updated_time");
+				songs[i]= song;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+      
+		return songs;
+	}
 
 }
