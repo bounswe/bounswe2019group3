@@ -4,4 +4,4 @@ WORKDIR /backend
 
 COPY . /backend
 
-RUN ./mvnw clean install
+RUN mvn clean install
