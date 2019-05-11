@@ -11,7 +11,7 @@ function LyricsSongSearch(props) {
     if(props.word && props.word != word){
       setWord(props.word);
       axios.get(getDomain() + '/lyrics_song_search?str=' + props.word)
-      .then((res) => setData(res.data))
+      .then((res) => setData(res.data || []))
       .catch((e) => console.log("error: ",e));
     }
    
