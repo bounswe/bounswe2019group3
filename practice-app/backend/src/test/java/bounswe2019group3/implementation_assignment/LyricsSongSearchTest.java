@@ -44,5 +44,6 @@ public class LyricsSongSearchTest {
     		        new Customization("***", new RegularExpressionValueMatcher<Object>())
     		    )
     		);
+
     }
 }

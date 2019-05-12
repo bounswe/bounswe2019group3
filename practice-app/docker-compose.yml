@@ -18,8 +18,6 @@ services:
     restart: always
     build: ./backend
     working_dir: /backend
-    volumes:
-      - ./backend:/backend
     expose:
       - "8080"
     command: ./mvnw clean spring-boot:run
@@ -27,6 +25,6 @@ services:
   frontend:
     build: ./frontend
     working_dir: /frontend
-    volumes:
-      - ./frontend:/frontend
-    command: [sh, -c, "npm run-script build"]
+    volumes: 
+      - ./frontend:/frontend_outputs
+    command: [sh, -c, "npm run-script build && cp -rf build /frontend_outputs"]
