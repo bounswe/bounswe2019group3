@@ -2,7 +2,12 @@ package bounswe2019group3.implementation_assignment;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.skyscreamer.jsonassert.Customization;
 import org.skyscreamer.jsonassert.JSONAssert;
+import org.skyscreamer.jsonassert.JSONCompareMode;
+import org.skyscreamer.jsonassert.RegularExpressionValueMatcher;
+import org.skyscreamer.jsonassert.comparator.CustomComparator;
+import org.skyscreamer.jsonassert.comparator.JSONComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
@@ -24,15 +29,21 @@ public class LyricsSongSearchTest {
         
     	RequestBuilder requestBuilder = MockMvcRequestBuilders.get("/lyrics_song_search?str=hello").accept(MediaType.APPLICATION_JSON);
     	MvcResult result = mockMvc.perform(requestBuilder).andReturn();
+   
+    	String expected = "[{\"name\":\".+\",\"artist\":\".+\",\"album\":\".+\"},"
+    			+ "{\"name\":\".+\",\"artist\":\".+\",\"album\":\".+\"},"
+    			+ "{\"name\":\".+\",\"artist\":\".+\",\"album\":\".+\"},"
+    			+ "{\"name\":\".+\",\"artist\":\".+\",\"album\":\".+\"},"
+    			+ "{\"name\":\".+\",\"artist\":\".+\",\"album\":\".+\"}]";
     	
-    	System.out.println(result.getResponse());
-    	String expected = "[{name:Hello,artist:Adele,album:\"25\"},"
-    			+ "{name:Hello,artist:Mohombi,album:Hello},"
-    			+ "{name:Hello,artist:\"Beast feat. Sjava\",album:Hello},"
-    			+ "{name:\"Hello Sunshine\",artist:\"Bruce Springsteen\",album:\"Western Stars\"},"
-    			+ "{name:\"Hello My Love\",artist:Westlife,album:Spectrum}]";
-		
-		//Commented out to avoid error: https://github.com/bounswe/bounswe2019group3/issues/38#issuecomment-489474210
-    	//JSONAssert.assertEquals(expected, result.getResponse().getContentAsString(), false);
+    	JSONAssert.assertEquals(
+    		    expected,
+    		    result.getResponse().getContentAsString(),
+    		    (JSONComparator) new CustomComparator(
+    		        JSONCompareMode.LENIENT,
+    		        new Customization("***", new RegularExpressionValueMatcher<Object>())
+    		    )
+    		);
+
     }
 }
