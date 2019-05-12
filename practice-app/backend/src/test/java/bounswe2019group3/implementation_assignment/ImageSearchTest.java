@@ -21,7 +21,7 @@ public class ImageSearchTest {
 
     @Test
 	public void shouldReturnOk() throws Exception {
-        this.mockMvc.perform(get("/translate?str=Merhaba")).andDo(print()).andExpect(status().isOk());
+        this.mockMvc.perform(get("/image_search?str=hello")).andExpect(status().isOk());
     }
 
 
