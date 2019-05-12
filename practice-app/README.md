@@ -18,6 +18,6 @@ stop:
 docker-compose -f docker-compose.yml down
 ```
 
-### 2) Run Backend & Frontend Separately
-* Run backend following the README in the Backend folder
-* Run frontend following the README in the Backend folder
+### 2) Run backend & frontend separately
+* Run the backend following the README in the backend folder
+* Run the frontend following the README in the frontend folder
