@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.client.RestTemplate;
+import org.json.*;
 
 @RestController
 public class ImageSearchController {
@@ -17,6 +18,13 @@ public class ImageSearchController {
         
         String output="";
         output=template.getForObject(url, String.class);
+        try {
+            JSONObject obj = new JSONObject(output);
+			output = obj.getJSONObject("data").getString("url");
+        }catch(JSONException e){
+			output = null;
+		}
+		return output;
         
     }
 }
