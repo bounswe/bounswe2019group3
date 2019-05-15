@@ -20,7 +20,7 @@ public class ImageSearchController {
         output=template.getForObject(url, String.class);
         try {
             JSONObject obj = new JSONObject(output);
-			output = obj.getJSONObject("data").getString("url");
+			output = obj.getJSONObject("data").getString("embed_url");
         }catch(JSONException e){
 			output = null;
 		}
