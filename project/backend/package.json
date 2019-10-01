@@ -1,0 +1,33 @@
+{
+  "name": "bounswe2019group3-backend",
+  "version": "1.0.0",
+  "description": "backend project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "generate-api-docs": "node_modules/apidoc/bin/apidoc -e '(node_modules|public)' -o api-docs",
+    "sequelize": "node_modules/.bin/sequelize",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bounswe/bounswe2019group3.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bounswe/bounswe2019group3/issues"
+  },
+  "homepage": "https://github.com/bounswe/bounswe2019group3#readme",
+  "dependencies": {
+    "apidoc": "^0.17.7",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
+    "express": "^4.17.1",
+    "express-session": "^1.16.2",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.19.2",
+    "sequelize-cli": "^5.5.1"
+  }
+}
