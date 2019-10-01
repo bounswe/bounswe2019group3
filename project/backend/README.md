@@ -36,3 +36,9 @@ npm start
 npm run generate-api-docs
 ```
 restart server after generating api docs
+
+## Dummy Data Insertion & Deletion
+```
+node_modules/.bin/sequelize db:seed:all
+node_modules/.bin/sequelize db:seed:undo:all
+```
