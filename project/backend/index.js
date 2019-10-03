@@ -21,6 +21,15 @@ app.use(express.static('public'));
 // api route
 app.use('/api/', api.router);
 
+app.use((err, req, res, next) => {
+	console.error(err);
+	if(err.status){
+		res.sendStatus(err.status);
+	}else {
+		res.sendStatus(500);
+	}
+});
+
 const port = process.env.PORT || 3000;
 
 // start servers

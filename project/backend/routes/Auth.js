@@ -13,18 +13,31 @@ const crypto = require('crypto');
  */
 
 router.post("/signup", (req, res, next) => {
-    if(!req.body.username || !req.body.email || !req.body.password){
+    if(req.session.user || !req.body.username || !req.body.email || !req.body.password){
         res.sendStatus(400);
     }else {
         const db = req.db;
-        db.Auth.create({
-            username: req.body.username,
-            email: req.body.email,
-            password: crypto.createHash('md5').update(req.body.password).digest('hex'),
-            role: "USER"
+        db.Auth.findOne({
+            where: db.Sequelize.or(
+                { username: req.body.username },
+                { email: req.body.email }
+            )
         })
         .then((user) => {
-            res.sendStatus(204);
+            if(user){
+                res.sendStatus(400);
+            }else {
+                db.Auth.create({
+                    username: req.body.username,
+                    email: req.body.email,
+                    password: crypto.createHash('md5').update(req.body.password).digest('hex'),
+                    role: "USER"
+                })
+                .then((user) => {
+                    req.session.user = user
+                    res.sendStatus(204);
+                });
+            }
         });
     }
 });
