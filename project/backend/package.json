@@ -4,7 +4,7 @@
   "description": "backend project",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node_modules/.bin/sequelize db:migrate && node_modules/.bin/sequelize db:seed:all && node index.js",
     "generate-api-docs": "node_modules/apidoc/bin/apidoc -e '(node_modules|public)' -o api-docs",
     "sequelize": "node_modules/.bin/sequelize",
     "test": "echo \"Error: no test specified\" && exit 1"
