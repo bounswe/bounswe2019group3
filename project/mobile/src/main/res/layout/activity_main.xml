@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="100dp"
         android:orientation="vertical"
@@ -16,43 +16,71 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <EditText
-            android:id="@+id/emailText"
-            android:ems="10"
+
+        <ImageView
+            android:id="@+id/logo_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="25dp"
-            android:inputType="textEmailAddress"
-            android:textAllCaps="false" />
+            android:layout_marginTop="24dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/logo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/my_logo" />
 
-        <EditText
-            android:id="@+id/passwordText"
-            android:ems="10"
-            android:layout_width="wrap_content"
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:inputType="textPassword" />
+            android:hint="@string/username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/prompt_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text|textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/logInButton"
-            android:layout_width="wrap_content"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="20dp"
             android:minWidth="120dp"
-            android:text="@string/loginButtonText"
-            android:textSize="18sp"
-            android:onClick="onClickLogInBtn" />
+            android:onClick="onClickLogInBtn"
+            android:text="@string/action_sign_in_short"
+            android:textSize="18sp" />
 
         <Button
             android:id="@+id/registerButton"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:minWidth="120dp"
-            android:text="@string/registerButtonText"
-            android:textSize="18sp"
-            android:onClick="onClickRegisterBtn" />
+            android:minWidth="200dp"
+            android:onClick="onClickRegisterBtn"
+            android:text="@string/action_register"
+            android:textSize="18sp" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
