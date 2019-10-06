@@ -4,9 +4,9 @@
     <string name="sign_in">Sign in</string>
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_register">Register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome!"</string>
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
@@ -19,6 +19,6 @@
 
     <string name="sign_up_error">Sign Up Error</string>
     <string name="already_signed_up">You already have an account</string>
-    <string name="already_have_an_account">Already have an account? Sign In</string>
+    <string name="already_have_an_account"><u>Already have an account? Sign In</u></string>
 
 </resources>
