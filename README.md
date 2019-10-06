@@ -4,10 +4,6 @@
 
 This is the github repository that we use for Boğaziçi University's dual courses CMPE352 and CMPE451 in 2019. Throughout the year, we will work on a project to make a language learning platform which we call **BULINGO**. 
 
-
-## Group Members
-[![Samet Demir](https://avatars0.githubusercontent.com/u/18217607?s=460&v=4)](https://github.com/bounswe/bounswe2019group3/wiki/Samet-Demir) 
-
 ## Group Members
 * [Burak İlkay Akgün](https://github.com/bounswe/bounswe2019group3/wiki/Burak-İlkay-Akgün)
 * [Samet Demir](https://github.com/bounswe/bounswe2019group3/wiki/Samet-Demir)
