@@ -70,6 +70,7 @@ public class LogInMain extends AppCompatActivity {
     public void loggedOut(){
         PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 }
