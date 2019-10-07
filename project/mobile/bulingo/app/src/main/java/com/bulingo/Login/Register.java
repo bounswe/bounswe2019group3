@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
-import com.bulingo.Database.Database;
 import com.bulingo.Database.User;
 import com.bulingo.MainActivity;
 import com.bulingo.R;
@@ -23,7 +22,6 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    Database db = new Database();
     APIInterface apiInterface = APICLient.getClient().create(APIInterface.class);
 
     @Override
@@ -33,34 +31,18 @@ public class Register extends AppCompatActivity {
     }
 
     public void registerUser(View v) {
-        TextInputEditText fullNameText = findViewById(R.id.fullname_text);
         TextInputEditText emailText = findViewById(R.id.eposta_text);
         TextInputEditText userText = findViewById(R.id.username_text);
         TextInputEditText passText = findViewById(R.id.password_text);
         TextInputEditText passText2 = findViewById(R.id.password2_text);
 
-        String fullName = fullNameText.getText().toString();
         String email = emailText.getText().toString();
         String username = userText.getText().toString();
         String password = passText.getText().toString();
         String password2 = passText2.getText().toString();
 
-
-        //is username taken ?
-        //is email taken ?
-
-        if(fullName.isEmpty() || email.isEmpty() || username.isEmpty() || password.isEmpty() || password2.isEmpty()){
+        if(email.isEmpty() || username.isEmpty() || password.isEmpty() || password2.isEmpty()){
             Toast.makeText(getApplicationContext(),"Please fill all fields.", Toast.LENGTH_SHORT).show();
-        } else if(!db.checkUserNameDatabase(username, password)){ //normalde ! yok.
-            Toast.makeText(getApplicationContext(),"This username is taken.", Toast.LENGTH_SHORT).show();
-            userText.setText("");
-            passText.setText("");
-            passText2.setText("");
-        } else if(db.checkEMailDatabase(email)){
-            Toast.makeText(getApplicationContext(),"This e-mail address is taken.", Toast.LENGTH_SHORT).show();
-            emailText.setText("");
-            passText.setText("");
-            passText2.setText("");
         } else if(password.compareTo(password2) != 0){
             Toast.makeText(getApplicationContext(),"Passwords do not match.", Toast.LENGTH_SHORT).show();
             passText.setText("");
@@ -70,31 +52,29 @@ public class Register extends AppCompatActivity {
             passText.setText("");
             passText2.setText("");
         } else {
-            createUserInDatabase(fullName, email, username, password);
+            createUserInDatabase(email, username, password);
         }
     }
 
-    private void createUserInDatabase(String fullName, String email, String username, String password) {
+    private void createUserInDatabase(String email, String username, String password) {
         JsonObject paramObject = new JsonObject();
         paramObject.addProperty("username", username);
         paramObject.addProperty("email", email);
         paramObject.addProperty("password", password);
-
-        Call<User> responseCall = apiInterface.doSignup(paramObject);
-        responseCall.enqueue(new Callback<User>() {
+        Call<Void> responseCall = apiInterface.doSignup(paramObject);
+        responseCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("request", response.toString());
-                if(response.code() == 200) {
-                    User user = response.body();
-                    registered("Welcome " + user.username + "!");
+                if(response.isSuccessful()) {
+                    registered("Welcome " + username + "!");
                 } else {
                     toast("This username or email address is used.");
                 }
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 Log.d("request", t.toString());
                 toast("Cannot register. Please try again.");
             }

@@ -18,7 +18,7 @@ public interface APIInterface {
 
     @Headers("Content-Type: application/json")
     @POST("/api/auth/signup")
-    Call<User> doSignup(@Body JsonObject params);
+    Call<Void> doSignup(@Body JsonObject params);
 
     @POST("/api/auth/logout")
     Call<User> doLogout();

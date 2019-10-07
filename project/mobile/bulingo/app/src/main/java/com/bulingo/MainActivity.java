@@ -4,33 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.ArrayMap;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
-import com.bulingo.Database.Database;
 import com.bulingo.Database.User;
 import com.bulingo.Login.LogInMain;
 import com.bulingo.Login.Register;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    Database db = new Database();
     APIInterface apiInterface = APICLient.getClient().create(APIInterface.class);
 
     @Override
@@ -51,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         if(username.isEmpty() || password.isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please fill your credentials.", Toast.LENGTH_SHORT).show();
         } else {
-            //db.getProfileInfo()
             getUserDatabase(username, password);
 
         }
