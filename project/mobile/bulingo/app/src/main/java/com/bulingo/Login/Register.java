@@ -17,7 +17,6 @@ import com.bulingo.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,7 +29,7 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.activity_sign_up_main);
     }
 
     public void registerUser(View v) {
