@@ -4,6 +4,7 @@ import './SignUp.css';
 import { NavLink } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
+import axios from 'axios';
 
 var usrname;
 var pass;
@@ -13,11 +14,17 @@ function goToSignIn() {
 }
 function onClickd() {
   const frm = {
-    usrname: document.getElementById("usr").value,
-    pass: document.getElementById("pass").value,
+    id: document.getElementById("usr").value,
+    password: document.getElementById("pass").value,
     
   };
   console.log(JSON.stringify(frm));
+
+  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/login',  frm )
+  .then(res => {
+    console.log(res);
+    console.log(res.data);
+  })
 
 };
 
@@ -71,7 +78,7 @@ export default class FormPage extends React.Component {
               <table>
                 <tr>
                   <td >
-                    <MDBBtn color="orange" onClick={this.routeChange} className="text2"> LOGIN</MDBBtn>
+                    <MDBBtn color="orange" onClick={onClickd} className="text2"> LOGIN</MDBBtn>
                   </td>
                   <td>
                     Not a member? <br />

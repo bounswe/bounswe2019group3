@@ -3,18 +3,24 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
 import { NavLink } from 'react-router-dom';
 
+import axios from 'axios';
+
 var usrname;
 var pass;
 var mail;
 
 function onClickd() {
   const frm = {
-    usrname: document.getElementById("usr").value,
-    pass: document.getElementById("pass").value,
-    mail: document.getElementById("mail").value
+    username: document.getElementById("usr").value,
+    password: document.getElementById("pass").value,
+    email: document.getElementById("mail").value
   };
   console.log(JSON.stringify(frm));
-
+  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/signup',  frm )
+      .then(res => {
+        console.log(res);
+        console.log(res.data);
+      })
 
 };
 
