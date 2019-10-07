@@ -12,8 +12,9 @@
   margin-top: 150px;
 }
 .header{
-  position: relative;
-  margin-left: -1vw;
+  position: absolute;
+  left: 0px;
+  top: 0px;
 }
 body {
   background-color: #ffc19a;
@@ -47,7 +48,7 @@ h8{
 .Scrollbar {
   
   overflow-y:scroll;
-  height: 38vw;
+  height: 72vh;
   border: 1px solid white;
   padding: 1px;
   border-radius: 1%
@@ -76,6 +77,12 @@ h8{
 .topMargined{
   margin-top: 1vw;
 }
+.topMargined50{
+  margin-top: 10vw;
+}
+.topMargined10{
+  margin-top: 5vw;
+}
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -94,4 +101,10 @@ h8{
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
+}
+.topMarginedSidebar1{
+  position: fixed;
+  margin-top: 8.5vw;
+  top:-25px;
+  
 }

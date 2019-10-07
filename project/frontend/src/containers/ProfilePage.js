@@ -32,14 +32,15 @@ export default class FormPage extends React.Component {
         return (
 
             <MDBContainer fluid>
-                <MDBRow className="header"><img src=".\header.png" alt="." width="100%" />
+                <MDBRow className="header"><img src=".\header2.png" alt="." width="100%" />
                     <MDBCol md="10"></MDBCol>
                     <MDBCol md="2">
                         <img className="profilePic" src=".\profilePicture.png" alt="." width="50%" />
                     </MDBCol>
                 </MDBRow>
-                <MDBRow>
+                <MDBRow className = "topMargined10"> 
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
+                    <MDBCol md="1"></MDBCol>
                     <MDBCol md="3"><div className="Scrollbar topMargined">
                         <div className="Status"> Accepts writing exercises </div>
                         <div className="Bio"><p>Bio</p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
@@ -55,7 +56,7 @@ export default class FormPage extends React.Component {
 
                         </div>
                     </MDBCol>
-                    <MDBCol md="5">
+                    <MDBCol md="4">
                         <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
                         <MDBBtn color="orange" onClick={goToExercises} className="text2">Exercises</MDBBtn>
                         <MDBBtn color="orange" onClick={goToSendWriting} className="text2">Send Writing</MDBBtn>

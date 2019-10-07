@@ -1,6 +1,8 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
+import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 
 var usrname;
@@ -20,20 +22,29 @@ function onClickd() {
 };
 
 export default class FormPage extends React.Component {
+  constuctor() {
+    this.routeChange = this.routeChange.bind(this);
+  }
+
+  routeChange() {
+    let path = '/profile';
+    this.props.history.push(path);
+  }
   render() {
     return (
 
       <MDBContainer fluid>
-        <MDBRow className="header"><img src=".\header.png" alt="." width="100%" /></MDBRow>
-        <MDBRow>
-          <MDBCol md="8">
+       
+        <MDBRow className = "topMargined50">
+        <MDBCol md="1"></MDBCol>
+          <MDBCol md="7">
             <img src=".\earth3.png" alt="." width="100%" />
           </MDBCol>
           <MDBCol className="margined" md="4">
 
 
             <form>
-              <p className="text text-center mb-4">SIGN UP</p>
+              <p className="text text-center mb-4">LOGIN</p>
               <div className="white-text">
                 <MDBInput
                   id="usr"
@@ -60,11 +71,13 @@ export default class FormPage extends React.Component {
               <table>
                 <tr>
                   <td >
-                    <MDBBtn color="orange" onClick={onClickd} className="text2"> Sign In</MDBBtn>
+                    <MDBBtn color="orange" onClick={this.routeChange} className="text2"> LOGIN</MDBBtn>
                   </td>
                   <td>
                     Not a member? <br />
-                    <a ><h8>Go to sign up</h8></a>
+                    <NavLink to="/signup">                                         
+                        Sign Up
+                        </NavLink>
                   </td>
 
                 </tr>
