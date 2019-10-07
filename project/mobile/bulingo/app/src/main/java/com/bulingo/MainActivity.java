@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -16,20 +17,30 @@ import com.bulingo.Login.Register;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
 
+import java.util.HashSet;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    APIInterface apiInterface = APICLient.getClient().create(APIInterface.class);
+    APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        java.net.CookieManager cm = new java.net.CookieManager();
-        java.net.CookieHandler.setDefault(cm);
+
+        HashSet<String > preferences = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(this).getStringSet("PREF_COOKIES", new HashSet<String>());
+        Log.d("cookie", preferences.toString());
+        if(!preferences.isEmpty()){
+            Intent intent = new Intent(this, LogInMain.class);
+            startActivity(intent);
+        } else {
+            setContentView(R.layout.activity_main);
+            java.net.CookieManager cm = new java.net.CookieManager();
+            java.net.CookieHandler.setDefault(cm);
+        }
     }
 
     public void onClickLogInBtn(View v) {

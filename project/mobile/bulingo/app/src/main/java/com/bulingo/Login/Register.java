@@ -22,12 +22,13 @@ import retrofit2.Response;
 
 public class Register extends AppCompatActivity {
 
-    APIInterface apiInterface = APICLient.getClient().create(APIInterface.class);
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_main);
+        apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
     }
 
     public void registerUser(View v) {

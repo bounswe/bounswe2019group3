@@ -21,6 +21,6 @@ public interface APIInterface {
     Call<Void> doSignup(@Body JsonObject params);
 
     @POST("/api/auth/logout")
-    Call<User> doLogout();
+    Call<Void> doLogout();
 
 }

@@ -1,5 +1,7 @@
 package com.bulingo.Database;
 
+import android.content.Context;
+
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -10,10 +12,15 @@ public class APICLient {
 
     private static Retrofit retrofit;
 
-    public static Retrofit getClient() {
+    public static Retrofit getClient(Context context) {
+        OkHttpClient client = new OkHttpClient();
+        OkHttpClient.Builder builder = new OkHttpClient.Builder();
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.level(HttpLoggingInterceptor.Level.BODY);
-        OkHttpClient client = new OkHttpClient.Builder().addInterceptor(interceptor).build();
+        builder.addInterceptor(new AddCookiesInterceptor(context));
+        builder.addInterceptor(new ReceivedCookiesInterceptor(context));
+        builder.addInterceptor(interceptor);
+        client = builder.build();
         retrofit = new Retrofit.Builder()
                 .baseUrl("http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -24,3 +31,5 @@ public class APICLient {
     }
 
 }
+
+

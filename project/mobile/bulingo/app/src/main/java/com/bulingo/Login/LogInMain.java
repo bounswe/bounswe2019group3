@@ -3,7 +3,9 @@ package com.bulingo.Login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -22,7 +24,7 @@ import retrofit2.Response;
 
 public class LogInMain extends AppCompatActivity {
 
-    APIInterface apiInterface = APICLient.getClient().create(APIInterface.class);
+    APIInterface apiInterface;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class LogInMain extends AppCompatActivity {
         String message = getIntent().getStringExtra("message");
         TextView text = findViewById(R.id.textView);
         text.setText(message);
+        apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
     }
 
     public void onClickLogOutBtn(View view) {
@@ -39,11 +42,11 @@ public class LogInMain extends AppCompatActivity {
 
     private void userLogout() {
 
-        Call<User> responseCall = apiInterface.doLogout();
+        Call<Void> responseCall = apiInterface.doLogout();
 
-        responseCall.enqueue(new Callback<User>() {
+        responseCall.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<User> call, Response<User> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
                     toast("Successfully logged out.");
                     loggedOut();
@@ -53,7 +56,7 @@ public class LogInMain extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<User> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 toast("Cannot log out. Please try again.");
             }
 
@@ -65,6 +68,7 @@ public class LogInMain extends AppCompatActivity {
     }
 
     public void loggedOut(){
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
