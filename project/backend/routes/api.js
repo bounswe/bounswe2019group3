@@ -7,6 +7,7 @@ const session = require('express-session');
 
 const Auth = require('./Auth'); 
 const User = require('./User');
+const Languague = require('./Language');
 
 const db = require('../models/index');
 
@@ -32,6 +33,7 @@ router.use("/auth", Auth.router);
 
 router.use("/user", User.router);
 
+router.use('/languague', Languague.router);
 
 // return the router
 module.exports = {router};
