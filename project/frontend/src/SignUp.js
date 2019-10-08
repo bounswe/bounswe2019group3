@@ -1,31 +1,50 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
-import { NavLink } from 'react-router-dom';
+import { Redirect, NavLink, withRouter } from 'react-router-dom';
 
 import axios from 'axios';
 
-var usrname;
-var pass;
-var mail;
 
-function onClickd() {
-  const frm = {
-    username: document.getElementById("usr").value,
-    password: document.getElementById("pass").value,
-    email: document.getElementById("mail").value
+
+export default class FormPage1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      authenticated: false
+    }
+  }
+
+   onClickd() {
+    const frm = {
+      username: document.getElementById("usr").value,
+      password: document.getElementById("pass").value,
+      email: document.getElementById("mail").value
+    };
+    console.log(JSON.stringify(frm));
+    axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/signup',  frm )
+        .then(res => {
+          console.log(res);
+          if (res.status == 200) {
+            console.log(this);
+            this.setState({ authenticated: true });
+          }
+        })
+  
   };
-  console.log(JSON.stringify(frm));
-  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/signup',  frm )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
 
-};
 
-export default class FormPage extends React.Component {
   render() {
+
+    console.log(this.state.authenticated);
+    if (this.state.authenticated) {
+      return (<Redirect
+        to={{
+          pathname: "/profile"
+        }}
+      />);
+    }
+
     return (
       <MDBContainer fluid>
         
@@ -74,7 +93,7 @@ export default class FormPage extends React.Component {
               <table>
                 <tr>
                   <td >
-                    <MDBBtn color="orange" onClick={onClickd} className="text2"> Register</MDBBtn>
+                    <MDBBtn color="orange" onClick={this.onClickd.bind(this)} className="text2"> Register</MDBBtn>
                   </td>
                   <td>
                     Already a member? <br />

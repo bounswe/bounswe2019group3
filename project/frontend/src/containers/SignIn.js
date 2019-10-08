@@ -2,33 +2,46 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 import axios from 'axios';
 
 var usrname;
 var pass;
-var mail;
 
+function goToSignIn() {
+  window.open(".containersSignIn");
+}
 function onClickd() {
   const frm = {
-    username: document.getElementById("usr").value,
+    id: document.getElementById("usr").value,
     password: document.getElementById("pass").value,
-    email: document.getElementById("mail").value
+    
   };
   console.log(JSON.stringify(frm));
-  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/signup',  frm )
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-      })
+
+  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/login',  frm )
+  .then(res => {
+    console.log(res);
+    console.log(res.data);
+  })
 
 };
 
 export default class FormPage extends React.Component {
+  constuctor() {
+    this.routeChange = this.routeChange.bind(this);
+  }
+
+  routeChange() {
+    let path = '/profile';
+    this.props.history.push(path);
+  }
   render() {
     return (
+
       <MDBContainer fluid>
-        
+       
         <MDBRow className = "topMargined50">
         <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
@@ -38,7 +51,7 @@ export default class FormPage extends React.Component {
 
 
             <form>
-              <p className="text text-center mb-4">SIGN UP</p>
+              <p className="text text-center mb-4">LOGIN</p>
               <div className="white-text">
                 <MDBInput
                   id="usr"
@@ -51,16 +64,7 @@ export default class FormPage extends React.Component {
                   success="right"
 
                 />
-                <MDBInput
-                  id="mail"
-                  label="Email"
-                  icon="envelope"
-                  group
-                  type="email"
-                  validate
-                  error="wrong"
-                  success="right"
-                />
+               
                 <MDBInput
                   id="pass"
                   label="Password"
@@ -74,14 +78,13 @@ export default class FormPage extends React.Component {
               <table>
                 <tr>
                   <td >
-                    <MDBBtn color="orange" onClick={onClickd} className="text2"> Register</MDBBtn>
+                    <MDBBtn color="orange" onClick={onClickd} className="text2"> LOGIN</MDBBtn>
                   </td>
                   <td>
-                    Already a member? <br />
-                    <NavLink to="/signin">
-                      Sign In
+                    Not a member? <br />
+                    <NavLink to="/signup">                                         
+                        Sign Up
                         </NavLink>
-
                   </td>
 
                 </tr>
@@ -89,9 +92,7 @@ export default class FormPage extends React.Component {
             </form>
           </MDBCol>
         </MDBRow>
-
       </MDBContainer>
-
     );
   }
 }

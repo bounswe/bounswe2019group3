@@ -45,6 +45,9 @@ h8{
   top: -8.5vw;
   right: 0cm;
 }
+.rightaligned{
+  text-align: right;
+}
 .Scrollbar {
   
   overflow-y:scroll;
