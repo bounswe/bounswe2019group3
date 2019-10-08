@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.User;
+import com.bulingo.Exercises.Exercise;
 import com.bulingo.MainActivity;
 import com.bulingo.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -38,6 +39,11 @@ public class LogInMain extends AppCompatActivity {
 
     public void onClickLogOutBtn(View view) {
         userLogout();
+    }
+
+    public void onClickExercise(View view) {
+        Intent intent = new Intent(this, Exercise.class);
+        startActivity(intent);
     }
 
     private void userLogout() {
