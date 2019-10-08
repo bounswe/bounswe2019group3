@@ -98,3 +98,5 @@ public
 .dynamodb/
 
 api-docs/
+
+*.pem

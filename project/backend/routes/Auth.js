@@ -7,9 +7,9 @@ const crypto = require('crypto');
  * @apiName signup
  * @apiGroup auth
  * @apiPermission none
- * @apiParam {String} username 
- * @apiParam {String} email 
- * @apiParam {String} password 
+ * @apiParam (Request body(JSON)) {String} username 
+ * @apiParam (Request body(JSON)) {String} email 
+ * @apiParam (Request body(JSON)) {String} password 
  */
 
 router.post("/signup", (req, res, next) => {
@@ -47,8 +47,8 @@ router.post("/signup", (req, res, next) => {
  * @apiName login
  * @apiGroup auth
  * @apiPermission none
- * @apiParam {String} id username or email of the user.
- * @apiParam {String} password password of the user.
+ * @apiParam (Request body(JSON)) {String} id username or email of the user.
+ * @apiParam (Request body(JSON)) {String} password password of the user.
  */
 
 router.post("/login", (req, res, next) => {
