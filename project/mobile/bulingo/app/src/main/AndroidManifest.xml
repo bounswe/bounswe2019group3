@@ -13,9 +13,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Exercises.Exercise"
-            android:noHistory="true"
-            />
+        <activity
+            android:name=".Exercises.LanguageSelection"
+            android:noHistory="true" />
+        <activity
+            android:name=".Exercises.Exercise"
+            android:noHistory="true" />
         <activity
             android:name=".Login.Register"
             android:noHistory="true" />
@@ -29,6 +32,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>
