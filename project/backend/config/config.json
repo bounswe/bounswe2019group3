@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": null,
-    "database": "local_dev",
-    "host": "127.0.0.1",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "bulingo",
+    "host": "postgres",
     "dialect": "postgres",
     "operatorsAliases": false
   },
@@ -16,11 +16,11 @@
     "operatorsAliases": false
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
-    "dialect": "mysql",
+    "username": "postgres",
+    "password": "postgres",
+    "database": "bulingo",
+    "host": "postgres",
+    "dialect": "postgres",
     "operatorsAliases": false
   }
 }

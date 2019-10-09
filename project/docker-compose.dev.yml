@@ -1,0 +1,6 @@
+version: "3"
+services:
+  backend:
+    env_file: ./backend/dev.env
+    volumes:
+      - ./backend:/backend
