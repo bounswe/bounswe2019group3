@@ -9,4 +9,13 @@
         <item name="android:statusBarColor">@color/colorAccent</item>
     </style>
 
+    <style name="language_button" parent="Widget.AppCompat.Button.Colored">
+        <item name="android:textSize">20dp</item>
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:minWidth">120dp</item>
+        <item name="android:textColor">@color/buttonTextColor</item>
+    </style>
+
 </resources>

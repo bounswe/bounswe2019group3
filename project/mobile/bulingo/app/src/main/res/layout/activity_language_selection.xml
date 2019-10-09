@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bulingo.Exercises.LanguageSelection"
+    android:background="@android:color/white">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:layout_gravity="center">
+
+
+            <TextView
+                android:id="@+id/languageSelectText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ubuntu_medium_italic"
+                android:text="Choose your starting language"
+                android:textAlignment="center"
+                android:textColor="@color/colorAccent"
+                android:textSize="32dp"
+                app:layout_constraintBottom_toTopOf="@+id/english"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/english"
+                style="@style/language_button"
+                android:text="English"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@id/turkce"
+                android:layout_marginTop="30dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/languageSelectText"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/turkce"
+                style="@style/language_button"
+                android:text="Türkçe"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@id/german"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/english"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/german"
+                style="@style/language_button"
+                android:text="Deutsch"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toTopOf="@id/french"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/turkce"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="5dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/french"
+                style="@style/language_button"
+                android:text="Français"
+                android:layout_marginTop="20dp"
+                app:backgroundTint="@android:color/transparent"
+                app:cornerRadius="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/german"
+                app:layout_constraintVertical_bias="0.0"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="5dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
