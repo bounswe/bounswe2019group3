@@ -26,5 +26,8 @@
     <string name="turkishText">Türkçe</string>
     <string name="germanText">Deutsch</string>
     <string name="frenchText">Français</string>
+    <string name="exercises">EXERCISES</string>
+    <string name="lang_select">LANGUAGE SELECTION</string>
+    <string name="log_out">Log out</string>
 
 </resources>
