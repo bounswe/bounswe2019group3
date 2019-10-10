@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("request", response.toString());
                 if(response.code() == 200) {
                     User user = response.body();
-                    signedIn("Welcome " + user.username + "!");
+                    signedIn("Welcome " + user.username + "! ");
                 } else {
                     toast("Your email/password combination does not match.");
                 }

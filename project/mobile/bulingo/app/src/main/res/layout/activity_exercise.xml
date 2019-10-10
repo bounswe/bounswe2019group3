@@ -26,69 +26,87 @@
             android:padding="8dp">
 
             <TextView
-                android:id="@+id/question"
+                android:id="@+id/questionNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="70dp"
-                android:text="This is a questionhis is a questionhis is a question"
+                android:layout_marginTop="20dp"
+                android:text="Question"
                 android:textAlignment="center"
-                android:textSize="40dp"
-                app:layout_constraintBottom_toTopOf="@+id/answer1"
+                android:textSize="25sp"
+                android:fontFamily="@font/ubuntu_medium_italic"
+                app:layout_constraintBottom_toTopOf="@+id/question"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/question"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="This is a question This is a question This is a question"
+                android:textAlignment="center"
+                android:textSize="40sp"
+                app:layout_constraintBottom_toTopOf="@+id/answer1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/questionNumber" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/answer1"
                 style="@style/answer_button"
                 android:text="Answer1"
+                android:onClick="onClickNextQuestion"
                 app:layout_constraintEnd_toStartOf="@+id/answer2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/question"
                 app:cornerRadius="8dp"
                 app:backgroundTint="@android:color/transparent"
-                app:rippleColor="@android:color/holo_orange_light"
-                app:strokeColor="@android:color/holo_orange_light"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
                 app:strokeWidth="5dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/answer2"
                 style="@style/answer_button"
                 android:text="Answer2"
+                android:onClick="onClickNextQuestion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/answer1"
                 app:layout_constraintTop_toBottomOf="@+id/question"
                 app:cornerRadius="8dp"
                 app:backgroundTint="@android:color/transparent"
-                app:rippleColor="@android:color/holo_orange_light"
-                app:strokeColor="@android:color/holo_orange_light"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
                 app:strokeWidth="5dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/answer3"
                 style="@style/answer_button"
                 android:text="Answer3"
+                android:onClick="onClickNextQuestion"
                 app:layout_constraintEnd_toStartOf="@+id/answer4"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/answer1"
                 app:cornerRadius="8dp"
                 app:backgroundTint="@android:color/transparent"
-                app:rippleColor="@android:color/holo_orange_light"
-                app:strokeColor="@android:color/holo_orange_light"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
                 app:strokeWidth="5dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/answer4"
                 style="@style/answer_button"
                 android:text="Answer4"
+                android:onClick="onClickNextQuestion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/answer3"
                 app:layout_constraintTop_toBottomOf="@+id/answer2"
                 app:cornerRadius="8dp"
                 app:backgroundTint="@android:color/transparent"
-                app:rippleColor="@android:color/holo_orange_light"
-                app:strokeColor="@android:color/holo_orange_light"
-                app:strokeWidth="6dp" />
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="5dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
