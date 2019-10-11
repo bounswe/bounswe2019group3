@@ -126,7 +126,8 @@
                 android:onClick="registerUser"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password2_text_layout" />
+                app:layout_constraintTop_toBottomOf="@+id/password2_text_layout"
+                app:cornerRadius="4dp" />
 
             <TextView
                 android:id="@+id/backtosignin_text"

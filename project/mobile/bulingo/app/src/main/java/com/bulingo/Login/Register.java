@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
-import com.bulingo.Database.User;
 import com.bulingo.MainActivity;
 import com.bulingo.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -49,7 +48,7 @@ public class Register extends AppCompatActivity {
             passText.setText("");
             passText2.setText("");
         } else if(password.length() < 6){
-            Toast.makeText(getApplicationContext(),"Your Password should be longer than 6 characters.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Your Password should be at least 6 characters.", Toast.LENGTH_SHORT).show();
             passText.setText("");
             passText2.setText("");
         } else {
@@ -90,7 +89,7 @@ public class Register extends AppCompatActivity {
 
     public void registered(String message){
         Toast.makeText(getApplicationContext(),"User Successfully Registered.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, LogInMain.class);
+        Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         startActivity(intent);
     }
