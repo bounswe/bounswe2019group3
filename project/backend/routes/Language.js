@@ -27,7 +27,28 @@ router.get('/', (req, res, next) => {
  * @apiSuccess {Object} questions.choices.desc   answer choices description
  */
 router.get('/:language_abbr/exam/questions', (req, res, next) => {
-    res.sendStatus(501);
+    if(!req.params.language_abbr){
+        res.sendStatus(400);
+    }else{
+        let db = req.db;
+        db.Language.findOne( { 
+            where: { abbr: req.params.language_abbr },
+            include: [{
+                model: db.ExamQuestion,
+                as: 'exam_questions',
+                attributes: ['id', 'desc'],
+                separate: true,
+                include: [ {model: db.ExamChoice, as: 'choices', attributes: ['id', 'desc']} ]
+            }]
+        })
+        .then((lang) => {
+            if(!lang){
+                res.sendStatus(400);
+            }else{
+                res.status(200).send(lang.exam_questions);
+            }
+        });
+    }
 });
 
 

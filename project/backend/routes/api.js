@@ -21,7 +21,8 @@ const delay = (t, v) => {
 console.log("Waiting 30s for DB to get up!")
 delay(30000)
 .then(()=> console.log("SYNC DB"))
-.then(() => db.sequelize.sync({ 
+.then(() => db.sequelize.sync({
+    force: true,
     logging:console.log
 })).then(() => {
     console.log("Seeding DB")

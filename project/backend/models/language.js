@@ -1,11 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Language = sequelize.define('Language', {
-    abbr: DataTypes.STRING,
-    name: DataTypes.STRING
+    abbr: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.STRING
+    },
+    name: {
+      allowNull: false,
+      type: DataTypes.STRING
+    }
   }, {});
   Language.associate = function(models) {
-    // associations can be defined here
+    models.Language.hasMany(models.ExamQuestion, {
+      foreignKey: 'lang_abbr',
+      as: 'exam_questions',
+      constraint: false
+    });
   };
   return Language;
 };
