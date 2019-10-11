@@ -8,7 +8,7 @@ const path = require("path");
 
 const Auth = require('./Auth'); 
 const User = require('./User');
-const Languague = require('./Language');
+const Language = require('./Language');
 
 const db = require('../models/index');
 
@@ -57,7 +57,7 @@ router.use("/auth", Auth.router);
 
 router.use("/user", User.router);
 
-router.use('/languague', Languague.router);
+router.use('/language', Language.router);
 
 // return the router
 module.exports = {router};
