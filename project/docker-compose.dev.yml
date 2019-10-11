@@ -4,3 +4,6 @@ services:
     env_file: ./backend/dev.env
     volumes:
       - ./backend:/backend
+  postgres:
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
