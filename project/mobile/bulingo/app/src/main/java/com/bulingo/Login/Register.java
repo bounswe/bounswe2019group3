@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
-import com.bulingo.Database.User;
 import com.bulingo.MainActivity;
 import com.bulingo.R;
 import com.google.android.material.textfield.TextInputEditText;
@@ -90,7 +89,7 @@ public class Register extends AppCompatActivity {
 
     public void registered(String message){
         Toast.makeText(getApplicationContext(),"User Successfully Registered.", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, LogInMain.class);
+        Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         startActivity(intent);
     }

@@ -20,5 +20,14 @@
     <string name="sign_up_error">Sign Up Error</string>
     <string name="already_signed_up">You already have an account</string>
     <string name="already_have_an_account"><u>Already have an account? Sign In</u></string>
+    <string name="earth">EarthImage</string>
+    <string name="chooseLanguage">Choose a language to learn</string>
+    <string name="englishText">ENGLISH</string>
+    <string name="turkishText">TÜRKÇE</string>
+    <string name="germanText">DEUTSCH</string>
+    <string name="frenchText">FRANÇAIS</string>
+    <string name="exercises">EXERCISES</string>
+    <string name="lang_select">LANGUAGE SELECTION</string>
+    <string name="log_out">Log out</string>
 
 </resources>
