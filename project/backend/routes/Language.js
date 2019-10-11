@@ -2,7 +2,7 @@
 const router = require('express').Router()
 
 /**
- * @api {get} /api/languague/ returns available languagues
+ * @api {get} /api/language/ returns available languages
  * @apiName available_languages
  * @apiGroup language
  * @apiPermission none
@@ -11,11 +11,16 @@ const router = require('express').Router()
  * @apiSuccess {String}   language.abbr  language abbreviation
  */
 router.get('/', (req, res, next) => {
-    res.sendStatus(501);
+        const db = req.db;
+        db.Language.findAll({
+            attributes: ['abbr','name']
+        }).then(function (language) {
+            res.send(language);
+        });
 });
 
 /**
- * @api {get} /api/languague/:language_abbr/exam/questions returns level determination exam questions
+ * @api {get} /api/language/:language_abbr/exam/questions returns level determination exam questions
  * @apiName exam/questions
  * @apiGroup language
  * @apiPermission User
@@ -32,7 +37,7 @@ router.get('/:language_abbr/exam/questions', (req, res, next) => {
 
 
 /**
- * @api {post} /api/languague/:language_abbr/exam/evaluate evaluates level determination exam
+ * @api {post} /api/language/:language_abbr/exam/evaluate evaluates level determination exam
  * @apiName exam/evaluate
  * @apiGroup language
  * @apiPermission User
@@ -45,7 +50,7 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
 });
 
 /**
- * @api {get} /api/languague/:language_abbr/excercise/excercise_type/ return all excercise of type
+ * @api {get} /api/language/:language_abbr/excercise/excercise_type/ return all excercise of type
  * @apiGroup language
  * @apiPermission User
  */
@@ -54,7 +59,7 @@ router.get('/:language_abbr/excercise/excercise_type/', (req, res, next) => {
 });
 
 /**
- * @api {get} /api/languague/:language_abbr/excercise/excercise_type/:exersice_id/questions return the excercise
+ * @api {get} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions return the excercise
  * @apiGroup language
  * @apiPermission User
  */
@@ -63,7 +68,7 @@ router.get('/:language_abbr/excercise/excercise_type/:exersice_id/questions', (r
 });
 
 /**
- * @api {post} /api/languague/:language_abbr/excercise/excercise_type/:exersice_id/questions evaluate the excercise
+ * @api {post} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions evaluate the excercise
  * @apiGroup language
  * @apiPermission User
  */
