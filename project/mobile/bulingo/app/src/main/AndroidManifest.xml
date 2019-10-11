@@ -22,7 +22,7 @@
         <activity
             android:name=".Login.Register"
             android:noHistory="true" />
-        <activity android:name=".Login.LogInMain" />
+        <activity android:name=".Login.LoginMain" />
         <activity
             android:name=".MainActivity"
             android:noHistory="true">

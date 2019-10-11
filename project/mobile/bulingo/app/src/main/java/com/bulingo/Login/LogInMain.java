@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogInMain extends AppCompatActivity {
+public class LoginMain extends AppCompatActivity {
 
     APIInterface apiInterface;
 
@@ -92,7 +93,7 @@ public class LogInMain extends AppCompatActivity {
     }
 
     public void loggedOut(){
-        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().commit();
+        PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).edit().clear().apply();
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

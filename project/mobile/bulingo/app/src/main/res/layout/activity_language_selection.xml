@@ -55,9 +55,12 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/english"
                 style="@style/language_button"
-                android:text="@string/englishText"
+                android:layout_width="0dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="30dp"
+                android:layout_marginEnd="32dp"
                 android:onClick="onClickLanguageSelect"
+                android:text="@string/englishText"
                 app:backgroundTint="@android:color/transparent"
                 app:cornerRadius="8dp"
                 app:layout_constraintBottom_toTopOf="@id/turkish"

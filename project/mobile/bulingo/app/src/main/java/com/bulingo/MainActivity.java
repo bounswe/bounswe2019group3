@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.User;
-import com.bulingo.Login.LogInMain;
+import com.bulingo.Login.LoginMain;
 import com.bulingo.Login.Register;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         HashSet<String > preferences = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(this).getStringSet("PREF_COOKIES", new HashSet<String>());
         Log.d("cookie", preferences.toString());
         if(!preferences.isEmpty()){
-            Intent intent = new Intent(this, LogInMain.class);
+            Intent intent = new Intent(this, LoginMain.class);
             startActivity(intent);
         } else {
             setContentView(R.layout.activity_main);
@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void signedIn(String message){
-        Intent intent = new Intent(this, LogInMain.class);
+        Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         startActivity(intent);
     }
