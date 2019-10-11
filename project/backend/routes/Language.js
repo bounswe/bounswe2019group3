@@ -11,7 +11,12 @@ const router = require('express').Router()
  * @apiSuccess {String}   language.abbr  language abbreviation
  */
 router.get('/', (req, res, next) => {
-    res.sendStatus(501);
+    const db = req.db;
+    db.Language.findAll({
+        attributes: ['abbr','name']
+    }).then(function (language) {
+        res.send(language);
+    });
 });
 
 /**
