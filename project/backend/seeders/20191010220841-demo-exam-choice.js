@@ -3,6 +3,7 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('ExamChoices',[
+      // ENGLISH
       // Choices of Question 1
       { 
         id:         0,
@@ -112,14 +113,124 @@ module.exports = {
         desc:       "until they have learned how to look after themselves and survive in the wild on their own",
         createdAt:  new Date(),
         updatedAt:  new Date()
+      },
+      // DEUTSCH
+      // Choices of Question 1
+      {
+        id:         15,
+        question_id:5,
+        desc:       "Die Ernährungsweise und das Ernährungsverhalten der Bevölkerung haben sich dadurch nicht gebessert",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { // Correct Answer
+        id:         16,
+        question_id:5,
+        desc:       "Erfolge einer guten Ernährung lassen sich nicht innerhalb weniger Tagen oder Wochen nachweisen",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         17,
+        question_id:5,
+        desc:       "Kohlenhydratreiche Lebensmittel werden nicht nur zu wenig konsumiert",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      // Choices of Question 2
+      { // Correct Answer
+        id:         18,
+        question_id:6,
+        desc:       "würde die globale Erwärmung noch weitere Jahrhunderte anhalten",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         19,
+        question_id:6,
+        desc:       "würde unsere Umwelt weiterhin entlastet werden",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         20,
+        question_id:6,
+        desc:       "müsste man die Müllentsorgung ernster nehmen",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      // Choices of Question 3
+      { 
+        id:         21,
+        question_id:7,
+        desc:       "klagt fast jeder zweite Arbeitnehmer über steigenden Druck und permanente Erreichbarkeit",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         22,
+        question_id:7,
+        desc:       "denn Gebildete achten stärker auf ihre Gesundheit und können sich im Krankheitsfall Hilfe holen",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { // Correct Answer
+        id:         23,
+        question_id:7,
+        desc:       "hat ein gleichaltriger Bergarbeiter statistisch gesehen nur noch 26 Jahre vor sich",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      // Choices of Question 4
+      { 
+        id:         24,
+        question_id:8,
+        desc:       "obwohl sie Kriminalität und Terrorismus begünstigen",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         25,
+        question_id:8,
+        desc:       "damit die Weltbevölkerung diese Probleme gemeinsam aufgreift",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { // Correct Answer
+        id:         26,
+        question_id:8,
+        desc:       "mit denen die Menschheit heutzutage konfrontiert ist",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      // Choices of Question 5
+      { // Correct Answer
+        id:         27,
+        question_id:9,
+        desc:       "da es nach der Geburt geruchlos ist und von anderen Tieren nicht gewittert werden kann",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         28,
+        question_id:9,
+        desc:       "dass seine Mutter es vor Jägern und Raubtieren aller Art bewahrt",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
+      },
+      { 
+        id:         29,
+        question_id:9,
+        desc:       "obwohl Hirsche und Rehe ihren Nachwuchs mit großer Sorgfalt zu beschützen versuchen",
+        createdAt:  new Date(),
+        updatedAt:  new Date()
       }
       
-  ], {});
+  ]);
   },
 
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('ExamChoices', 
-      {id: {[Sequelize.Op.in]: [0 , 1]}}
-      , {});
+      {id: {[Sequelize.Op.in]: [0 , 1]}});
   }
 };
