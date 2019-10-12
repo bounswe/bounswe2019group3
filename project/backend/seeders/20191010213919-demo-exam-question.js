@@ -85,12 +85,12 @@ module.exports = {
         createdAt:  new Date(),
         updatedAt:  new Date()
       }
-  ]);
+  ], {});
   },
 
   down: (queryInterface, Sequelize) => {
     const ids = [...Array(10).keys()];
     return queryInterface.bulkDelete('ExamQuestions', 
-      {id: {[Sequelize.Op.in]: ids}});
+      {id: {[Sequelize.Op.in]: ids}}, {});
   }
 };
