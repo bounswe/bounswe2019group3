@@ -224,9 +224,8 @@ module.exports = {
         desc:       "obwohl Hirsche und Rehe ihren Nachwuchs mit großer Sorgfalt zu beschützen versuchen",
         createdAt:  new Date(),
         updatedAt:  new Date()
-      }
-      
-  ]);
+      }  
+      ], {});
   },
 
   down: (queryInterface, Sequelize) => {
