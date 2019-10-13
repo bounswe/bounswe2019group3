@@ -1,35 +1,67 @@
 import React from "react";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
 import './SignUp.css';
+import { Redirect, NavLink, withRouter } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 
 
 export default class FormPage extends React.Component {
-    
-    state = {
-        dataRadar: {
-          labels: ["Listening", "Reading", "Writing", "Vocablory", "Grammar"],
-          datasets: [
-            {
-              label: "english",
-              backgroundColor: "rgba(245, 74, 85, 0.5)",
-              data: [3.25, 7, 6, 5, 5]
-            },
-            {
-              label: "german",
-              backgroundColor: "rgba(90, 173, 246, 0.5)",
-              data: [2.7, 4, 4.3, 7, 4]
-            }
-          ]
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          exercises : false,
+          writing: false,
+          dataRadar: {
+            labels: ["Listening", "Reading", "Writing", "Vocablory", "Grammar"],
+            datasets: [
+              {
+                label: "english",
+                backgroundColor: "rgba(245, 74, 85, 0.5)",
+                data: [3.25, 7, 6, 5, 5]
+              },
+              {
+                label: "german",
+                backgroundColor: "rgba(90, 173, 246, 0.5)",
+                data: [2.7, 4, 4.3, 7, 4]
+              }
+            ]
+          }
         }
-    
       }
+    
+      goToExercises(){
+        this.setState({ 
+            exercises: true,
+            writing: false
+        });
+      }
+
+      goToSendWriting() {
+        this.setState({ 
+            exercises: false,
+            writing: true 
+        });
+    }
+
     render() {
-        function goToExercises() {
-          }
-          function goToSendWriting() {
-          }
           
+        if (this.state.exercises) {
+            return (<Redirect
+              to={{
+                pathname: "/exam"
+              }}
+            />);
+        }
+
+        if (this.state.writing) {
+            return (<Redirect
+              to={{
+                pathname: "/writing"
+              }}
+            />);
+          }
+
           //console.log("this.props.location.state", this.props.location.state)
         return (
 
@@ -61,8 +93,8 @@ export default class FormPage extends React.Component {
                     </MDBCol>
                     <MDBCol md="4">
                         <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
-                        <MDBBtn color="orange" onClick={goToExercises} className="text2">Exercises</MDBBtn>
-                        <MDBBtn color="orange" onClick={goToSendWriting} className="text2">Send Writing</MDBBtn>
+                        <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exercises</MDBBtn>
+                        <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
                         </div></center>
                         <MDBCard className="mb-5 topMargined">
                             <MDBCardHeader>Language levels</MDBCardHeader>

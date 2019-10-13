@@ -9,12 +9,26 @@ export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            selectedLanguage : ""
         }
+    }
+
+    goToExam(lang){
+        this.setState({ 
+            selectedLanguage : lang
+        });
     }
 
     render() {
 
+        if (this.state.selectedLanguage !== "") {
+            return (<Redirect
+              to={{
+                pathname: "/" + this.state.selectedLanguage
+              }}
+            />);
+        }
+           
         return (
 
             <MDBContainer fluid>
@@ -42,10 +56,10 @@ export default class ExaminationPage extends React.Component {
                     <MDBCol md="1"></MDBCol>
                     <MDBCol md="2">
                         
-                        <MDBBtn color="orange" className="text2 btn-block ">English </MDBBtn>
-                        <MDBBtn color="orange" className="text2 btn-block ">German</MDBBtn>
-                        <MDBBtn color="orange" className="text2 btn-block ">French </MDBBtn>
-                        <MDBBtn color="orange" className="text2 btn-block ">Italian</MDBBtn>
+                        <MDBBtn color="orange" id="english" onClick={() => this.goToExam("english")} className="text2 btn-block ">English </MDBBtn>
+                        <MDBBtn color="orange" id="german" onClick={() => this.goToExam("german")} className="text2 btn-block ">German</MDBBtn>
+                        <MDBBtn color="orange" id="french" onClick={() => this.goToExam("french")} className="text2 btn-block ">French </MDBBtn>
+                        <MDBBtn color="orange" id="italian" onClick={() => this.goToExam("italian")} className="text2 btn-block ">Italian</MDBBtn>
                        
                         
                     </MDBCol>
