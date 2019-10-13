@@ -29,26 +29,27 @@ export default class FormPage extends React.Component {
           }
           function goToSendWriting() {
           }
-          console.log("this.props.location.state", this.props.location.state)
+          
+          //console.log("this.props.location.state", this.props.location.state)
         return (
 
             <MDBContainer fluid>
                 <MDBRow className="header">
                     
-                    <MDBCol md="10"><p className = "rightaligned">{this.props.location.state.username}</p></MDBCol>
+                    <MDBCol md="10"><p className = "rightaligned"></p></MDBCol>
                     <MDBCol md="2">
                         <img className="profilePic" src=".\profilePicture.png" alt="." width="50%" />
                     </MDBCol>
                 </MDBRow>
                 <MDBRow className = "topMargined10"> 
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-                    <MDBCol md="1"></MDBCol>
+                    <MDBCol md="2"></MDBCol>
                     <MDBCol md="3"><div className="Scrollbar topMargined">
-                        <div className="Status"> Accepts writing exercises </div>
+                        <div > <p className="text" >{ this.props.location.state.username}</p> </div>
                         <div className="Bio"><p>Bio</p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
 
                     </div></MDBCol>
-                    <MDBCol md="4">
+                    <MDBCol md="3">
                         <div className="Scrollbar topMargined">
                             <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
                             <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
