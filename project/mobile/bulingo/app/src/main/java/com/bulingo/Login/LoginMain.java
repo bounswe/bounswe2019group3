@@ -37,12 +37,7 @@ public class LoginMain extends AppCompatActivity {
         text.setText(message);
 
         //If first time login, select a starting language
-        if(!isNewUser()){
-            //setContentView(R.layout.activity_log_in_main);
-            //String message = getIntent().getStringExtra("message");
-            //TextView text = findViewById(R.id.textView);
-            //text.setText(message);
-        } else {
+        if(isNewUser()){
             Intent intent = new Intent(this, LanguageSelection.class);
             startActivity(intent);
         }
@@ -100,7 +95,6 @@ public class LoginMain extends AppCompatActivity {
     }
 
     public boolean isNewUser(){
-
-        return true;
+        return getIntent().getBooleanExtra("isNew", true);
     }
 }

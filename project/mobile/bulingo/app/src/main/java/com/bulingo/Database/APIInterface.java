@@ -26,7 +26,7 @@ public interface APIInterface {
     Call<Void> doEvaluateExercise(@Path("language_abbr") String abbr, @Path("exercise_id") int id);
 
     @POST("/api/languague/{language_abbr}/exam/evaluate")
-    Call<Void> doEvaluateExam(@Path("language_abbr") String abbr, @Body JsonObject params);
+    Call<Grade> doEvaluateExam(@Path("language_abbr") String abbr, @Body JsonObject params);
 
     @GET("/api/languague/{language_abbr}/excercise/excercise_type/")
     Call<Void> doGetExercises(@Path("language_abbr") String abbr);
