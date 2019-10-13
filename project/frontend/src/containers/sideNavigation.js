@@ -40,12 +40,7 @@ const TopNavigation = () => {
                         Examination Page
                     </MDBListGroupItem>
                 </NavLink>
-                <NavLink to="/english" activeClassName="activeClass">
-                    <MDBListGroupItem className="list-group-item-light">
-                        <MDBIcon icon="times" className="mr-3"/>
-                        English
-                    </MDBListGroupItem>
-                </NavLink>
+                
             </MDBListGroup>
         </div>
     );
