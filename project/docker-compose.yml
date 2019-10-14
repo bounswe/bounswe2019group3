@@ -16,6 +16,11 @@ services:
     volumes:
       - ./../../db-data:/var/lib/postgresql/data
 
+  frontend:
+    build: ./frontend
+    volumes:
+      - ./../../frontend-output/:/frontend/build
+
   android:
     build: ./mobile
     volumes:
