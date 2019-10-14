@@ -62,7 +62,7 @@ public class ExerciseFragment extends Fragment {
             args.putInt(ARG_ANSWER_ID_2, question.choices.get(1).id);
             args.putInt(ARG_ANSWER_ID_3, question.choices.get(2).id);
         }
-        args.putString(ARG_ANSWER_4, "empty");
+        args.putString(ARG_ANSWER_4, "None of them");
         args.putInt(ARG_ANSWER_ID_4, -1);
         ExerciseFragment frag = new ExerciseFragment();
         frag.setArguments(args);
