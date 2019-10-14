@@ -15,3 +15,8 @@ services:
       POSTGRES_DB: bulingo
     volumes:
       - ./../../db-data:/var/lib/postgresql/data
+
+  android:
+    build: ./mobile
+    volumes:
+      - ./../../android-output/:/mobile/bulingo/app/build/outputs/apk
