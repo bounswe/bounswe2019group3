@@ -5,6 +5,7 @@ import SignIn from './SignIn';
 import ProfilePage from './ProfilePage';
 import ExaminationPage from './ExaminationPage';
 import EnglishTest from './EnglishTest';
+import DeutchTest from './DeutchTest'
 class Routes extends React.Component {
   render() {
     return (
@@ -15,6 +16,7 @@ class Routes extends React.Component {
         <Route path='/signin' component={SignIn} />
         <Route path='/exam' component={ExaminationPage} />
         <Route path='/english' component={EnglishTest} />
+        <Route path='/deutsch' component={DeutchTest} />
       </Switch>
     );
   }
