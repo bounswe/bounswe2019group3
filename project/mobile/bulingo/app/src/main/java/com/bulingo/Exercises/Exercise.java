@@ -26,11 +26,12 @@ import retrofit2.Response;
 
 public class Exercise extends AppCompatActivity {
 
-    private List<String> answers;
-    private int id;
+    private List<Integer> answers = new ArrayList<>();
+    private List<Integer> questions = new ArrayList<>();
     private int questionCounter = 0;
     private List<Question> examQuestions =  new ArrayList<Question>();
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
+    String abbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,35 @@ public class Exercise extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
 
         Intent i = getIntent();
-        String abbr = i.getStringExtra("abbr");
+        abbr = i.getStringExtra("abbr");
         getQuestions(abbr);
+    }
+
+    public void nextQuestion() {
+        if(questionCounter >= examQuestions.size()) {
+            Intent intent = new Intent(this, ResultActivity.class);
+            int[] arr = new int[answers.size()];
+            int[] arr2 = new int[answers.size()];
+            for(int i=0; i<answers.size(); i++){
+                arr[i] = answers.get(i);
+                arr2[i] = questions.get(i);
+            }
+            intent.putExtra("answers", arr);
+            intent.putExtra("questions", arr2);
+            intent.putExtra("abbr", abbr);
+            startActivity(intent);
+            finish();
+            return;
+        }
+        ExerciseFragment e = ExerciseFragment.newInstance(examQuestions.get(questionCounter), ++questionCounter);
+        e.setOnClickAnswerListener(answerId -> {
+            answers.add(answerId);
+            questions.add(examQuestions.get(questionCounter-1).id);
+            nextQuestion();
+        });
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.exerciseFrag, e).commit();
+
     }
 
     public void getQuestions(String abbr){
@@ -52,9 +80,7 @@ public class Exercise extends AppCompatActivity {
                 Log.d("request", response.toString());
                 if(response.code() == 200) {
                     examQuestions = response.body();
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.exerciseFrag, ExerciseFragment.newInstance(examQuestions.get(0))).commit();
-
+                    nextQuestion();
                 } else {
                 }
             }
@@ -65,30 +91,6 @@ public class Exercise extends AppCompatActivity {
             }
 
         });
-    }
-
-    public void onClickNextQuestion(View v){
-
-        //Evaluate Answer
-        switch (v.getId()) {
-            case R.id.answer1:
-
-                break;
-            case R.id.answer2:
-
-                break;
-            case R.id.answer3:
-
-                break;
-            case R.id.answer4:
-
-                break;
-        }
-
-    }
-
-    public boolean isNextQuestionAvailable(){
-        return true;
     }
 
     @Override

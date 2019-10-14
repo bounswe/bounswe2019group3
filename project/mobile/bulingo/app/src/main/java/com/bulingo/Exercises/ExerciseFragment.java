@@ -13,12 +13,14 @@ import android.widget.TextView;
 
 import com.bulingo.Database.Question;
 import com.bulingo.R;
+import com.google.android.material.button.MaterialButton;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ExerciseFragment extends Fragment {
 
+    private  OnClickAnswerListener onClickAnswerListener;
     private static final String ARG_QUESTION = "com.bulingo.Exercises.ExerciseFragment.arg_question";
     private static final String ARG_QUESTION_ID = "com.bulingo.Exercises.ExerciseFragment.arg_question_id";
     private static final String ARG_ANSWER_1 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_1";
@@ -42,11 +44,16 @@ public class ExerciseFragment extends Fragment {
 
 
 
+    private MaterialButton answer1Button;
+    private MaterialButton answer2Button;
+    private MaterialButton answer3Button;
+    private MaterialButton answer4Button;
 
-    public static ExerciseFragment newInstance(Question question) {
+
+    public static ExerciseFragment newInstance(Question question, int count) {
         Bundle args = new Bundle();
         args.putString(ARG_QUESTION, question.desc);
-        args.putInt(ARG_QUESTION_ID, question.id);
+        args.putInt(ARG_QUESTION_ID, count);
         if(question.choices.size() == 3) {
             args.putString(ARG_ANSWER_1, question.choices.get(0).desc);
             args.putString(ARG_ANSWER_2, question.choices.get(1).desc);
@@ -93,12 +100,48 @@ public class ExerciseFragment extends Fragment {
 
         ((TextView) v.findViewById(R.id.questionNumber)).setText(String.valueOf(question_id));
         ((TextView) v.findViewById(R.id.question)).setText(question);
-        ((TextView) v.findViewById(R.id.answer1)).setText(ans1);
-        ((TextView) v.findViewById(R.id.answer2)).setText(ans2);
-        ((TextView) v.findViewById(R.id.answer3)).setText(ans3);
-        ((TextView) v.findViewById(R.id.answer4)).setText(ans4);
+
+        answer1Button = v.findViewById(R.id.answer1);
+        answer2Button = v.findViewById(R.id.answer2);
+        answer3Button = v.findViewById(R.id.answer3);
+        answer4Button = v.findViewById(R.id.answer4);
+
+        answer1Button.setText(ans1);
+        answer2Button.setText(ans2);
+        answer3Button.setText(ans3);
+        answer4Button.setText(ans4);
+
+        answer1Button.setOnClickListener((v1) -> {
+            if (this.onClickAnswerListener != null) {
+                this.onClickAnswerListener.onClickAnswer(ansId1);
+            }
+        });
+        answer2Button.setOnClickListener((v1) -> {
+            if (this.onClickAnswerListener != null) {
+                this.onClickAnswerListener.onClickAnswer(ansId2);
+            }
+        });
+        answer3Button.setOnClickListener((v1) -> {
+            if (this.onClickAnswerListener != null) {
+                this.onClickAnswerListener.onClickAnswer(ansId3);
+            }
+        });
+        answer4Button.setOnClickListener((v1) -> {
+            if (this.onClickAnswerListener != null) {
+                this.onClickAnswerListener.onClickAnswer(ansId4);
+            }
+        });
 
         return v;
+    }
+
+    public void setOnClickAnswerListener(OnClickAnswerListener onClickAnswerListener) {
+        this.onClickAnswerListener = onClickAnswerListener;
+    }
+
+    public interface OnClickAnswerListener {
+        public void onClickAnswer(int answerId);
+
     }
 
 }
