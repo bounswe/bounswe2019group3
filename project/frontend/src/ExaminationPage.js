@@ -1,16 +1,42 @@
-import React from "react";
+import React, { Component } from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
 import { Redirect, NavLink, withRouter } from 'react-router-dom';
 import axios from 'axios';
+import { thisExpression } from '@babel/types';
 
 
 export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
+        var responseStatus =[] ;
+        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/')
+      .then(res => {
+        
+        responseStatus = res.data;
+        this.setState({languages: responseStatus});
+        console.log(responseStatus[0]);
+      })
         this.state = {
-            selectedLanguage : ""
+            selectedLanguage : "",
+            languages : []
         }
+    }
+
+
+    languageButtons(){
+        var lang = [];
+        for(let i=0 ; i < this.state.languages.length ; i++){
+            lang[i] = (
+                <MDBBtn 
+                    color="orange"
+                    id= {this.state.languages[i].abbr}
+                    onClick={() => this.goToExam(this.state.languages[i].name)}
+                    className="text2 btn-block "
+                >{this.state.languages[i].name} </MDBBtn>
+            );
+        }
+        return lang;
     }
 
     goToExam(lang){
@@ -19,7 +45,10 @@ export default class ExaminationPage extends React.Component {
         });
     }
 
+    
+
     render() {
+
 
         if (this.state.selectedLanguage !== "") {
             return (<Redirect
@@ -29,8 +58,8 @@ export default class ExaminationPage extends React.Component {
             />);
         }
            
+        
         return (
-
             <MDBContainer fluid>
 
                 <MDBRow className="topMargined50">
@@ -55,13 +84,7 @@ export default class ExaminationPage extends React.Component {
                     </MDBCol>
                     <MDBCol md="1"></MDBCol>
                     <MDBCol md="2">
-                        
-                        <MDBBtn color="orange" id="english" onClick={() => this.goToExam("english")} className="text2 btn-block ">English </MDBBtn>
-                        <MDBBtn color="orange" id="german" onClick={() => this.goToExam("german")} className="text2 btn-block ">German</MDBBtn>
-                        <MDBBtn color="orange" id="french" onClick={() => this.goToExam("french")} className="text2 btn-block ">French </MDBBtn>
-                        <MDBBtn color="orange" id="italian" onClick={() => this.goToExam("italian")} className="text2 btn-block ">Italian</MDBBtn>
-                       
-                        
+                    { this.languageButtons() }
                     </MDBCol>
                     
                 </MDBRow>
