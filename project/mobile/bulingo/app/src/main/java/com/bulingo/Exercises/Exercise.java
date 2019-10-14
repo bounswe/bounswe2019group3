@@ -1,20 +1,36 @@
 package com.bulingo.Exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bulingo.Database.APICLient;
+import com.bulingo.Database.APIInterface;
+import com.bulingo.Database.Question;
 import com.bulingo.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Exercise extends AppCompatActivity {
 
-    private ExerciseInfo info;
+    private List<String> answers;
+    private int id;
+    private int questionCounter = 0;
+    private List<Question> examQuestions =  new ArrayList<Question>();
+    APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,21 +38,33 @@ public class Exercise extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
 
         Intent i = getIntent();
-        info = i.getParcelableExtra("info");
-
-        if(info != null){
-            doesIntentWork();
-        }
+        String abbr = i.getStringExtra("abbr");
+        getQuestions(abbr);
     }
 
-    private void doesIntentWork(){
-        TextView questionNumber = findViewById(R.id.questionNumber);
-        TextView questionText = findViewById(R.id.question);
+    public void getQuestions(String abbr){
 
-        questionText.setText("This is a(n) " + info.getExerciseLanguage() + " question. This is a " +
-                info.getExerciseType() + " exam.");
+        Call<List<Question>> responseCall = apiInterface.doGetExamQuestions(abbr);
 
-        questionNumber.setText("Question " + info.getQuestionNumber() + " ");
+        responseCall.enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200) {
+                    examQuestions = response.body();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.exerciseFrag, ExerciseFragment.newInstance(examQuestions.get(0))).commit();
+
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+                Log.d("request", t.toString());
+            }
+
+        });
     }
 
     public void onClickNextQuestion(View v){
@@ -57,12 +85,6 @@ public class Exercise extends AppCompatActivity {
                 break;
         }
 
-        if(isNextQuestionAvailable()){
-            Intent intent = new Intent(this, Exercise.class);
-            info.incrementQuestionNumber();
-            intent.putExtra("info", info);
-            startActivity(intent);
-        }
     }
 
     public boolean isNextQuestionAvailable(){

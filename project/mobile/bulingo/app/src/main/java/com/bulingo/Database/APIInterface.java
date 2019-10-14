@@ -2,6 +2,8 @@ package com.bulingo.Database;
 
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -22,23 +24,23 @@ public interface APIInterface {
     @POST("/api/auth/logout")
     Call<Void> doLogout();
 
-    @POST("/api/languague/{language_abbr}/excercise/excercise_type/{exersice_id}/questions")
+    @POST("/api/language/{language_abbr}/excercise/excercise_type/{exersice_id}/questions")
     Call<Void> doEvaluateExercise(@Path("language_abbr") String abbr, @Path("exercise_id") int id);
 
-    @POST("/api/languague/{language_abbr}/exam/evaluate")
+    @POST("/api/language/{language_abbr}/exam/evaluate")
     Call<Grade> doEvaluateExam(@Path("language_abbr") String abbr, @Body JsonObject params);
 
-    @GET("/api/languague/{language_abbr}/excercise/excercise_type/")
+    @GET("/api/language/{language_abbr}/excercise/excercise_type/")
     Call<Void> doGetExercises(@Path("language_abbr") String abbr);
 
-    @GET("/api/languague/{language_abbr}/excercise/excercise_type/{exersice_id}/questions")
+    @GET("/api/language/{language_abbr}/excercise/excercise_type/{exersice_id}/questions")
     Call<Void> doGetExercise(@Path("language_abbr") String abbr, @Path("exercise_id") int id);
 
-    @GET("/api/languague/")
-    Call<Language> doGetExercises();
+    @GET("/api/language/")
+    Call<List<Language>> doGetLanguages();
 
-    @GET("/api/languague/{language_abbr}/exam/questions")
-    Call<Questions> doGetExamQuestions();
+    @GET("/api/language/{language_abbr}/exam/questions")
+    Call<List<Question>> doGetExamQuestions(@Path("language_abbr") String abbr);
 
 
 }

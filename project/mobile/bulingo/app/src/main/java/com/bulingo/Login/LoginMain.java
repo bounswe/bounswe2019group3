@@ -95,6 +95,6 @@ public class LoginMain extends AppCompatActivity {
     }
 
     public boolean isNewUser(){
-        return getIntent().getBooleanExtra("isNew", true);
+        return getIntent().getBooleanExtra("isNew", false);
     }
 }

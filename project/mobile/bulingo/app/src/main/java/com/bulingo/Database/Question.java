@@ -4,26 +4,21 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Questions {
+public class Question {
 
-    @SerializedName("questions")
-    public List<Question> questions;
-
-    class Question {
         @SerializedName("id")
-        public String id;
+        public int id;
         @SerializedName("desc")
         public String desc;
         @SerializedName("choices")
         public List<Choice> choices;
 
-        class Choice {
+        public class Choice {
             @SerializedName("id")
-            public String id;
+            public int id;
             @SerializedName("desc")
             public String desc;
         }
 
-    }
 
 }
