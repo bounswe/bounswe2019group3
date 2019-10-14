@@ -2,6 +2,7 @@ version: "3"
 services:
   backend:
     build: ./backend
+    restart: always
     depends_on:
       - postgres
     ports:
@@ -25,3 +26,19 @@ services:
     build: ./mobile
     volumes:
       - ./../../android-output/:/mobile/bulingo/app/build/outputs/apk
+
+  nginx:
+   container_name: nginx
+   image: nginx:1.13
+   restart: always
+   ports:
+   - 80:80
+   - 443:443
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+   - ./../../frontend-output:/frontend
+   - ./../../android-output:/android
+   depends_on:
+   - backend
+   - frontend
+   - android
