@@ -1,29 +1,26 @@
 {
   "development": {
-    "username": "bayrakdar",
-    "password": null,
+    "username": "postgres",
+    "password": "postgres",
     "database": "bulingo",
-    "host": "localhost",
+    "host": "postgres",
     "dialect": "postgres",
-    "port": 5430,
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
     "password": null,
-    "database": "bulingo",
+    "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
-    "port": 5430,
     "operatorsAliases": false
   },
   "production": {
-    "username": "bayrakdar",
-    "password": null,
+    "username": "postgres",
+    "password": "postgres",
     "database": "bulingo",
-    "host": "localhost",
+    "host": "postgres",
     "dialect": "postgres",
-    "port": 5430,
     "operatorsAliases": false
   }
 }
