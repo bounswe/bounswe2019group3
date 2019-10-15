@@ -8,7 +8,7 @@ module.exports = {
           id:         0,
           lang_abbr:  "en",
           desc:       "Because of its power and potential for both harm and good, ----.",
-          answer_id:  2,
+          answer_id:  3,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
@@ -65,7 +65,7 @@ module.exports = {
         id:         7,
         lang_abbr:  "de",
         desc:       "Während etwa ein 40-jähriger Lehrer noch mit 40 weiteren Jahren Lebenszeit rechnen kann, ----.",
-        answer_id:  2,
+        answer_id:  3,
         createdAt:  new Date(),
         updatedAt:  new Date()
       },
