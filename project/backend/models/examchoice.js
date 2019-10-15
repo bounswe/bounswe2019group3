@@ -17,7 +17,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   ExamChoice.associate = function(models) {
-    // associations can be defined here
+    // please check Sabri
+    
+      models.ExamQuestion.hasMany(models.ExamChoice, {
+        foreignKey: 'question_id',
+        as: 'choices',
+        constraints: false
+      });
+      models.ExamQuestion.belongsTo(models.ExamChoice, {
+        foreignKey: 'answer_id',
+        as: 'answer',
+        constraints: false
+      });
+    
+
   };
   return ExamChoice;
 };
