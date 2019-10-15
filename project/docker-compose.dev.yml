@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 services:
   backend:
     env_file: ./backend/dev.env
@@ -17,5 +17,6 @@ services:
   nginx:
    volumes:
    - ./nginx/conf.d:/etc/nginx/conf.d
+   - ./nginx/pages:/pages
    - ./frontend-output:/frontend
    - ./android-output:/android
