@@ -78,6 +78,8 @@ export default class FormPage extends React.Component {
                     <MDBCol md="2"></MDBCol>
                     <MDBCol md="3"><div className="Scrollbar topMargined">
                         <div > <p className="text" >{ this.props.location.state.username}</p> </div>
+                        <div > <p className="text" > { this.props.location.state.language}</p> </div>
+                        <div > <p className="text" > { this.props.location.state.grade}</p> </div>
                         <div className="Bio"><p>Bio</p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
 
                     </div></MDBCol>

@@ -22,10 +22,6 @@ export default class Question extends React.Component {
                         <input type="radio" id="3" name={this.props.id} />
                         <label for="huey">{this.props.answers[2]}</label>
                     </div>
-                    <div>
-                        <input type="radio" id="4" name={this.props.id} />
-                        <label for="huey">{this.props.answers[3]}</label>
-                    </div>
                 </div>
             </div>
         );

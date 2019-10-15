@@ -1,20 +1,18 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import Question from "./containers/Question";
-import Popup from './Popup';
+import Popup from './Popup'; 
+import axios from 'axios';
 import { Redirect, NavLink, withRouter } from 'react-router-dom';
 
-
-import axios from 'axios';
 
 export default class EnglishTest extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/en/exam/questions')
+        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/de/exam/questions')
       .then(res => {
         this.setState({questions: res.data});
       })
-     
         this.state = {
             questions : [],
             submitted : false,
@@ -27,7 +25,7 @@ export default class EnglishTest extends React.Component {
         arr[qid] = {question_id : ""+qid , choice_id : ""+ id};
         console.log(arr);
     }
-      generateQuestions(ans){
+    generateQuestions(ans){
         
         var ques = [];
         
@@ -70,17 +68,20 @@ export default class EnglishTest extends React.Component {
         return ques;
     }
 
+
+   
     submit(ans) {
-     
+        
+         
         console.log(JSON.stringify(ans));
-        axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/en/exam/evaluate',  ans )
+        axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/de/exam/evaluate',  ans )
         .then(res => {
           console.log(res);
           if (res.status == 200) {
             console.log(res.data.grade);
         
             this.setState({ 
-                language : "English",
+                language : "Deutch",
                 grade : res.data.grade
             
              });
@@ -98,6 +99,7 @@ export default class EnglishTest extends React.Component {
             submitted: true
          });
       }
+    
     
     render() {
         if (this.state.submitted) {
@@ -117,10 +119,10 @@ export default class EnglishTest extends React.Component {
         return (
             
             <MDBContainer fluid>
-                 <div> 
+                <div> 
                     {this.state.showPopup ?  
                     <Popup  
-                            text = {"English: " + this.state.grade}
+                            text = {"Deutch: " + this.state.grade}
                             closePopup={this.close.bind(this)}  
                     />  
                     : null  
