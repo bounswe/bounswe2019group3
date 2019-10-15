@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
-import './SignUp.css';
+import '../SignUp.css';
 import { NavLink } from 'react-router-dom';
 
 const TopNavigation = () => {
@@ -34,6 +34,13 @@ const TopNavigation = () => {
                         Login
                     </MDBListGroupItem>
                 </NavLink>
+                <NavLink to="/exam" activeClassName="activeClass">
+                    <MDBListGroupItem className="list-group-item-light">
+                        <MDBIcon icon="clipboard-check" className="mr-3"/>
+                        Examination Page
+                    </MDBListGroupItem>
+                </NavLink>
+                
             </MDBListGroup>
         </div>
     );

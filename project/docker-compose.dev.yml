@@ -7,3 +7,15 @@ services:
   postgres:
     volumes:
       - ./db-data:/var/lib/postgresql/data
+  frontend:
+    volumes:
+      - ./frontend-output/:/frontend/build
+  android:
+    volumes:
+      - ./android-output:/mobile/bulingo/app/build/outputs/apk
+
+  nginx:
+   volumes:
+   - ./nginx/conf.d:/etc/nginx/conf.d
+   - ./frontend-output:/frontend
+   - ./android-output:/android
