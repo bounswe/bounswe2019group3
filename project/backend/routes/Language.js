@@ -102,7 +102,6 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
                 question.forEach(q => {
                     hashAnswers[q.id] = q.answer_id;
                 });
-                console.log(hashAnswers);
                 for (let i = 0; i < question_id_array.length; i++) {
                     if(hashAnswers[question_id_array[i]]==choice_id_array[i]){
                         counter ++;
