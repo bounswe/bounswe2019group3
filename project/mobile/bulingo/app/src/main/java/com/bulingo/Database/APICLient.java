@@ -22,7 +22,7 @@ public class APICLient {
         builder.addInterceptor(interceptor);
         client = builder.build();
         retrofit = new Retrofit.Builder()
-                .baseUrl("http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/")
+                .baseUrl("http://ec2-18-184-207-248.eu-central-1.compute.amazonaws.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
