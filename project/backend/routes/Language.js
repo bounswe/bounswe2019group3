@@ -73,8 +73,8 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
     } else {
         const db = req.db;
         let question_id_array = new Array();
-        let bad_req = false;
         let choice_id_array = new Array();
+        let bad_req = false;
         for (let index = 0; index < req.body.length; index++) {
             if(req.body[index].question_id == ""||req.body[index].question_id == undefined){
                 bad_req = true;
@@ -98,9 +98,12 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
             })
             .then((question) => {
                 let counter = 0;
-                for (let i = 0; i < question.length; i++) {
-                    let index = question_id_array.findIndex(search_item => search_item == question[i].id);
-                    if((question[i].answer_id == choice_id_array[index]) && choice_id_array[index]!=""){
+                let hashAnswers = {};
+                question.forEach(q => {
+                    hashAnswers[q.id] = q.answer_id;
+                });
+                for (let i = 0; i < question_id_array.length; i++) {
+                    if(hashAnswers[question_id_array[i]]==choice_id_array[i]){
                         counter ++;
                     }
                 }
