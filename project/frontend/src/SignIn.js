@@ -24,7 +24,7 @@ export default class FormPage extends React.Component {
     };
     console.log(JSON.stringify(frm));
     var responseStatus;
-    axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/login', frm)
+    axios.post('http://18.184.207.248/api/auth/login', frm)
       .then(res => {
         console.log(res);
         responseStatus = res;

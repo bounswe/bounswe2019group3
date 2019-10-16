@@ -10,7 +10,7 @@ export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
         var responseStatus =[] ;
-        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/')
+        axios.get('http://18.184.207.248/api/language/')
       .then(res => {
         
         responseStatus = res.data;

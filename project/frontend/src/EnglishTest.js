@@ -10,7 +10,7 @@ import axios from 'axios';
 export default class EnglishTest extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/en/exam/questions')
+        axios.get('http://18.184.207.248/api/language/en/exam/questions')
       .then(res => {
         this.setState({questions: res.data});
       })
@@ -73,7 +73,7 @@ export default class EnglishTest extends React.Component {
     submit(ans) {
      
         console.log(JSON.stringify(ans));
-        axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/en/exam/evaluate',  ans )
+        axios.post('http://18.184.207.248/api/language/en/exam/evaluate',  ans )
         .then(res => {
           console.log(res);
           if (res.status == 200) {

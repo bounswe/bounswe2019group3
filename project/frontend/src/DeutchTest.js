@@ -9,7 +9,7 @@ import { Redirect, NavLink, withRouter } from 'react-router-dom';
 export default class EnglishTest extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/de/exam/questions')
+        axios.get('http://18.184.207.248/api/language/de/exam/questions')
       .then(res => {
         this.setState({questions: res.data});
       })
@@ -74,7 +74,7 @@ export default class EnglishTest extends React.Component {
         
          
         console.log(JSON.stringify(ans));
-        axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/language/de/exam/evaluate',  ans )
+        axios.post('http://18.184.207.248/api/language/de/exam/evaluate',  ans )
         .then(res => {
           console.log(res);
           if (res.status == 200) {

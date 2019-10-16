@@ -16,7 +16,7 @@ function onClickd() {
     email: document.getElementById("mail").value
   };
   console.log(JSON.stringify(frm));
-  axios.post('http://ec2-52-59-191-167.eu-central-1.compute.amazonaws.com/api/auth/signup',  frm )
+  axios.post('http://18.184.207.248/api/auth/signup',  frm )
       .then(res => {
         console.log(res);
         console.log(res.data);
