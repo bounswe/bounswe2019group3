@@ -72,17 +72,11 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
         res.sendStatus(400);
     } else {
         const db = req.db;
-        let question_id_array = new Array();
-        let choice_id_array = new Array();
         let bad_req = false;
-        for (let index = 0; index < req.body.length; index++) {
-            if(req.body[index].question_id == ""||req.body[index].question_id == undefined){
+        for (let i = 0; i < req.body.length; i++) {
+            if(req.body[i].question_id == ""||req.body[i].question_id == undefined){
                 bad_req = true;
                 break;
-            }
-            else{
-                question_id_array[index] = req.body[index].question_id;
-                choice_id_array[index] = req.body[index].choice_id;    
             }
         }
         if(bad_req){
@@ -92,7 +86,7 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
             db.ExamQuestion.findAll({
                 where: db.Sequelize.or(
                     { 
-                        id: question_id_array,
+                        lang_abbr: req.params.language_abbr
                     }
                 )
             })
@@ -102,32 +96,41 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
                 question.forEach(q => {
                     hashAnswers[q.id] = q.answer_id;
                 });
-                for (let i = 0; i < question_id_array.length; i++) {
-                    if(hashAnswers[question_id_array[i]]==choice_id_array[i]){
+                for (let i = 0; i < req.body.length; i++) {
+                    if(req.body[i].question_id>question[question.length - 1].id || req.body[i].question_id < question[0].id){
+                        bad_req = true;
+                        break;
+                    }
+                    if(hashAnswers[req.body[i].question_id]==req.body[i].choice_id){
                         counter ++;
                     }
                 }
-                const success_rate = counter / question.length;
-                let grade;
-                if (success_rate==0 || question.length == 0) {
-                    grade = 'A1'
+                if(bad_req){
+                    res.sendStatus(400);
                 }
-                else if (success_rate<=0.2) {
-                    grade = 'A2'
+                else {
+                    const success_rate = counter / question.length;
+                    let grade;
+                    if (success_rate==0 || question.length == 0) {
+                        grade = 'A1'
+                    }
+                    else if (success_rate<=0.2) {
+                        grade = 'A2'
+                    }
+                    else if (success_rate<=0.4) {
+                        grade = 'B1'
+                    }
+                    else if (success_rate<=0.6) {
+                        grade = 'B2'
+                    }
+                    else if (success_rate<=0.8) {
+                        grade = 'C1'
+                    }
+                    else if (success_rate==1) {
+                        grade = 'C2'
+                    }
+                    res.send({grade});
                 }
-                else if (success_rate<=0.4) {
-                    grade = 'B1'
-                }
-                else if (success_rate<=0.6) {
-                    grade = 'B2'
-                }
-                else if (success_rate<=0.8) {
-                    grade = 'C1'
-                }
-                else if (success_rate==1) {
-                    grade = 'C2'
-                }
-                res.send({grade});
         });
         }
        
