@@ -1,4 +1,4 @@
-version: "3"
+version: "2.4"
 services:
   backend:
     build: ./backend
@@ -26,6 +26,7 @@ services:
     build: ./mobile
     volumes:
       - ./../../android-output/:/mobile/bulingo/app/build/outputs/apk
+    cpus: 0.02
 
   nginx:
    container_name: nginx
@@ -36,6 +37,7 @@ services:
    - 443:443
    volumes:
    - ./nginx/conf.d:/etc/nginx/conf.d
+   - ./nginx/pages:/pages
    - ./../../frontend-output:/frontend
    - ./../../android-output:/android
    depends_on:
