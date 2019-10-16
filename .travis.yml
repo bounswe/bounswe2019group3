@@ -1,6 +1,6 @@
 language: generic
 env:
-  - SERVER_USERNAME=ec2-user SERVER_IP_ADDRESS=52.59.191.167
+  - SERVER_USERNAME=ec2-user SERVER_IP_ADDRESS=18.184.207.248
 
 notifications:  
   email:  
