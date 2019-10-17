@@ -29,9 +29,31 @@ router.post("/:username/", (req, res, next) => {
  * @apiSuccess {String}   user.bio                          biography text
  * @apiSuccess {String}   user.avatar                       avatar url
  * @apiSuccess {Float}    user.rating                       rating from comments
+ * @apiSuccess {Object[]} user.comments                     comments on the profile of user
+ * @apiSuccess {Integer}  user.comments.comment_id          command_id point the user who has the same id value with command_id
+ * @apiSuccess {String}   user.comments.text                text of comment
+ * @apiSuccess {Object}   user.comments.ıd                  id of comment author which is also a user
+ * @apiSuccess {Object}   user.comments.author              comment author which is also a user
  */
 router.get("/:username/", (req, res, next) => {
-    res.sendStatus(501);
+    const db = req.db;
+    db.UserProfile.findOne({
+        attributes: ['id' ,'username', 'email', 'bio', 'avatar', 'rating'],
+        where: { username: req.params.username },
+        include: [{
+            model: db.Comment,
+            as: 'comments',
+            attributes: ['comment_id', 'text', 'rating'],
+            separate: true,
+            include:[{
+                model: db.UserProfile,
+                as: 'author',
+                attributes: ['id','username']
+            }]
+        }]
+    }).then(function (user) {
+        res.send(user);
+    });
 });
 
 /**
