@@ -32,8 +32,10 @@ router.post("/:username/", (req, res, next) => {
  * @apiSuccess {Object[]} user.comments                     comments on the profile of user
  * @apiSuccess {Integer}  user.comments.comment_id          command_id point the user who has the same id value with command_id
  * @apiSuccess {String}   user.comments.text                text of comment
- * @apiSuccess {Object}   user.comments.ıd                  id of comment author which is also a user
+ * @apiSuccess {Integer}  user.comments.id                  id of comment author which is also a user
  * @apiSuccess {Object}   user.comments.author              comment author which is also a user
+ * @apiSuccess {Integer}  user.comments.author.id           id of author
+ * @apiSuccess {String}   user.comments.author.username     username of author
  */
 router.get("/:username/", (req, res, next) => {
     const db = req.db;
