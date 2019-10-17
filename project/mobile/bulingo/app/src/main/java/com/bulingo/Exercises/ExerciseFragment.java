@@ -54,16 +54,17 @@ public class ExerciseFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_QUESTION, question.desc);
         args.putInt(ARG_QUESTION_ID, count);
-        if(question.choices.size() == 3) {
+        if(question.choices.size() == 4) {
             args.putString(ARG_ANSWER_1, question.choices.get(0).desc);
             args.putString(ARG_ANSWER_2, question.choices.get(1).desc);
             args.putString(ARG_ANSWER_3, question.choices.get(2).desc);
             args.putInt(ARG_ANSWER_ID_1, question.choices.get(0).id);
             args.putInt(ARG_ANSWER_ID_2, question.choices.get(1).id);
             args.putInt(ARG_ANSWER_ID_3, question.choices.get(2).id);
+            args.putString(ARG_ANSWER_4, question.choices.get(3).desc);
+            args.putInt(ARG_ANSWER_ID_4, question.choices.get(3).id);
         }
-        args.putString(ARG_ANSWER_4, "None of them");
-        args.putInt(ARG_ANSWER_ID_4, -1);
+
         ExerciseFragment frag = new ExerciseFragment();
         frag.setArguments(args);
         return frag;

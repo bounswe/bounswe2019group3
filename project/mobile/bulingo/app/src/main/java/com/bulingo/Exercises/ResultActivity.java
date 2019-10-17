@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Grade;
+import com.bulingo.Login.LoginMain;
 import com.bulingo.R;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -40,8 +42,10 @@ public class ResultActivity extends AppCompatActivity {
     public void getResult(String abbr){
 
         JsonArray paramArray = answersToJsonArray(answers, questions);
-        Call<Grade> responseCall = apiInterface.doEvaluateExam(abbr, paramArray);
+        JsonObject arrayObject = new JsonObject();
+        arrayObject.add("answers", paramArray);
 
+        Call<Grade> responseCall = apiInterface.doEvaluateExam(abbr, arrayObject);
         responseCall.enqueue(new Callback<Grade>() {
             @Override
             public void onResponse(Call<Grade> call, Response<Grade> response) {
@@ -62,6 +66,7 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+
     public static JsonArray answersToJsonArray(int[] answers, int[] questions) {
         JsonArray paramArray = new JsonArray();
         for(int i=0; i<answers.length; i++) {
@@ -71,5 +76,9 @@ public class ResultActivity extends AppCompatActivity {
             paramArray.add(paramObject);
         }
         return paramArray;
+    }
+
+    public void onClickReturnMain(View view) {
+        finish();
     }
 }

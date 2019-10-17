@@ -17,6 +17,7 @@ import com.bulingo.Exercises.Exercise;
 import com.bulingo.Exercises.ExerciseInfo;
 import com.bulingo.Exercises.LanguageSelection;
 import com.bulingo.MainActivity;
+import com.bulingo.Profile.ProfilePage;
 import com.bulingo.R;
 
 import retrofit2.Call;
@@ -96,5 +97,10 @@ public class LoginMain extends AppCompatActivity {
 
     public boolean isNewUser(){
         return getIntent().getBooleanExtra("isNew", false);
+    }
+
+    public void onClickProfilePage(View view) {
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
     }
 }

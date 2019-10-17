@@ -35,5 +35,6 @@
     <string name="profile">PROFILE</string>
     <string name="rating">Rating :</string>
     <string name="username2"> Username :</string>
+    <string name="returnMain">Go Back</string>
 
 </resources>
