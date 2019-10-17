@@ -42,10 +42,8 @@ public class ResultActivity extends AppCompatActivity {
     public void getResult(String abbr){
 
         JsonArray paramArray = answersToJsonArray(answers, questions);
-        JsonObject arrayObject = new JsonObject();
-        arrayObject.add("answers", paramArray);
 
-        Call<Grade> responseCall = apiInterface.doEvaluateExam(abbr, arrayObject);
+        Call<Grade> responseCall = apiInterface.doEvaluateExam(abbr, paramArray);
         responseCall.enqueue(new Callback<Grade>() {
             @Override
             public void onResponse(Call<Grade> call, Response<Grade> response) {
@@ -71,8 +69,8 @@ public class ResultActivity extends AppCompatActivity {
         JsonArray paramArray = new JsonArray();
         for(int i=0; i<answers.length; i++) {
             JsonObject paramObject = new JsonObject();
-            paramObject.addProperty("question_id", questions[i]);
-            paramObject.addProperty("choices_id", answers[i]);
+            paramObject.addProperty("question_id", String.valueOf(questions[i]));
+            paramObject.addProperty("choice_id", String.valueOf(answers[i]%4));
             paramArray.add(paramObject);
         }
         return paramArray;
