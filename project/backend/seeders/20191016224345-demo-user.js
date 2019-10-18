@@ -42,12 +42,22 @@ module.exports = {
           rating:     5.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
+      },
+      {
+          id          :4,
+          username:   "admin",
+          email:      "admin@boun.edu.tr",
+          bio:        "Anonymous.",
+          avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
+          rating:     5.0,
+          createdAt:  new Date(),
+          updatedAt:  new Date()
       }
     ]);
   },
 
   down: (queryInterface, Sequelize) => {
-    const ids = [...Array(4).keys()];
+    const ids = [...Array(5).keys()];
     return queryInterface.bulkDelete('Users', 
       {id: {[Sequelize.Op.in]: ids}});
   }
