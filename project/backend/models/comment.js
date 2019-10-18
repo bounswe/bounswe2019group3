@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    comment_id: {
+    comment_to: {
       allowNull: false,
       type: DataTypes.INTEGER
     },
@@ -19,14 +19,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING
     },
-    author_id: {
+    comment_by: {
       allowNull: false,
       type: DataTypes.INTEGER
     }
   });
   Comment.associate = function(models) {
-    models.Comment.belongsTo(models.UserProfile, {
-      foreignKey: 'author_id',
+    models.Comment.belongsTo(models.User, {
+      foreignKey: 'comment_by',
       as: 'author',
       constraints: false
   });
