@@ -57,6 +57,7 @@ router.post("/login", (req, res, next) => {
     }else {
         const db = req.db;
         db.Auth.findOne({
+            attributes: ['username', 'email', 'password'],
             where: db.Sequelize.or(
                 { username: req.body.id },
                 { email: req.body.id }

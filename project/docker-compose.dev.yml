@@ -8,7 +8,9 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
-    env_file: ./backend/dev.env
+    environment:
+      NODE_ENV: development
+      PORT: 3000
     volumes:
       - ./backend:/backend
 

@@ -42,3 +42,5 @@ httpsServer.listen(8443,function(){
 	console.log('HTTPS SERVER listening on port 8443!');
 });  
 */
+
+module.exports = http_server

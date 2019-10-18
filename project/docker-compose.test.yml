@@ -1,0 +1,22 @@
+version: "2.4"
+services:
+  backend:
+    build: ./backend
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+      - "9229:9229"
+    environment:
+      NODE_ENV: test
+      PORT: 3000
+    volumes:
+      - ./backend:/backend
+    command: npm test
+  
+  postgres:
+    image: postgres:11.2-alpine
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: bulingo
