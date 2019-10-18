@@ -24,9 +24,9 @@ export default class FormPage1 extends React.Component {
     console.log(JSON.stringify(frm));
     axios.post('http://18.184.207.248/api/auth/signup',  frm )
         .then(res => {
-          console.log(res);
+          //console.log(res);
           if (res.status == 200) {
-            console.log(this);
+            //console.log(this);
             this.setState({ authenticated: true });
           }
         })

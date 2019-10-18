@@ -2,8 +2,7 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
 import { Redirect, NavLink, withRouter } from 'react-router-dom';
-
-
+import Cookies from 'js-cookie'
 import axios from 'axios';
 
 
@@ -22,16 +21,19 @@ export default class FormPage extends React.Component {
       password: document.getElementById("pass").value,
 
     };
-    console.log(JSON.stringify(frm));
+    //console.log(JSON.stringify(frm));
     var responseStatus;
     axios.post('http://18.184.207.248/api/auth/login', frm)
       .then(res => {
-        console.log(res);
+        //console.log(res);
         responseStatus = res;
-        console.log(responseStatus);
-        if (responseStatus.status == 200) {
-          console.log(this);
+        //console.log(responseStatus);
+        if (responseStatus.status === 200) {
+          //console.log(this);
+          Cookies.set('username', frm.id);
+          //console.log(Cookies.get());
           this.setState({ authenticated: true });
+
         }
 
       })
@@ -39,13 +41,14 @@ export default class FormPage extends React.Component {
   };
 
   render() {
-    console.log(this.state.authenticated);
+    //console.log(this.state.authenticated);
     if (this.state.authenticated) {
       return (<Redirect
         to={{
           pathname: "/profile",
-          state : { 
-            username :  document.getElementById("usr").value 
+          state: {
+            username: document.getElementById("usr").value,
+
           }
         }}
       />);
