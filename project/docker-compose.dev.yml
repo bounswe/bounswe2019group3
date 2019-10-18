@@ -22,11 +22,6 @@ services:
     volumes:
       - ./db-data:/var/lib/postgresql/data
 
-  frontend:
-    build: ./frontend
-    volumes:
-      - ./frontend-output/:/frontend/build
-
   nginx:
    container_name: nginx
    image: nginx:1.13
@@ -37,7 +32,5 @@ services:
    volumes:
    - ./nginx/conf.d:/etc/nginx/conf.d
    - ./nginx/pages:/pages
-   - ./frontend-output:/frontend
    depends_on:
    - backend
-   - frontend
