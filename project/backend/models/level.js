@@ -1,27 +1,33 @@
 'use strict';// not finished, just a skeleton
 module.exports = (sequelize, DataTypes) => {
   const Level = sequelize.define('Level', {
-    lang_abbr: {
+    id: {
       allowNull: false,
       autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
+    belongs_to: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    lang_abbr: {
+      allowNull: false,
       primaryKey: true,
       type: DataTypes.STRING
     },
     grade	: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
         type: DataTypes.STRING
-      },
-
-
-  }, {});
-Level.associate = function(models) {
-    models.Level.belongsTo(models.UserProfile, {
-      foreignKey: 'user_id',
-      as: 'user',
-      constraints: false
+    },
   });
-  };
+Level.associate = function(models) {
+  models.Level.belongsTo(models.User, {
+    foreignKey: 'belongs_to',
+    as: 'grades',
+    constraints: false
+});
+};
   return Level;
 };
