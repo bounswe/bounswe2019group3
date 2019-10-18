@@ -3,13 +3,13 @@ module.exports = (sequelize, DataTypes) => {
   const Level = sequelize.define('Level', {
     lang_abbr: {
       allowNull: false,
-      autoIncrement: true,
+      autoIncrement: false,
       primaryKey: true,
       type: DataTypes.STRING
     },
     grade	: {
         allowNull: false,
-        autoIncrement: true,
+        autoIncrement: false,
         primaryKey: true,
         type: DataTypes.STRING
       },
