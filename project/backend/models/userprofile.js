@@ -36,5 +36,12 @@ module.exports = (sequelize, DataTypes) => {
         constraints: false
     });
   };
+  UserProfile.associate = function(models) {
+    models.UserProfile.hasMany(models.Level, {
+        foreignKey: 'level_id',
+        as: 'levels',
+        constraints: false
+    });
+  };
   return UserProfile;
 };
