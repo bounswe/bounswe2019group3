@@ -70,7 +70,7 @@ public class ResultActivity extends AppCompatActivity {
         for(int i=0; i<answers.length; i++) {
             JsonObject paramObject = new JsonObject();
             paramObject.addProperty("question_id", String.valueOf(questions[i]));
-            paramObject.addProperty("choice_id", String.valueOf(answers[i]%4));
+            paramObject.addProperty("choice_id", String.valueOf(answers[i]));
             paramArray.add(paramObject);
         }
         return paramArray;
