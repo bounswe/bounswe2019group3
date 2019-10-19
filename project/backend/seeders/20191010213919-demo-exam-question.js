@@ -78,10 +78,10 @@ module.exports = {
         updatedAt:  new Date()
       },
       {
-        id:         36,
+        id:         9,
         lang_abbr:  "de",
         desc:       "Ein neugeborenes Rehkitz wird so gut wie nie von Fressfeinden angegriffen, ----.",
-        answer_id:  0,
+        answer_id:  36,
         createdAt:  new Date(),
         updatedAt:  new Date()
       }
