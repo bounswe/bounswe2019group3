@@ -1,12 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const UserProfile = sequelize.define('UserProfile', {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
+  const User = sequelize.define('User', {
     username: {
       primaryKey: true,
       type: DataTypes.STRING,
@@ -29,12 +23,17 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   });
-  UserProfile.associate = function(models) {
-    models.UserProfile.hasMany(models.Comment, {
-        foreignKey: 'comment_id',
+  User.associate = function(models) {
+    models.User.hasMany(models.Comment, {
+        foreignKey: 'comment_to',
         as: 'comments',
         constraints: false
     });
+    models.User.hasMany(models.Level, {
+      foreignKey: 'belongs_to',
+      as: 'grade',
+      constraints: false
+    });
   };
-  return UserProfile;
+  return User;
 };

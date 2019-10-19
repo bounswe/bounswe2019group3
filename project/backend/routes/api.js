@@ -22,8 +22,7 @@ console.log("Waiting 30s for DB to get up!")
 delay(30000)
 .then(()=> console.log("SYNC DB"))
 .then(() => db.sequelize.sync({
-    force: true,
-    logging:console.log
+    force: true
 })).then(() => {
     console.log("Seeding DB")
     const seed_dir = path.join(__dirname, "/../seeders");
