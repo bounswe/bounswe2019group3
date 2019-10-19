@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     bio: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     avatar: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: true
     },
     rating: {
       type: DataTypes.FLOAT,
-      allowNull: false
+      allowNull: true
     }
   });
   User.associate = function(models) {

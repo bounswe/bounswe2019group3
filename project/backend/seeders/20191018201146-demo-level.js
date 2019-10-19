@@ -62,10 +62,6 @@ module.exports = {
     ]);
   },
   down: (queryInterface, Sequelize) => {
-    // const ids = [...Array(8).keys()];
-    // return queryInterface.bulkDelete('Levels', 
-    //   {id: {[Sequelize.Op.in]: ids}});
-
     return queryInterface.bulkDelete('Levels', 
     {belongs_to: {[Sequelize.Op.in]: ["lazyostrich850", "angrydog556", "browncat819", "orangelion929"]}}
     );
