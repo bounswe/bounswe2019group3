@@ -24,11 +24,16 @@ export default class GeneralTest extends React.Component {
         }
     }
     onClickd(id, qid, arr) {
-        arr[qid] = { question_id: "" + qid, choice_id: "" + id };
-        //console.log(arr);
+        if(Cookies.get('selectedExamLanguageAbbr') === 'de'){
+            arr[qid] = { question_id: "" + (qid+5), choice_id: "" + id };
+        }else{
+            arr[qid] = { question_id: "" + qid, choice_id: "" + id };
+        }
+        
+        console.log(arr);
     }
     generateQuestions(ans) {
-
+        
         var ques = [];
 
         // for (let i = 0; i < this.state.questions.length; i++) {
@@ -36,7 +41,7 @@ export default class GeneralTest extends React.Component {
         // }
         //var questionAnswer = [];     
         for (let i = 0; i < this.state.questions.length; i++) {
-
+            
             ques[i] = (
 
                 //<Question 
