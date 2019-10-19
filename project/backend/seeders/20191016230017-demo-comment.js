@@ -4,47 +4,42 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Comments',[
       {
-          id          :0,
-          comment_to:  0,
+          comment_to:  'lazyostrich850',
           rating:      5.0,
           text:        "This is truly above and beyond.",
-          comment_by:   1,
+          comment_by:   'angrydog556',
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
-          id          :1,
-          comment_to:  1,
+          comment_to:  'angrydog556',
           rating:      5.0,
           text:        "You set a high bar with this one.",
-          comment_by:   2,
+          comment_by:   'browncat819',
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
-          id          :2,
-          comment_to:  2,
+          comment_to:  'browncat819',
           rating:      5.0,
           text:        "Wonderful, this is more than I expected.",
-          comment_by:   3,
+          comment_by:   'orangelion929',
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
-          id          :3,
-          comment_to:  3,
+          comment_to:  'orangelion929',
           rating:      5.0,
           text:        "This is so great I don’t need to make any revisions to it at all.",
-          comment_by:   1,
+          comment_by:  'angrydog556',
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
-          id          :4,
-          comment_to:  3,
+          comment_to:  'orangelion929',
           rating:      5.0,
           text:        "You have a vibrant imagination and excels in creative writing.",
-          comment_by:   0,
+          comment_by:  'lazyostrich850',
           createdAt:  new Date(),
           updatedAt:  new Date()
       }
@@ -53,8 +48,11 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    const ids = [...Array(1).keys()];
+    // const ids = [...Array(5).keys()];
+    // return queryInterface.bulkDelete('Comments', 
+    //   {id: {[Sequelize.Op.in]: ids}});
     return queryInterface.bulkDelete('Comments', 
-      {id: {[Sequelize.Op.in]: ids}});
+    {comment_to: {[Sequelize.Op.in]: ["lazyostrich850", "angrydog556", "browncat819", "orangelion929"]}}
+    );
   }
 };

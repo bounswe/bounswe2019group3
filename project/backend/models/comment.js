@@ -1,15 +1,9 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Comment = sequelize.define('Comment', {
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     comment_to: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     },
     rating: {
       allowNull: false,
@@ -21,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     comment_by: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.STRING
     }
   });
   Comment.associate = function(models) {

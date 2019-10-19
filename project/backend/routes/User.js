@@ -45,7 +45,7 @@ router.post("/:username/", (req, res, next) => {
 router.get("/:username/", (req, res, next) => {
     const db = req.db;
     db.User.findOne({
-        attributes: ['id' ,'username', 'email', 'bio', 'avatar', 'rating'],
+        attributes: ['username', 'email', 'bio', 'avatar', 'rating'],
         where: { username: req.params.username }
     }).then(function (user) {
         res.send(user);
@@ -71,7 +71,7 @@ router.get("/:username/comments/", (req, res, next) => {
     }).then(function (user) {
         db.Comment.findAll({
             attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
-            where: { comment_to : user.id }
+            where: { comment_to : user.username }
         }).then(function (comments){
             res.send(comments);
         })
@@ -95,7 +95,7 @@ router.get("/:username/language/level", (req, res, next) => {
         db.Level.findAll({
             attributes: ['lang_abbr', 'grade'],
             where: { 
-                belongs_to : user.id,
+                belongs_to : user.username,
             }
         }).then(function (grades){
             res.send(grades);

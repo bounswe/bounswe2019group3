@@ -1,15 +1,10 @@
 'use strict';// not finished, just a skeleton
 module.exports = (sequelize, DataTypes) => {
   const Level = sequelize.define('Level', {
-    id: {
-      allowNull: false,
-      autoIncrement: false,
-      primaryKey: true,
-      type: DataTypes.INTEGER
-    },
     belongs_to: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      primaryKey: true,
+      type: DataTypes.STRING
     },
     lang_abbr: {
       allowNull: false,

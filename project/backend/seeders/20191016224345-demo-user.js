@@ -4,7 +4,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users',[
       {
-          id          :0,
           username:   "lazyostrich850",
           email:      "robby.vanbaren@example.com",
           bio:        "I am Robby Van Baren, and I live in Wessem, Netherlands.I want to learn foreign languages.",
@@ -14,7 +13,6 @@ module.exports = {
           updatedAt:  new Date()
       },
       {
-          id          :1,
           username:   "angrydog556",
           email:      "zachary.pelletier@example.com",
           bio:        "I am Zachary Pelletier, and I live in Fountainbleu, Canada.I want to learn foreign languages.",
@@ -24,7 +22,6 @@ module.exports = {
           updatedAt:  new Date()
       },
       {
-          id          :2,
           username:   "browncat819",
           email:      "lily.edwards@example.com",
           bio:        "I am Lily Edwards, and I live in Whangarei, New Zealand.I want to learn foreign languages.",
@@ -34,7 +31,6 @@ module.exports = {
           updatedAt:  new Date()
       },
       {
-          id          :3,
           username:   "orangelion929",
           email:      "zachary.pelletier@example.com",
           bio:        "I am Elza Vieira, and I live in Poços de Caldas, Brazil.I want to learn foreign languages.",
@@ -44,7 +40,6 @@ module.exports = {
           updatedAt:  new Date()
       },
       {
-          id          :4,
           username:   "admin",
           email:      "admin@boun.edu.tr",
           bio:        "Anonymous.",
@@ -57,8 +52,12 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    const ids = [...Array(5).keys()];
+    // const ids = [...Array(5).keys()];
+    // return queryInterface.bulkDelete('Users', 
+    //   {id: {[Sequelize.Op.in]: ids}});
+
     return queryInterface.bulkDelete('Users', 
-      {id: {[Sequelize.Op.in]: ids}});
+    {username: {[Sequelize.Op.in]: ["lazyostrich850", "angrydog556", "browncat819", "orangelion929", "admin"]}}
+    );
   }
 };
