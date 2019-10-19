@@ -17,6 +17,7 @@ import com.bulingo.Exercises.Exercise;
 import com.bulingo.Exercises.ExerciseInfo;
 import com.bulingo.Exercises.LanguageSelection;
 import com.bulingo.MainActivity;
+import com.bulingo.Profile.ProfilePage;
 import com.bulingo.R;
 
 import retrofit2.Call;
@@ -37,12 +38,7 @@ public class LoginMain extends AppCompatActivity {
         text.setText(message);
 
         //If first time login, select a starting language
-        if(!isNewUser()){
-            //setContentView(R.layout.activity_log_in_main);
-            //String message = getIntent().getStringExtra("message");
-            //TextView text = findViewById(R.id.textView);
-            //text.setText(message);
-        } else {
+        if(isNewUser()){
             Intent intent = new Intent(this, LanguageSelection.class);
             startActivity(intent);
         }
@@ -100,7 +96,11 @@ public class LoginMain extends AppCompatActivity {
     }
 
     public boolean isNewUser(){
+        return getIntent().getBooleanExtra("isNew", false);
+    }
 
-        return true;
+    public void onClickProfilePage(View view) {
+        Intent intent = new Intent(this, ProfilePage.class);
+        startActivity(intent);
     }
 }
