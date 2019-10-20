@@ -1,3 +1,4 @@
+ 
 import React from "react";
 import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
 import './SignUp.css';
@@ -96,21 +97,74 @@ export default class FormPage extends React.Component {
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
           <MDBCol md="2"></MDBCol>
           <MDBCol md="3"><div className="Scrollbar topMargined">
-            <div > <p className="text-blue" > Welcome <i>{Cookies.get('username')}</i></p> </div>
-            <div > <p className="text-blue" > Last exam taken language <i>{Cookies.get('selectedExamLanguage')}</i> </p> </div>
-            <div > <p className="text-blue" > Grade <i>{Cookies.get('selectedExamGrade')}</i></p> </div>
-            <div className="Bio"><p>Bio</p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
+                        <div > <p className="commentsec_usrname marginedleft" >{ this.props.location.state.username}</p> </div>
+                        <div > <p className="commentsec_usrname" > { this.props.location.state.language}</p> </div>
+                        <div > <p className="commentsec_usrname" > { this.props.location.state.grade}</p> </div>
+                        <div className="Bio"><p className = "commentsec_usrname">My Biography</p>
+                        Hello there, I am Hatice! <br/>
+                        I am a third year English Literature student in Boğaziçi University.
+                        As a third year English Literature student, by now I feel 
+                        quite well adjusted to a heavy workload and stacks of reading! 
+                        I want to share my experiences with you! <br/>
+                        Feel free to share your writings and text me if you like.<br/>
 
-          </div></MDBCol>
+                        My favorite topics are 
+                        <ul>
+                          <li>literature</li>
+                          <li>music</li>
+                          <li>history</li>
+                          <li>the works of Shakespeare</li>
+                          <li>movies</li>
+                          
+                        </ul>
+                        So feel free to write to me about any of those topics. 
+                        
+                         <br/>
+                        <center>* * *</center>                        
+                        Also if you send me writings sometimes I can leave a comment to your 
+                        profile so be on the watch!
+                         </div>
+
+                    </div></MDBCol>
           <MDBCol md="3">
             <div className="Scrollbar topMargined">
-              <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
-              <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
-              <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
-              <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
-              <div className="Comment">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque in dictum leo. Vestibulum sed lacus ac tellus consectetur bibendum. Fusce ipsum dui, feugiat at eros in, auctor luctus tellus. Quisque at vehicula leo. Praesent vitae felis elementum, luctus libero dapibus, rhoncus ligula. Donec aliquam augue sed nunc suscipit consectetur. Integer sed sollicitudin ligula, vitae porta nisl. Vivamus dapibus diam cursus, porttitor ante ut, consequat est. </div>
+             <div className="Comment">
+                              <p className = "commentsec_usrname">James.Smith</p>
+                              <p className = "commentsec_title">Very increadible grammar knowledge!</p>
+                              <p>Thanks for reviewing my essay so detailed and spending 
+                                your time to write a long and helpful comment on my profile
+                                page!<br/>
+                                You are the best! 
+                              </p>
+                            </div>
+                            <div className="Comment">
+                            <p className = "commentsec_usrname">Jeniffer_Brown</p>
+                              <p className = "commentsec_title">Best mate ever!</p>
+                              <p>I like how you make a comment after reading my work and tell how
+                                I can improve my writing skills. Thanks to you I have learned a lot.
+                                <br/>
+                                Thanks for your time :)
+                              </p>
+                            </div>
+                            <div className="Comment">
+                            <p className = "commentsec_usrname">Emma_Williams</p>
+                              <p className = "commentsec_title">Great person to chat with</p>
+                              <p>We had a great conversation the other day and I learned lots
+                                of vocabulary. 
+                                <br/>
+                                See you around buddy!
+                              </p>
+                            </div>
+                            <div className="Comment">
+                              <p className = "commentsec_usrname">Ethan_98</p>
+                              <p className = "commentsec_title">Not an active user!</p>
+                              <p>I have been waiting 1 week for the writing I sent.
+                                If you are not going to be online why are you accepting messages?
+                               
+                              </p></div>
+                            
 
-            </div>
+                        </div>
           </MDBCol>
           <MDBCol md="4">
             <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
