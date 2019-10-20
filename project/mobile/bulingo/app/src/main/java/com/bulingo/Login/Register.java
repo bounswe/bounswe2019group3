@@ -67,7 +67,7 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("request", response.toString());
                 if(response.isSuccessful()) {
-                    registered("Welcome " + username + "!");
+                    registered("Welcome " + username + "!", username);
                 } else {
                     toast("This username or email address is used.");
                 }
@@ -87,11 +87,12 @@ public class Register extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void registered(String message){
+    public void registered(String message, String username){
         Toast.makeText(getApplicationContext(),"User Successfully Registered.", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         intent.putExtra("isNew", true);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

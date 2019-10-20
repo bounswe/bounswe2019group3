@@ -27,6 +27,7 @@ import retrofit2.Response;
 public class LoginMain extends AppCompatActivity {
 
     APIInterface apiInterface;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class LoginMain extends AppCompatActivity {
         apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
         setContentView(R.layout.activity_log_in_main);
         String message = getIntent().getStringExtra("message");
+        username = getIntent().getStringExtra("username");
         TextView text = findViewById(R.id.textView);
         text.setText(message);
 
@@ -101,6 +103,7 @@ public class LoginMain extends AppCompatActivity {
 
     public void onClickProfilePage(View view) {
         Intent intent = new Intent(this, ProfilePage.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }

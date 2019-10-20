@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
-                app:layout_constraintBottom_toTopOf="@id/layoutForLevel"
+                app:layout_constraintBottom_toTopOf="@id/bio"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -55,34 +55,24 @@
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/staticUsername"
-                        android:layout_width="100dp"
+                        android:id="@+id/realUsername"
+                        android:layout_width="188dp"
                         android:layout_height="40dp"
-                        android:gravity="center"
-                        android:text="@string/username2"
-                        android:textAlignment="textEnd"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toTopOf="@id/staticRating"
-                        app:layout_constraintEnd_toStartOf="@id/realUsername"
+                        android:gravity="center_vertical"
+                        android:text="Admin"
+                        android:textSize="28sp"
+                        app:autoSizeTextType="uniform"
+                        app:autoSizeMinTextSize="16sp"
+                        app:autoSizeMaxTextSize="28sp"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@+id/ratingLayout"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/realUsername"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:text="Admin"
-                        android:textSize="18sp"
-                        android:layout_marginStart="10dp"
-                        app:layout_constraintBottom_toTopOf="@+id/ratingLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/staticUsername"
-                        app:layout_constraintTop_toTopOf="parent" />
-
-                    <TextView
                         android:id="@+id/staticRating"
-                        android:layout_width="100dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center_vertical"
                         android:text="@string/rating"
@@ -90,8 +80,7 @@
                         android:textSize="18sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/ratingLayout"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/staticUsername" />
+                        app:layout_constraintStart_toStartOf="parent" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/ratingLayout"
@@ -124,16 +113,29 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/bio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:text="Here will be the bio of the user."
+                android:textColor="@color/colorAccent"
+                android:textStyle="italic"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/layoutForLevel"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutWithImage" />
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layoutForLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
                 android:padding="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/commentRecycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/layoutWithImage">
+                app:layout_constraintTop_toBottomOf="@id/bio">
 
                 <TextView
                     android:id="@+id/englishTextView"
@@ -142,6 +144,7 @@
                     android:layout_marginStart="20dp"
                     android:text="English Level: "
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/englishLevel"
                     app:layout_constraintStart_toStartOf="parent"
@@ -165,6 +168,7 @@
                     android:layout_height="wrap_content"
                     android:text="German Level: "
                     android:textSize="18sp"
+                    android:textStyle="bold"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/germanLevel"
                     app:layout_constraintStart_toEndOf="@id/englishLevel"
@@ -183,6 +187,18 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/commentRecycler"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutForLevel"
+                tools:listitem="@layout/comment">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

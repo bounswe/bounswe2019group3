@@ -63,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void signedIn(String message){
+    public void signedIn(String message, String username){
         Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         intent.putExtra("isNew", false);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
@@ -92,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("request", response.toString());
                 if(response.code() == 200) {
                     User user = response.body();
-                    signedIn("Welcome " + user.username + "! ");
+                    signedIn("Welcome " + user.username + "! ", username);
                 } else {
                     toast("Your email/password combination does not match.");
                 }

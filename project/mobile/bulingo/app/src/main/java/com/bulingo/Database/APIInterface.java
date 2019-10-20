@@ -43,5 +43,14 @@ public interface APIInterface {
     @GET("/api/language/{language_abbr}/exam/questions")
     Call<List<Question>> doGetExamQuestions(@Path("language_abbr") String abbr);
 
+    @GET("/api/user/{username}/")
+    Call<User> doGetUserDetails(@Path("username") String username);
+
+    @GET("/api/user/{username}/language/level/")
+    Call<List<Language>> doGetUserLevels(@Path("username") String username);
+
+    @GET("/api/user/{username}/comments/")
+    Call<List<Comment>> doGetUserComments(@Path("username") String username);
+
 
 }
