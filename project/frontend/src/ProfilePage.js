@@ -97,9 +97,9 @@ export default class FormPage extends React.Component {
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
           <MDBCol md="2"></MDBCol>
           <MDBCol md="3"><div className="Scrollbar topMargined">
-                        <div > <p className="commentsec_usrname marginedleft" >{ this.props.location.state.username}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.language}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.grade}</p> </div>
+                        <div > <p className="commentsec_usrname marginedleft" >{Cookies.get('username')}</p> </div>
+                        <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamLanguage')}</p> </div>
+                        <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamGrade')}</p> </div>
                         <div className="Bio"><p className = "commentsec_usrname">My Biography</p>
                         Hello there, I am Hatice! <br/>
                         I am a third year English Literature student in Boğaziçi University.
