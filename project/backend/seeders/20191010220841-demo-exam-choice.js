@@ -299,7 +299,7 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    const ids = [...Array(30).keys()];
+    const ids = [...Array(40).keys()];
     return queryInterface.bulkDelete('ExamChoices', 
       {id: {[Sequelize.Op.in]: ids}}, {});
   }

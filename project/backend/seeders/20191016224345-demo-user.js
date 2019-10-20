@@ -4,6 +4,24 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert('Users',[
       {
+          username:   "admin",
+          email:      "email1",
+          bio:        "Anonymous",
+          avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
+          rating:     5.0,
+          createdAt:  new Date(),
+          updatedAt:  new Date()
+      },
+      {
+          username:   "user",
+          email:      "email2",
+          bio:        "Anonymous",
+          avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
+          rating:     5.0,
+          createdAt:  new Date(),
+          updatedAt:  new Date()
+      },
+      {
           username:   "lazyostrich850",
           email:      "robby.vanbaren@example.com",
           bio:        "I am Robby Van Baren, and I live in Wessem, Netherlands.I want to learn foreign languages.",
@@ -38,26 +56,13 @@ module.exports = {
           rating:     5.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
-      },
-      {
-          username:   "admin",
-          email:      "admin@boun.edu.tr",
-          bio:        "Anonymous.",
-          avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
-          rating:     5.0,
-          createdAt:  new Date(),
-          updatedAt:  new Date()
       }
     ]);
   },
 
   down: (queryInterface, Sequelize) => {
-    // const ids = [...Array(5).keys()];
-    // return queryInterface.bulkDelete('Users', 
-    //   {id: {[Sequelize.Op.in]: ids}});
-
     return queryInterface.bulkDelete('Users', 
-    {username: {[Sequelize.Op.in]: ["lazyostrich850", "angrydog556", "browncat819", "orangelion929", "admin"]}}
+    {username: {[Sequelize.Op.in]: ["admin", "user", "lazyostrich850", "angrydog556", "browncat819", "orangelion929", "admin"]}}
     );
   }
 };

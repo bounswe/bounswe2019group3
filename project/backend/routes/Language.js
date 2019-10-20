@@ -32,7 +32,11 @@ router.get('/', (req, res, next) => {
  * @apiSuccess {String} questions.choices.desc   answer choices description
  */
 router.get('/:language_abbr/exam/questions', (req, res, next) => {
-    if(!req.params.language_abbr){
+
+    if(!req.session.user){
+        res.sendStatus(403);
+    }
+    else if(!req.params.language_abbr){
         res.sendStatus(400);
     }else{
         let db = req.db;
@@ -68,7 +72,10 @@ router.get('/:language_abbr/exam/questions', (req, res, next) => {
  * @apiSuccess {String}   grade  result of evaluation
  */
 router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
-    if(!req.params.language_abbr){
+    if(!req.session.user){
+        res.sendStatus(403);
+    }
+    else if(!req.params.language_abbr){
         res.sendStatus(400);
     } else {
         const db = req.db;
@@ -129,6 +136,38 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
                     else if (success_rate==1) {
                         grade = 'C2'
                     }
+                    db.User.findOne({
+                        where: { username: req.session.user.username },
+                    }).then(function (user) {
+                        db.Level.findOne({
+                            attributes: ['lang_abbr', 'grade'],
+                            where: { 
+                                belongs_to : user.username,
+                                lang_abbr: req.params.language_abbr
+                            }
+                        }).then(function (prv_grade){
+                            if(prv_grade){
+                                db.Level.update({
+                                    grade: grade,
+                                    updatedAt:  new Date()
+                                },
+                                {where: {
+                                    belongs_to:  user.username,
+                                    lang_abbr: req.params.language_abbr,
+                                }}
+                                );
+                            }
+                            else{
+                                db.Level.create({
+                                    belongs_to: user.username,
+                                    lang_abbr: req.params.language_abbr,
+                                    grade: grade,
+                                    createdAt:  new Date(),
+                                    updatedAt:  new Date()
+                                })
+                            }
+                        })
+                    });
                     res.send({grade});
                 }
         });

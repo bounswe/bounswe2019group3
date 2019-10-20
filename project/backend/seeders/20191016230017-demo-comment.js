@@ -48,9 +48,6 @@ module.exports = {
   },
 
   down: (queryInterface, Sequelize) => {
-    // const ids = [...Array(5).keys()];
-    // return queryInterface.bulkDelete('Comments', 
-    //   {id: {[Sequelize.Op.in]: ids}});
     return queryInterface.bulkDelete('Comments', 
     {comment_to: {[Sequelize.Op.in]: ["lazyostrich850", "angrydog556", "browncat819", "orangelion929"]}}
     );
