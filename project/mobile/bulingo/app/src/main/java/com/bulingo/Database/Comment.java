@@ -12,7 +12,7 @@ public class Comment {
     public String comment_by;
     @SerializedName("comment_to")
     public String comment_to;
-    @SerializedName("created_at")
+    @SerializedName("createdAt")
     public String created_at;
 
 }
