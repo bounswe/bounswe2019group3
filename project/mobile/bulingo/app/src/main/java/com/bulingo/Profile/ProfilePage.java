@@ -4,12 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Language;
 import com.bulingo.Database.User;
 import com.bulingo.R;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
@@ -46,7 +50,21 @@ public class ProfilePage extends AppCompatActivity {
             public void onResponse(Call<User> call, Response<User> response) {
                 Log.d("request", response.toString());
                 if(response.code() == 200) {
-
+                    User u = response.body();
+                    TextView name = findViewById(R.id.realUsername);
+                    TextView bio = findViewById(R.id.bio);
+                    ImageView avatar = findViewById(R.id.imageView);
+                    RatingBar rating = findViewById(R.id.ratingBar);
+                    name.setText(username);
+                    bio.setText(u.bio);
+                    rating.setRating(u.rating);
+                    String imagePath = u.avatar;
+                    Glide.with(getApplicationContext())
+                            .load(imagePath)
+                            .centerCrop()
+                            .placeholder(R.drawable.girl)
+                            .error(R.drawable.girl)
+                            .into(avatar);
                 } else {
                 }
             }

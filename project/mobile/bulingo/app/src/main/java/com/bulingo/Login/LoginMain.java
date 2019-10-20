@@ -3,6 +3,7 @@ package com.bulingo.Login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -28,14 +29,20 @@ public class LoginMain extends AppCompatActivity {
 
     APIInterface apiInterface;
     String username;
+    private SharedPreferences preferences;
+    private String usernamePref = "PREF_USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         setContentView(R.layout.activity_log_in_main);
         String message = getIntent().getStringExtra("message");
         username = getIntent().getStringExtra("username");
+        if(username == null) {
+            username = preferences.getString(usernamePref, "User");
+        }
         TextView text = findViewById(R.id.textView);
         text.setText(message);
 

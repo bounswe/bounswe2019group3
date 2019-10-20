@@ -20,7 +20,7 @@
             android:id="@+id/layoutWithLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
             android:padding="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -132,6 +132,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="8dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@id/commentRecycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -189,11 +190,12 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/commentRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/commentRecycler"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/layoutForLevel"
                 tools:listitem="@layout/comment">
