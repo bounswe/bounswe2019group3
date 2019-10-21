@@ -1,6 +1,5 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import Question from "./containers/Question";
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import Popup from './Popup';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -36,9 +35,9 @@ export default class GeneralTest extends React.Component {
         
         var ques = [];
 
-        // for (let i = 0; i < this.state.questions.length; i++) {
-        //     ans[i] = { question_id: "" + this.state.questions[i].id, choice_id: "" };
-        // }
+         for (let i = 0; i < this.state.questions.length; i++) {
+             ans[i] = { question_id: "" + this.state.questions[i].id, choice_id: undefined };
+         }
         //var questionAnswer = [];     
         for (let i = 0; i < this.state.questions.length; i++) {
             
@@ -67,7 +66,7 @@ export default class GeneralTest extends React.Component {
                             </div>
                             <div>
                                 <input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].id, i, ans)} />
-                                <label for="c">{this.state.questions[i].choices[3].desc}</label>
+                                <label for="d">{this.state.questions[i].choices[3].desc}</label>
                             </div>
                         </div>
                     </fieldset>
