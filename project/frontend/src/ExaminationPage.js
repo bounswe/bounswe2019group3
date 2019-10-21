@@ -45,14 +45,25 @@ export default class ExaminationPage extends React.Component {
     }
 
     onLogout() {
-        Cookies.remove('username');
-        Cookies.remove('selectedExamLanguage');
-        Cookies.remove('selectedExamGrade');
-        Cookies.remove('selectedExamLanguageAbbr')
-        this.setState({
-            isLogout: true
-        });
-    };
+        axios.post('http://18.184.207.248/api/auth/logout', {withCredentials: true})
+          .then(res => {
+            //console.log(res);
+            if (res.status === 200) {
+              Cookies.remove('username');
+              Cookies.remove('selectedExamLanguage');
+              Cookies.remove('selectedExamGrade');
+              Cookies.remove('selectedExamLanguageAbbr')
+              this.setState({
+                isLogout: true
+              });
+            }else{
+              console.log("Log out failed");
+            }
+    
+          });
+    
+        
+      };
 
     render() {
         if (this.state.isLogout) {

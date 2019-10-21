@@ -1,10 +1,11 @@
  
 import React from "react";
-import { MDBBtn, MDBContainer, MDBIcon ,MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
+import { MDBBtn, MDBContainer ,MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader } from 'mdbreact';
 import './SignUp.css';
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
+import { Redirect} from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
 import Cookies from 'js-cookie'
+import axios from "axios";
 
 export default class FormPage extends React.Component {
 
@@ -47,13 +48,24 @@ export default class FormPage extends React.Component {
   };
 
   onLogout() {
-    Cookies.remove('username');
-    Cookies.remove('selectedExamLanguage');
-    Cookies.remove('selectedExamGrade');
-    Cookies.remove('selectedExamLanguageAbbr')
-    this.setState({
-      isLogout: true
-    });
+    axios.post('http://18.184.207.248/api/auth/logout', {withCredentials: true})
+      .then(res => {
+        //console.log(res);
+        if (res.status === 200) {
+          Cookies.remove('username');
+          Cookies.remove('selectedExamLanguage');
+          Cookies.remove('selectedExamGrade');
+          Cookies.remove('selectedExamLanguageAbbr')
+          this.setState({
+            isLogout: true
+          });
+        }else{
+          console.log("Log out failed");
+        }
+
+      });
+
+    
   };
 
   render() {
