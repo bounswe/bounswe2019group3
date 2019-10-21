@@ -1,5 +1,4 @@
 import React from 'react';
-import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
 
 
 export default class Question extends React.Component {

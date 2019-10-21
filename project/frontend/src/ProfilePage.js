@@ -1,9 +1,10 @@
+ 
 import React from "react";
 import { MDBBtn, MDBContainer, MDBIcon ,MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
 import './SignUp.css';
 import { Redirect, NavLink, withRouter } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
-
+import Cookies from 'js-cookie'
 
 export default class FormPage extends React.Component {
 
@@ -26,42 +27,62 @@ export default class FormPage extends React.Component {
                 data: [2.7, 4, 4.3, 7, 4]
               }
             ]
-          }
-        }
-      }
-    
-      goToExercises(){
-        this.setState({ 
-            exercises: true,
-            writing: false
-        });
-      }
 
-      goToSendWriting() {
-        this.setState({ 
-            exercises: false,
-            writing: true 
-        });
+          }
+        ]
+      }
+    }
+  }
+
+  goToExercises() {
+    this.setState({
+      exercises: true,
+      writing: false
+    });
+  };
+
+  goToSendWriting() {
+    this.setState({
+      exercises: false,
+      writing: true
+    });
+  };
+
+  onLogout() {
+    Cookies.remove('username');
+    Cookies.remove('selectedExamLanguage');
+    Cookies.remove('selectedExamGrade');
+    Cookies.remove('selectedExamLanguageAbbr')
+    this.setState({
+      isLogout: true
+    });
+  };
+
+  render() {
+    if (this.state.isLogout) {
+      return (<Redirect
+        to={{
+          pathname: "/"
+        }}
+      />);
+    }
+    if (this.state.exercises) {
+      return (<Redirect
+        to={{
+          pathname: "/exam"
+        }}
+      />);
     }
 
-    render() {
-          
-        if (this.state.exercises) {
-            return (<Redirect
-              to={{
-                pathname: "/exam"
-              }}
-            />);
-        }
+    if (this.state.writing) {
+      return (<Redirect
+        to={{
+          pathname: "/writing"
+        }}
+      />);
+    }
 
-        if (this.state.writing) {
-            return (<Redirect
-              to={{
-                pathname: "/writing"
-              }}
-            />);
-          }
-
+ 
           //console.log("this.props.location.state", this.props.location.state)
         return (
 
@@ -77,9 +98,9 @@ export default class FormPage extends React.Component {
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                     <MDBCol md="2"></MDBCol>
                     <MDBCol md="3"><div className="Scrollbar topMargined">
-                        <div > <p className="commentsec_usrname marginedleft" >{ this.props.location.state.username}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.language}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.grade}</p> </div>
+                        <div > <p className="commentsec_usrname marginedleft" >{Cookies.get('username')}</p> </div>
+                        <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamLanguage')}</p> </div>
+                        <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamGrade')}</p> </div>
                         <div className="Bio"><p className = "commentsec_usrname">My Biography</p>
                         Hello there, I am Hatice! <br/>
                         I am a third year English Literature student in Boğaziçi University.
@@ -106,9 +127,10 @@ export default class FormPage extends React.Component {
                          </div>
 
                     </div></MDBCol>
-                    <MDBCol md="3">
-                        <div className="Scrollbar topMargined">
-                            <div className="Comment">
+          <MDBCol md="3">
+            <div className="Scrollbar topMargined">
+             <div className="Comment">
+
                               <p className = "commentsec_usrname">James.Smith</p>
                               <p className = "commentsec_title">Very increadible grammar knowledge!</p>
                               <p>Thanks for reviewing my essay so detailed and spending 
@@ -145,20 +167,27 @@ export default class FormPage extends React.Component {
                             
 
                         </div>
-                    </MDBCol>
-                    <MDBCol md="4">
-                        <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
-                        <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exercises</MDBBtn>
-                        <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
-                        </div></center>
-                        <MDBCard className="mb-5 topMargined">
-                            <MDBCardHeader>Language levels</MDBCardHeader>
-                            <MDBCardBody>
-                            <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-        );
-    }
+          </MDBCol>
+          <MDBCol md="4">
+            <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
+              <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exercises</MDBBtn>
+              <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
+            </div></center>
+            <MDBCard className="mb-5 topMargined">
+              <MDBCardHeader>Language levels</MDBCardHeader>
+              <MDBCardBody>
+                <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
+            </MDBCard>
+
+            <MDBRow>
+              <MDBCol md="12">
+                <MDBBtn color="orange" onClick={this.onLogout.bind(this)} className="text2">Logout</MDBBtn>
+              </MDBCol>
+            </MDBRow>
+
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    );
+  }
 }

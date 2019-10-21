@@ -1,37 +1,34 @@
-import React, { Component } from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
+import React from 'react';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import './SignUp.css';
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
-import { thisExpression } from '@babel/types';
+import Cookies from 'js-cookie'
 
 
 export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
-        var responseStatus =[] ;
         axios.get('http://18.184.207.248/api/language/')
-      .then(res => {
-        
-        responseStatus = res.data;
-        this.setState({languages: responseStatus});
-        console.log(responseStatus[0]);
-      })
+            .then(res => {
+                this.setState({ languages: res.data });
+            })
         this.state = {
-            selectedLanguage : "",
-            languages : []
+            selectedLanguage: "",
+            languages: [],
+            isLogout : false
         }
     }
 
 
-    languageButtons(){
+    languageButtons() {
         var lang = [];
-        for(let i=0 ; i < this.state.languages.length ; i++){
+        for (let i = 0; i < this.state.languages.length; i++) {
             lang[i] = (
-                <MDBBtn 
+                <MDBBtn
                     color="orange"
-                    id= {this.state.languages[i].abbr}
-                    onClick={() => this.goToExam(this.state.languages[i].name)}
+                    id={this.state.languages[i].abbr}
+                    onClick={() => this.goToExam(this.state.languages[i].name, this.state.languages[i].abbr)}
                     className="text2 btn-block "
                 >{this.state.languages[i].name} </MDBBtn>
             );
@@ -39,26 +36,44 @@ export default class ExaminationPage extends React.Component {
         return lang;
     }
 
-    goToExam(lang){
-        this.setState({ 
-            selectedLanguage : lang
+    goToExam(lang, abbr) {
+        Cookies.set('selectedExamLanguage', lang);
+        Cookies.set('selectedExamLanguageAbbr', abbr);
+        this.setState({
+            selectedLanguage: lang
         });
     }
 
-    
+    onLogout() {
+        Cookies.remove('username');
+        Cookies.remove('selectedExamLanguage');
+        Cookies.remove('selectedExamGrade');
+        Cookies.remove('selectedExamLanguageAbbr')
+        this.setState({
+            isLogout: true
+        });
+    };
 
     render() {
-
-
-        if (this.state.selectedLanguage !== "") {
+        if (this.state.isLogout) {
             return (<Redirect
-              to={{
-                pathname: "/" + this.state.selectedLanguage
-              }}
+                to={{
+                    pathname: "/"
+                }}
             />);
         }
-           
-        
+        if (this.state.selectedLanguage !== "") {
+            return (<Redirect
+                to={{
+                    pathname: "/generalTest",
+                    state: {
+                        examLanguage: this.state.selectedLanguage
+                    }
+                }}
+            />);
+        }
+
+
         return (
             <MDBContainer fluid>
 
@@ -84,9 +99,14 @@ export default class ExaminationPage extends React.Component {
                     </MDBCol>
                     <MDBCol md="1"></MDBCol>
                     <MDBCol md="2">
-                    { this.languageButtons() }
+                        {this.languageButtons()}
                     </MDBCol>
-                    
+
+                </MDBRow>
+                <MDBRow>
+                    <MDBCol md="12">
+                        <MDBBtn color="orange" onClick={this.onLogout.bind(this)} className="text2">Logout</MDBBtn>
+                    </MDBCol>
                 </MDBRow>
             </MDBContainer>
         );
