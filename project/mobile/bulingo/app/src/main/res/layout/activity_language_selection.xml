@@ -13,6 +13,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
+        android:layout_marginTop="20dp"
         android:contentDescription="@string/earth"
         app:layout_constraintBottom_toTopOf="@id/languageSelectText"
         app:layout_constraintEnd_toEndOf="parent"

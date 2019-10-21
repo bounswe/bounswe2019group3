@@ -41,18 +41,19 @@
                     android:layout_width="137dp"
                     android:layout_height="137dp"
                     android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@id/bio"
+                    app:layout_constraintBottom_toTopOf="@id/email"
                     app:layout_constraintEnd_toStartOf="@id/fourLayout"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/girl" />
+                    />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/fourLayout"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"
-                    app:layout_constraintBottom_toTopOf="@id/bio"
+                    android:layout_marginBottom="14dp"
+                    app:layout_constraintBottom_toTopOf="@id/email"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/imageView"
                     app:layout_constraintTop_toTopOf="parent">
@@ -113,11 +114,33 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:text="abdeded@email.com"
+                    android:textSize="16sp"
+                    app:autoSizeTextType="uniform"
+                    app:autoSizeMinTextSize="14sp"
+                    app:autoSizeMaxTextSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/bio"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+
                 <TextView
                     android:id="@+id/bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="24dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginBottom="24dp"
                     android:text="Here will be the bio of the user."
                     android:textColor="@color/colorAccent"
                     android:textStyle="italic"
@@ -125,7 +148,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@id/email" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -134,9 +157,9 @@
                 android:id="@+id/layoutForLevel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:padding="8dp"
                 app:layout_constraintBottom_toTopOf="@id/commentRecycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -51,7 +51,9 @@ public class ResultActivity extends AppCompatActivity {
                 if(response.code() == 200) {
                     Grade g = response.body();
                     TextView result = findViewById(R.id.examResult);
+                    TextView detail = findViewById(R.id.examDetailResult);
                     result.setText(g.grade);
+                    detail.setText(calculateRate(g.grade));
                 } else {
                 }
             }
@@ -64,6 +66,10 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
 
+    private String calculateRate(String grade) {
+        return String.format("You have correctly solved %d%s of the questions.", (grade.charAt(0) - 'A') * 40 +
+                (Integer.parseInt(String.valueOf(grade.charAt(1))) - 1) * 20, "%");
+    }
 
     public static JsonArray answersToJsonArray(int[] answers, int[] questions) {
         JsonArray paramArray = new JsonArray();

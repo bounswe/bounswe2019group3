@@ -137,15 +137,15 @@ public class ProfilePage extends AppCompatActivity {
                     TextView bio = findViewById(R.id.bio);
                     ImageView avatar = findViewById(R.id.imageView);
                     RatingBar rating = findViewById(R.id.ratingBar);
+                    TextView email = findViewById(R.id.email);
                     name.setText(username);
                     bio.setText(u.bio);
+                    email.setText(u.email);
                     rating.setRating(u.rating);
                     String imagePath = u.avatar;
                     Glide.with(getApplicationContext())
                             .load(imagePath)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                            .placeholder(R.drawable.girl)
-                            .error(R.drawable.girl)
                             .into(avatar);
                 } else {
                     toast();
