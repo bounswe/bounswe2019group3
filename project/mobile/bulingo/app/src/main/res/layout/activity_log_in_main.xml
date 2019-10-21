@@ -45,6 +45,17 @@
         app:strokeColor="@color/colorAccent"
         app:strokeWidth="5dp" />
 -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
@@ -123,5 +134,7 @@
         app:rippleColor="@color/colorAccent"
         app:strokeColor="@color/colorAccent"
         app:strokeWidth="5dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

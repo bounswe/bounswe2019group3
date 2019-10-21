@@ -3,6 +3,7 @@ package com.bulingo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -26,11 +27,14 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
+    private SharedPreferences prefs;
+    private String usernamePref = "PREF_USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         HashSet<String > preferences = (HashSet<String>) PreferenceManager.getDefaultSharedPreferences(this).getStringSet("PREF_COOKIES", new HashSet<String>());
         Log.d("cookie", preferences.toString());
         if(!preferences.isEmpty()){
@@ -63,10 +67,14 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void signedIn(String message){
+    public void signedIn(String message, String username){
+        SharedPreferences.Editor preferencesEditor = prefs.edit();
+        preferencesEditor.putString(usernamePref, username);
+        preferencesEditor.apply();
         Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         intent.putExtra("isNew", false);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
@@ -92,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("request", response.toString());
                 if(response.code() == 200) {
                     User user = response.body();
-                    signedIn("Welcome " + user.username + "! ");
+                    signedIn("Welcome " + user.username + "! ", username);
                 } else {
                     toast("Your email/password combination does not match.");
                 }
