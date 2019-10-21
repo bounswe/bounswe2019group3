@@ -51,7 +51,7 @@ export default class FormPage extends React.Component {
     axios.post('http://18.184.207.248/api/auth/logout', {withCredentials: true})
       .then(res => {
         //console.log(res);
-        if (res.status === 200) {
+        if (res.status === 204) {
           Cookies.remove('username');
           Cookies.remove('selectedExamLanguage');
           Cookies.remove('selectedExamGrade');
@@ -180,7 +180,7 @@ export default class FormPage extends React.Component {
           </MDBCol>
           <MDBCol md="4">
             <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
-              <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exercises</MDBBtn>
+              <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exams</MDBBtn>
               <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
             </div></center>
             <MDBCard className="mb-5 topMargined">
