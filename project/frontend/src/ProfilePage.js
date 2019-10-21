@@ -27,12 +27,10 @@ export default class FormPage extends React.Component {
                 data: [2.7, 4, 4.3, 7, 4]
               }
             ]
-
           }
-        ]
       }
     }
-  }
+
 
   goToExercises() {
     this.setState({

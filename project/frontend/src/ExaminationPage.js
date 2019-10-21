@@ -9,7 +9,7 @@ import Cookies from 'js-cookie'
 export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://18.184.207.248/api/language/')
+        axios.get('http://18.184.207.248/api/language/', {withCredentials: true})
             .then(res => {
                 this.setState({ languages: res.data });
             })
