@@ -48,7 +48,7 @@ export default class ExaminationPage extends React.Component {
         axios.post('http://18.184.207.248/api/auth/logout', {withCredentials: true})
           .then(res => {
             //console.log(res);
-            if (res.status === 200) {
+            if (res.status === 204) {
               Cookies.remove('username');
               Cookies.remove('selectedExamLanguage');
               Cookies.remove('selectedExamGrade');
