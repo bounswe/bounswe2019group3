@@ -1,7 +1,7 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
@@ -40,7 +40,7 @@ export default class FormPage1 extends React.Component {
     console.log(this.state.authenticated);
     if (this.state.authenticated) {
       return (<Redirect
-        to={{
+        push to={{
           pathname: "/profile"
         }}
       />);

@@ -68,14 +68,14 @@ export default class ExaminationPage extends React.Component {
     render() {
         if (this.state.isLogout) {
             return (<Redirect
-                to={{
+                push to={{
                     pathname: "/"
                 }}
             />);
         }
         if (this.state.selectedLanguage !== "") {
             return (<Redirect
-                to={{
+                push to={{
                     pathname: "/generalTest",
                     state: {
                         examLanguage: this.state.selectedLanguage

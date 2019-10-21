@@ -71,14 +71,14 @@ export default class FormPage extends React.Component {
   render() {
     if (this.state.isLogout) {
       return (<Redirect
-        to={{
+        push to={{
           pathname: "/"
         }}
       />);
     }
     if (this.state.exercises) {
       return (<Redirect
-        to={{
+        push to={{
           pathname: "/exam"
         }}
       />);
@@ -86,7 +86,7 @@ export default class FormPage extends React.Component {
 
     if (this.state.writing) {
       return (<Redirect
-        to={{
+        push to={{
           pathname: "/writing"
         }}
       />);

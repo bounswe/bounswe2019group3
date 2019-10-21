@@ -111,7 +111,7 @@ export default class GeneralTest extends React.Component {
     render() {
         if (this.state.submitted) {
             return (<Redirect
-                to={{
+                push to={{
                     pathname: "/profile"
                 }}
             />);

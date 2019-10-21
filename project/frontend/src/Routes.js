@@ -7,7 +7,10 @@ import ExaminationPage from './ExaminationPage';
 import GeneralTest from './GeneralTest';
 
 
+
 class Routes extends React.Component {
+
+  
 
   render() {
     
@@ -19,6 +22,7 @@ class Routes extends React.Component {
           <Route path='/signin' component={SignIn} />
           <Route path='/exam' component={ExaminationPage} />
           <Route path='/generalTest' component={GeneralTest} />
+
         </Switch>
       );
   }
