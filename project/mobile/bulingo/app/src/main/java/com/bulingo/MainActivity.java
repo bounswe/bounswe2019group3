@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
     public void signedIn(String message){
         Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
+        intent.putExtra("isNew", false);
         startActivity(intent);
     }
 

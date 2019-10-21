@@ -1,8 +1,20 @@
 
 const router = require('express').Router()
-
+/**
+ * @api {get} /api/user/ returns all users
+ * @apiName get all users
+ * @apiGroup user
+ * @apiPermission User
+ * @apiSuccess {Object}   user                              user object
+ * @apiSuccess {String}   user.username                     username
+ */
 router.get("/", (req, res, next) => {
-    res.sendStatus(501);
+    const db = req.db;
+    db.User.findAll({
+        attributes: ['username'],
+    }).then(function (users) {
+        res.send(users);
+    });
 });
 
 /**
@@ -31,7 +43,13 @@ router.post("/:username/", (req, res, next) => {
  * @apiSuccess {Float}    user.rating                       rating from comments
  */
 router.get("/:username/", (req, res, next) => {
-    res.sendStatus(501);
+    const db = req.db;
+    db.User.findOne({
+        attributes: ['username', 'email', 'bio', 'avatar', 'rating'],
+        where: { username: req.params.username }
+    }).then(function (user) {
+        res.send(user);
+    });
 });
 
 /**
@@ -40,11 +58,24 @@ router.get("/:username/", (req, res, next) => {
  * @apiGroup user
  * @apiPermission User
  * @apiSuccess {Object[]} comments                     comments
- * @apiSuccess {String}   comments.rating              comment rating
  * @apiSuccess {String}   comments.text                comment text
+ * @apiSuccess {String}   comments.rating              comment rating
+ * @apiSuccess {String}   comments.comment_by          author of comment
+ * @apiSuccess {String}   comments.comment_to          target of comment
+ * @apiSuccess {String}   comments.createdAt           creation time of comment 
  */
-router.get("/:username/comment/", (req, res, next) => {
-    res.sendStatus(501);
+router.get("/:username/comments/", (req, res, next) => {
+    const db = req.db;
+    db.User.findOne({
+        where: { username: req.params.username },
+    }).then(function (user) {
+        db.Comment.findAll({
+            attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
+            where: { comment_to : user.username }
+        }).then(function (comments){
+            res.send(comments);
+        })
+    });
 });
 
 /**
@@ -57,7 +88,19 @@ router.get("/:username/comment/", (req, res, next) => {
  * @apiSuccess {String}   language_levels.grade        language level
  */
 router.get("/:username/language/level", (req, res, next) => {
-    res.sendStatus(501);
+    const db = req.db;
+    db.User.findOne({
+        where: { username: req.params.username },
+    }).then(function (user) {
+        db.Level.findAll({
+            attributes: ['lang_abbr', 'grade'],
+            where: { 
+                belongs_to : user.username,
+            }
+        }).then(function (grades){
+            res.send(grades);
+        })
+    });
 });
 
 module.exports = {router};

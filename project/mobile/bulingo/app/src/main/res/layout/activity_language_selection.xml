@@ -7,116 +7,44 @@
     tools:context="com.bulingo.Exercises.LanguageSelection"
     android:background="@android:color/white">
 
-    <ScrollView
+
+    <ImageView
+        android:id="@+id/orange_world"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="center"
+        android:contentDescription="@string/earth"
+        app:layout_constraintBottom_toTopOf="@id/languageSelectText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/orange_world" />
+
+    <TextView
+        android:id="@+id/languageSelectText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium_italic"
+        android:text="@string/chooseLanguage"
+        android:textAlignment="center"
+        android:maxWidth="300dp"
+        android:textColor="@color/colorAccent"
+        android:textSize="32sp"
+        app:layout_constraintBottom_toTopOf="@+id/language"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/orange_world"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/languageRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintTop_toBottomOf="@id/languageSelectText"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+        tools:listitem="@layout/language_button">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dp"
-            android:layout_gravity="center">
+    </androidx.recyclerview.widget.RecyclerView>
 
-
-            <ImageView
-                android:id="@+id/orange_world"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:contentDescription="@string/earth"
-                app:layout_constraintBottom_toTopOf="@id/languageSelectText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/orange_world" />
-
-            <TextView
-                android:id="@+id/languageSelectText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/ubuntu_medium_italic"
-                android:text="@string/chooseLanguage"
-                android:textAlignment="center"
-                android:maxWidth="300dp"
-                android:textColor="@color/colorAccent"
-                android:textSize="32sp"
-                app:layout_constraintBottom_toTopOf="@+id/english"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/orange_world"
-                app:layout_constraintStart_toStartOf="parent" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/english"
-                style="@style/language_button"
-                android:layout_marginTop="30dp"
-                android:onClick="onClickLanguageSelect"
-                android:text="@string/englishText"
-                app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toTopOf="@id/turkish"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/languageSelectText"
-                app:rippleColor="@color/colorAccent"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="5dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/turkish"
-                style="@style/language_button"
-                android:text="@string/turkishText"
-                android:layout_marginTop="20dp"
-                android:onClick="onClickLanguageSelect"
-                app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toTopOf="@id/german"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/english"
-                app:rippleColor="@color/colorAccent"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="5dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/german"
-                style="@style/language_button"
-                android:text="@string/germanText"
-                android:layout_marginTop="20dp"
-                android:onClick="onClickLanguageSelect"
-                app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toTopOf="@id/french"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/turkish"
-                app:rippleColor="@color/colorAccent"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="5dp" />
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/french"
-                style="@style/language_button"
-                android:text="@string/frenchText"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="30dp"
-                android:onClick="onClickLanguageSelect"
-                app:backgroundTint="@android:color/transparent"
-                app:cornerRadius="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/german"
-                app:rippleColor="@color/colorAccent"
-                app:strokeColor="@color/colorAccent"
-                app:strokeWidth="5dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

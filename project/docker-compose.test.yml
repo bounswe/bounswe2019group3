@@ -9,28 +9,14 @@ services:
       - "3000:3000"
       - "9229:9229"
     environment:
-      NODE_ENV: development
+      NODE_ENV: test
       PORT: 3000
     volumes:
       - ./backend:/backend
-
+    command: npm test
+  
   postgres:
     image: postgres:11.2-alpine
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bulingo
-    volumes:
-      - ./db-data:/var/lib/postgresql/data
-
-  nginx:
-   container_name: nginx
-   image: nginx:1.13
-   restart: always
-   ports:
-   - 80:80
-   - 443:443
-   volumes:
-   - ./nginx/conf.d:/etc/nginx/conf.d
-   - ./nginx/pages:/pages
-   depends_on:
-   - backend

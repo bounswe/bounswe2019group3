@@ -34,8 +34,16 @@ router.post("/signup", (req, res, next) => {
                     role: "USER"
                 })
                 .then((user) => {
-                    req.session.user = user
-                    res.sendStatus(204);
+                    db.User.create({
+                        username: user.username,
+                        email: user.email,
+                        bio: null,
+                        avatar: 'https://i.ibb.co/Jy2Z0QY/user.png',
+                        rating: null
+                    }).then(()=>{
+                        req.session.user = user
+                        res.sendStatus(204);
+                    });
                 });
             }
         });
@@ -57,6 +65,7 @@ router.post("/login", (req, res, next) => {
     }else {
         const db = req.db;
         db.Auth.findOne({
+            attributes: ['username', 'email', 'password'],
             where: db.Sequelize.or(
                 { username: req.body.id },
                 { email: req.body.id }

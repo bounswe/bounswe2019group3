@@ -1,20 +1,37 @@
 package com.bulingo.Exercises;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.bulingo.Database.APICLient;
+import com.bulingo.Database.APIInterface;
+import com.bulingo.Database.Question;
 import com.bulingo.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Exercise extends AppCompatActivity {
 
-    private ExerciseInfo info;
+    private List<Integer> answers = new ArrayList<>();
+    private List<Integer> questions = new ArrayList<>();
+    private int questionCounter = 0;
+    private List<Question> examQuestions =  new ArrayList<Question>();
+    APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
+    String abbr;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,51 +39,58 @@ public class Exercise extends AppCompatActivity {
         setContentView(R.layout.activity_exercise);
 
         Intent i = getIntent();
-        info = i.getParcelableExtra("info");
-
-        if(info != null){
-            doesIntentWork();
-        }
+        abbr = i.getStringExtra("abbr");
+        getQuestions(abbr);
     }
 
-    private void doesIntentWork(){
-        TextView questionNumber = findViewById(R.id.questionNumber);
-        TextView questionText = findViewById(R.id.question);
-
-        questionText.setText("This is a(n) " + info.getExerciseLanguage() + " question. This is a " +
-                info.getExerciseType() + " exam.");
-
-        questionNumber.setText("Question " + info.getQuestionNumber() + " ");
-    }
-
-    public void onClickNextQuestion(View v){
-
-        //Evaluate Answer
-        switch (v.getId()) {
-            case R.id.answer1:
-
-                break;
-            case R.id.answer2:
-
-                break;
-            case R.id.answer3:
-
-                break;
-            case R.id.answer4:
-
-                break;
-        }
-
-        if(isNextQuestionAvailable()){
-            Intent intent = new Intent(this, Exercise.class);
-            info.incrementQuestionNumber();
-            intent.putExtra("info", info);
+    public void nextQuestion() {
+        if(questionCounter >= examQuestions.size()) {
+            Intent intent = new Intent(this, ResultActivity.class);
+            int[] arr = new int[answers.size()];
+            int[] arr2 = new int[answers.size()];
+            for(int i=0; i<answers.size(); i++){
+                arr[i] = answers.get(i);
+                arr2[i] = questions.get(i);
+            }
+            intent.putExtra("answers", arr);
+            intent.putExtra("questions", arr2);
+            intent.putExtra("abbr", abbr);
             startActivity(intent);
+            finish();
+            return;
         }
+        ExerciseFragment e = ExerciseFragment.newInstance(examQuestions.get(questionCounter), ++questionCounter);
+        e.setOnClickAnswerListener(answerId -> {
+            answers.add(answerId);
+            questions.add(examQuestions.get(questionCounter-1).id);
+            nextQuestion();
+        });
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.exerciseFrag, e).commit();
+
     }
 
-    public boolean isNextQuestionAvailable(){
-        return true;
+    public void getQuestions(String abbr){
+
+        Call<List<Question>> responseCall = apiInterface.doGetExamQuestions(abbr);
+
+        responseCall.enqueue(new Callback<List<Question>>() {
+            @Override
+            public void onResponse(Call<List<Question>> call, Response<List<Question>> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200) {
+                    examQuestions = response.body();
+                    nextQuestion();
+                } else {
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Question>> call, Throwable t) {
+                Log.d("request", t.toString());
+            }
+
+        });
     }
 
     @Override

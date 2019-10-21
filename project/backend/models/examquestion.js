@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
     answer_id: {
       type: DataTypes.INTEGER
     }
-  }, {});
+  });
   ExamQuestion.associate = function(models) {
     models.ExamQuestion.hasMany(models.ExamChoice, {
       foreignKey: 'question_id',

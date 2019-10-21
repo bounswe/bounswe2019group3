@@ -1,6 +1,6 @@
  
 import React from "react";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
+import { MDBBtn, MDBContainer, MDBIcon ,MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
 import './SignUp.css';
 import { Redirect, NavLink, withRouter } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
@@ -8,25 +8,26 @@ import Cookies from 'js-cookie'
 
 export default class FormPage extends React.Component {
 
-  constructor(props) {
-    console.log(Cookies.get('username'));
-    super(props);
-    this.state = {
-      exercises: false,
-      writing: false,
-      isLogout: false,
-      dataRadar: {
-        labels: ["Listening", "Reading", "Writing", "Vocablory", "Grammar"],
-        datasets: [
-          {
-            label: "english",
-            backgroundColor: "rgba(245, 74, 85, 0.5)",
-            data: [3.25, 7, 6, 5, 5]
-          },
-          {
-            label: "german",
-            backgroundColor: "rgba(90, 173, 246, 0.5)",
-            data: [2.7, 4, 4.3, 7, 4]
+    constructor(props) {
+        super(props);
+        this.state = {
+          exercises : false,
+          writing: false,
+          dataRadar: {
+            labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+            datasets: [
+              {
+                label: "english",
+                backgroundColor: "rgba(245, 74, 85, 0.5)",
+                data: [3.25, 7, 6, 5, 5]
+              },
+              {
+                label: "german",
+                backgroundColor: "rgba(90, 173, 246, 0.5)",
+                data: [2.7, 4, 4.3, 7, 4]
+              }
+            ]
+
           }
         ]
       }
@@ -81,22 +82,22 @@ export default class FormPage extends React.Component {
       />);
     }
 
-    //console.log("this.props.location.state", this.props.location.state)
-    return (
+ 
+          //console.log("this.props.location.state", this.props.location.state)
+        return (
 
-      <MDBContainer fluid>
-        <MDBRow className="header">
-
-          <MDBCol md="10"><p className="rightaligned"></p></MDBCol>
-          <MDBCol md="2">
-            <img className="profilePic" src=".\profilePicture.png" alt="." width="50%" />
-          </MDBCol>
-
-        </MDBRow>
-        <MDBRow className="topMargined10">
-          <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-          <MDBCol md="2"></MDBCol>
-          <MDBCol md="3"><div className="Scrollbar topMargined">
+            <MDBContainer fluid>
+                <MDBRow className="header">
+                    
+                    <MDBCol md="10"><p className = "rightaligned"></p></MDBCol>
+                    <MDBCol md="2">
+                        <img className="profilePic" src=".\profilePicture.png" alt="." width="50%" />
+                    </MDBCol>
+                </MDBRow>
+                <MDBRow className = "topMargined10"> 
+                    <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
+                    <MDBCol md="2"></MDBCol>
+                    <MDBCol md="3"><div className="Scrollbar topMargined">
                         <div > <p className="commentsec_usrname marginedleft" >{Cookies.get('username')}</p> </div>
                         <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamLanguage')}</p> </div>
                         <div > <p className="commentsec_usrname" > {Cookies.get('selectedExamGrade')}</p> </div>
@@ -129,6 +130,7 @@ export default class FormPage extends React.Component {
           <MDBCol md="3">
             <div className="Scrollbar topMargined">
              <div className="Comment">
+
                               <p className = "commentsec_usrname">James.Smith</p>
                               <p className = "commentsec_title">Very increadible grammar knowledge!</p>
                               <p>Thanks for reviewing my essay so detailed and spending 
