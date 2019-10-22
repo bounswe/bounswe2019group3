@@ -45,7 +45,7 @@ export default class ExaminationPage extends React.Component {
     }
 
     onLogout() {
-        axios.post('http://18.184.207.248/api/auth/logout', {withCredentials: true})
+        axios.post('http://18.184.207.248/api/auth/logout', {}, {withCredentials: true})
           .then(res => {
             //console.log(res);
             if (res.status === 204) {
