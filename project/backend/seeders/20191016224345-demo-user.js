@@ -32,7 +32,7 @@ module.exports = {
       },
       {
           username:   "angrydog556",
-          email:      "zachary.pelletier@example.com",
+          email:      "zachary.pelletier@exarmple.com",
           bio:        "I am Zachary Pelletier, and I live in Fountainbleu, Canada.I want to learn foreign languages.",
           avatar:     "https://randomuser.me/api/portraits/men/42.jpg",
           rating:     5.0,
@@ -50,7 +50,7 @@ module.exports = {
       },
       {
           username:   "orangelion929",
-          email:      "zachary.pelletier@example.com",
+          email:      "elza.vieira@example.com",
           bio:        "I am Elza Vieira, and I live in Poços de Caldas, Brazil.I want to learn foreign languages.",
           avatar:     "https://randomuser.me/api/portraits/women/72.jpg",
           rating:     5.0,
