@@ -7,13 +7,11 @@ import ExaminationPage from './ExaminationPage';
 import GeneralTest from './GeneralTest';
 
 
-
 class Routes extends React.Component {
 
   
 
   render() {
-    
     return (
         <Switch>
           <Route path='/' exact component={SignIn} />
