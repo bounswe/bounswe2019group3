@@ -11,6 +11,15 @@
 .mx-md-m6{
   margin-top: 150px;
 }
+
+.row-margin{
+  margin-top:-150px ;
+}
+
+.header-padding{
+  padding-top:150px ;
+}
+
 .header{
   position: absolute;
   left: 0px;
@@ -53,8 +62,8 @@ h8{
   left: 10%;
 }
 .profilePic{
-  position: absolute;
-  top: -8.5vw;
+  max-width: 128px;
+  max-height: 128px;
   right: 0cm;
 }
 .rightaligned{
@@ -92,9 +101,7 @@ h8{
 .topMargined{
   margin-top: 1vw;
 }
-.topMargined50{
-  margin-top: 10vw;
-}
+
 .topMargined10{
   margin-top: 5vw;
 }

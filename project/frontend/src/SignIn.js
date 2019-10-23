@@ -12,7 +12,7 @@ export default class FormPage extends React.Component {
     this.state = {
       authenticated: false
     };
-    if(Cookies.get('username')){
+    if (Cookies.get('username')) {
       this.setState({ authenticated: true });
     }
   }
@@ -26,7 +26,7 @@ export default class FormPage extends React.Component {
     };
     //console.log(JSON.stringify(frm));
     var responseStatus;
-    axios.post('http://18.184.207.248/api/auth/login', frm, {withCredentials: true})
+    axios.post('http://18.184.207.248/api/auth/login', frm, { withCredentials: true })
       .then(res => {
         //console.log(res);
         responseStatus = res;
@@ -61,14 +61,12 @@ export default class FormPage extends React.Component {
 
       <MDBContainer fluid>
 
-        <MDBRow className="topMargined50">
+        <MDBRow >
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
             <img src=".\earth3.png" alt="." width="100%" />
           </MDBCol>
           <MDBCol className="margined" md="4">
-
-
             <form>
               <p className="text text-center mb-4">LOGIN</p>
               <div className="white-text">
@@ -95,18 +93,20 @@ export default class FormPage extends React.Component {
 
               </div>
               <table>
-                <tr>
-                  <td >
-                    <MDBBtn color="orange" onClick={this.onClickd.bind(this)} className="text2"> LOGIN</MDBBtn>
-                  </td>
-                  <td>
-                    Not a member? <br />
-                    <NavLink to="/signup">
-                      Sign Up
+                <thead></thead>
+                <tbody>
+                  <tr>
+                    <td >
+                      <MDBBtn color="orange" onClick={this.onClickd.bind(this)} className="text2"> LOGIN</MDBBtn>
+                    </td>
+                    <td>
+                      Not a member? <br />
+                      <NavLink to="/signup">
+                        Sign Up
                         </NavLink>
-                  </td>
-
-                </tr>
+                    </td>
+                  </tr>
+                </tbody>
               </table>
             </form>
           </MDBCol>
