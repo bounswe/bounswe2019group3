@@ -1,6 +1,6 @@
 
 import React from "react";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader } from 'mdbreact';
+import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBIcon } from 'mdbreact';
 import './SignUp.css';
 import { Redirect } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
@@ -57,12 +57,16 @@ export default class FormPage extends React.Component {
     for (let i = 0; i < this.state.comments.length; i++) {
       comm[i] = (
         <div className="Comment">
-          <p className="commentsec_usrname">{this.state.comments[i].comment_by}</p>
+
           <p className="commentsec_title">Very increadible grammar knowledge!</p>
           <p>{this.state.comments[i].text}</p>
+          
+          <p className="commentsec_usrname rightaligned small">{this.state.comments[i].comment_by}</p>
         </div>
       );
     }
+ 
+    
     return comm;
   }
 
@@ -70,7 +74,7 @@ export default class FormPage extends React.Component {
     var lan = [];
     for (let i = 0; i < this.state.languages.length; i++) {
       lan[i] = (
-        <MDBCol md="4" className="topMargined">
+        <MDBCol md="4" className="topMargined commentsec_usrname">
           <div >
             <p > {this.state.languages[i].lang_abbr} -> {this.state.languages[i].grade}  </p>
           </div>
@@ -146,57 +150,85 @@ export default class FormPage extends React.Component {
     return (
 
       <MDBContainer fluid>
-        <MDBRow >
+        <MDBRow>
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-          <MDBCol md="2">
-            <MDBRow>
-              <MDBCol md="6">
+
+          <MDBCol md="4">
+
+            <div className="fixedsizebio">
+              <div className="marginedleft20">
                 <MDBRow>
-                  <MDBCol>
-                    <div > <p className="commentsec_usrname topMargined" >{this.state.information.username}</p> </div>
-                    <StarRatingComponent
-                      editing={false}
-                      starCount={5}
-                      value={this.state.information.rating}
-                      size= "50px"
-                    />
+
+                  <MDBCol md="6">
+                    <MDBRow>
+                      <MDBCol>
+                        <div > <p className="commentsec_usrname topMargined" >{this.state.information.username}</p> </div>
+                        <StarRatingComponent
+                          editing={false}
+                          starCount={5}
+                          value={this.state.information.rating}
+                          size="50px"
+                        />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCol>
+
+                  <MDBCol md="6">
+                    <img className="profilePic topMargined marginedleft50" src={this.state.information.avatar} alt="." />
                   </MDBCol>
                 </MDBRow>
-              </MDBCol>
-              <MDBCol md="6">
-                <img className="profilePic topMargined" src={this.state.information.avatar} alt="." />
-              </MDBCol>
-            </MDBRow>
-            <MDBRow>
-              <MDBCol>
                 <MDBRow>
-                  <div > <p className="commentsec_usrname topMargined" >{this.state.information.email}</p> </div>
-                </MDBRow>
-                <MDBRow>
-                  {this.languagesWithLevels()}
-                </MDBRow>
 
-              </MDBCol>
+                  <MDBCol>
+                    <MDBRow>
+                      {this.languagesWithLevels()}
+                    </MDBRow>
+                    <MDBRow>
 
-            </MDBRow>
-          </MDBCol>
-          <MDBCol md="3"><div className="Scrollbar topMargined">
-            <div className="Bio"><p className="commentsec_usrname">My Biography</p>
-              {this.state.information.bio}
+
+                      <div className="Bio"><p className="commentsec_usrname">My Biography</p>
+                        {this.state.information.bio}
+                      </div>
+                      <div > <p className=" topMargined marginedleft" >
+                        <MDBIcon icon="envelope" className="mr-3" />
+                        {this.state.information.email}</p> </div>
+
+                    </MDBRow>
+
+
+                  </MDBCol>
+
+                </MDBRow>
+              </div>
             </div>
-          </div>
           </MDBCol>
-          <MDBCol md="3">
-            <div className="Scrollbar topMargined">
+
+
+          <MDBCol md="4">
+            <div className="Scrollbar">
               {this.commentField()}
             </div>
           </MDBCol>
           <MDBCol md="4">
-            <center><div className="btn-group topMargined" role="group" aria-label="Basic example">
-              <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exams</MDBBtn>
-              <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
-            </div></center>
-            <MDBCard className="mb-5 topMargined">
+            <MDBRow>
+              
+                <MDBCol md="6">
+                  <center>
+                  <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exams</MDBBtn>
+                  </center>
+                </MDBCol>                
+                <MDBCol md="6">
+                  <center>
+                  <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
+                  </center>
+                </MDBCol>
+             
+            </MDBRow>
+
+
+
+
+            <MDBCard className="mb-5 ">
               <MDBCardHeader>Language levels</MDBCardHeader>
               <MDBCardBody>
                 <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>

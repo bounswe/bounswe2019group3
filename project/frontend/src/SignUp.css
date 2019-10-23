@@ -26,13 +26,19 @@
   top: 0px;
 }
 body {
-  background-color: #ffc19a;
+   background-color: #ffc19a; 
 }
 .margined{
   margin-top: 60px;
 }
 .marginedleft{
   margin-left: 10px;
+}
+.marginedleft20{
+  margin-left: 20px;
+}
+.marginedleft50{
+  margin-left: 50px;
 }
 .text{
   font-family: 'sanchez';
@@ -55,6 +61,18 @@ body {
 h8{
   color: blue;
 }
+.small{
+  font-size: 15px;
+}
+.fixedsizebio{
+  height: 72vh;
+  border: 2px solid #787878;
+  padding: 10px;
+  
+  background-color: #ffe1cf55;
+  border-radius: 1%;
+  box-shadow: 5px 10px #55555555;
+}
 .backpicture {
   opacity: 0.3;
   position: absolute;
@@ -62,9 +80,10 @@ h8{
   left: 10%;
 }
 .profilePic{
-  max-width: 128px;
-  max-height: 128px;
+  max-width: 7vw;
+  max-height: 7vw;
   right: 0cm;
+  border-radius: 40%;
 }
 .rightaligned{
   text-align: right;
@@ -73,9 +92,11 @@ h8{
   
   overflow-y:scroll;
   height: 72vh;
-  border: 1px solid white;
+  border: 2px solid #787878;
   padding: 1px;
-  border-radius: 1%
+  border-radius: 1%;
+  background-color: #ffe1cf55;
+  box-shadow: 5px 10px #55555555;
 }
 .Comment{ 
   border: 1px solid #555;
@@ -83,7 +104,7 @@ h8{
   margin-top: 1%;
   margin-right: 1%;
   margin-left: 1%;
-  background-color: #ffc19aaa;
+  background-color: #ffe1cf55;
   border-radius: 5%
 }
 .Status{
@@ -107,22 +128,22 @@ h8{
 }
 /* width */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 6px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1; 
+  background: #787878; 
 }
  
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #888; 
+  background: #555555; 
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #555; 
+  background: #333333; 
 }
 .topMarginedSidebar1{
   position: fixed;
