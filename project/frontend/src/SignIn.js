@@ -27,7 +27,7 @@ export default class FormPage extends React.Component {
     //console.log(JSON.stringify(frm));
     var responseStatus;
     axios.post('http://18.184.207.248/api/auth/login', frm, { withCredentials: true })
-      .then(res => {
+      .then((res) => {
         //console.log(res);
         responseStatus = res;
         //console.log(responseStatus);
@@ -37,9 +37,12 @@ export default class FormPage extends React.Component {
           //console.log(Cookies.get());
           this.setState({ authenticated: true });
 
+        }}, (error) => {
+          console.log(error);
+          alert("invalid information")
         }
-
-      })
+      );
+      
 
   };
 
