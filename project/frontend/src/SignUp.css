@@ -22,17 +22,22 @@ body {
 .margined{
   margin-top: 60px;
 }
-
-.text-blue{
-  font-family: 'sanchez';
-  font-size: 24px;
-  color: royalblue;
+.marginedleft{
+  margin-left: 10px;
 }
-
 .text{
   font-family: 'sanchez';
   font-size: 24px;
   color : #fff5ec;
+}
+.commentsec_usrname{
+  font-family: 'sanchez';
+  font-size: 20px;
+  color : #555;
+}
+.commentsec_title{
+  font-weight: bold;
+  color : #555;
 }
 .text2{
   font-family: 'sanchez';
