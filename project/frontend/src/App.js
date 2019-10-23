@@ -2,14 +2,22 @@ import React, { Component } from 'react';
 import Routes from './Routes';
 import './SignUp.css';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import SideNavigation from "./containers/sideNavigation";
-import Nav from './containers/nav'
+import Nav from 'react-bootstrap/Nav'
+import Cookies from 'js-cookie'
 
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLogined: Cookies.get('username')
+    };
+  }
+
 
   render() {
+
     return (
       <MDBContainer fluid>
         <MDBRow className="header-padding">
@@ -20,10 +28,40 @@ class App extends Component {
           </div>
         </MDBRow>
         <MDBRow>
-          <Nav />
+
+          {this.state.isLogined ? (
+            <Nav activeKey="/home">
+            <Nav.Item>
+              <Nav.Link href="/home">a</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link href="/exam">Exam</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="link-2">Link</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+              <Nav.Link eventKey="disabled" disabled>
+                Disabled
+          </Nav.Link>
+            </Nav.Item>
+          </Nav>
+          ) : (
+            <Nav activeKey="/home">
+            <Nav.Item>
+              <Nav.Link href="/home">a</Nav.Link>
+            </Nav.Item>
+            
+            <Nav.Item>
+              <Nav.Link eventKey="disabled" disabled>
+                Disabled
+          </Nav.Link>
+            </Nav.Item>
+          </Nav>
+            )}
+
         </MDBRow>
-        
-        <MDBRow className="flexible-content">
+        <MDBRow >
           <MDBCol>
             <main id="content" className="p-5">
               <Routes />

@@ -11,7 +11,6 @@ import StarRatingComponent from 'react-star-rating-component';
 export default class FormPage extends React.Component {
 
   constructor(props) {
-    console.log(Cookies.get('username'));
     super(props);
     axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
