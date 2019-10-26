@@ -37,5 +37,8 @@
     "pg-hstore": "^2.3.3",
     "sequelize": "^5.19.2",
     "sequelize-cli": "^5.5.1"
+  },
+  "devDependencies": {
+    "chai-match": "^1.1.1"
   }
 }
