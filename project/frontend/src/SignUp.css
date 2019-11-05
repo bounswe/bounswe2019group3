@@ -33,6 +33,9 @@ body {
 .margined{
   margin-top: 60px;
 }
+.top-margined-20{
+  margin-top: 20px;
+}
 .marginedleft{
   margin-left: 10px;
 }
@@ -142,6 +145,9 @@ h8{
 
 .topMargined10{
   margin-top: 5vw;
+}
+.topMargined50{
+  margin-top: 25vw;
 }
 /* width */
 ::-webkit-scrollbar {
