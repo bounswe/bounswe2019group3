@@ -25,7 +25,7 @@ const router = require('express').Router()
  *              "nb_new_messages": 1,
  *              "last_message_date": "2013-10-21T13:28:06.419Z"
  *          },
- *  *       {
+ *          {
  *              "username": "admin",
  *              "last_message": "welcome to bulingo",
  *              "nb_new_messages": 2,
