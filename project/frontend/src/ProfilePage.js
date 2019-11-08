@@ -1,6 +1,6 @@
 
 import React from "react";
-import { MDBBtn, MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBIcon } from 'mdbreact';
 import './SignUp.css';
 import { Redirect } from 'react-router-dom';
 import { Radar } from 'react-chartjs-2';
@@ -14,17 +14,17 @@ export default class FormPage extends React.Component {
     super(props);
     axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.setState({ information: res.data });
       })
     axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/comments', { withCredentials: true })
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.setState({ comments: res.data });
       })
     axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/level', { withCredentials: true })
       .then(res => {
-        console.log(res.data);
+        //console.log(res.data);
         this.setState({ languages: res.data });
       })
 
@@ -60,13 +60,13 @@ export default class FormPage extends React.Component {
 
           <p className="commentsec_title">Very increadible grammar knowledge!</p>
           <p>{this.state.comments[i].text}</p>
-          
+
           <p className="commentsec_usrname rightaligned small">{this.state.comments[i].comment_by}</p>
         </div>
       );
     }
- 
-    
+
+
     return comm;
   }
 
@@ -79,7 +79,6 @@ export default class FormPage extends React.Component {
             <p > {this.state.languages[i].lang_abbr} -> {this.state.languages[i].grade}  </p>
           </div>
         </MDBCol>
-
       );
     }
     return lan;
@@ -100,26 +99,19 @@ export default class FormPage extends React.Component {
     });
   };
 
-  onLogout() {
-    axios.post('http://18.184.207.248/api/auth/logout', {}, { withCredentials: true })
-      .then(res => {
-        //console.log(res);
-        if (res.status === 204) {
-          Cookies.remove('username');
-          Cookies.remove('selectedExamLanguage');
-          Cookies.remove('selectedExamGrade');
-          Cookies.remove('selectedExamLanguageAbbr')
-          this.setState({
-            isLogout: true
-          });
-        } else {
-          console.log("Log out failed");
-        }
 
-      });
-
-
-  };
+  componentDidMount() {
+    var _navbar = document.getElementById("nav");
+    _navbar.removeChild(_navbar.childNodes[0]);
+    var _nav = document.getElementById("last_item");
+    _nav.insertAdjacentHTML('beforebegin',
+    '<li id="chld"><a href="/profile">Profile</a></li>');
+    _nav.insertAdjacentHTML('afterend',
+    '<li id="chld"><a href="/exam">Exam</a></li>'+
+    '<li id="chld"><a href="/writing">Send Writing</a></li>'+
+    '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
+    '<li id="chld" style="float:right";><a >Settings</a></li>');
+  }
 
   render() {
     if (this.state.isLogout) {
@@ -148,7 +140,6 @@ export default class FormPage extends React.Component {
 
     //console.log("this.props.location.state", this.props.location.state)
     return (
-
       <MDBContainer fluid>
         <MDBRow>
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
@@ -210,34 +201,11 @@ export default class FormPage extends React.Component {
             </div>
           </MDBCol>
           <MDBCol md="4">
-            <MDBRow>
-              
-                <MDBCol md="6">
-                  <center>
-                  <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exams</MDBBtn>
-                  </center>
-                </MDBCol>                
-                <MDBCol md="6">
-                  <center>
-                  <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
-                  </center>
-                </MDBCol>
-             
-            </MDBRow>
-
-
-
-
             <MDBCard className="mb-5 ">
               <MDBCardHeader>Language levels</MDBCardHeader>
               <MDBCardBody>
                 <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
             </MDBCard>
-            <MDBRow>
-              <MDBCol md="12">
-                <MDBBtn color="orange" onClick={this.onLogout.bind(this)} className="text2">Logout</MDBBtn>
-              </MDBCol>
-            </MDBRow>
           </MDBCol>
         </MDBRow>
       </MDBContainer>

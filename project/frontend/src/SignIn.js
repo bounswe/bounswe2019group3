@@ -53,16 +53,13 @@ export default class FormPage extends React.Component {
           pathname: "/profile",
           state: {
             username: document.getElementById("usr").value,
-
           }
         }}
       />);
     }
 
     return (
-
       <MDBContainer fluid>
-
         <MDBRow >
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">

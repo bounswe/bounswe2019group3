@@ -48,7 +48,7 @@ export default class FormPage1 extends React.Component {
     return (
       <MDBContainer fluid>
 
-        <MDBRow className="topMargined50">
+        <MDBRow>
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
             <img src=".\earth3.png" alt="." width="100%" />

@@ -134,7 +134,7 @@ export default class GeneralTest extends React.Component {
                     }
                 </div>
 
-                <MDBRow className="topMargined50">
+                <MDBRow>
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                     <MDBCol md="2"></MDBCol>
 

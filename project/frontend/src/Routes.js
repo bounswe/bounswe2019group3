@@ -6,7 +6,7 @@ import ProfilePage from './ProfilePage';
 import ExaminationPage from './ExaminationPage';
 import GeneralTest from './GeneralTest';
 import Writing from './Writing';
-
+import Logout from './Logout';
 
 
 
@@ -25,6 +25,7 @@ class Routes extends React.Component {
           <Route path='/exam' component={ExaminationPage} />
           <Route path='/generalTest' component={GeneralTest} />
           <Route path='/writing' component={Writing} />
+          <Route path='/logout' component={Logout} />
 
         </Switch>
       );

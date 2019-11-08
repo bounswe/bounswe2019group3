@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import Routes from './Routes';
 import './SignUp.css';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
-import Nav from 'react-bootstrap/Nav'
-import Cookies from 'js-cookie'
-
+import Cookies from 'js-cookie';
 
 class App extends Component {
 
@@ -16,8 +14,8 @@ class App extends Component {
   }
 
 
-  render() {
 
+  render() {
     return (
       <MDBContainer fluid>
         <MDBRow className="header-padding">
@@ -27,39 +25,12 @@ class App extends Component {
             </header>
           </div>
         </MDBRow>
-        <MDBRow>
-
-          {this.state.isLogined ? (
-            <Nav activeKey="/home">
-            <Nav.Item>
-              <Nav.Link href="/home">a</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link href="/exam">Exam</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="link-2">Link</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Nav.Link eventKey="disabled" disabled>
-                Disabled
-          </Nav.Link>
-            </Nav.Item>
-          </Nav>
-          ) : (
-            <Nav activeKey="/home">
-            <Nav.Item>
-              <Nav.Link href="/home">a</Nav.Link>
-            </Nav.Item>
+        <MDBRow id="navbar">
+          <ul id="nav">
+            <li id="home"><a href="/">Home</a></li>
+            <li id="last_item"><a >Exercise</a></li>
             
-            <Nav.Item>
-              <Nav.Link eventKey="disabled" disabled>
-                Disabled
-          </Nav.Link>
-            </Nav.Item>
-          </Nav>
-            )}
-
+          </ul>
         </MDBRow>
         <MDBRow >
           <MDBCol>
