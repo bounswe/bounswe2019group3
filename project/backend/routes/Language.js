@@ -178,6 +178,7 @@ router.post('/:language_abbr/exam/evaluate', (req, res, next) => {
 });
 
 /**
+ * @apiIgnore Not finished Method
  * @api {get} /api/language/:language_abbr/excercise/excercise_type/ return all excercise of type
  * @apiGroup language
  * @apiPermission User
@@ -187,6 +188,7 @@ router.get('/:language_abbr/excercise/excercise_type/', (req, res, next) => {
 });
 
 /**
+ * @apiIgnore Not finished Method
  * @api {get} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions return the excercise
  * @apiGroup language
  * @apiPermission User
@@ -196,6 +198,7 @@ router.get('/:language_abbr/excercise/excercise_type/:exersice_id/questions', (r
 });
 
 /**
+ * @apiIgnore Not finished Method
  * @api {post} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions evaluate the excercise
  * @apiGroup language
  * @apiPermission User
