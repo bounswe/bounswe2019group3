@@ -6,7 +6,6 @@ import Cookies from 'js-cookie'
 import axios from 'axios';
 
 
-
 export default class FormPage1 extends React.Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,7 @@ export default class FormPage1 extends React.Component {
     axios.post('http://18.184.207.248/api/auth/signup', frm,{withCredentials: true})
       .then(res => {
         //console.log(res);
-        if (res.status == 200) {
+        if (res.status === 200) {
           Cookies.set('username', frm.username);
           //console.log(this);
           this.setState({ authenticated: true });
@@ -49,7 +48,7 @@ export default class FormPage1 extends React.Component {
     return (
       <MDBContainer fluid>
 
-        <MDBRow className="topMargined50">
+        <MDBRow>
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
             <img src=".\earth3.png" alt="." width="100%" />

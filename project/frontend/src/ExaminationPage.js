@@ -9,14 +9,14 @@ import Cookies from 'js-cookie'
 export default class ExaminationPage extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://18.184.207.248/api/language/', {withCredentials: true})
+        axios.get('http://18.184.207.248/api/language/', { withCredentials: true })
             .then(res => {
                 this.setState({ languages: res.data });
             })
         this.state = {
             selectedLanguage: "",
             languages: [],
-            isLogout : false
+            isLogout: false
         }
     }
 
@@ -44,26 +44,18 @@ export default class ExaminationPage extends React.Component {
         });
     }
 
-    onLogout() {
-        axios.post('http://18.184.207.248/api/auth/logout', {}, {withCredentials: true})
-          .then(res => {
-            //console.log(res);
-            if (res.status === 204) {
-              Cookies.remove('username');
-              Cookies.remove('selectedExamLanguage');
-              Cookies.remove('selectedExamGrade');
-              Cookies.remove('selectedExamLanguageAbbr')
-              this.setState({
-                isLogout: true
-              });
-            }else{
-              console.log("Log out failed");
-            }
-    
-          });
-    
-        
-      };
+    componentDidMount() {
+        var _navbar = document.getElementById("nav");
+        _navbar.removeChild(_navbar.childNodes[0]);
+        var _nav = document.getElementById("last_item");
+        _nav.insertAdjacentHTML('beforebegin',
+            '<li id="chld"><a href="/profile">Profile</a></li>');
+        _nav.insertAdjacentHTML('afterend',
+            '<li id="chld"><a href="/exam">Exam</a></li>' +
+            '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+            '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>');
+    }
+
 
     render() {
         if (this.state.isLogout) {
@@ -88,7 +80,7 @@ export default class ExaminationPage extends React.Component {
         return (
             <MDBContainer fluid>
 
-                <MDBRow className="topMargined50">
+                <MDBRow>
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                     <MDBCol md="2"></MDBCol>
                     <MDBCol md="6">
@@ -113,11 +105,6 @@ export default class ExaminationPage extends React.Component {
                         {this.languageButtons()}
                     </MDBCol>
 
-                </MDBRow>
-                <MDBRow>
-                    <MDBCol md="12">
-                        <MDBBtn color="orange" onClick={this.onLogout.bind(this)} className="text2">Logout</MDBBtn>
-                    </MDBCol>
                 </MDBRow>
             </MDBContainer>
         );
