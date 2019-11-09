@@ -102,6 +102,9 @@ export default class FormPage extends React.Component {
 
   componentDidMount() {
     var _navbar = document.getElementById("nav");
+    if(_navbar.childNodes.length>2){
+      return;
+    }
     _navbar.removeChild(_navbar.childNodes[0]);
     var _nav = document.getElementById("last_item");
     _nav.insertAdjacentHTML('beforebegin',

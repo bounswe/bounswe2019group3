@@ -13,23 +13,32 @@ export default class ExaminationPage extends React.Component {
             
         }) */
     this.state = {
-
+      isSended: false,
       isLogout: false
     }
   }
-  onClickd() { }
+  onClickd() { 
+    this.setState({
+      isSended: true
+    });
+  }
 
-  
+
   componentDidMount() {
     var _navbar = document.getElementById("nav");
-    _navbar.removeChild(_navbar.childNodes[0]);
-    var _nav = document.getElementById("last_item");
-    _nav.insertAdjacentHTML('beforebegin',
-      '<li id="chld"><a href="/profile">Profile</a></li>');
-    _nav.insertAdjacentHTML('afterend',
-      '<li id="chld"><a href="/exam">Exam</a></li>' +
-      '<li id="chld"><a href="/writing">Send Writing</a></li>' +
-      '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>');
+    if (_navbar.childNodes.length > 2) {
+      return;
+    } else {
+      _navbar.removeChild(_navbar.childNodes[0]);
+      var _nav = document.getElementById("last_item");
+      _nav.insertAdjacentHTML('beforebegin',
+        '<li id="chld"><a href="/profile">Profile</a></li>');
+      _nav.insertAdjacentHTML('afterend',
+        '<li id="chld"><a href="/exam">Exam</a></li>' +
+        '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+        '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
+        '<li id="chld" style="float:right";><a >Settings</a></li>');
+    }
   }
 
   render() {
@@ -37,6 +46,14 @@ export default class ExaminationPage extends React.Component {
       return (<Redirect
         push to={{
           pathname: "/"
+        }}
+      />);
+    }
+
+    if(this.state.isSended) {
+      return (<Redirect
+        push to={{
+          pathname: "/profile"
         }}
       />);
     }
