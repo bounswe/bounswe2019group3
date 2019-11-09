@@ -40,12 +40,51 @@ router.get('/', (req, res, next) => {
 
 /**
  * @apiIgnore Not finished Method
+ * SABRİ
+ * https://github.com/expressjs/express-paginate
+ * PAGINATION 0(sonuncu) -> 10 tane ver yani [0,10]
+ * req.body.skip(0), req.body.limit(10) 0,10 load more 10-20 load more 20-30
+ * select * from message where to=samet and  from=berkay orderby date; [skip, limit] 
+ * seçilenlerin hepsi için new=false
  * @api {get} /api/chat/:username chat history with username
  * @apiName history with user
  * @apiGroup chat
  * @apiPermission user
  */
 router.get('/:username', (req, res, next) => {
+    res.sendStatus(501);
+});
+
+/**
+ * @apiIgnore Not finished Method
+ * BERKAY : insert message to table(db)
+ * message: req.body.message, 
+ * from_username: req.session.user.username
+ * to_username: req.params.username
+ * req.body.message boş mu
+ * req.session.user == undefined : 400
+ * to_username exist? 400
+ * if (req.session.user == undefined){
+ * res.sendStatus(400);
+ * return;
+ * }
+ *  if (req.body.message boş){
+ * res.sendStatus(400);
+ * return;
+ * }
+    db.Message.create({
+                    message: req.body.message,
+                    from_username: req.session.user.username,
+                    to_username: req.params.username,
+                    new: true
+                })
+ * res.sendStatus(204); // OK ama bir şey dönmüyorum 
+ * @api {get} /api/chat/:username chat history with username
+ * @apiName history with user
+ * @apiGroup chat
+ * @apiPermission user
+ */
+router.post('/:username', (req, res, next) => {
     res.sendStatus(501);
 });
 
