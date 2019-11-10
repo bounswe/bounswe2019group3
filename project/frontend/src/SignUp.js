@@ -1,10 +1,9 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
 import './SignUp.css';
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
-
+import { Redirect, NavLink } from 'react-router-dom';
+import Cookies from 'js-cookie'
 import axios from 'axios';
-
 
 
 export default class FormPage1 extends React.Component {
@@ -15,22 +14,23 @@ export default class FormPage1 extends React.Component {
     }
   }
 
-   onClickd() {
+  onClickd() {
     const frm = {
       username: document.getElementById("usr").value,
       password: document.getElementById("pass").value,
       email: document.getElementById("mail").value
     };
     console.log(JSON.stringify(frm));
-    axios.post('http://18.184.207.248/api/auth/signup',  frm )
-        .then(res => {
-          console.log(res);
-          if (res.status == 200) {
-            console.log(this);
-            this.setState({ authenticated: true });
-          }
-        })
-  
+    axios.post('http://18.184.207.248/api/auth/signup', frm,{withCredentials: true})
+      .then(res => {
+        //console.log(res);
+        if (res.status === 200) {
+          Cookies.set('username', frm.username);
+          //console.log(this);
+          this.setState({ authenticated: true });
+        }
+      })
+
   };
 
 
@@ -39,7 +39,7 @@ export default class FormPage1 extends React.Component {
     console.log(this.state.authenticated);
     if (this.state.authenticated) {
       return (<Redirect
-        to={{
+        push to={{
           pathname: "/profile"
         }}
       />);
@@ -47,9 +47,9 @@ export default class FormPage1 extends React.Component {
 
     return (
       <MDBContainer fluid>
-        
-        <MDBRow className = "topMargined50">
-        <MDBCol md="1"></MDBCol>
+
+        <MDBRow>
+          <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
             <img src=".\earth3.png" alt="." width="100%" />
           </MDBCol>

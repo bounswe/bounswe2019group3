@@ -3,7 +3,9 @@ package com.bulingo.Login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -22,12 +24,15 @@ import retrofit2.Response;
 public class Register extends AppCompatActivity {
 
     APIInterface apiInterface;
+    private SharedPreferences preferences;
+    private String usernamePref = "PREF_USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up_main);
         apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     public void registerUser(View v) {
@@ -67,7 +72,7 @@ public class Register extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("request", response.toString());
                 if(response.isSuccessful()) {
-                    registered("Welcome " + username + "!");
+                    registered("Welcome " + username + "!", username);
                 } else {
                     toast("This username or email address is used.");
                 }
@@ -87,11 +92,15 @@ public class Register extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void registered(String message){
+    public void registered(String message, String username){
         Toast.makeText(getApplicationContext(),"User Successfully Registered.", Toast.LENGTH_SHORT).show();
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
+        preferencesEditor.putString(usernamePref, username);
+        preferencesEditor.apply();
         Intent intent = new Intent(this, LoginMain.class);
         intent.putExtra("message", message);
         intent.putExtra("isNew", true);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

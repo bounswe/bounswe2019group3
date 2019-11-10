@@ -1,164 +1,214 @@
-import React from "react";
-import { MDBBtn, MDBContainer, MDBIcon ,MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBBtnGroup } from 'mdbreact';
-import './SignUp.css';
-import { Redirect, NavLink, withRouter } from 'react-router-dom';
-import { Radar } from 'react-chartjs-2';
 
+import React from "react";
+import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBIcon } from 'mdbreact';
+import './SignUp.css';
+import { Redirect } from 'react-router-dom';
+import { Radar } from 'react-chartjs-2';
+import Cookies from 'js-cookie'
+import axios from "axios";
+import StarRatingComponent from 'react-star-rating-component';
 
 export default class FormPage extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          exercises : false,
-          writing: false,
-          dataRadar: {
-            labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
-            datasets: [
-              {
-                label: "english",
-                backgroundColor: "rgba(245, 74, 85, 0.5)",
-                data: [3.25, 7, 6, 5, 5]
-              },
-              {
-                label: "german",
-                backgroundColor: "rgba(90, 173, 246, 0.5)",
-                data: [2.7, 4, 4.3, 7, 4]
-              }
-            ]
-          }
-        }
-      }
-    
-      goToExercises(){
-        this.setState({ 
-            exercises: true,
-            writing: false
-        });
-      }
+  constructor(props) {
+    super(props);
+    axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
+      .then(res => {
+        //console.log(res.data);
+        this.setState({ information: res.data });
+      })
+    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/comments', { withCredentials: true })
+      .then(res => {
+        //console.log(res.data);
+        this.setState({ comments: res.data });
+      })
+    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/level', { withCredentials: true })
+      .then(res => {
+        //console.log(res.data);
+        this.setState({ languages: res.data });
+      })
 
-      goToSendWriting() {
-        this.setState({ 
-            exercises: false,
-            writing: true 
-        });
+    this.state = {
+      comments: [],
+      languages: [],
+      information: [],
+      exercises: false,
+      writing: false,
+      dataRadar: {
+        labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+        datasets: [
+          {
+            label: "english",
+            backgroundColor: "rgba(245, 74, 85, 0.5)",
+            data: [3.25, 7, 6, 5, 5]
+          },
+          {
+            label: "german",
+            backgroundColor: "rgba(90, 173, 246, 0.5)",
+            data: [2.7, 4, 4.3, 7, 4]
+          }
+        ]
+      }
+    }
+  }
+
+  commentField() {
+    var comm = [];
+    for (let i = 0; i < this.state.comments.length; i++) {
+      comm[i] = (
+        <div className="Comment">
+
+          <p className="commentsec_title">Very increadible grammar knowledge!</p>
+          <p>{this.state.comments[i].text}</p>
+
+          <p className="commentsec_usrname rightaligned small">{this.state.comments[i].comment_by}</p>
+        </div>
+      );
     }
 
-    render() {
-          
-        if (this.state.exercises) {
-            return (<Redirect
-              to={{
-                pathname: "/exam"
-              }}
-            />);
-        }
 
-        if (this.state.writing) {
-            return (<Redirect
-              to={{
-                pathname: "/writing"
-              }}
-            />);
-          }
+    return comm;
+  }
 
-          //console.log("this.props.location.state", this.props.location.state)
-        return (
-
-            <MDBContainer fluid>
-                <MDBRow className="header">
-                    
-                    <MDBCol md="10"><p className = "rightaligned"></p></MDBCol>
-                    <MDBCol md="2">
-                        <img className="profilePic" src=".\profilePicture.png" alt="." width="50%" />
-                    </MDBCol>
-                </MDBRow>
-                <MDBRow className = "topMargined10"> 
-                    <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-                    <MDBCol md="2"></MDBCol>
-                    <MDBCol md="3"><div className="Scrollbar topMargined">
-                        <div > <p className="commentsec_usrname marginedleft" >{ this.props.location.state.username}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.language}</p> </div>
-                        <div > <p className="commentsec_usrname" > { this.props.location.state.grade}</p> </div>
-                        <div className="Bio"><p className = "commentsec_usrname">My Biography</p>
-                        Hello there, I am Hatice! <br/>
-                        I am a third year English Literature student in Boğaziçi University.
-                        As a third year English Literature student, by now I feel 
-                        quite well adjusted to a heavy workload and stacks of reading! 
-                        I want to share my experiences with you! <br/>
-                        Feel free to share your writings and text me if you like.<br/>
-
-                        My favorite topics are 
-                        <ul>
-                          <li>literature</li>
-                          <li>music</li>
-                          <li>history</li>
-                          <li>the works of Shakespeare</li>
-                          <li>movies</li>
-                          
-                        </ul>
-                        So feel free to write to me about any of those topics. 
-                        
-                         <br/>
-                        <center>* * *</center>                        
-                        Also if you send me writings sometimes I can leave a comment to your 
-                        profile so be on the watch!
-                         </div>
-
-                    </div></MDBCol>
-                    <MDBCol md="3">
-                        <div className="Scrollbar topMargined">
-                            <div className="Comment">
-                              <p className = "commentsec_usrname">James.Smith</p>
-                              <p className = "commentsec_title">Very increadible grammar knowledge!</p>
-                              <p>Thanks for reviewing my essay so detailed and spending 
-                                your time to write a long and helpful comment on my profile
-                                page!<br/>
-                                You are the best! 
-                              </p>
-                            </div>
-                            <div className="Comment">
-                            <p className = "commentsec_usrname">Jeniffer_Brown</p>
-                              <p className = "commentsec_title">Best mate ever!</p>
-                              <p>I like how you make a comment after reading my work and tell how
-                                I can improve my writing skills. Thanks to you I have learned a lot.
-                                <br/>
-                                Thanks for your time :)
-                              </p>
-                            </div>
-                            <div className="Comment">
-                            <p className = "commentsec_usrname">Emma_Williams</p>
-                              <p className = "commentsec_title">Great person to chat with</p>
-                              <p>We had a great conversation the other day and I learned lots
-                                of vocabulary. 
-                                <br/>
-                                See you around buddy!
-                              </p>
-                            </div>
-                            <div className="Comment">
-                              <p className = "commentsec_usrname">Ethan_98</p>
-                              <p className = "commentsec_title">Not an active user!</p>
-                              <p>I have been waiting 1 week for the writing I sent.
-                                If you are not going to be online why are you accepting messages?
-                               
-                              </p></div>
-                            
-
-                        </div>
-                    </MDBCol>
-                    <MDBCol md="4">
-                        <center><div class="btn-group topMargined" role="group" aria-label="Basic example">
-                        <MDBBtn color="orange" onClick={this.goToExercises.bind(this)} className="text2">Exercises</MDBBtn>
-                        <MDBBtn color="orange" onClick={this.goToSendWriting.bind(this)} className="text2">Send Writing</MDBBtn>
-                        </div></center>
-                        <MDBCard className="mb-5 topMargined">
-                            <MDBCardHeader>Language levels</MDBCardHeader>
-                            <MDBCardBody>
-                            <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </MDBContainer>
-        );
+  languagesWithLevels() {
+    var lan = [];
+    for (let i = 0; i < this.state.languages.length; i++) {
+      lan[i] = (
+        <MDBCol md="4" className="topMargined commentsec_usrname">
+          <div >
+            <p > {this.state.languages[i].lang_abbr} -> {this.state.languages[i].grade}  </p>
+          </div>
+        </MDBCol>
+      );
     }
+    return lan;
+  }
+
+
+  goToExercises() {
+    this.setState({
+      exercises: true,
+      writing: false
+    });
+  };
+
+  goToSendWriting() {
+    this.setState({
+      exercises: false,
+      writing: true
+    });
+  };
+
+
+  componentDidMount() {
+    var _navbar = document.getElementById("nav");
+    _navbar.removeChild(_navbar.childNodes[0]);
+    var _nav = document.getElementById("last_item");
+    _nav.insertAdjacentHTML('beforebegin',
+    '<li id="chld"><a href="/profile">Profile</a></li>');
+    _nav.insertAdjacentHTML('afterend',
+    '<li id="chld"><a href="/exam">Exam</a></li>'+
+    '<li id="chld"><a href="/writing">Send Writing</a></li>'+
+    '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
+    '<li id="chld" style="float:right";><a >Settings</a></li>');
+  }
+
+  render() {
+    if (this.state.isLogout) {
+      return (<Redirect
+        push to={{
+          pathname: "/"
+        }}
+      />);
+    }
+    if (this.state.exercises) {
+      return (<Redirect
+        push to={{
+          pathname: "/exam"
+        }}
+      />);
+    }
+
+    if (this.state.writing) {
+      return (<Redirect
+        push to={{
+          pathname: "/writing"
+        }}
+      />);
+    }
+
+
+    //console.log("this.props.location.state", this.props.location.state)
+    return (
+      <MDBContainer fluid>
+        <MDBRow>
+          <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
+
+          <MDBCol md="4">
+
+            <div className="fixedsizebio">
+              <div className="marginedleft20">
+                <MDBRow>
+
+                  <MDBCol md="6">
+                    <MDBRow>
+                      <MDBCol>
+                        <div > <p className="commentsec_usrname topMargined" >{this.state.information.username}</p> </div>
+                        <StarRatingComponent
+                          editing={false}
+                          starCount={5}
+                          value={this.state.information.rating}
+                          size="50px"
+                        />
+                      </MDBCol>
+                    </MDBRow>
+                  </MDBCol>
+
+                  <MDBCol md="6">
+                    <img className="profilePic topMargined marginedleft50" src={this.state.information.avatar} alt="." />
+                  </MDBCol>
+                </MDBRow>
+                <MDBRow>
+
+                  <MDBCol>
+                    <MDBRow>
+                      {this.languagesWithLevels()}
+                    </MDBRow>
+                    <MDBRow>
+
+
+                      <div className="Bio"><p className="commentsec_usrname">My Biography</p>
+                        {this.state.information.bio}
+                      </div>
+                      <div > <p className=" topMargined marginedleft" >
+                        <MDBIcon icon="envelope" className="mr-3" />
+                        {this.state.information.email}</p> </div>
+
+                    </MDBRow>
+
+
+                  </MDBCol>
+
+                </MDBRow>
+              </div>
+            </div>
+          </MDBCol>
+
+
+          <MDBCol md="4">
+            <div className="Scrollbar">
+              {this.commentField()}
+            </div>
+          </MDBCol>
+          <MDBCol md="4">
+            <MDBCard className="mb-5 ">
+              <MDBCardHeader>Language levels</MDBCardHeader>
+              <MDBCardBody>
+                <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+      </MDBContainer>
+    );
+  }
 }

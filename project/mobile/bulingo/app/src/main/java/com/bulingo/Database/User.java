@@ -10,5 +10,11 @@ public class User {
     public String email;
     @SerializedName("role")
     public String role;
+    @SerializedName("bio")
+    public String bio;
+    @SerializedName("avatar")
+    public String avatar;
+    @SerializedName("rating")
+    public float rating;
 
 }

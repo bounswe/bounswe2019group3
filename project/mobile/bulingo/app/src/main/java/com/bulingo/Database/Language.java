@@ -9,6 +9,10 @@ public class Language {
         public String name;
         @SerializedName("abbr")
         public String abbr;
+        @SerializedName("lang_abbr")
+        public String lang_abbr;
+        @SerializedName("grade")
+        public String grade;
 
 }
 

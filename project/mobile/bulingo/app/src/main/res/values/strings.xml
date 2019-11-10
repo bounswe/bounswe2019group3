@@ -21,7 +21,7 @@
     <string name="already_signed_up">You already have an account</string>
     <string name="already_have_an_account"><u>Already have an account? Sign In</u></string>
     <string name="earth">EarthImage</string>
-    <string name="chooseLanguage">Choose a language to learn</string>
+    <string name="chooseLanguage">Select a language to learn</string>
     <string name="englishText">ENGLISH</string>
     <string name="turkishText">TÜRKÇE</string>
     <string name="germanText">DEUTSCH</string>
