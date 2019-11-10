@@ -43,7 +43,7 @@ export default class Messages extends React.Component {
         var messages = [];
         for (let i = 0; i < this.state.information.history.length; i++) {
             messages[this.state.information.history.length - i] = (
-            <div className="Comment" onClick={this.openmessages.bind(this)}>          
+            <div className="Messagebox" onClick={this.openmessages.bind(this)}>          
             <p>{this.state.information.history[i].username}</p>
             <p>{this.state.information.history[i].last_message}</p>
             </div>
@@ -53,7 +53,9 @@ export default class Messages extends React.Component {
     }
     messagehistorywindow(user){}
     sendmessage(){}
-    openmessages(){}
+    openmessages(){
+        console.log("im_clicked")
+    }
     render() {
         if (this.state.isLogout) {
             return (<Redirect
