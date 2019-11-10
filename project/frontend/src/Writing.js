@@ -85,7 +85,7 @@ export default class ExaminationPage extends React.Component {
             </label>
               <textarea
                 type="text"
-                className="form-control "
+                className="form-control"
                 rows="10"
               /><br />
               <label
