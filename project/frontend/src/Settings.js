@@ -14,7 +14,7 @@ class FormsPage extends React.Component {
 
   this.state = {
     information: [],
-    username: "",
+    userName: "",
     email: "",
     bio:""
 
@@ -135,13 +135,13 @@ class FormsPage extends React.Component {
                 Username
               </label>
               <input
-                value={this.state.information.username}
-                name="fname"
+                value={this.state.userName}
+                name="userName"
                 onChange={this.changeHandler}
                 type="text"
-                id="fname"
+                id="userName"
                 className="form-control"
-                placeholder="First name"
+                placeholder={this.state.information.username}
                 required
               
               />
@@ -156,13 +156,13 @@ class FormsPage extends React.Component {
                 Email
               </label>
               <input
-                value={this.state.information.email}
+                value={this.state.email}
                 onChange={this.changeHandler}
                 type="email"
                 id="email"
                 className="form-control"
                 name="email"
-                placeholder="Your Email address"
+                placeholder={this.state.information.email}
               />
             </MDBCol>
           </MDBRow>
