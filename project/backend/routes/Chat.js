@@ -102,17 +102,6 @@ router.get('/:username', (req, res, next) => {
  * message: req.body.message, 
  * from_username: req.session.user.username
  * to_username: req.params.username
- * req.body.message boş mu
- * req.session.user == undefined : 400
- * to_username exist? 400
- * if (req.session.user == undefined){
- * res.sendStatus(400);
- * return;
- * }
- *  if (req.body.message boş){
- * res.sendStatus(400);
- * return;
- * }
     db.Message.create({
                     message: req.body.message,
                     from_username: req.session.user.username,
@@ -126,7 +115,24 @@ router.get('/:username', (req, res, next) => {
  * @apiPermission user
  */
 router.post('/:username', (req, res, next) => {
-    res.sendStatus(501);
+    if (!req.session.user ){
+    res.sendStatus(401);
+    return;
+    }
+    if (!req.body.message){
+    res.sendStatus(400);
+    return;
+    }
+    db.Message.create({
+        message: req.body.message,
+        from_username: req.session.user.username,
+        to_username: req.params.username,
+        new: true
+    })
+    .then((msg)=>{
+        res.sendStatus(204);
+    })
+    res.sendStatus(204);
 });
 
 
