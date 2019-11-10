@@ -102,6 +102,9 @@ export default class FormPage extends React.Component {
 
   componentDidMount() {
     var _navbar = document.getElementById("nav");
+    if(_navbar.childNodes.length>2){
+      return;
+    }
     _navbar.removeChild(_navbar.childNodes[0]);
     var _nav = document.getElementById("last_item");
     _nav.insertAdjacentHTML('beforebegin',
@@ -109,36 +112,12 @@ export default class FormPage extends React.Component {
     _nav.insertAdjacentHTML('afterend',
     '<li id="chld"><a href="/exam">Exam</a></li>'+
     '<li id="chld"><a href="/writing">Send Writing</a></li>'+
+    '<li id="chld"><a href="/messages">Messages</a></li>' +
     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
-    '<li id="chld" style="float:right";><a >Settings</a></li>');
+    '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
   }
 
   render() {
-    if (this.state.isLogout) {
-      return (<Redirect
-        push to={{
-          pathname: "/"
-        }}
-      />);
-    }
-    if (this.state.exercises) {
-      return (<Redirect
-        push to={{
-          pathname: "/exam"
-        }}
-      />);
-    }
-
-    if (this.state.writing) {
-      return (<Redirect
-        push to={{
-          pathname: "/writing"
-        }}
-      />);
-    }
-
-
-    //console.log("this.props.location.state", this.props.location.state)
     return (
       <MDBContainer fluid>
         <MDBRow>
