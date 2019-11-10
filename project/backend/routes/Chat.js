@@ -35,7 +35,48 @@ const router = require('express').Router()
  *     }
  */
 router.get('/', (req, res, next) => {
-    res.sendStatus(501);
+    if(!req.session.user) {
+        res.sendStatus(400);
+        return;
+    }
+    const username = req.session.user.username;
+    const db = req.db;
+    db.Message.findAll({
+        where: db.Sequelize.or(
+            { to_username: username },
+            { from_username: username }
+        ),
+        order: [
+            ['createdAt', 'DESC']
+        ],
+        limit: 10
+    })
+    .then((messages) => {
+        let response = {
+            nb_new_messages: 0,
+            history: []
+        };
+        let order = {}
+        let index = 0;
+        messages.forEach(msg => {
+            const opposite_username = msg.to_username == username ? msg.from_username : msg.to_username;
+            const is_new = msg.new && msg.to_username == username;
+            if(!(opposite_username in order)){
+                order[opposite_username] = index;
+                index += 1;
+                response.history[order[opposite_username]] = {
+                    username: opposite_username,
+                    last_message: msg.message,
+                    last_message_date: msg.createdAt,
+                    nb_new_messages: 1 * is_new,
+                }
+            }else{
+                response.history[order[opposite_username]].nb_new_messages += 1 * is_new;
+            }
+            response.nb_new_messages += 1 * is_new;
+        });
+        res.status(200).send(response);
+    });
 });
 
 /**
