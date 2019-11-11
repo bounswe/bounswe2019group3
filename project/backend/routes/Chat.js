@@ -45,7 +45,7 @@ router.get("/", (req, res, next) => {
       { to_username: username },
       { from_username: username }
     ),
-    order: [["createdAt", "DESC"]],
+    order: [["id", "DESC"]],
     limit: 10
   }).then(messages => {
     let response = {
@@ -82,6 +82,9 @@ router.get("/", (req, res, next) => {
  * @apiName history with user
  * @apiGroup chat
  * @apiPermission user
+ * @apiParam (Request body(JSON)) {Object} body
+ * @apiParam (Request body(JSON)) {String} body.skip        number of messages to skip
+ * @apiParam (Request body(JSON)) {String} body.limit       number of messages to return
  * @apiSuccess {Object[]} messages                          list of messages
  * @apiSuccess {String}   messages.to_username              message receiver
  * @apiSuccess {String}   messages.from_username            message sender
@@ -90,7 +93,7 @@ router.get("/", (req, res, next) => {
  */
 router.get("/:username", (req, res, next) => {
   if (!req.session.user) {
-    res.sendStatus(403);
+    res.sendStatus(401);
   } else {
     const db = req.db;
     const Op = db.Sequelize.Op;
@@ -162,22 +165,14 @@ router.get("/:username", (req, res, next) => {
 });
 
 /**
- * @apiIgnore Not finished Method
- * BERKAY : insert message to table(db)
- * message: req.body.message, 
- * from_username: req.session.user.username
- * to_username: req.params.username
-    db.Message.create({
-                    message: req.body.message,
-                    from_username: req.session.user.username,
-                    to_username: req.params.username,
-                    new: true
-                })
- * res.sendStatus(204); // OK ama bir şey dönmüyorum 
  * @api {get} /api/chat/:username chat history with username
  * @apiName history with user
  * @apiGroup chat
  * @apiPermission user
+ * @apiParam (Request body(JSON)) {Object} body
+ * @apiParam (Request body(JSON)) {String} body.message message text
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 204 OK
  */
 router.post("/:username", (req, res, next) => {
   if (!req.session.user) {
@@ -188,15 +183,24 @@ router.post("/:username", (req, res, next) => {
     res.sendStatus(400);
     return;
   }
-  db.Message.create({
-    message: req.body.message,
-    from_username: req.session.user.username,
-    to_username: req.params.username,
-    new: true
-  }).then(msg => {
-    res.sendStatus(204);
+  const db = req.db;
+  db.User.findOne({
+    attributes: ['username'],
+    where: { username: req.params.username }
+  }).then((user) => {
+    if(!user){
+      res.sendStatus(400);
+      return;
+    }
+    db.Message.create({
+      message: req.body.message,
+      from_username: req.session.user.username,
+      to_username: req.params.username,
+      new: true
+    }).then(msg => {
+      res.sendStatus(204);
+    });
   });
-  res.sendStatus(204);
 });
 
 module.exports = { router };
