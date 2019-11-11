@@ -54,21 +54,21 @@ export default class GeneralTest extends React.Component {
                     <form>
                         <fieldset className="question"><p className="commentsec_title">{(i + 1) + ". " + this.state.questions[i].desc}</p>
                             <div className="answers radio-toolbar" >
-                                <div className = "answerstext">
+                                <div className="answerstext">
                                     <label for="a"><input type="radio" id="1" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[0].id, i, ans)} />
-                                    {this.state.questions[i].choices[0].desc}</label>
+                                        {this.state.questions[i].choices[0].desc}</label>
                                 </div>
-                                <div className = "answerstext">
+                                <div className="answerstext">
                                     <label for="b"><input type="radio" id="2" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[1].id, i, ans)} />
-                                    {this.state.questions[i].choices[1].desc}</label>
+                                        {this.state.questions[i].choices[1].desc}</label>
                                 </div>
-                                <div className = "answerstext">  
+                                <div className="answerstext">
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].id, i, ans)} />
-                                    {this.state.questions[i].choices[2].desc}</label>
+                                        {this.state.questions[i].choices[2].desc}</label>
                                 </div>
-                                <div className = "answerstext">
+                                <div className="answerstext">
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].id, i, ans)} />
-                                    {this.state.questions[i].choices[3].desc}</label>
+                                        {this.state.questions[i].choices[3].desc}</label>
                                 </div>
                             </div>
                         </fieldset>
@@ -109,6 +109,25 @@ export default class GeneralTest extends React.Component {
             submitted: true
         });
     };
+
+
+    componentDidMount() {
+        var _navbar = document.getElementById("nav");
+        if (_navbar.childNodes.length > 2) {
+          return;
+        } else {
+          _navbar.removeChild(_navbar.childNodes[0]);
+          var _nav = document.getElementById("last_item");
+          _nav.insertAdjacentHTML('beforebegin',
+            '<li id="chld"><a href="/profile">Profile</a></li>');
+          _nav.insertAdjacentHTML('afterend',
+            '<li id="chld"><a href="/exam">Exam</a></li>' +
+            '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+            '<li id="chld"><a href="/messages">Messages</a></li>' +
+            '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
+            '<li id="chld" style="float:right";><a >Settings</a></li>');
+        }
+      }
 
 
     render() {
