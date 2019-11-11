@@ -96,9 +96,8 @@ router.get("/:username", (req, res, next) => {
     const Op = db.Sequelize.Op;
     let skip = req.body.skip;
     let limit = req.body.limit;
-    if (skip === undefined || null || String(skip).match(/^\d+$/) == null)
-      skip = 0;
-    if (limit === undefined || null || String(limit).match(/^\d+$/) == null)
+    if (skip === undefined || String(skip).match(/^\d+$/) === null) skip = 0;
+    if (limit === undefined || String(limit).match(/^\d+$/) === null)
       limit = 10;
     else if (limit > 20) limit = 20;
     db.Message.findAll({
