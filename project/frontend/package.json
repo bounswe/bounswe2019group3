@@ -12,7 +12,11 @@
     "react-cookie": "^4.0.1",
     "react-cookies": "^0.1.1",
     "react-dom": "^16.10.1",
-    "react-scripts": "3.2.0"
+    "react-rating": "^2.0.0",
+    "react-scripts": "3.2.0",
+    "react-star-rating": "^1.4.2",
+    "react-star-rating-component": "^1.4.1",
+    "react-star-ratings": "^2.3.0"
   },
   "scripts": {
     "start": "react-scripts start",

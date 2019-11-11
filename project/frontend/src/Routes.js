@@ -5,8 +5,10 @@ import SignIn from './SignIn';
 import ProfilePage from './ProfilePage';
 import ExaminationPage from './ExaminationPage';
 import GeneralTest from './GeneralTest';
-
-
+import Writing from './Writing';
+import Logout from './Logout';
+import Messages from './Messages';
+import Settings from './Settings';
 
 class Routes extends React.Component {
 
@@ -22,7 +24,10 @@ class Routes extends React.Component {
           <Route path='/signin' component={SignIn} />
           <Route path='/exam' component={ExaminationPage} />
           <Route path='/generalTest' component={GeneralTest} />
-
+          <Route path='/writing' component={Writing} />
+          <Route path='/logout' component={Logout} />
+          <Route path='/messages' component={Messages} />
+          <Route path='/settings' component={Settings} />
         </Switch>
       );
   }
