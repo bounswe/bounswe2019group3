@@ -154,8 +154,8 @@ router.get("/:username", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/chat/:username chat history with username
- * @apiName history with user
+ * @api {post} /api/chat/:username create new message for username
+ * @apiName create new message
  * @apiGroup chat
  * @apiPermission user
  * @apiParam (Request body(JSON)) {Object} body
