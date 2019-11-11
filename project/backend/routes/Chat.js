@@ -128,37 +128,26 @@ router.get("/:username", (req, res, next) => {
       limit: limit,
       order: [["id", "ASC"]]
     }).then(messages => {
-      db.Message.update(
-        {
-          new: false,
-          updatedAt: new Date()
-        },
-        {
-          where: {
-            id: {
-              [Op.lte]: messages[messages.length - 1].id
-            },
-            [Op.or]: [
-              {
-                to_username: {
-                  [Op.eq]: req.session.user.username
-                },
-                from_username: {
-                  [Op.eq]: req.params.username
-                }
+      if (messages.length > 0)
+        db.Message.update(
+          {
+            new: false,
+            updatedAt: new Date()
+          },
+          {
+            where: {
+              id: {
+                [Op.lte]: messages[messages.length - 1].id
               },
-              {
-                to_username: {
-                  [Op.eq]: req.params.username
-                },
-                from_username: {
-                  [Op.eq]: req.session.user.username
-                }
+              to_username: {
+                [Op.eq]: req.session.user.username
+              },
+              from_username: {
+                [Op.eq]: req.params.username
               }
-            ]
+            }
           }
-        }
-      );
+        );
       res.send(messages);
     });
   }
@@ -185,10 +174,10 @@ router.post("/:username", (req, res, next) => {
   }
   const db = req.db;
   db.User.findOne({
-    attributes: ['username'],
+    attributes: ["username"],
     where: { username: req.params.username }
-  }).then((user) => {
-    if(!user){
+  }).then(user => {
+    if (!user) {
       res.sendStatus(400);
       return;
     }

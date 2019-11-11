@@ -4,8 +4,8 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("Messages", [
       {
-        to_username: "lazyostrich850",
-        from_username: "angrydog556",
+        to_username: "angrydog556",
+        from_username: "lazyostrich850",
         message: "Hi there",
         new: true,
         createdAt: new Date(),
