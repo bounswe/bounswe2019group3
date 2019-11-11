@@ -1,5 +1,4 @@
-
-const router = require('express').Router()
+const router = require("express").Router();
 
 /**
  * @api {get} /api/chat/ general chat history
@@ -13,7 +12,7 @@ const router = require('express').Router()
  * @apiSuccess {String}     chat.history.last_message       last message
  * @apiSuccess {Integer}    chat.history.nb_new_messages    number of new messages from that user
  * @apiSuccess {String}     chat.history.last_message_date  date of the last message
- * 
+ *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
  *     {
@@ -30,70 +29,137 @@ const router = require('express').Router()
  *              "last_message": "welcome to bulingo",
  *              "nb_new_messages": 2,
  *              "last_message_date": "2013-10-20T11:10:04.222Z"
- *          }    
+ *          }
  *       ]
  *     }
  */
-router.get('/', (req, res, next) => {
-    if(!req.session.user) {
-        res.sendStatus(400);
-        return;
-    }
-    const username = req.session.user.username;
-    const db = req.db;
-    db.Message.findAll({
-        where: db.Sequelize.or(
-            { to_username: username },
-            { from_username: username }
-        ),
-        order: [
-            ['createdAt', 'DESC']
-        ],
-        limit: 10
-    })
-    .then((messages) => {
-        let response = {
-            nb_new_messages: 0,
-            history: []
+router.get("/", (req, res, next) => {
+  if (!req.session.user) {
+    res.sendStatus(400);
+    return;
+  }
+  const username = req.session.user.username;
+  const db = req.db;
+  db.Message.findAll({
+    where: db.Sequelize.or(
+      { to_username: username },
+      { from_username: username }
+    ),
+    order: [["createdAt", "DESC"]],
+    limit: 10
+  }).then(messages => {
+    let response = {
+      nb_new_messages: 0,
+      history: []
+    };
+    let order = {};
+    let index = 0;
+    messages.forEach(msg => {
+      const opposite_username =
+        msg.to_username == username ? msg.from_username : msg.to_username;
+      const is_new = msg.new && msg.to_username == username;
+      if (!(opposite_username in order)) {
+        order[opposite_username] = index;
+        index += 1;
+        response.history[order[opposite_username]] = {
+          username: opposite_username,
+          last_message: msg.message,
+          last_message_date: msg.createdAt,
+          nb_new_messages: 1 * is_new
         };
-        let order = {}
-        let index = 0;
-        messages.forEach(msg => {
-            const opposite_username = msg.to_username == username ? msg.from_username : msg.to_username;
-            const is_new = msg.new && msg.to_username == username;
-            if(!(opposite_username in order)){
-                order[opposite_username] = index;
-                index += 1;
-                response.history[order[opposite_username]] = {
-                    username: opposite_username,
-                    last_message: msg.message,
-                    last_message_date: msg.createdAt,
-                    nb_new_messages: 1 * is_new,
-                }
-            }else{
-                response.history[order[opposite_username]].nb_new_messages += 1 * is_new;
-            }
-            response.nb_new_messages += 1 * is_new;
-        });
-        res.status(200).send(response);
+      } else {
+        response.history[order[opposite_username]].nb_new_messages +=
+          1 * is_new;
+      }
+      response.nb_new_messages += 1 * is_new;
     });
+    res.status(200).send(response);
+  });
 });
 
 /**
- * @apiIgnore Not finished Method
- * SABRİ
- * https://github.com/expressjs/express-paginate
- * PAGINATION 0(sonuncu) -> 10 tane ver yani [0,10]
- * req.body.skip(0), req.body.limit(10) 0,10 load more 10-20 load more 20-30
- * select * from message where to=samet and  from=berkay orderby date; [skip, limit] 
- * seçilenlerin hepsi için new=false
  * @api {get} /api/chat/:username chat history with username
  * @apiName history with user
  * @apiGroup chat
  * @apiPermission user
+ * @apiSuccess {Object[]} messages                          list of messages
+ * @apiSuccess {String}   messages.to_username              message receiver
+ * @apiSuccess {String}   messages.from_username            message sender
+ * @apiSuccess {String}   messages.message                  message text
+ * @apiSuccess {Boolean}  messages.new                      message is read boolean
  */
-router.get('/:username', (req, res, next) => {
-    res.sendStatus(501);
+router.get("/:username", (req, res, next) => {
+  if (!req.session.user) {
+    res.sendStatus(403);
+  } else {
+    const db = req.db;
+    const Op = db.Sequelize.Op;
+    let skip = req.body.skip;
+    let limit = req.body.limit;
+    if (skip === undefined || null || String(skip).match(/^\d+$/) == null)
+      skip = 0;
+    if (limit === undefined || null || String(limit).match(/^\d+$/) == null)
+      limit = 10;
+    else if (limit > 20) limit = 20;
+    db.Message.findAll({
+      where: {
+        [Op.or]: [
+          {
+            to_username: {
+              [Op.eq]: req.session.user.username
+            },
+            from_username: {
+              [Op.eq]: req.params.username
+            }
+          },
+          {
+            to_username: {
+              [Op.eq]: req.params.username
+            },
+            from_username: {
+              [Op.eq]: req.session.user.username
+            }
+          }
+        ]
+      },
+      offset: skip,
+      limit: limit,
+      order: [["id", "ASC"]]
+    }).then(messages => {
+      db.Message.update(
+        {
+          new: false,
+          updatedAt: new Date()
+        },
+        {
+          where: {
+            id: {
+              [Op.lte]: messages[messages.length - 1].id
+            },
+            [Op.or]: [
+              {
+                to_username: {
+                  [Op.eq]: req.session.user.username
+                },
+                from_username: {
+                  [Op.eq]: req.params.username
+                }
+              },
+              {
+                to_username: {
+                  [Op.eq]: req.params.username
+                },
+                from_username: {
+                  [Op.eq]: req.session.user.username
+                }
+              }
+            ]
+          }
+        }
+      );
+      res.send(messages);
+    });
+  }
 });
 
 /**
@@ -114,26 +180,24 @@ router.get('/:username', (req, res, next) => {
  * @apiGroup chat
  * @apiPermission user
  */
-router.post('/:username', (req, res, next) => {
-    if (!req.session.user ){
+router.post("/:username", (req, res, next) => {
+  if (!req.session.user) {
     res.sendStatus(401);
     return;
-    }
-    if (!req.body.message){
+  }
+  if (!req.body.message) {
     res.sendStatus(400);
     return;
-    }
-    db.Message.create({
-        message: req.body.message,
-        from_username: req.session.user.username,
-        to_username: req.params.username,
-        new: true
-    })
-    .then((msg)=>{
-        res.sendStatus(204);
-    })
+  }
+  db.Message.create({
+    message: req.body.message,
+    from_username: req.session.user.username,
+    to_username: req.params.username,
+    new: true
+  }).then(msg => {
     res.sendStatus(204);
+  });
+  res.sendStatus(204);
 });
 
-
-module.exports = {router};
+module.exports = { router };
