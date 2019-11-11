@@ -78,27 +78,27 @@ router.get("/", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/chat/:username chat history with username
+ * @api {get} /api/chat/:username/:skip?/:limit? chat history with username
  * @apiName history with user
  * @apiGroup chat
  * @apiPermission user
- * @apiParam (Request body(JSON)) {Object} body
- * @apiParam (Request body(JSON)) {String} body.skip        number of messages to skip
- * @apiParam (Request body(JSON)) {String} body.limit       number of messages to return
+ * @apiParam (URL) {String} username                        opponent user's username
+ * @apiParam (URL) {String} skip                            number of messages to skip
+ * @apiParam (URL) {String} limit                           number of messages to return
  * @apiSuccess {Object[]} messages                          list of messages
  * @apiSuccess {String}   messages.to_username              message receiver
  * @apiSuccess {String}   messages.from_username            message sender
  * @apiSuccess {String}   messages.message                  message text
  * @apiSuccess {Boolean}  messages.new                      message is read boolean
  */
-router.get("/:username", (req, res, next) => {
+router.get("/:username/:skip?/:limit?", (req, res, next) => {
   if (!req.session.user) {
     res.sendStatus(401);
   } else {
     const db = req.db;
     const Op = db.Sequelize.Op;
-    let skip = req.body.skip;
-    let limit = req.body.limit;
+    let skip = req.params.skip || req.body.skip;
+    let limit = req.params.limit || req.body.limit;
     if (skip === undefined || String(skip).match(/^\d+$/) === null) skip = 0;
     if (limit === undefined || String(limit).match(/^\d+$/) === null)
       limit = 10;
