@@ -135,6 +135,31 @@
         app:strokeColor="@color/colorAccent"
         app:strokeWidth="5dp" />
 
+        <EditText
+            android:id="@+id/messageUsername"
+            android:layout_width="240dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <requestFocus></requestFocus>
+        </EditText>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:clickable="true"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/messageUsername"
+            app:srcCompat="@android:drawable/ic_dialog_email"
+            android:onClick="openChat"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

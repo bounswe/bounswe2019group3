@@ -9,9 +9,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bulingo.Chat.ChatActivity;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Exercises.Exercise;
@@ -111,6 +113,14 @@ public class LoginMain extends AppCompatActivity {
     public void onClickProfilePage(View view) {
         Intent intent = new Intent(this, ProfilePage.class);
         intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void openChat(View view) {
+        Intent intent = new Intent(this, ChatActivity.class);
+        intent.putExtra("sender", username);
+        EditText text = findViewById(R.id.messageUsername);
+        intent.putExtra("receiver", text.getText().toString());
         startActivity(intent);
     }
 }

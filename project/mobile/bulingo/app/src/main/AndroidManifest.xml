@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.ProfilePage"
+        <activity android:name=".Chat.ChatActivity"
+            android:noHistory="true"></activity>
+        <activity
+            android:name=".Profile.ProfilePage"
             android:noHistory="true" />
         <activity android:name=".Exercises.ResultActivity" />
         <activity

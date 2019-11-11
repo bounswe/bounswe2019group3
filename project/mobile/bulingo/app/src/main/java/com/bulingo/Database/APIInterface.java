@@ -52,5 +52,9 @@ public interface APIInterface {
     @GET("/api/user/{username}/comments/")
     Call<List<Comment>> doGetUserComments(@Path("username") String username);
 
+    @GET("/api/chat/{username}/")
+    Call<List<Message>> doGetMessages(@Path("username") String username);
+
+
 
 }
