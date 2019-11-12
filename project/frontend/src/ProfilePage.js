@@ -1,8 +1,6 @@
-
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBCard, MDBCardBody, MDBCardHeader, MDBIcon } from 'mdbreact';
-import './SignUp.css';
-import { Redirect } from 'react-router-dom';
+import './General.css';
 import { Radar } from 'react-chartjs-2';
 import Cookies from 'js-cookie'
 import axios from "axios";
@@ -57,16 +55,12 @@ export default class FormPage extends React.Component {
     for (let i = 0; i < this.state.comments.length; i++) {
       comm[i] = (
         <div className="Comment">
-
           <p className="commentsec_title">{this.state.comments[i].comment_by}</p>
           <p>{this.state.comments[i].text}</p>
-
           <p className="commentsec_usrname rightaligned small">{this.state.comments[i].createdAt}</p>
         </div>
       );
     }
-
-
     return comm;
   }
 
@@ -83,21 +77,6 @@ export default class FormPage extends React.Component {
     }
     return lan;
   }
-
-
-  goToExercises() {
-    this.setState({
-      exercises: true,
-      writing: false
-    });
-  };
-
-  goToSendWriting() {
-    this.setState({
-      exercises: false,
-      writing: true
-    });
-  };
 
 
   componentDidMount() {
@@ -122,13 +101,10 @@ export default class FormPage extends React.Component {
       <MDBContainer fluid>
         <MDBRow>
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-
           <MDBCol md="4">
-
             <div className="fixedsizebio">
               <div className="marginedleft20">
                 <MDBRow>
-
                   <MDBCol md="6">
                     <MDBRow>
                       <MDBCol>
@@ -142,38 +118,28 @@ export default class FormPage extends React.Component {
                       </MDBCol>
                     </MDBRow>
                   </MDBCol>
-
                   <MDBCol md="6">
                     <img className="profilePic topMargined marginedleft50" src={this.state.information.avatar} alt="." />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
-
                   <MDBCol>
                     <MDBRow>
                       {this.languagesWithLevels()}
                     </MDBRow>
                     <MDBRow>
-
-
                       <div className="Bio"><p className="commentsec_usrname">My Biography</p>
                         {this.state.information.bio}
                       </div>
                       <div > <p className=" topMargined marginedleft" >
                         <MDBIcon icon="envelope" className="mr-3" />
                         {this.state.information.email}</p> </div>
-
                     </MDBRow>
-
-
                   </MDBCol>
-
                 </MDBRow>
               </div>
             </div>
           </MDBCol>
-
-
           <MDBCol md="4">
             <div className="Scrollbar">
               {this.commentField()}

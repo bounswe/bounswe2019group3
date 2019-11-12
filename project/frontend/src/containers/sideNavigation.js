@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBListGroup, MDBListGroupItem, MDBIcon } from 'mdbreact';
-import '../SignUp.css';
+import '../General.css';
 import { NavLink } from 'react-router-dom';
 
 const TopNavigation = () => {

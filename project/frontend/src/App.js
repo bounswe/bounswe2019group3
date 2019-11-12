@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import Routes from './Routes';
-import './SignUp.css';
+import './General.css';
 import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import Cookies from 'js-cookie';
 
 class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       isLogined: Cookies.get('username')
     };
   }
-
-
 
   render() {
     return (
@@ -28,8 +25,7 @@ class App extends Component {
         <MDBRow id="navbar">
           <ul id="nav">
             <li id="home"><a href="/">Home</a></li>
-            <li id="last_item"><a >Exercise</a></li>
-            
+            <li id="last_item"><a href="#">Exercise</a></li>
           </ul>
         </MDBRow>
         <MDBRow >

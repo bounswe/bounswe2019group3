@@ -1,5 +1,5 @@
 import React from "react";
-import './SignUp.css';
+import './General.css';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from "axios";
