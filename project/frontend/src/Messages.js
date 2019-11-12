@@ -1,7 +1,6 @@
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput, MDBIcon } from 'mdbreact';
-import './SignUp.css';
-import { Redirect, NavLink } from 'react-router-dom';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
+import './General.css';
 import Cookies from 'js-cookie'
 import axios from 'axios';
 
@@ -23,9 +22,8 @@ export default class Messages extends React.Component {
     messageField() {
         var tmp;
         var messages = [];
-        console.log(this.state.last_messages);
-        tmp = this.state.last_messages[0]
-        console.log(this.state.last_messages[0])
+        //console.log(this.state.last_messages);
+        //console.log(this.state.last_messages[0])
         for (let i = 0; i < this.state.last_messages.length; i++) {
             messages[this.state.last_messages.length - i] = (
                 <div className="Messagebox" onClick={this.openmessages.bind(this, this.state.last_messages[i].username)}>
@@ -37,10 +35,10 @@ export default class Messages extends React.Component {
         return messages;
     }
     openmessages(usr) {
-        console.log(usr)
+        //console.log(usr)
         axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 this.setState({ chat_messages: res.data })
             })
 
@@ -50,18 +48,23 @@ export default class Messages extends React.Component {
     fillChatWindow() {
         var chat = [];
         for (let i = 0; i < this.state.chat_messages.length; i++) {
-            chat[i] = (
-                <div className="Messagebox">
-                    {this.state.chat_messages[i].message}
-                </div>
-            );
+            //console.log(this.state.chat_messages[i].from_username)
+            if (this.state.chat_messages[i].from_username === Cookies.get('username')) {
+                chat[i] = (
+                    <div className="chat_message_right Messagebox " >
+                        {this.state.chat_messages[i].message }
+                    </div>
+                );
+            }else{
+                chat[i] = (
+                    <div className="chat_message_left Messagebox ">
+                        {this.state.chat_messages[i].message }
+                    </div>
+                );
+            }
         }
-
-
         return chat;
     }
-
-
     sendmessage() { }
 
 
@@ -84,14 +87,7 @@ export default class Messages extends React.Component {
     }
 
     render() {
-        console.log(this.state.chat_messages)
-        if (this.state.isLogout) {
-            return (<Redirect
-                push to={{
-                    pathname: "/"
-                }}
-            />);
-        }
+        //console.log(this.state.chat_messages)
         return (
             <MDBContainer fluid>
                 <MDBRow className="topMargined">
@@ -108,7 +104,6 @@ export default class Messages extends React.Component {
                             </div>
                         </MDBRow>
                         <MDBRow>
-
                             <textarea
                                 type="text"
                                 className="form-control top-margined-20"
