@@ -58,10 +58,10 @@ export default class FormPage extends React.Component {
       comm[i] = (
         <div className="Comment">
 
-          <p className="commentsec_title">Very increadible grammar knowledge!</p>
+          <p className="commentsec_title">{this.state.comments[i].comment_by}</p>
           <p>{this.state.comments[i].text}</p>
 
-          <p className="commentsec_usrname rightaligned small">{this.state.comments[i].comment_by}</p>
+          <p className="commentsec_usrname rightaligned small">{this.state.comments[i].createdAt}</p>
         </div>
       );
     }

@@ -10,57 +10,81 @@ export default class Messages extends React.Component {
     constructor(props) {
         super(props);
         axios.get('http://18.184.207.248/api/chat/', { withCredentials: true })
-      .then(res => {
-        //console.log(res.data);
-        this.setState({ last_messages: res.data });
-        console.log(this)
-      })
-      this.state = {
-          last_messages : {}
-    }
-        
+            .then(res => {
+                console.log(res.data.history);
+                this.setState({ last_messages: res.data.history });
+            })
+        this.state = {
+            last_messages: [],
+            chat_messages: []
+        }
+
     }
     messageField() {
+        var tmp;
         var messages = [];
-        //console.log(this.state);
-        for (let i = 0; i < this.state.last_messages.history.length; i++) {
-            messages[this.state.last_messages.history.length - i] = (
-                <div className="Messagebox" onClick={this.openmessages.bind(this.state.last_messages.history[i].username)}>
-                    <p>{this.state.last_messages.history[i].username}</p>
-                    <p>{this.state.last_messages.history[i].last_message}</p>
+        console.log(this.state.last_messages);
+        tmp = this.state.last_messages[0]
+        console.log(this.state.last_messages[0])
+        for (let i = 0; i < this.state.last_messages.length; i++) {
+            messages[this.state.last_messages.length - i] = (
+                <div className="Messagebox" onClick={this.openmessages.bind(this, this.state.last_messages[i].username)}>
+                    <p>{this.state.last_messages[i].username}</p>
+                    <p>{this.state.last_messages[i].last_message}</p>
                 </div>
             );
         }
         return messages;
     }
     openmessages(usr) {
-        axios.get('http://18.184.207.248/api/chat/'+ usr)
+        console.log(usr)
+        axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
             .then(res => {
-                //console.log(res.data);
+                console.log(res.data);
+                this.setState({ chat_messages: res.data })
             })
+
+
     }
-    sendmessage() {}
-    
+
+    fillChatWindow() {
+        var chat = [];
+        for (let i = 0; i < this.state.chat_messages.length; i++) {
+            chat[i] = (
+                <div className="Messagebox">
+                    {this.state.chat_messages[i].message}
+                </div>
+            );
+        }
+
+
+        return chat;
+    }
+
+
+    sendmessage() { }
+
 
     componentDidMount() {
         var _navbar = document.getElementById("nav");
         if (_navbar.childNodes.length > 2) {
-          return;
+            return;
         } else {
-          _navbar.removeChild(_navbar.childNodes[0]);
-          var _nav = document.getElementById("last_item");
-          _nav.insertAdjacentHTML('beforebegin',
-            '<li id="chld"><a href="/profile">Profile</a></li>');
-          _nav.insertAdjacentHTML('afterend',
-            '<li id="chld"><a href="/exam">Exam</a></li>' +
-            '<li id="chld"><a href="/writing">Send Writing</a></li>' +
-            '<li id="chld"><a href="/messages">Messages</a></li>' +
-            '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
-            '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+            _navbar.removeChild(_navbar.childNodes[0]);
+            var _nav = document.getElementById("last_item");
+            _nav.insertAdjacentHTML('beforebegin',
+                '<li id="chld"><a href="/profile">Profile</a></li>');
+            _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/exam">Exam</a></li>' +
+                '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+                '<li id="chld"><a href="/messages">Messages</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
         }
-      }
-      
+    }
+
     render() {
+        console.log(this.state.chat_messages)
         if (this.state.isLogout) {
             return (<Redirect
                 push to={{
@@ -79,7 +103,9 @@ export default class Messages extends React.Component {
                     </MDBCol>
                     <MDBCol md="7">
                         <MDBRow>
-                            <div className="messagehistory Scrollbar"></div>
+                            <div className="messagehistory Scrollbar">
+                                {this.fillChatWindow()}
+                            </div>
                         </MDBRow>
                         <MDBRow>
 
