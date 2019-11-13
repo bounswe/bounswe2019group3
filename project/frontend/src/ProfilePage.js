@@ -5,6 +5,7 @@ import { Radar } from 'react-chartjs-2';
 import Cookies from 'js-cookie'
 import axios from "axios";
 import StarRatingComponent from 'react-star-rating-component';
+import * as moment from 'moment'
 
 export default class FormPage extends React.Component {
 
@@ -57,7 +58,7 @@ export default class FormPage extends React.Component {
         <div className="Comment">
           <p className="commentsec_title">{this.state.comments[i].comment_by}</p>
           <p>{this.state.comments[i].text}</p>
-          <p className="commentsec_usrname rightaligned small">{this.state.comments[i].createdAt}</p>
+          <p className="commentsec_usrname rightaligned small">{moment(this.state.comments[i].createdAt).format('MMM Do YY, h:mm:ss a')}</p>
         </div>
       );
     }

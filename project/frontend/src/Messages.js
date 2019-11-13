@@ -3,6 +3,7 @@ import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import './General.css';
 import Cookies from 'js-cookie'
 import axios from 'axios';
+import * as moment from 'moment'
 
 
 export default class Messages extends React.Component {
@@ -19,15 +20,21 @@ export default class Messages extends React.Component {
         }
 
     }
+
     messageField() {
         var tmp;
         var messages = [];
-        //console.log(this.state.last_messages);
+        console.log(this.state.last_messages);
         //console.log(this.state.last_messages[0])
         for (let i = 0; i < this.state.last_messages.length; i++) {
             messages[this.state.last_messages.length - i] = (
                 <div className="Messagebox" onClick={this.openmessages.bind(this, this.state.last_messages[i].username)}>
-                    <p>{this.state.last_messages[i].username}</p>
+                    <p className="left_aligned">
+                        <b>{this.state.last_messages[i].username}</b>
+                        <span className="right_float">
+                            {moment(this.state.last_messages[i].last_message_date).format('MMM Do YY')}
+                        </span>
+                    </p>
                     <p>{this.state.last_messages[i].last_message}</p>
                 </div>
             );
@@ -38,7 +45,7 @@ export default class Messages extends React.Component {
         //console.log(usr)
         axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
             .then(res => {
-                //console.log(res.data);
+                console.log(res.data);
                 this.setState({ chat_messages: res.data })
             })
 
@@ -52,13 +59,21 @@ export default class Messages extends React.Component {
             if (this.state.chat_messages[i].from_username === Cookies.get('username')) {
                 chat[i] = (
                     <div className="chat_message_right Messagebox " >
-                        {this.state.chat_messages[i].message }
+                        <p>{this.state.chat_messages[i].message}
+                            <span className="right_float">
+                                {moment(this.state.chat_messages[i].createdAt).format('MMM Do YY, h:mm:ss a')}
+                            </span>
+                        </p>
                     </div>
                 );
-            }else{
+            } else {
                 chat[i] = (
                     <div className="chat_message_left Messagebox ">
-                        {this.state.chat_messages[i].message }
+                        <p>{this.state.chat_messages[i].message}
+                            <span className="right_float">
+                                {moment(this.state.chat_messages[i].createdAt).format('MMM Do YY, h:mm:ss a')}
+                            </span>
+                        </p>
                     </div>
                 );
             }

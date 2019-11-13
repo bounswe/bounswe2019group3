@@ -12,6 +12,14 @@
   margin-top: 150px;
 }
 
+.left_aligned{
+  text-align:left;
+}
+
+.right_float{
+  float:right;
+}
+
 .chat_message_right {
   width: 525px; 
   float: right; 
