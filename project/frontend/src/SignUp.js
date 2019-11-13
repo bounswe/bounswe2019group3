@@ -36,7 +36,7 @@ export default class FormPage1 extends React.Component {
 
   render() {
 
-    console.log(this.state.authenticated);
+    //console.log(this.state.authenticated);
     if (this.state.authenticated) {
       return (<Redirect
         push to={{

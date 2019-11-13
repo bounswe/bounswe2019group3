@@ -22,9 +22,8 @@ export default class Messages extends React.Component {
     }
 
     messageField() {
-        var tmp;
         var messages = [];
-        console.log(this.state.last_messages);
+        //console.log(this.state.last_messages);
         //console.log(this.state.last_messages[0])
         for (let i = 0; i < this.state.last_messages.length; i++) {
             messages[this.state.last_messages.length - i] = (
@@ -45,7 +44,7 @@ export default class Messages extends React.Component {
         //console.log(usr)
         axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
             .then(res => {
-                console.log(res.data);
+                //console.log(res.data);
                 this.setState({ chat_messages: res.data })
             })
 
