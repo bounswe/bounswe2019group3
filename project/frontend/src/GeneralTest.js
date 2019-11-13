@@ -4,7 +4,7 @@ import Popup from './Popup';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
-import './SignUp.css';
+import './General.css';
 
 export default class GeneralTest extends React.Component {
     constructor(props) {

@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import './SignUp.css';
+import './General.css';
 import { Redirect, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from 'axios';
@@ -36,7 +36,7 @@ export default class FormPage1 extends React.Component {
 
   render() {
 
-    console.log(this.state.authenticated);
+    //console.log(this.state.authenticated);
     if (this.state.authenticated) {
       return (<Redirect
         push to={{
