@@ -17,7 +17,7 @@ router.get("/", (req, res, next) => {
     });
 });
 
-/**
+/**berkay
  * @api {post} /api/user/:username update user details
  * @apiName update user details
  * @apiGroup user
@@ -27,7 +27,7 @@ router.get("/", (req, res, next) => {
  * @apiParam (Request body(JSON)) {String}   user.avatar    
  */
 router.post("/:username/", (req, res, next) => {
-    res.sendStatus(501);
+
 });
 
 /**
@@ -51,6 +51,45 @@ router.get("/:username/", (req, res, next) => {
         res.send(user);
     });
 });
+
+/**
+ * @api {post} /api/user/:username/comments/ create comment for username
+ * @apiName create new comment
+ * @apiGroup user
+ * @apiPermission User
+ * @apiParam (Request body(JSON)) {Object} comment
+ * @apiParam (Request body(JSON)) {String} comment.text  text
+ * @apiParam (Request body(JSON)) {Integer} comment.rating   rating (1,2,3,4,5)
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 204 OK
+ */
+ 
+router.post("/:username/comments/", (req, res, next) => {
+    if (!req.session.user) {
+        res.sendStatus(401);
+        return;
+    }
+    const db = req.db;
+    db.User.findOne({
+        attributes: ["username"],
+        where: { username: req.params.username }
+      }).then(user => {
+        if (!user) {
+          res.sendStatus(400);
+          return;
+        }
+        db.Comment.create({
+          comment_to: req.params.username,
+          rating: req.body.rating,
+          text: req.body.text,
+          comment_by: req.session.user.username,
+          new: true
+        }).then(msg => {
+          res.sendStatus(204);
+        });
+      });
+    });
+
 
 /**
  * @api {get} /api/user/:username/comments returns user comments
