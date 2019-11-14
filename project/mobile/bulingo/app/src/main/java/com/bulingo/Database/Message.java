@@ -15,4 +15,9 @@ public class Message {
 
     @SerializedName("new")
     public boolean isNew;
+
+    public Message(String message, String sender) {
+        this.body = message;
+        this.sender = sender;
+    }
 }

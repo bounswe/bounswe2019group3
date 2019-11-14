@@ -13,8 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Chat.ChatActivity"
-            android:noHistory="true"></activity>
+        <activity android:name=".Chat.ChatHistory"></activity>
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:noHistory="true" />
         <activity
             android:name=".Profile.ProfilePage"
             android:noHistory="true" />

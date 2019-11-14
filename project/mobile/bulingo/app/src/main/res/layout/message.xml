@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="4dp"
+    android:layout_marginTop="10dp"
     android:layout_marginStart="16dp"
     android:layout_marginEnd="16dp"
     >
@@ -17,6 +17,7 @@
         android:textSize="14sp"
         android:background="@drawable/message_layout"
         android:maxWidth="300dp"
+        android:minWidth="75dp"
         />
 
 </LinearLayout>

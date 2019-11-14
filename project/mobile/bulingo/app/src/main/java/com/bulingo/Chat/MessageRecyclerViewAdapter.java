@@ -54,6 +54,7 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
         public void onBindViewHolder(com.bulingo.Chat.MessageRecyclerViewAdapter.MessageViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
+            holder.setIsRecyclable(false);
             TextView message = holder.linearLayout.findViewById(R.id.message_body);
             Message m = mDataset.get(position);
             message.setText(mDataset.get(position).body);
@@ -61,7 +62,7 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams
                         (LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                 params.weight = 1.0f;
-                params.gravity = Gravity.RIGHT;
+                params.gravity = Gravity.END;
                 message.setLayoutParams(params);
                 message.setBackgroundResource(R.drawable.message_sender_layout);
                 message.setTextColor(Color.parseColor("#000000"));
@@ -75,4 +76,9 @@ public class MessageRecyclerViewAdapter extends RecyclerView.Adapter<MessageRecy
         public int getItemCount() {
             return mDataset.size();
         }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
 }

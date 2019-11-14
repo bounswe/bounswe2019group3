@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +19,7 @@ import com.bulingo.R;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -30,6 +33,7 @@ public class ChatActivity extends AppCompatActivity {
     String sender;
     String receiver;
     APIInterface apiInterface;
+    List<Message> allMessages = new ArrayList<>();
 
 
     @Override
@@ -52,24 +56,25 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessageRecyclerViewAdapter(messages, sender);
         recyclerView.setAdapter(adapter);
 
-        getMessages(receiver);
+        getMessages(receiver, 0);
+
     }
 
-    private void getMessages(String receiver) {
-        JsonObject paramObject = new JsonObject();
-        paramObject.addProperty("skip", "0");
-        paramObject.addProperty("limit", "20");
-        Call<List<Message>> responseCall = apiInterface.doGetMessages(receiver);
+    private void getMessages(String receiver, int skip) {
+        Call<List<Message>> responseCall = apiInterface.doGetMessages(receiver, String.valueOf(skip), String.valueOf(20));
         responseCall.enqueue(new Callback<List<Message>>() {
             @Override
             public void onResponse(Call<List<Message>> call, Response<List<Message>> response) {
-                Log.d("request", response.toString());
                 if(response.isSuccessful()) {
-                    messages.clear();
-                    messages.addAll(response.body());
-                    adapter.notifyDataSetChanged();
-                } else {
-                    toast("There is no such user.");
+                    List<Message> responseBody = response.body();
+
+                    if(responseBody.toString().length() > 2) {
+                        allMessages.addAll(responseBody);
+                        messages.clear();
+                        messages.addAll(allMessages);
+                        adapter.notifyDataSetChanged();
+                        getMessages(receiver, skip+20);
+                    }
                 }
             }
 
@@ -80,6 +85,39 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void sendMessage(View v) {
+        EditText input = findViewById(R.id.textInput);
+        String message = input.getText().toString().trim();
+        input.setText("");
+        if(message.isEmpty()) {
+            return;
+        }
+        JsonObject paramObject = new JsonObject();
+        paramObject.addProperty("message", message);
+        Call<Void> responseCall = apiInterface.doSendMessage(receiver, paramObject);
+        responseCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()) {
+                    allMessages.add(0, new Message(message, sender));
+                    messages.clear();
+                    messages.addAll(allMessages);
+                    adapter.notifyDataSetChanged();
+                    allMessages.clear();
+                    getMessages(receiver, 0);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("request", t.toString());
+                toast("Cannot send messages. Please try again.");
+            }
+        });
+    }
+
     public void toast(String toast){
         Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
     }

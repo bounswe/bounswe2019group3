@@ -4,10 +4,10 @@
     <solid android:color="@color/colorAccent" />
 
     <padding
-        android:left="18dp"
-        android:right="18dp"
-        android:bottom="14dp"
-        android:top="14dp" />
+        android:left="8dp"
+        android:right="8dp"
+        android:bottom="8dp"
+        android:top="8dp" />
 
     <corners android:radius="50dp" />
 

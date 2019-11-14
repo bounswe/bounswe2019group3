@@ -67,7 +67,8 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="2dp">
         <EditText android:layout_weight="1" android:id="@+id/textInput"
-            android:layout_height="45dp" android:layout_width="0dip">
+            android:layout_height="45dp" android:layout_width="0dip"
+            android:inputType="textMultiLine">
             <requestFocus></requestFocus>
         </EditText>
         <Button
@@ -76,6 +77,7 @@
             android:layout_width="125dp"
             android:layout_height="45dp"
             android:text="SEND"
+            android:onClick="sendMessage"
             android:textSize="18sp"
             app:cornerRadius="100dp"
             />

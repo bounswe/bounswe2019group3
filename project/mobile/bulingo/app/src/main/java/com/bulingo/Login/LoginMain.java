@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bulingo.Chat.ChatActivity;
+import com.bulingo.Chat.ChatHistory;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Exercises.Exercise;
@@ -117,10 +118,8 @@ public class LoginMain extends AppCompatActivity {
     }
 
     public void openChat(View view) {
-        Intent intent = new Intent(this, ChatActivity.class);
-        intent.putExtra("sender", username);
-        EditText text = findViewById(R.id.messageUsername);
-        intent.putExtra("receiver", text.getText().toString());
+        Intent intent = new Intent(this, ChatHistory.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 }
