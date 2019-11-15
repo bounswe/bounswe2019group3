@@ -6,7 +6,9 @@
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/layoutWithImage"
@@ -17,7 +19,8 @@
     app:layout_constraintBottom_toTopOf="@id/layoutForLevel"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent">
+    app:layout_constraintTop_toTopOf="parent"
+    android:background="@drawable/chat_border">
 
     <ImageView
         android:id="@+id/imageView"

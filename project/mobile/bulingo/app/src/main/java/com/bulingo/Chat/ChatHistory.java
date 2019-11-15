@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -35,6 +37,7 @@ public class ChatHistory extends AppCompatActivity {
     List<Chat.History> chats = new ArrayList<>();
     APIInterface apiInterface;
     String sender;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,17 @@ public class ChatHistory extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.appbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
+        mSwipeRefreshLayout = findViewById(R.id.swipe);
+        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorAccent);
+        mSwipeRefreshLayout.setOnRefreshListener(() -> {
+            getChats();
+            final Handler handler = new Handler();
+            handler.postDelayed(() -> {
+                if(mSwipeRefreshLayout.isRefreshing()) {
+                    mSwipeRefreshLayout.setRefreshing(false);
+                }
+            }, 500);
+        });
         sender = getIntent().getStringExtra("username");
         apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
         recyclerView = findViewById(R.id.chatRecyclerview);
@@ -83,6 +97,7 @@ public class ChatHistory extends AppCompatActivity {
                     chats.clear();
                     chats.addAll(c.history);
                     adapter.notifyDataSetChanged();
+
                 }
             }
 

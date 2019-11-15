@@ -36,6 +36,7 @@
         tools:context=".Chat.ChatActivity"
         android:layout_marginTop="?attr/actionBarSize">
 
+
         <LinearLayout
             android:id="@+id/chatLinear"
             android:orientation="vertical"
@@ -46,6 +47,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/swipe">
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="fill_parent"
                 android:id="@+id/chatRecyclerview"
@@ -54,6 +59,7 @@
                 tools:listitem="@layout/chat">
 
             </androidx.recyclerview.widget.RecyclerView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         </LinearLayout>
