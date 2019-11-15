@@ -94,7 +94,8 @@ export default class FormPage extends React.Component {
     '<li id="chld"><a href="/writing">Send Writing</a></li>'+
     '<li id="chld"><a href="/messages">Messages</a></li>' +
     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
-    '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+    '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>'+
+    '<li style="float: right;"><div class=" search-container"><form action="/#"><input type="text" placeholder="Search.." name="search" /><button type="submit"><i class="fa fa-search"></i></button></form></div></li>');
   }
 
   render() {
