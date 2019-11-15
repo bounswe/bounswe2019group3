@@ -9,6 +9,7 @@ import Writing from './Writing';
 import Logout from './Logout';
 import Messages from './Messages';
 import Settings from './Settings';
+import UserProfile from './UserProfile';
 
 class Routes extends React.Component {
 
@@ -28,6 +29,7 @@ class Routes extends React.Component {
           <Route path='/logout' component={Logout} />
           <Route path='/messages' component={Messages} />
           <Route path='/settings' component={Settings} />
+          <Route path='/user' component={UserProfile} />
         </Switch>
       );
   }
