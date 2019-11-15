@@ -142,8 +142,8 @@ h8{
 .rightaligned{
   text-align: right;
 }
+
 .Scrollbar {
-  
   overflow-y:scroll;
   height: 72vh;
   border: 2px solid #787878;

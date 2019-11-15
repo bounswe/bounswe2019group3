@@ -22,7 +22,8 @@ export default class FormPage extends React.Component {
                     Cookies.remove('username');
                     Cookies.remove('selectedExamLanguage');
                     Cookies.remove('selectedExamGrade');
-                    Cookies.remove('selectedExamLanguageAbbr')
+                    Cookies.remove('selectedExamLanguageAbbr');
+                    Cookies.remove('message_to_person')
                     this.setState({
                         isLogout: true
                     });

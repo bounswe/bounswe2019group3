@@ -11,7 +11,7 @@ export default class Messages extends React.Component {
         super(props);
         axios.get('http://18.184.207.248/api/chat/', { withCredentials: true })
             .then(res => {
-                console.log(res.data.history);
+                //console.log(res.data.history);
                 this.setState({ last_messages: res.data.history });
             })
         this.state = {
@@ -45,6 +45,7 @@ export default class Messages extends React.Component {
         axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
+                Cookies.set('message_to_person', usr)
                 this.setState({ chat_messages: res.data })
             })
 
@@ -79,7 +80,16 @@ export default class Messages extends React.Component {
         }
         return chat;
     }
-    sendmessage() { }
+    sendmessage() {
+        const msg = {
+            message: document.getElementById("message_to_send").value
+        }
+
+        axios.post(('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person')), msg, { withCredentials: true })
+            .then(res => {
+
+            });
+    }
 
 
     componentDidMount() {
@@ -122,6 +132,7 @@ export default class Messages extends React.Component {
                                 type="text"
                                 className="form-control top-margined-20"
                                 rows="2"
+                                id="message_to_send"
                             />
                             <div className="mt-4">
                                 <MDBBtn color="orange" onClick={this.sendmessage.bind(this)} type="submit">
