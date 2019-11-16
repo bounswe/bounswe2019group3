@@ -1,5 +1,10 @@
 
-const router = require('express').Router()
+const router = require('express').Router();
+const multer = require('multer');
+const avatar_upload = multer({dest: '/backend/uploads/avatars'});
+const fs = require('fs');
+const path = require('path');
+
 /**
  * @api {get} /api/user/ returns all users
  * @apiName get all users
@@ -22,12 +27,40 @@ router.get("/", (req, res, next) => {
  * @apiName update user details
  * @apiGroup user
  * @apiPermission User
- * @apiParam (Request body(JSON)) {Object}   user         user object
- * @apiParam (Request body(JSON)) {String}   user.bio       biography text
- * @apiParam (Request body(JSON)) {String}   user.avatar    
+ * @apiParam (Request body(JSON)) {Object}  user         user object
+ * @apiParam (Request body(JSON)) {String}  user.bio     biography text
+ * @apiParam (Request body(JSON)) {File}    user.avatar  avatar image file  
  */
-router.post("/:username/", (req, res, next) => {
-    res.sendStatus(501);
+router.post("/:username/", avatar_upload.single('avatar'), (req, res, next) => {
+    if(!req.session.user || req.session.user.username !== req.params.username){
+        if(req.file) {
+            fs.unlinkSync(req.file.path)
+        }
+        res.sendStatus(403);
+        return;
+    }
+    let file_path = undefined;
+    if(req.file) {
+        file_path = "/uploads/avatars/" + req.session.user.username + path.extname(req.file.originalname);
+        fs.renameSync(req.file.path, "/backend/" + file_path);
+    }
+    const db = req.db;
+    const update = {};
+    if(req.body.bio){
+        update.bio = req.body.bio;
+    }
+    if(file_path){
+        update.avatar = "api" + file_path;
+    }
+    db.User.update(
+        update,
+        {
+            returning: true,
+            where: {username: req.session.user.username} 
+        }
+      ).then(function([ rowsUpdate, [updated_user] ]) {
+        res.send(updated_user);
+      });
 });
 
 /**
@@ -51,6 +84,45 @@ router.get("/:username/", (req, res, next) => {
         res.send(user);
     });
 });
+
+/**
+ * @api {post} /api/user/:username/comments/ create comment for username
+ * @apiName create new comment
+ * @apiGroup user
+ * @apiPermission User
+ * @apiParam (Request body(JSON)) {Object} comment
+ * @apiParam (Request body(JSON)) {String} comment.text  text
+ * @apiParam (Request body(JSON)) {Integer} comment.rating   rating (1,2,3,4,5)
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 204 OK
+ */
+ 
+router.post("/:username/comments/", (req, res, next) => {
+    if (!req.session.user) {
+        res.sendStatus(401);
+        return;
+    }
+    const db = req.db;
+    db.User.findOne({
+        attributes: ["username"],
+        where: { username: req.params.username }
+      }).then(user => {
+        if (!user) {
+          res.sendStatus(400);
+          return;
+        }
+        db.Comment.create({
+          comment_to: req.params.username,
+          rating: req.body.rating,
+          text: req.body.text,
+          comment_by: req.session.user.username,
+          new: true
+        }).then(msg => {
+          res.sendStatus(204);
+        });
+      });
+    });
+
 
 /**
  * @api {get} /api/user/:username/comments returns user comments
