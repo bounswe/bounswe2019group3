@@ -10,6 +10,7 @@ import Logout from './Logout';
 import Messages from './Messages';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
+import Search from './Search';
 
 class Routes extends React.Component {
 
@@ -30,6 +31,7 @@ class Routes extends React.Component {
           <Route path='/messages' component={Messages} />
           <Route path='/settings' component={Settings} />
           <Route path='/user' component={UserProfile} />
+          <Route path='/search' component={Search} />
         </Switch>
       );
   }
