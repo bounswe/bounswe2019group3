@@ -16,8 +16,6 @@ const api = require('./routes/api');
 const http_server = http.createServer(app);
 //const httpsServer = https.createServer(credentials, app);
 
-app.use(express.static('public'));
-
 // api route
 app.use('/api/', api.router);
 

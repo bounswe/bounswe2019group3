@@ -53,6 +53,9 @@ router.use(cookie_parser());
 
 router.use(session({secret: "Session Secret - BounSWE2019Group3"}));
 
+// Serve /backend/uploads 
+router.use("/uploads", express.static('/backend/uploads'));
+
 router.use("/docs", express.static('api-docs'));
 
 router.use("/auth", Auth.router);

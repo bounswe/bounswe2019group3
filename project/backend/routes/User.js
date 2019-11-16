@@ -1,5 +1,10 @@
 
-const router = require('express').Router()
+const router = require('express').Router();
+const multer = require('multer');
+const avatar_upload = multer({dest: '/backend/uploads/avatars'});
+const fs = require('fs');
+const path = require('path');
+
 /**
  * @api {get} /api/user/ returns all users
  * @apiName get all users
@@ -17,17 +22,45 @@ router.get("/", (req, res, next) => {
     });
 });
 
-/**berkay
+/**
  * @api {post} /api/user/:username update user details
  * @apiName update user details
  * @apiGroup user
  * @apiPermission User
- * @apiParam (Request body(JSON)) {Object}   user         user object
- * @apiParam (Request body(JSON)) {String}   user.bio       biography text
- * @apiParam (Request body(JSON)) {String}   user.avatar    
+ * @apiParam (Request body(JSON)) {Object}  user         user object
+ * @apiParam (Request body(JSON)) {String}  user.bio     biography text
+ * @apiParam (Request body(JSON)) {File}    user.avatar  avatar image file  
  */
-router.post("/:username/", (req, res, next) => {
-
+router.post("/:username/", avatar_upload.single('avatar'), (req, res, next) => {
+    if(!req.session.user || req.session.user.username !== req.params.username){
+        if(req.file) {
+            fs.unlinkSync(req.file.path)
+        }
+        res.sendStatus(403);
+        return;
+    }
+    let file_path = undefined;
+    if(req.file) {
+        file_path = "/uploads/avatars/" + req.session.user.username + path.extname(req.file.originalname);
+        fs.renameSync(req.file.path, "/backend/" + file_path);
+    }
+    const db = req.db;
+    const update = {};
+    if(req.body.bio){
+        update.bio = req.body.bio;
+    }
+    if(file_path){
+        update.avatar = "api" + file_path;
+    }
+    db.User.update(
+        update,
+        {
+            returning: true,
+            where: {username: req.session.user.username} 
+        }
+      ).then(function([ rowsUpdate, [updated_user] ]) {
+        res.send(updated_user);
+      });
 });
 
 /**
