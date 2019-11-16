@@ -10,6 +10,7 @@ const Auth = require('./Auth');
 const User = require('./User');
 const Language = require('./Language');
 const Chat = require('./Chat');
+const Search = require('./Search');
 
 const db = require('../models/index');
 
@@ -61,6 +62,8 @@ router.use("/user", User.router);
 router.use('/language', Language.router);
 
 router.use('/chat', Chat.router);
+
+router.use('/search', Search.router);
 
 // return the router
 module.exports = {router};
