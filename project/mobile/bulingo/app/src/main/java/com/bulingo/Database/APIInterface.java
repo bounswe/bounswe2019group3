@@ -11,6 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIInterface {
 
@@ -52,8 +53,8 @@ public interface APIInterface {
     @GET("/api/user/{username}/comments/")
     Call<List<Comment>> doGetUserComments(@Path("username") String username);
 
-    @GET("/api/chat/{username}/{skip}/{limit}")
-    Call<List<Message>> doGetMessages(@Path("username") String username, @Path("skip") String skip, @Path("limit") String limit);
+    @GET("/api/chat/{username}/")
+    Call<List<Message>> doGetMessages(@Path("username") String username, @Query("skip") String skip, @Query("limit") String limit);
 
     @POST("/api/chat/{username}/")
     Call<Void> doSendMessage(@Path("username") String username, @Body JsonObject params);
