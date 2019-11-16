@@ -36,5 +36,6 @@
     <string name="rating">Rating :</string>
     <string name="username2"> Username :</string>
     <string name="returnMain">Go Back</string>
+    <string name="title_activity_chat_">Chat_Activity</string>
 
 </resources>

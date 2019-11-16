@@ -52,5 +52,14 @@ public interface APIInterface {
     @GET("/api/user/{username}/comments/")
     Call<List<Comment>> doGetUserComments(@Path("username") String username);
 
+    @GET("/api/chat/{username}/{skip}/{limit}")
+    Call<List<Message>> doGetMessages(@Path("username") String username, @Path("skip") String skip, @Path("limit") String limit);
+
+    @POST("/api/chat/{username}/")
+    Call<Void> doSendMessage(@Path("username") String username, @Body JsonObject params);
+
+    @GET("/api/chat/")
+    Call<Chat> doGetChats();
+
 
 }
