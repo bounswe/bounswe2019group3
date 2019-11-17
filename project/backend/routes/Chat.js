@@ -126,7 +126,7 @@ router.get("/:username", (req, res, next) => {
       },
       offset: skip,
       limit: limit,
-      order: [["id", "ASC"]]
+      order: [["id", "DESC"]]
     }).then(messages => {
       if (messages.length > 0)
         db.Message.update(
