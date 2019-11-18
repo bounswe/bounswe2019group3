@@ -225,15 +225,15 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
  * @api {get} /api/language/:language_abbr/exercise/exercise_type/:exersice_id/questions return the exercise
  * @apiGroup language
  * @apiPermission User
- * @apiParam (Request body(JSON)) {Strıng} question_id                    question id
- * @apiParam (Request body(JSON)) {Strıng} desc                    question description
+ * @apiParam (Request body(JSON)) {String} question_id                    question id
+ * @apiParam (Request body(JSON)) {String} desc                    question description
  * @apiParam (Request body(JSON)) {Object[]} media                    media related to question (e.g. listening material) (optional)
- * @apiParam (Request body(JSON)) {Strıng} media.url                    media url
- * @apiParam (Request body(JSON)) {Strıng} media.type                    media type
- * @apiParam (Request body(JSON)) {Strıng} end_time                    media end time
+ * @apiParam (Request body(JSON)) {String} media.url                    media url
+ * @apiParam (Request body(JSON)) {String} media.type                    media type
+ * @apiParam (Request body(JSON)) {String} end_time                    media end time
  * @apiParam (Request body(JSON)) {Object[]} choices                     answer choices (optional: not available for writing)
- * @apiParam (Request body(JSON)) {Strıng} choices.id                    choice id
- * @apiParam (Request body(JSON)) {Strıng} choices.desc                    choice description
+ * @apiParam (Request body(JSON)) {String} choices.id                    choice id
+ * @apiParam (Request body(JSON)) {String} choices.desc                    choice description
  * @apiSuccess {Integer}   nb_correct_answers   number of correct answers
  * @apiSuccess {Integer}   nb_questions   number of questions
  * @apiParam (Request body(JSON)) {Object[]} answers                    media related to question (e.g. listening material) (optional)
