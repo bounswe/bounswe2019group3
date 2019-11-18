@@ -11,6 +11,10 @@ export default class FormPage extends React.Component {
 
   constructor(props) {
     super(props);
+    axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
+      .then(res => {
+        console.log(res.data)
+      })
     axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
         //console.log(res.data);
@@ -95,7 +99,7 @@ export default class FormPage extends React.Component {
     '<li id="chld"><a href="/messages">Messages</a></li>' +
     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
     '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>'+
-    '<li style="float: right;"><div class=" search-container"><form action="/Search"><input type="text" placeholder="Search.." name="search" /><button type="submit"><i class="fa fa-search"></i></button></form></div></li>');
+    '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
   }
 
   render() {

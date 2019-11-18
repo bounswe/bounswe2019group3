@@ -1,45 +1,76 @@
 import React from 'react';
-import { MDBContainer, MDBRow,MDBFormInline, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBFormInline, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
 import './General.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'js-cookie'
 
-export default class Search extends React.Component {
+export default class FormPage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
-        isUser:false,
-        isExercise:false,
-      
+      isUser: false,
+      isExercise: false,
+      response: "",
+      isSearched: false
     }
-    this.onChangeOption = this.onChangeOption.bind(this);
-  }
-  onClickd(){
-    const frm = {
-        text : document.getElementById("search").value,
-   
-      };
-    console.log(JSON.stringify(frm));
+    //this.onChangeOption = this.onChangeOption.bind(this);
   }
 
-  onChangeOption(e){
+  onClickd() {
+
+    var _type = ""
+
+    if (this.state.isUser) {
+      _type = "user"
+    } else if (this.state.isExercise) {
+      _type = "exercise"
+    } else {
+      _type = "";
+    }
+
+    const frm = {
+      text: document.getElementById("search").value,
+      type: _type
+    };
+
+    Cookies.set('search_context', frm.text);
+    Cookies.set('search_type', frm.type);
+
+    this.setState({
+      isSearched:true
+    })
+
+    // axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
+    //   .then(res => {
+    //     this.setState({
+    //       response: res.data[0].username,
+    //       isSearched:true
+    //     })
+    //   })
+
+
+
+
+  }
+
+  onChangeOption(e) {
     /*if (e.detail === 0){
         alert(e.target.value);
     }*/
-    if(e.target.value == 1){
-        this.setState({
-            isUser: true,
-            isExercise: false
-        });
+    if (e.target.value == 1) {
+      this.setState({
+        isUser: true,
+        isExercise: false
+      });
     };
-    if(e.target.value == 2){
-        this.setState({
-            isExercise: true,
-            isUser:false
-        });
+    if (e.target.value == 2) {
+      this.setState({
+        isExercise: true,
+        isUser: false
+      });
     }
-}
+  }
   componentDidMount() {
     var _navbar = document.getElementById("nav");
     if (_navbar.childNodes.length > 2) {
@@ -53,72 +84,42 @@ export default class Search extends React.Component {
         '<li id="chld"><a href="/exam">Exam</a></li>' +
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
-        '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
+        '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
         '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
     }
   }
 
   render() {
+    console.log(this.state.response);
+
+    if (this.state.isSearched) {
+      return (<Redirect
+        push to={{
+          pathname: "/searchResult"
+        }}
+      />);
+    }
+
     return (
-        <MDBContainer fluid>
+      <MDBContainer fluid>
         <MDBRow className="topMargined">
           <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
           <MDBCol md="8">
-          <MDBFormInline >
-          <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="search" />
-          <select class="browser-default custom-select" onClick={this.onChangeOption}>
-                        <option selected>Select search type</option>
-                        <option value="1" >User</option>
-                        <option value="2">Exercise</option>
-                     
-</select>
-          <MDBBtn color="orange" rounded size="sm" type="submit" className="mr-auto" onClick={this.onClickd.bind(this)}>
-            Search
-          </MDBBtn>
-  
-          </MDBFormInline>
-              <div className="marginedleft20">
-                <MDBRow>
-                  <MDBCol md="6">
-                    <MDBRow>          
-<table id="tablePreview" class="table">
+            <MDBFormInline >
+              <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id="search" />
+              <select className="browser-default custom-select" onClick={this.onChangeOption.bind(this)}>
+                <option selected>Select search type</option>
+                <option value="1" >User</option>
+                <option value="2">Exercise</option>
 
-  <thead>
-    <tr>
-      <th>#</th>
-      {this.state.isUser ?
-                       <th>Usename</th>
-                        : <th>Exercise</th>
-                    }
- 
-    </tr>
-  </thead>
- 
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-  
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      
-    </tr>
-  </tbody>
-</table>
-                    </MDBRow>
-                  </MDBCol>        
-                </MDBRow>
-              </div>
+              </select>
+              <MDBBtn color="orange" size="sm" type="submit" className="mr-auto" onClick={this.onClickd.bind(this)}>
+                Search
+          </MDBBtn>
+            </MDBFormInline>
           </MDBCol>
-          </MDBRow>
-          </MDBContainer>
+        </MDBRow>
+      </MDBContainer>
     );
   }
 }
