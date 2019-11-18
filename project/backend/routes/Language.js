@@ -172,12 +172,17 @@ router.post("/:language_abbr/exam/evaluate", (req, res, next) => {
 });
 
 /**
- * @apiIgnore Not finished Method
- * @api {get} /api/language/:language_abbr/excercise/excercise_type/ return all excercise of type
+ * @api {get} /api/language/:language_abbr/exercise/exercise_type/ return all exercise of type
  * @apiGroup language
  * @apiPermission User
+ * @apiParam (Request body(JSON)) {Object[]} exercise                    list of exercise
+ * @apiParam (Request body(JSON)) {Integer}   exercise.exersice_id       exercise id
+ * @apiParam (Request body(JSON)) {String} exersice.lang_abbr        exersice language abbreviation
+ * @apiParam (Request body(JSON)) {String} exersice.exercise_type        exersice type
+ * @apiParam (Request body(JSON)) {String} exersice.level        exersice level
+ * @apiParam (Request body(JSON)) {String} exersice.lang_abbr        exersice language abbreviation
  */
-router.get("/:language_abbr/excercise", (req, res, next) => {
+router.get("/:language_abbr/exercise", (req, res, next) => {
   let db = req.db;
   let likeOp = db.Sequelize.Op.like;
   let exercise_type = req.query.exercise_type;
@@ -194,10 +199,10 @@ router.get("/:language_abbr/excercise", (req, res, next) => {
       {
         model: db.Exercise,
         as: "exercises",
-        attributes: ["title", "exercises_type", "level"],
+        attributes: ["title", "exercise_type", "level"],
         where: {
           lang_abbr: req.params.language_abbr,
-          exercises_type: {
+          exercise_type: {
             [likeOp]: exercise_type.toLowerCase()
           },
           level: {
@@ -217,10 +222,23 @@ router.get("/:language_abbr/excercise", (req, res, next) => {
 });
 
 /**
- * @apiIgnore Not finished Method
- * @api {get} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions return the excercise
+ * @api {get} /api/language/:language_abbr/exercise/exercise_type/:exersice_id/questions return the exercise
  * @apiGroup language
  * @apiPermission User
+ * @apiParam (Request body(JSON)) {Strıng} question_id                    question id
+ * @apiParam (Request body(JSON)) {Strıng} desc                    question description
+ * @apiParam (Request body(JSON)) {Object[]} media                    media related to question (e.g. listening material) (optional)
+ * @apiParam (Request body(JSON)) {Strıng} media.url                    media url
+ * @apiParam (Request body(JSON)) {Strıng} media.type                    media type
+ * @apiParam (Request body(JSON)) {Strıng} end_time                    media end time
+ * @apiParam (Request body(JSON)) {Object[]} choices                     answer choices (optional: not available for writing)
+ * @apiParam (Request body(JSON)) {Strıng} choices.id                    choice id
+ * @apiParam (Request body(JSON)) {Strıng} choices.desc                    choice description
+ * @apiSuccess {Integer}   nb_correct_answers   number of correct answers
+ * @apiSuccess {Integer}   nb_questions   number of questions
+ * @apiParam (Request body(JSON)) {Object[]} answers                    media related to question (e.g. listening material) (optional)
+ * @apiParam (Request body(JSON)) {Integer} answers.question_id                  question id
+ * @apiParam (Request body(JSON)) {Integer} answers.choices_id                 correct choices id
  */
 router.get(
   "/:language_abbr/exercise/:exercise_id/questions",
@@ -228,7 +246,7 @@ router.get(
     let db = req.db;
     db.ExerciseQuestion.findAll({
       where: {
-        foreign_key: req.params.exercise_id,
+        exercise_id: req.params.exercise_id,
         lang_abbr: req.params.language_abbr
       },
       attributes: [
@@ -257,10 +275,13 @@ router.get(
 );
 
 /**
- * @apiIgnore Not finished Method
- * @api {post} /api/language/:language_abbr/excercise/excercise_type/:exersice_id/questions evaluate the excercise
+ * @api {post} /api/language/:language_abbr/exercise/exercise_type/:exersice_id/questions evaluate the exercise
  * @apiGroup language
  * @apiPermission User
+ * @apiParam {Object[]}   answers
+ * @apiParam {Integer}   answers.question_id                      answer question id
+ * @apiParam {Integer}   answers.choices_id                       answer choice id
+ * @apiParam {String}   answers.text                              (optional: only available for writing)
  */
 router.post(
   "/:language_abbr/exercise/:exercise_id/evaluate",
@@ -282,7 +303,7 @@ router.post(
       db.ExerciseQuestion.findAll({
         where: db.Sequelize.or({
           lang_abbr: req.params.language_abbr,
-          foreign_key: req.params.exercise_id
+          exercise_id: req.params.exercise_id
         })
       }).then(question => {
         let counter = 0;
@@ -291,9 +312,6 @@ router.post(
           hashAnswers[q.question_id] = q.answer_id;
         });
         for (let i = 0; i < req.body.length; i++) {
-          console.log(hashAnswers[req.body[i].question_id]);
-          console.log(req.body[i].choice_id);
-          console.log();
           if (hashAnswers[req.body[i].question_id] == req.body[i].choice_id) {
             counter++;
           }
@@ -301,7 +319,16 @@ router.post(
         let response = {};
         response.nb_correct_answers = counter;
         response.nb_questions = question.length;
-        response.answers = hashAnswers;
+        const keys = Object.keys(hashAnswers);
+        const values = Object.values(hashAnswers);
+        let answers = [];
+        for (let i = 0; i < keys.length; i++) {
+          answers[i] = {
+            question_id: keys[i],
+            choice_id: values[i]
+          };
+        }
+        response.answers = answers;
         res.send(response);
       });
     }

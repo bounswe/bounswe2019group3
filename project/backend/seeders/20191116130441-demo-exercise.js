@@ -6,7 +6,7 @@ module.exports = {
       {
         title: "Dolphins",
         lang_abbr: "en",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "B2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -14,7 +14,7 @@ module.exports = {
       {
         title: "Tigers",
         lang_abbr: "en",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "C1",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -22,7 +22,7 @@ module.exports = {
       {
         title: "Lions",
         lang_abbr: "en",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "C2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -30,7 +30,7 @@ module.exports = {
       {
         title: "Tigers Listening",
         lang_abbr: "en",
-        exercises_type: "listening",
+        exercise_type: "listening",
         level: "A2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -38,7 +38,7 @@ module.exports = {
       {
         title: "Lions Listening",
         lang_abbr: "en",
-        exercises_type: "listening",
+        exercise_type: "listening",
         level: "B1",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -47,7 +47,7 @@ module.exports = {
       {
         title: "Dolphins",
         lang_abbr: "de",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "B2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -55,7 +55,7 @@ module.exports = {
       {
         title: "Tigers",
         lang_abbr: "de",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "C1",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -63,7 +63,7 @@ module.exports = {
       {
         title: "Lions",
         lang_abbr: "de",
-        exercises_type: "reading",
+        exercise_type: "reading",
         level: "C2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -71,7 +71,7 @@ module.exports = {
       {
         title: "Tigers Listening",
         lang_abbr: "de",
-        exercises_type: "listening",
+        exercise_type: "listening",
         level: "A2",
         createdAt: new Date(),
         updatedAt: new Date()
@@ -79,7 +79,7 @@ module.exports = {
       {
         title: "Lions Listening",
         lang_abbr: "de",
-        exercises_type: "listening",
+        exercise_type: "listening",
         level: "B1",
         createdAt: new Date(),
         updatedAt: new Date()

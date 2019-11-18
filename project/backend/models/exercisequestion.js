@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     lang_abbr: {
       type: DataTypes.STRING
     },
-    foreign_key: {
+    exercise_id: {
       type: DataTypes.INTEGER
     },
     answer_id: {
@@ -34,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   ExerciseQuestion.associate = function(models) {
     models.ExerciseQuestion.hasMany(models.ExerciseChoice, {
-      foreignKey: "foreign_key",
+      foreignKey: "question_id",
       as: "choices",
       constraints: false
     });

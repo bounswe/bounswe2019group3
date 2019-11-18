@@ -6,7 +6,7 @@ module.exports = {
       {
         desc: "Sample Question Description 1",
         lang_abbr: "en",
-        foreign_key: 1,
+        exercise_id: 1,
         answer_id: 1,
         media_url: "http://someurl.com/material",
         media_type: "MP4",
@@ -18,7 +18,7 @@ module.exports = {
       {
         desc: "Sample Question Description 2",
         lang_abbr: "en",
-        foreign_key: 1,
+        exercise_id: 1,
         answer_id: 6,
         media_url: "http://someurl.com/material",
         media_type: "MP3",
@@ -30,7 +30,7 @@ module.exports = {
       {
         desc: "Sample Question Description 3",
         lang_abbr: "de",
-        foreign_key: 2,
+        exercise_id: 2,
         answer_id: 8,
         media_url: "http://someurl.com/material",
         media_type: "MP4",

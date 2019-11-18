@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     lang_abbr: {
       type: DataTypes.STRING
     },
-    exercises_type: {
+    exercise_type: {
       type: DataTypes.STRING
     },
     level: {
@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
   });
   Exercise.associate = function(models) {
     models.Exercise.hasMany(models.ExerciseQuestion, {
-      foreignKey: "foreign_key",
+      foreignKey: "exercise_id",
       as: "exercise_questions",
       constraints: false
     });

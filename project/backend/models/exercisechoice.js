@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
-    foreign_key: {
+    question_id: {
       allowNull: false,
       type: DataTypes.INTEGER
     },
