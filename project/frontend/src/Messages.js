@@ -11,10 +11,15 @@ export default class Messages extends React.Component {
         super(props);
         axios.get('http://18.184.207.248/api/chat/', { withCredentials: true })
             .then(res => {
-                //console.log(res.data.history);
-                this.setState({ last_messages: res.data.history });
+                console.log(res.data.history);
+                this.setState({ 
+                    last_messages: res.data.history,
+                });
+                Cookies.set('message_to_person', res.data.history[0].username)
             })
+            
         this.state = {
+            last_clicked_person: "",
             last_messages: [],
             chat_messages: []
         }
@@ -26,8 +31,8 @@ export default class Messages extends React.Component {
         //console.log(this.state.last_messages);
         //console.log(this.state.last_messages[0])
         for (let i = 0; i < this.state.last_messages.length; i++) {
-            messages[this.state.last_messages.length - i] = (
-                <div className="Messagebox" onClick={this.openmessages.bind(this, this.state.last_messages[i].username)}>
+            messages[i] = (
+                <div className="Messagebox" onClick={this.fillChatWindow.bind(this, this.state.last_messages[i].username)}>
                     <p className="left_aligned">
                         <b>{this.state.last_messages[i].username}</b>
                         <span className="right_float">
@@ -40,19 +45,17 @@ export default class Messages extends React.Component {
         }
         return messages;
     }
-    openmessages(usr) {
-        //console.log(usr)
-        axios.get('http://18.184.207.248/api/chat/' + usr, { withCredentials: true })
+
+    fillChatWindow(person) {
+
+        axios.get('http://18.184.207.248/api/chat/' + person, { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
-                Cookies.set('message_to_person', usr)
-                this.setState({ chat_messages: res.data })
+                this.setState({ chat_messages: res.data  })
+                //Cookies.set('chat_messages', res.data);
+                
             })
-
-
-    }
-
-    fillChatWindow() {
+        Cookies.set('message_to_person',person);
         var chat = [];
         for (let i = 0; i < this.state.chat_messages.length; i++) {
             //console.log(this.state.chat_messages[i].from_username)
@@ -112,6 +115,7 @@ export default class Messages extends React.Component {
 
     render() {
         //console.log(this.state.chat_messages)
+        //console.log(this.state)
         return (
             <MDBContainer fluid>
                 <MDBRow className="topMargined">
@@ -124,7 +128,7 @@ export default class Messages extends React.Component {
                     <MDBCol md="7">
                         <MDBRow>
                             <div className="messagehistory Scrollbar">
-                                {this.fillChatWindow()}
+                                {this.fillChatWindow( Cookies.get('message_to_person') )}
                             </div>
                         </MDBRow>
                         <MDBRow>
