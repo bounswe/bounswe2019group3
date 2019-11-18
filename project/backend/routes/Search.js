@@ -9,7 +9,6 @@ let get_related_keywords = (text) => {
 
 let search_user = (db, text, related_keywords=[]) => {
     let words = [text, ...related_keywords].map((value) => '%' + value.toLowerCase() + '%');
-    let results = [];
     return db.User.findAll({
         attributes: ['username'],
         where: db.Sequelize.or(
@@ -28,7 +27,15 @@ let search_user = (db, text, related_keywords=[]) => {
 };
 
 let search_exercise = (db, text, related_keywords=[]) => {
-
+    let words = [text, ...related_keywords].map((value) => '%' + value.toLowerCase() + '%');
+    return db.Exercise.findAll({
+        attributes: ['exercise_id', 'title', 'lang_abbr', 'exercises_type', 'level'],
+        where:{
+            title: {
+                [db.Sequelize.Op.iLike]: { [db.Sequelize.Op.any]: words }
+            }
+        }
+    });
 };
 
 /**
@@ -43,7 +50,7 @@ let search_exercise = (db, text, related_keywords=[]) => {
  * @apiSuccess {String}     result.username                 username of the user (optional: only for user type)
  * @apiSuccess {Integer}    result.exersice_id              id of the exercise (optional: only for exercise)
  * @apiSuccess {String}     result.title                    title of the exercise (optional: only for exercise)
- * @apiSuccess {String}     result.language_abbr            language of the exercise (optional: only for exercise)
+ * @apiSuccess {String}     result.lang_abbr                language of the exercise (optional: only for exercise)
  * @apiSuccess {String}     result.exercises_type           type of the exercise (optional: only for exercise)
  * @apiSuccess {Integer}    result.level                    level of the exercise (optional: only for exercise)
  */
