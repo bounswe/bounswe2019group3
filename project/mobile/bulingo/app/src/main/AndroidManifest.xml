@@ -14,6 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".Chat.ChatHistory"></activity>
+        <activity android:name=".Search.SearchActivity"></activity>
         <activity
             android:name=".Chat.ChatActivity"
             android:noHistory="true" />

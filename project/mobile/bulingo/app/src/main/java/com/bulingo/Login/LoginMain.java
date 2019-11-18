@@ -23,6 +23,7 @@ import com.bulingo.Exercises.LanguageSelection;
 import com.bulingo.MainActivity;
 import com.bulingo.Profile.ProfilePage;
 import com.bulingo.R;
+import com.bulingo.Search.SearchActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -119,6 +120,12 @@ public class LoginMain extends AppCompatActivity {
 
     public void openChat(View view) {
         Intent intent = new Intent(this, ChatHistory.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void openSearch(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);
     }

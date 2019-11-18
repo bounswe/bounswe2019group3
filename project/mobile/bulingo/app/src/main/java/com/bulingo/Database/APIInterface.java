@@ -62,5 +62,8 @@ public interface APIInterface {
     @GET("/api/chat/")
     Call<Chat> doGetChats();
 
+    @GET("/api/search")
+    Call<List<SearchResult>> doSearch(@Query("text") String text, @Query("type") String type);
+
 
 }
