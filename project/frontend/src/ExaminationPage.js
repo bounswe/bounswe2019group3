@@ -1,6 +1,6 @@
 import React from 'react';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
-import './SignUp.css';
+import './General.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'
@@ -64,13 +64,6 @@ export default class ExaminationPage extends React.Component {
 
 
     render() {
-        if (this.state.isLogout) {
-            return (<Redirect
-                push to={{
-                    pathname: "/"
-                }}
-            />);
-        }
         if (this.state.selectedLanguage !== "") {
             return (<Redirect
                 push to={{

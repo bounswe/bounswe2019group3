@@ -98,3 +98,4 @@ public
 .dynamodb/
 
 api-docs/
+uploads/
