@@ -19,8 +19,7 @@
             android:name=".Chat.ChatActivity"
             android:noHistory="true" />
         <activity
-            android:name=".Profile.ProfilePage"
-            android:noHistory="true" />
+            android:name=".Profile.ProfilePage" />
         <activity android:name=".Exercises.ResultActivity" />
         <activity
             android:name=".Exercises.LanguageSelection"

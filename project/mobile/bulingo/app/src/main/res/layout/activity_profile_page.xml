@@ -27,89 +27,112 @@
                 android:id="@+id/layoutWithImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="24dp"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
                 android:background="@color/colorLightGray"
                 app:layout_constraintBottom_toTopOf="@id/layoutForLevel"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="137dp"
-                    android:layout_height="137dp"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toTopOf="@id/email"
-                    app:layout_constraintEnd_toStartOf="@id/fourLayout"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/fourLayout"
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/messageButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:layout_marginBottom="14dp"
+                    android:layout_marginStart="333dp"
+                    android:layout_marginBottom="211dp"
+                    android:clickable="true"
+                    android:onClick="sendMessage"
+                    app:fabCustomSize="47dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@android:drawable/sym_action_chat" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layoutForMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
                     app:layout_constraintBottom_toTopOf="@id/email"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imageView"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                        android:id="@+id/realUsername"
-                        android:layout_width="188dp"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:text="Admin"
-                        android:textSize="28sp"
-                        app:autoSizeTextType="uniform"
-                        app:autoSizeMinTextSize="16sp"
-                        app:autoSizeMaxTextSize="28sp"
-                        android:textStyle="bold"
-                        app:layout_constraintBottom_toTopOf="@+id/ratingLayout"
-                        app:layout_constraintEnd_toEndOf="parent"
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="137dp"
+                        android:layout_height="137dp"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/fourLayout"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/staticRating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/rating"
-                        android:textAlignment="textEnd"
-                        android:textSize="18sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/ratingLayout"
-                        app:layout_constraintStart_toStartOf="parent" />
-
                     <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/ratingLayout"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="10dp"
-
+                        android:id="@+id/fourLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:padding="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/staticRating"
-                        app:layout_constraintTop_toBottomOf="@id/realUsername">
+                        app:layout_constraintStart_toEndOf="@id/imageView"
+                        app:layout_constraintTop_toTopOf="parent">
 
-                        <RatingBar
-                            android:id="@+id/ratingBar"
-                            style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:numStars="5"
-                            android:rating="4.3"
-                            android:scaleX="1.5"
-                            android:scaleY="1.5"
-                            app:layout_constraintBottom_toBottomOf="parent"
+                        <TextView
+                            android:id="@+id/realUsername"
+                            android:layout_width="188dp"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:text="Admin"
+                            android:textSize="27sp"
+                            android:textStyle="bold"
+                            app:autoSizeMaxTextSize="27sp"
+                            app:autoSizeMinTextSize="16sp"
+                            app:autoSizeTextType="uniform"
+                            app:layout_constraintBottom_toTopOf="@+id/ratingLayout"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/staticRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:gravity="center_vertical"
+                            android:text="@string/rating"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/ratingLayout"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/ratingLayout"
+                            android:layout_width="120dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@id/staticRating"
+                            app:layout_constraintTop_toBottomOf="@id/realUsername">
+
+                            <RatingBar
+                                android:id="@+id/ratingBar"
+                                style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:numStars="5"
+                                android:rating="4.3"
+                                android:scaleX="1.5"
+                                android:scaleY="1.5"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -120,8 +143,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
                     android:text="abdeded@email.com"
                     android:textSize="16sp"
                     app:autoSizeTextType="uniform"
@@ -131,15 +154,15 @@
                     app:layout_constraintBottom_toTopOf="@id/bio"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageView" />
+                    app:layout_constraintTop_toBottomOf="@id/layoutForMessage" />
 
                 <TextView
                     android:id="@+id/bio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginEnd="24dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginEnd="32dp"
                     android:layout_marginBottom="24dp"
                     android:text="Here will be the bio of the user."
                     android:textColor="@color/colorAccent"
@@ -151,7 +174,6 @@
                     app:layout_constraintTop_toBottomOf="@id/email" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/layoutForLevel"

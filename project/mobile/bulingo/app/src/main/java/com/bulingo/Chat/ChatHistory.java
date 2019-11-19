@@ -108,31 +108,6 @@ public class ChatHistory extends AppCompatActivity {
         });
     }
 
-    private void getDetails(String username, ImageView imageView) {
-
-        Call<User> responseCall = apiInterface.doGetUserDetails(username);
-
-        responseCall.enqueue(new Callback<User>() {
-            @Override
-            public void onResponse(Call<User> call, Response<User> response) {
-                if (response.code() == 200) {
-                    User u = response.body();
-                    String imagePath = u.avatar;
-                    Glide.with(getApplicationContext())
-                            .load(imagePath)
-                            .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
-                            .into(imageView);
-                }
-            }
-
-            @Override
-            public void onFailure(Call<User> call, Throwable t) {
-                toast("Cannot get image.");
-            }
-
-        });
-    }
-
     public void toast(String toast){
         Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
     }

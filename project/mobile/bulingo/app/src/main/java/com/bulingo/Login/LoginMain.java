@@ -4,21 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bulingo.Chat.ChatActivity;
 import com.bulingo.Chat.ChatHistory;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Exercises.Exercise;
-import com.bulingo.Exercises.ExerciseInfo;
 import com.bulingo.Exercises.LanguageSelection;
 import com.bulingo.MainActivity;
 import com.bulingo.Profile.ProfilePage;
@@ -59,14 +55,6 @@ public class LoginMain extends AppCompatActivity {
 
     public void onClickLogOutBtn(View view) {
         userLogout();
-    }
-
-    public void onClickExercise(View view) {
-        Intent intent = new Intent(this, Exercise.class);
-        //We need user's currently selected language here.
-        ExerciseInfo info = new ExerciseInfo(ExerciseInfo.ExerciseLanguage.FRENCH, ExerciseInfo.ExerciseType.PRACTICE);
-        intent.putExtra("info", info);
-        startActivity(intent);
     }
 
     public void onClickLanguageSelect(View view) {

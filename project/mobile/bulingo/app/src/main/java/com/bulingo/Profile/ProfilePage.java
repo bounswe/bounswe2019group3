@@ -5,13 +5,16 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bulingo.Chat.ChatActivity;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Comment;
@@ -19,6 +22,7 @@ import com.bulingo.Database.Language;
 import com.bulingo.Database.User;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
@@ -32,6 +36,7 @@ import retrofit2.Response;
 
 public class ProfilePage extends AppCompatActivity {
     String username;
+    String sender;
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
     RecyclerView commentRecycler;
     CommentRecyclerViewAdapter commentAdapter;
@@ -45,7 +50,12 @@ public class ProfilePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+        sender = getIntent().getStringExtra("sender");
         username = getIntent().getStringExtra("username");
+        if(sender == null || sender.equals(username)){ //Cant send message in own profile
+            FloatingActionButton messageButton = findViewById(R.id.messageButton);
+            messageButton.hide();
+        }
         commentRecycler = findViewById(R.id.commentRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         commentRecycler.setLayoutManager(layoutManager);
@@ -186,6 +196,13 @@ public class ProfilePage extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void sendMessage(View view) {
+        Intent intent = new Intent(getApplicationContext(), ChatActivity.class);
+        intent.putExtra("sender", sender);
+        intent.putExtra("receiver", username);
+        startActivity(intent);
     }
 
     public void toast(){
