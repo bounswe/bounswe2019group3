@@ -21,7 +21,8 @@ export default class Messages extends React.Component {
         this.state = {
             last_clicked_person: "",
             last_messages: [],
-            chat_messages: []
+            chat_messages: [],
+            flag:false
         }
 
     }
@@ -47,14 +48,6 @@ export default class Messages extends React.Component {
     }
 
     fillChatWindow(person) {
-
-        axios.get('http://18.184.207.248/api/chat/' + person, { withCredentials: true })
-            .then(res => {
-                //console.log(res.data);
-                this.setState({ chat_messages: res.data  })
-                //Cookies.set('chat_messages', res.data);
-                
-            })
         Cookies.set('message_to_person',person);
         var chat = [];
         for (let i = 0; i < this.state.chat_messages.length; i++) {
@@ -92,10 +85,26 @@ export default class Messages extends React.Component {
             .then(res => {
 
             });
+
+        this.setState({
+            flag : true
+        })
     }
 
 
     componentDidMount() {
+
+        setInterval(() => {
+            axios.get('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person'), { withCredentials: true })
+            .then(res => {
+                //console.log(res.data);
+                if(this.state.chat_messages !== res.data){
+                    this.setState({ chat_messages: res.data  })
+                }
+                Cookies.set('chat_messages', res.data);
+            })
+        }, 2000);
+
         var _navbar = document.getElementById("nav");
         if (_navbar.childNodes.length > 2) {
             return;
@@ -112,6 +121,8 @@ export default class Messages extends React.Component {
                 '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
         }
     }
+
+   
 
     render() {
         //console.log(this.state.chat_messages)

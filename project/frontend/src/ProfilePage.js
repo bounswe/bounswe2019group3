@@ -11,10 +11,6 @@ export default class FormPage extends React.Component {
 
   constructor(props) {
     super(props);
-    axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
-      .then(res => {
-        console.log(res.data)
-      })
     axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
         //console.log(res.data);
