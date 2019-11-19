@@ -9,6 +9,8 @@ const path = require("path");
 const Auth = require('./Auth'); 
 const User = require('./User');
 const Language = require('./Language');
+const Chat = require('./Chat');
+const Search = require('./Search');
 
 const db = require('../models/index');
 
@@ -51,6 +53,9 @@ router.use(cookie_parser());
 
 router.use(session({secret: "Session Secret - BounSWE2019Group3"}));
 
+// Serve /backend/uploads 
+router.use("/uploads", express.static('/backend/uploads'));
+
 router.use("/docs", express.static('api-docs'));
 
 router.use("/auth", Auth.router);
@@ -58,6 +63,10 @@ router.use("/auth", Auth.router);
 router.use("/user", User.router);
 
 router.use('/language', Language.router);
+
+router.use('/chat', Chat.router);
+
+router.use('/search', Search.router);
 
 // return the router
 module.exports = {router};
