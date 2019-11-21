@@ -50,7 +50,7 @@ public class LevelRecyclerViewAdapter extends RecyclerView.Adapter<LevelRecycler
         // - replace the contents of the view with that element
         TextView languageName = holder.relativeLayout.findViewById(R.id.englishTextView);
         TextView level = holder.relativeLayout.findViewById(R.id.englishLevel);
-        languageName.setText(String.format("%s: ", mDataset.get(position).name));
+        languageName.setText(String.format("%s Level: ", mDataset.get(position).name));
         level.setText(mDataset.get(position).grade);
     }
 

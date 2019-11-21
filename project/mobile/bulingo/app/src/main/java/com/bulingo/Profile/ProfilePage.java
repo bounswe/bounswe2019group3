@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +22,7 @@ import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Comment;
 import com.bulingo.Database.Language;
 import com.bulingo.Database.User;
+import com.bulingo.Exercises.Exercise;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -209,5 +212,25 @@ public class ProfilePage extends AppCompatActivity {
         String toast = "The profile is can not be opened right now. Please try again.";
         Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
         finish();
+    }
+
+    public void editProfile(View view) {
+
+    }
+
+    public void clickLevelMeaning(View view) {
+        userInfo();
+    }
+
+    public void userInfo(){
+        AlertDialog ad = new AlertDialog.Builder(this).setMessage(
+                "From least to most successful, language levels are ordered like this: \n\nA1\nA2\nB1\nB2\nC1\nC2").setTitle(
+                "Level Information").setCancelable(true)
+                .setPositiveButton(android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        }).show();
     }
 }
