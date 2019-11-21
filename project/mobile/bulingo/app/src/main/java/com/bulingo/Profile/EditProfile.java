@@ -125,7 +125,7 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
         responseCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.w("requestImage", response.toString());
+                finish();
             }
 
             @Override

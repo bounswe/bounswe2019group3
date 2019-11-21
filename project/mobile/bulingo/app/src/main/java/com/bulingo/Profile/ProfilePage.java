@@ -93,6 +93,12 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
         getComments(username);
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getDetails(username);
+    }
+
     private void getComments(String username) {
 
         Call<List<Comment>> responseCall = apiInterface.doGetUserComments(username);
