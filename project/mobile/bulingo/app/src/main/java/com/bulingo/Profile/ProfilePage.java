@@ -1,6 +1,7 @@
 package com.bulingo.Profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +12,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +30,8 @@ import com.bulingo.Database.User;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +41,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfilePage extends AppCompatActivity {
+public class ProfilePage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String username;
     String sender;
+    int commentRating = 0;
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
     RecyclerView commentRecycler;
     CommentRecyclerViewAdapter commentAdapter;
@@ -45,16 +53,27 @@ public class ProfilePage extends AppCompatActivity {
     List<Comment> comments = new ArrayList<>();
     ArrayList<Language> languageList = new ArrayList<>();
     ArrayList<Language> levels = new ArrayList<>();
+    private Spinner spinner;
+    private static final String[] paths = {"5", "4", "3", "2", "1"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_page);
+        spinner = (Spinner)findViewById(R.id.spinner);
+        ArrayAdapter<String>adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item,paths);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+        spinner.setPrompt("Rating");
         sender = getIntent().getStringExtra("sender");
         username = getIntent().getStringExtra("username");
         if(sender == null || sender.equals(username)){ //Cant send message in own profile
             FloatingActionButton messageButton = findViewById(R.id.messageButton);
             messageButton.hide();
+            ConstraintLayout addComment = findViewById(R.id.addComment);
+            addComment.setVisibility(View.GONE);
         } else {
             FloatingActionButton editButton = findViewById(R.id.editButton);
             editButton.hide();
@@ -235,4 +254,62 @@ public class ProfilePage extends AppCompatActivity {
                             }
                         }).show();
     }
-}
+
+    public void addComment(View view) {
+
+        TextInputEditText input = findViewById(R.id.new_comment_text);
+        String message = input.getText().toString();
+        JsonObject paramObject = new JsonObject();
+        paramObject.addProperty("text", message);
+        paramObject.addProperty("rating", this.commentRating);
+        Call<Void> responseCall = apiInterface.doAddComment(username, paramObject);
+
+        input.setText("");
+        spinner.setSelection(0);
+
+        responseCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Log.d("request", response.toString());
+                    getComments(username);
+                    getDetails(username);
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.d("request", t.toString());
+                toast();
+            }
+
+        });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View v, int position, long id) {
+
+        switch (position) {
+            case 0:
+                commentRating = 5;
+                break;
+            case 1:
+                commentRating = 4;
+                break;
+            case 2:
+                commentRating = 3;
+                break;
+            case 3:
+                commentRating = 2;
+                break;
+            case 4:
+                commentRating = 1;
+                break;
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        // TODO Auto-generated method stub
+    }
+
+    }

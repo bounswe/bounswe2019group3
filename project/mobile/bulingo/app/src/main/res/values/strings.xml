@@ -38,5 +38,6 @@
     <string name="returnMain">Go Back</string>
     <string name="title_activity_chat_">Chat_Activity</string>
     <string name="levelExplain"><i><u>What do these levels mean?</u></i></string>
+    <string name="newRating">Rating</string>
 
 </resources>
