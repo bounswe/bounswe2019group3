@@ -1,12 +1,18 @@
 package com.bulingo.Profile;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.PathUtils;
 
+import android.Manifest;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.DocumentsProvider;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,6 +20,7 @@ import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
+import com.bulingo.PermissionRequestingActivity;
 import com.bulingo.R;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
@@ -32,7 +39,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class EditProfile extends AppCompatActivity {
+public class EditProfile extends PermissionRequestingActivity implements PermissionRequestingActivity.OnPermissionsGrantedListener {
+    private static final String TAG = "EditProfile";
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
     String username;
     private File imageFile;
@@ -43,6 +51,7 @@ public class EditProfile extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         username = getIntent().getStringExtra("username");
+        this.setOnPermissionsGrantedListener(this);
     }
 
     public void cancel(View view) {
@@ -50,10 +59,10 @@ public class EditProfile extends AppCompatActivity {
     }
 
     public void selectAvatar(View view) {
-        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK);
-        photoPickerIntent.setType("image/*");
-        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
+        requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE });
     }
+
+
 
     @Override
     protected void onActivityResult(int reqCode, int resultCode, Intent data) {
@@ -67,7 +76,31 @@ public class EditProfile extends AppCompatActivity {
                 final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
                 imageView.setImageBitmap(selectedImage);
                 //Get Image File
-                imageFile = new File(imageUri.getPath());
+                final String docId = DocumentsContract.getDocumentId(imageUri);
+                Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+                final String selection = "_id=?";
+                final String[] selectionArgs = { docId.split(":")[1] };
+
+                final String column = "_data";
+                final String[] projection = { column };
+                String path = null;
+                try (Cursor cursor = this.getContentResolver().query(contentUri, projection, selection,
+                        selectionArgs, null)) {
+                    if(cursor != null && cursor.moveToFirst()) {
+                        final int index = cursor.getColumnIndexOrThrow(column);
+                        path = cursor.getString(index);
+                    }
+                }
+                
+                if(path != null) {
+                    imageFile = new File(path);
+                    Log.d(TAG, path);
+                } else {
+                    Log.d(TAG, "onActivityResult: noooo");
+                    // TODO add some error message or something, lol
+                }
+
+
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
                 Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
@@ -83,9 +116,9 @@ public class EditProfile extends AppCompatActivity {
         TextInputEditText input = findViewById(R.id.bioText);
         String message = input.getText().toString();
 
-        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), message);
-        RequestBody fileReqBody = RequestBody.create(MediaType.parse("image/*"), imageFile);
-        MultipartBody.Part part = MultipartBody.Part.createFormData("upload", imageFile.getName(), fileReqBody);
+        RequestBody body = RequestBody.create(message, MediaType.parse("text/plain"));
+        RequestBody fileReqBody = RequestBody.create(imageFile, MediaType.parse("image/*"));
+        MultipartBody.Part part = MultipartBody.Part.createFormData("avatar", imageFile.getName(), fileReqBody);
 
         Call<Void> responseCall = apiInterface.doUpdateProfile(username, body, part);
 
@@ -101,5 +134,12 @@ public class EditProfile extends AppCompatActivity {
                 Toast.makeText(EditProfile.this, "Profile Update Failed", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    @Override
+    public void onPermissionsGranted() {
+        Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        photoPickerIntent.setType("image/*");
+        startActivityForResult(photoPickerIntent, RESULT_LOAD_IMG);
     }
 }
