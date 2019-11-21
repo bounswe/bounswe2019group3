@@ -34,6 +34,65 @@
     tools:context=".Profile.EditProfile"
     android:layout_marginTop="?attr/actionBarSize">
 
+    <TextView
+        android:id="@+id/avatarText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/ubuntu_medium_italic"
+        android:gravity="center"
+        android:text="Click the button to change your avatar"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/imageLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <RelativeLayout
+        android:id="@+id/imageLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="56dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/bio"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/girl" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/image"
+            android:layout_alignParentTop="true"
+            android:onClick="selectAvatar"
+            app:fabCustomSize="48dp"
+            app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/bioTextView"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/ubuntu_medium_italic"
+        android:text="Change your bio"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        android:layout_marginBottom="4dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/bio"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="32dp"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/bio"
         android:layout_width="match_parent"
@@ -44,10 +103,10 @@
         app:layout_constraintBottom_toTopOf="@+id/layoutButtons"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/imageLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username_text"
+            android:id="@+id/bioText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="3"
@@ -65,6 +124,7 @@
         android:id="@+id/layoutButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="148dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
