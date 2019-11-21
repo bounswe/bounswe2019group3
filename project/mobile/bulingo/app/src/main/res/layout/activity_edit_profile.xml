@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_marginTop="1dp"
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text = "Edit Profile"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_marginEnd="18dp"
+            android:fontFamily="@font/ubuntu_medium_italic"
+            android:id="@+id/title"
+            android:textColor="@android:color/white"
+            android:textSize="24sp"/>
+    </androidx.appcompat.widget.Toolbar>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile.EditProfile"
+    android:layout_marginTop="?attr/actionBarSize">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/bio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="My new bio is..."
+        app:layout_constraintBottom_toTopOf="@+id/layoutButtons"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="3"
+            android:minLines="2"
+            android:maxLines="8"
+            android:gravity="top|start"
+            android:scrollbars="vertical"
+            android:inputType="textMultiLine"
+            app:cornerRadius="600dp"
+            app:strokeColor="@color/colorAccent"
+            app:strokeWidth="5dp" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bio">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/saveChanges"
+            style="@style/language_button"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="saveChanges"
+            android:text="Save Changes"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            app:backgroundTint="@android:color/white"
+            app:cornerRadius="600dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/cancel"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/colorAccent"
+            app:strokeColor="@color/colorAccent"
+            app:strokeWidth="5dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/cancel"
+            style="@style/language_button"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:onClick="cancel"
+            android:text="Cancel"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            app:backgroundTint="@android:color/white"
+            app:cornerRadius="600dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/saveChanges"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:rippleColor="@color/colorAccent"
+            app:strokeColor="@color/colorAccent"
+            app:strokeWidth="5dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

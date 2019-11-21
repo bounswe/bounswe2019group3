@@ -22,17 +22,14 @@ import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Comment;
 import com.bulingo.Database.Language;
 import com.bulingo.Database.User;
-import com.bulingo.Exercises.Exercise;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -58,6 +55,9 @@ public class ProfilePage extends AppCompatActivity {
         if(sender == null || sender.equals(username)){ //Cant send message in own profile
             FloatingActionButton messageButton = findViewById(R.id.messageButton);
             messageButton.hide();
+        } else {
+            FloatingActionButton editButton = findViewById(R.id.editButton);
+            editButton.hide();
         }
         commentRecycler = findViewById(R.id.commentRecycler);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
@@ -215,7 +215,9 @@ public class ProfilePage extends AppCompatActivity {
     }
 
     public void editProfile(View view) {
-
+        Intent intent = new Intent(getApplicationContext(), EditProfile.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
     }
 
     public void clickLevelMeaning(View view) {

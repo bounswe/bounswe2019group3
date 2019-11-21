@@ -15,13 +15,15 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Chat.ChatHistory"></activity>
-        <activity android:name=".Search.SearchActivity"></activity>
+        <activity android:name=".Profile.EditProfile">
+            android:noHistory="true"
+        </activity>
+        <activity android:name=".Chat.ChatHistory" />
+        <activity android:name=".Search.SearchActivity" />
         <activity
             android:name=".Chat.ChatActivity"
             android:noHistory="true" />
-        <activity
-            android:name=".Profile.ProfilePage" />
+        <activity android:name=".Profile.ProfilePage" />
         <activity android:name=".Exercises.ResultActivity" />
         <activity
             android:name=".Exercises.LanguageSelection"
