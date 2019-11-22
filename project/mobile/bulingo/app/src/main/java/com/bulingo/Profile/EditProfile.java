@@ -14,6 +14,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
+import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory;
+
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.PermissionRequestingActivity;
@@ -71,42 +74,37 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
         ImageView imageView = findViewById(R.id.image);
 
         if (resultCode == RESULT_OK) {
-            try {
-                final Uri imageUri = data.getData();
-                final InputStream imageStream = getContentResolver().openInputStream(imageUri);
-                final Bitmap selectedImage = BitmapFactory.decodeStream(imageStream);
-                imageView.setImageBitmap(selectedImage);
-                //Get Image File
-                final String docId = DocumentsContract.getDocumentId(imageUri);
-                Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-                final String selection = "_id=?";
-                final String[] selectionArgs = { docId.split(":")[1] };
+            final Uri imageUri = data.getData();
+            //Set Image with glide
+            Glide.with(getApplicationContext())
+                    .load(imageUri)
+                    .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                    .into(imageView);
 
-                final String column = "_data";
-                final String[] projection = { column };
-                String path = null;
-                try (Cursor cursor = this.getContentResolver().query(contentUri, projection, selection,
-                        selectionArgs, null)) {
-                    if(cursor != null && cursor.moveToFirst()) {
-                        final int index = cursor.getColumnIndexOrThrow(column);
-                        path = cursor.getString(index);
-                    }
+            //Get Image File
+            final String docId = DocumentsContract.getDocumentId(imageUri);
+            Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+            final String selection = "_id=?";
+            final String[] selectionArgs = { docId.split(":")[1] };
+
+            final String column = "_data";
+            final String[] projection = { column };
+            String path = null;
+            try (Cursor cursor = this.getContentResolver().query(contentUri, projection, selection,
+                    selectionArgs, null)) {
+                if(cursor != null && cursor.moveToFirst()) {
+                    final int index = cursor.getColumnIndexOrThrow(column);
+                    path = cursor.getString(index);
                 }
-                
-                if(path != null) {
-                    imageFile = new File(path);
-                    Log.d(TAG, path);
-                } else {
-                    Log.d(TAG, "onActivityResult: noooo");
-                    // TODO add some error message or something, lol
-                }
-
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG).show();
             }
 
+            if(path != null) {
+                imageFile = new File(path);
+                Log.d(TAG, path);
+            } else {
+                Log.d(TAG, "onActivityResult: noooo");
+                // TODO add some error message or something, lol
+            }
         }else {
             Toast.makeText(this, "You haven't picked Image",Toast.LENGTH_LONG).show();
         }
