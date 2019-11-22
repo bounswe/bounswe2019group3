@@ -107,6 +107,9 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                 if (response.code() == 200) {
                     User u = response.body();
                     String imagePath = u.avatar;
+                    if(!imagePath.substring(0,5).contains("http")){
+                        imagePath = "http://18.184.207.248/" + imagePath;
+                    }
                     Glide.with(context)
                             .load(imagePath)
                             .bitmapTransform(new CropCircleTransformation(context))
