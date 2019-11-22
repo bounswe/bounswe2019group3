@@ -14,7 +14,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Spinner;
@@ -44,6 +43,7 @@ import retrofit2.Response;
 public class ProfilePage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String username;
     String sender;
+    String imagePathEdit;
     int commentRating = 0;
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
     RecyclerView commentRecycler;
@@ -181,6 +181,10 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
                     email.setText(u.email);
                     rating.setRating(u.rating);
                     String imagePath = u.avatar;
+                    if(!imagePath.substring(0,5).contains("http")){
+                        imagePath = "http://18.184.207.248/" + imagePath;
+                    }
+                   imagePathEdit = imagePath;
                     Glide.with(getApplicationContext())
                             .load(imagePath)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
@@ -242,6 +246,7 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
     public void editProfile(View view) {
         Intent intent = new Intent(getApplicationContext(), EditProfile.class);
         intent.putExtra("username", username);
+        intent.putExtra("image", imagePathEdit);
         startActivity(intent);
     }
 
@@ -251,7 +256,8 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
 
     public void userInfo(){
         AlertDialog ad = new AlertDialog.Builder(this).setMessage(
-                "From least to most successful, language levels are ordered like this: \n\nA1\nA2\nB1\nB2\nC1\nC2").setTitle(
+                "From least to most successful, language levels are ordered like this: \n\nA1 - Beginner\nA2 - Elementary\nB1 - Intermediate" +
+                        "\nB2 - Upper Intermediate\nC1 - Advanced\nC2 - Proficient").setTitle(
                 "Level Information").setCancelable(true)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {

@@ -42,6 +42,7 @@
         android:gravity="center"
         android:text="Click the button to change your avatar"
         android:textAlignment="center"
+        android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/imageLayout"
@@ -61,21 +62,32 @@
 
         <ImageView
             android:id="@+id/image"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="175dp"
+            android:layout_height="175dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:src="@drawable/girl" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_alignEnd="@+id/image"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/fab_border"
+            android:padding="3dp">
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/image"
-            android:layout_alignParentTop="true"
+            app:pressedTranslationZ="0dp"
+            app:elevation="0dp"
             android:onClick="selectAvatar"
-            app:fabCustomSize="48dp"
+            app:fabCustomSize="47dp"
             app:srcCompat="@android:drawable/ic_menu_edit" />
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -1,8 +1,5 @@
 package com.bulingo.Profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.PathUtils;
-
 import android.Manifest;
 import android.content.Intent;
 import android.database.Cursor;
@@ -11,7 +8,6 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.DocumentsContract;
-import android.provider.DocumentsProvider;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
@@ -22,16 +18,14 @@ import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.PermissionRequestingActivity;
 import com.bulingo.R;
+import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.gson.JsonObject;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -43,6 +37,7 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
     private static final String TAG = "EditProfile";
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
     String username;
+    String oldImagePath;
     private File imageFile;
     private static int RESULT_LOAD_IMG = 1;
 
@@ -51,6 +46,12 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
         username = getIntent().getStringExtra("username");
+        oldImagePath = getIntent().getStringExtra("image");
+        ImageView avatar = findViewById(R.id.image);
+        Glide.with(getApplicationContext())
+                .load(oldImagePath)
+                .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
+                .into(avatar);
         this.setOnPermissionsGrantedListener(this);
     }
 
@@ -112,6 +113,10 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
     }
 
     public void saveChanges(View view) {
+        if(imageFile == null || imageFile.length() == 0){
+            finish();
+            return;
+        }
 
         TextInputEditText input = findViewById(R.id.bioText);
         String message = input.getText().toString();
