@@ -59,6 +59,7 @@ public class LoginMain extends AppCompatActivity {
 
     public void onClickLanguageSelect(View view) {
         Intent intent = new Intent(this, LanguageSelection.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 

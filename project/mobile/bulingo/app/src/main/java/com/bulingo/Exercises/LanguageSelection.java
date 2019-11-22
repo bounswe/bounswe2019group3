@@ -27,11 +27,13 @@ public class LanguageSelection extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private ArrayList<Language> languageList = new ArrayList<Language>();
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_language_selection);
+        username = getIntent().getStringExtra("username");
         recyclerView = findViewById(R.id.languageRecyclerView);
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
@@ -43,10 +45,47 @@ public class LanguageSelection extends AppCompatActivity {
 
     public void onClickLanguageSelect(Language language) {
         String abbr = language.abbr;
-        Intent intent = new Intent(this, Exercise.class);
-        intent.putExtra("abbr", abbr);
-        startActivity(intent);
-        finish();
+
+        Call<List<Language>> responseCall = apiInterface.doGetUserLevels(username);
+
+        responseCall.enqueue(new Callback<List<Language>>() {
+            @Override
+            public void onResponse(Call<List<Language>> call, Response<List<Language>> response) {
+                Log.d("request", response.toString());
+                String grade = "";
+                boolean found = false;
+                if(response.code() == 200 && response.body() != null) {
+                    List<Language> langs = response.body();
+                    for(Language l : langs) {
+                        if(l.lang_abbr.equals(abbr)) {
+                            found = true;
+                            grade = l.grade;
+                        }
+                    }
+                }
+                Intent intent;
+                if(found) {
+                    intent = new Intent(getApplicationContext(), ExerciseSelection.class);
+                    intent.putExtra("abbr", abbr);
+                    intent.putExtra("name", language.name);
+                    intent.putExtra("currentLevel", grade);
+                } else {
+                    intent = new Intent(getApplicationContext(), Exercise.class);
+                    intent.putExtra("abbr", abbr);
+                }
+                startActivity(intent);
+                finish();
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Language>> call, Throwable t) {
+                Log.d("request", t.toString());
+            }
+
+        });
+
+
     }
 
 

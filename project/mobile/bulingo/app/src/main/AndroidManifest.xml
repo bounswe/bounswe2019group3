@@ -4,8 +4,8 @@
     package="com.bulingo">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -17,9 +17,10 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Profile.EditProfile"  android:noHistory="true">
-
-        </activity>
+        <activity android:name=".Exercises.ExerciseSelection"></activity>
+        <activity
+            android:name=".Profile.EditProfile"
+            android:noHistory="true"></activity>
         <activity android:name=".Chat.ChatHistory" />
         <activity android:name=".Search.SearchActivity" />
         <activity
