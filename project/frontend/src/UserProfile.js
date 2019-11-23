@@ -8,13 +8,14 @@ import StarRatingComponent from 'react-star-rating-component';
 import * as moment from 'moment';
 import { Redirect, NavLink } from 'react-router-dom';
 
-var username_ = "orangelion929";
+var username_;
 export default class Messages extends React.Component {
 
     constructor(props) {
-        username_ = "orangelion929";
         super(props);
-        
+        //console.log(this.props)
+        username_ = this.props.location.data_;
+        //console.log(this.props.location.data_)
         axios.get(('http://18.184.207.248/api/user/' + username_), { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
@@ -32,15 +33,16 @@ export default class Messages extends React.Component {
             })
 
         this.state = {
-            
-            returnToMessages : false,
-            username:"",
+            _data: "",
+            is_comment_send: false,
+            returnToMessages: false,
+            username: "",
             comments: [],
             languages: [],
             information: [],
             exercises: false,
             writing: false,
-            rating: 0,
+            rating: 4 ,
             dataRadar: {
                 labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
                 datasets: [
@@ -101,40 +103,58 @@ export default class Messages extends React.Component {
             '<li id="chld"><a href="/writing">Send Writing</a></li>' +
             '<li id="chld"><a href="/messages">Messages</a></li>' +
             '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-            '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+            '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' +
+            '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
     }
     onStarClick(nextValue, prevValue, name) {
         /* axios.post(( "" + nextValue, { withCredentials: true })
         .then(res => {}); */
         this.setState({ rating: nextValue });
     }
-    sendcomment(){        
-        console.log(document.getElementById("comment").value);        
+    sendcomment() {
+        const cmmnt = {
+            text: document.getElementById("comment_to_send").value,
+        }
+        console.log(cmmnt)
     }
     sendmessage() {
-        
+
         const msg = {
             message: document.getElementById("message_to_send").value
         }
+        axios.post(('http://18.184.207.248/api/chat/' + username_), msg, { withCredentials: true })
+            .then(res => {
+                this.setState({ returnToMessages: true })
+            });
 
-         axios.post(('http://18.184.207.248/api/chat/' + username_), msg, { withCredentials: true })
-            .then(res => {this.setState({returnToMessages : true})
-            }); 
-            
     }
 
     render() {
+        if (this.props.location.data_ === undefined) {
+            return (<Redirect
+                push to={{
+                    pathname: "/search"
+                }}
+            />);
+        }
+        // if(this.state.is_comment_send){
+        //     return (<Redirect
+        //         to={{
+        //           pathname: "/profile",
+        //         }}
+        //       />);
+        // }
         if (this.state.returnToMessages) {
             return (<Redirect
-              push to={{
-                pathname: "/messages",
-                state : {
-                    last_messages: [],
-                    chat_messages: []
-                }
-              }}
+                push to={{
+                    pathname: "/messages",
+                    state: {
+                        last_messages: [],
+                        chat_messages: []
+                    }
+                }}
             />);
-          }
+        }
         return (
             <MDBContainer fluid>
                 <MDBRow>
@@ -165,14 +185,14 @@ export default class Messages extends React.Component {
                                     <MDBCol>
                                         <MDBRow>
                                             {this.languagesWithLevels()}
-                                           
+
                                         </MDBRow>
                                         <MDBRow>
                                             <div className="Bio"><p className="commentsec_usrname">My Biography</p>
                                                 {this.state.information.bio}
-                                                <p>aaaaaaaaa
-                                            {this.state.temp}
-                                            {this.state.returnToMessages}</p>
+                                                <p>
+                                                    {this.state.temp}
+                                                    {this.state.returnToMessages}</p>
                                             </div>
                                             <div > <p className=" topMargined marginedleft" >
                                                 <MDBIcon icon="envelope" className="mr-3" />
@@ -184,7 +204,7 @@ export default class Messages extends React.Component {
                         </div>
                     </MDBCol>
                     <MDBCol md="4">
-                        <div className="Scrollbar" style = {{height: 52 + 'vh'}}>
+                        <div className="Scrollbar" style={{ height: 52 + 'vh' }}>
                             {this.commentField()}
                         </div>
                         <form>
@@ -192,10 +212,10 @@ export default class Messages extends React.Component {
                                 type="text"
                                 className="form-control topMargined"
                                 rows="3"
-                                id = "comment"
-                            />                          
+                                id="comment_to_send"
+                            />
                             <div className="" >
-                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} background type="submit">
+                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} type="submit">
                                     SEND COMMENT
                                     <MDBIcon far icon="paper-plane" className="ml-2" />
                                 </MDBBtn>
@@ -208,21 +228,21 @@ export default class Messages extends React.Component {
                             <MDBCardBody>
                                 <Radar data={this.state.dataRadar} options={{ responsive: true }} /></MDBCardBody>
                         </MDBCard>
-                        
-                            <textarea
-                                type="text"
-                                className="form-control topMargined"
-                                rows="6"
-                                id = "message_to_send"
-                            />                          
-                            <div className="" >
-                                <MDBBtn color="orange" onClick={this.sendmessage.bind(this)} background type="submit">
-                                    SEND MESSAGE
+
+                        <textarea
+                            type="text"
+                            className="form-control topMargined"
+                            rows="6"
+                            id="message_to_send"
+                        />
+                        <div className="" >
+                            <MDBBtn color="orange" onClick={this.sendmessage.bind(this)}  type="submit">
+                                SEND MESSAGE
                                     <MDBIcon far icon="envelope" className="ml-2" />
-                                </MDBBtn>
-                            </div>
-                        
-                    </MDBCol>                                            
+                            </MDBBtn>
+                        </div>
+
+                    </MDBCol>
                 </MDBRow>
             </MDBContainer>
         );

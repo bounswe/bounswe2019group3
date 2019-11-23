@@ -1,13 +1,14 @@
 import React from 'react';
-import { MDBContainer, MDBRow, MDBFormInline, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBFormInline, MDBCol, MDBBtn } from 'mdbreact';
 import './General.css';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
 import Cookies from 'js-cookie'
 
 export default class FormPage extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
+    Cookies.remove('search_context');
+    Cookies.remove('search_type' );
     this.state = {
       isUser: false,
       isExercise: false,
@@ -21,12 +22,10 @@ export default class FormPage extends React.Component {
 
     var _type = ""
 
-    if (this.state.isUser) {
-      _type = "user"
-    } else if (this.state.isExercise) {
+    if (this.state.isExercise) {
       _type = "exercise"
-    } else {
-      _type = "";
+    }else{
+      _type = "user"
     }
 
     const frm = {
@@ -58,13 +57,13 @@ export default class FormPage extends React.Component {
     /*if (e.detail === 0){
         alert(e.target.value);
     }*/
-    if (e.target.value == 1) {
+    if (e.target.value === 1) {
       this.setState({
         isUser: true,
         isExercise: false
       });
     };
-    if (e.target.value == 2) {
+    if (e.target.value === 2) {
       this.setState({
         isExercise: true,
         isUser: false
@@ -85,14 +84,19 @@ export default class FormPage extends React.Component {
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
         '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-        '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+        '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' + 
+        '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
     }
   }
 
   render() {
-    console.log(this.state.response);
-
     if (this.state.isSearched) {
+      var type = "";
+      if(this.state.isUser){
+        type = "user"
+      } else {
+        type = "Exercise"
+      }
       return (<Redirect
         push to={{
           pathname: "/searchResult"

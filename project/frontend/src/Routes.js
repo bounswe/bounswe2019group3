@@ -33,7 +33,7 @@ class Routes extends React.Component {
           <Route path='/settings' component={Settings} />
           <Route path='/user' component={UserProfile} />
           <Route path='/search' component={Search} />
-          <Route path='/searchResult' componern = {SearchResult} />
+          <Route path='/searchResult' component = {SearchResult} />
         </Switch>
       );
   }
