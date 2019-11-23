@@ -10,8 +10,11 @@ public class ExerciseItem {
     @SerializedName("lang_abbr")
     public String abbr;
 
-    @SerializedName("exercise_type")
+    @SerializedName("type")
     public String type;
+
+    @SerializedName("title")
+    public String title;
 
     @SerializedName("level")
     public String level;

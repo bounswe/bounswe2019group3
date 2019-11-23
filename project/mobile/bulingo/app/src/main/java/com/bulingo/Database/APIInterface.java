@@ -76,7 +76,7 @@ public interface APIInterface {
     @POST("/api/user/{username}")
     Call<Void> doUpdateProfile(@Path("username") String username, @Part("bio") RequestBody bio, @Part MultipartBody.Part file);
 
-    @GET("/api/language/{abbr}/exercise/{type}")
-    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Path("type") String type);
+    @GET("/api/language/{abbr}/exercise")
+    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("type") String type, @Query("level") String level);
 
 }

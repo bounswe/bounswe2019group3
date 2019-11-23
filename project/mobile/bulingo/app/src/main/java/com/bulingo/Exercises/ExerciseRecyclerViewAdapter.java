@@ -49,8 +49,7 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
         // - replace the contents of the view with that element
         TextView name = holder.linearLayout.findViewById(R.id.exerciseName);
         TextView level = holder.linearLayout.findViewById(R.id.exerciseLevel);
-        String exName = "Exercise " + mDataset.get(position).id;
-        name.setText(exName);
+        name.setText(mDataset.get(position).title);
         level.setText(mDataset.get(position).level);
     }
 

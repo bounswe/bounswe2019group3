@@ -2,7 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="@android:color/white"
+    android:layout_margin="3dp"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +14,7 @@
         android:id="@+id/exerciseName"
         android:layout_gravity="center|start"
         android:fontFamily="@font/ubuntu_medium_italic"
-        android:textSize="24sp"/>
+        android:textSize="20sp"/>
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -22,7 +25,7 @@
         android:id="@+id/exerciseLevel"
         android:text="A1"
         android:layout_gravity="end"
-        android:textSize="22sp"/>
+        android:textSize="18sp"/>
 
 
 </LinearLayout>
