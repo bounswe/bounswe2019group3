@@ -3,6 +3,7 @@ import { MDBRow, MDBCol, MDBBtn } from "mdbreact";
 import './General.css';
 import Cookies from 'js-cookie';
 import axios from "axios";
+import { Redirect } from 'react-router-dom';
 class FormsPage extends React.Component {
   constructor(props) {
     super(props);
@@ -11,19 +12,66 @@ class FormsPage extends React.Component {
         //console.log(res.data);
         this.setState({ information: res.data });
       })
+      
 
     this.state = {
       information: [],
-      userName: "",
-      email: "",
-      bio: ""
-
+      bio: "",
+      avatar: undefined,
+      changed: false
     };
+    this.handleAvatarChange = this.handleAvatarChange.bind(this);
   }
 
   changeHandler = event => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
+  async sendFormData() {
+    
+    const frm = {
+      bio: document.getElementById("bio").value,
+      
+    };
+    // Send avatar if exists
+    if(this.state.avatar) {
+      const data = new FormData();
+      data.append("avatar", this.state.avatar, "wow");
+      
+      const res = await axios.post(('http://18.184.207.248/api/user/' + Cookies.get('username')),
+            data,
+            { withCredentials: true, headers: {
+              "Content-Type" : "multipart/form-data"
+            } });
+            alert("changed successfully");
+            this.setState({changed: true});
+    }
+    // send bio
+    console.log(JSON.stringify(frm));
+    var responseStatus;
+    const response = await axios.post(('http://18.184.207.248/api/user/' + Cookies.get('username')),frm, { withCredentials: true })
+      .then(res => {
+     
+        responseStatus = res;
+  
+      })
+    
+  }
+
+  onClickd(){
+    console.log("wow");
+    this.sendFormData().then(_ => {
+      this.setState({changed: true});
+      alert("changed successfully");
+      console.log("wow");
+ 
+    }).catch(err => {
+      console.log(err);
+    
+    });
+
+
+  }
   componentDidMount() {
     var _navbar = document.getElementById("nav");
     if (_navbar.childNodes.length > 2) {
@@ -41,7 +89,19 @@ class FormsPage extends React.Component {
       '<li id="chld" style="float:right";><a href="/Settings">Settings</a></li>');
   }
 
+  handleAvatarChange(ev) {
+    this.setState({
+        avatar: ev.target.files[0]
+    });
+  }
+
   render() {
+    if (this.state.changed) {
+      return (<Redirect
+        push to="profile"
+      />);
+    }
+
     return (
 
       <div className="centered">
@@ -89,8 +149,9 @@ class FormsPage extends React.Component {
             <input
               type="file"
               className="custom-file-input"
-              id="validatedCustomFile"
-              required
+              onChange={this.handleAvatarChange}
+              id="file"
+              
             />
             <label
               className="custom-file-label"
@@ -101,75 +162,32 @@ class FormsPage extends React.Component {
 
           </div>
         </form>
-        <form>
-          <div>
-            <MDBRow>
-              <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
-              <MDBCol md="4" className="mb-3">
-                <label
-                  htmlFor="defaultFormRegisterNameEx"
-                  className="grey-text"
-                >
-                  Bio
-              </label>
-                <input
-                  value={this.state.bio}
-                  name="bio"
-                  onChange={this.changeHandler}
-                  type="text"
-                  id="bio"
-                  className="form-control"
-                  placeholder="Bio"
-                  required
-
-                />
-              </MDBCol>
-            </MDBRow>
-          </div>
+        <div>
           <MDBRow>
+            <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
             <MDBCol md="4" className="mb-3">
               <label
                 htmlFor="defaultFormRegisterNameEx"
                 className="grey-text"
               >
-                Username
-              </label>
+                Bio
+            </label>
               <input
-                value={this.state.userName}
-                name="userName"
+                value={this.state.bio}
+                name="bio"
                 onChange={this.changeHandler}
                 type="text"
-                id="userName"
+                id="bio"
                 className="form-control"
-                placeholder={this.state.information.username}
-                required
+                placeholder={this.state.information.bio}
+              />
+            </MDBCol>
+          </MDBRow>
+        </div>
 
-              />
-            </MDBCol>
-          </MDBRow>
-          <MDBRow>
-            <MDBCol md="4" className="mb-3">
-              <label
-                htmlFor="defaultFormRegisterConfirmEx3"
-                className="grey-text"
-              >
-                Email
-              </label>
-              <input
-                value={this.state.email}
-                onChange={this.changeHandler}
-                type="email"
-                id="email"
-                className="form-control"
-                name="email"
-                placeholder={this.state.information.email}
-              />
-            </MDBCol>
-          </MDBRow>
-          <MDBBtn color="orange" type="submit">
-            Change
-          </MDBBtn>
-        </form>
+        <MDBBtn color="orange" onClick={this.onClickd.bind(this)}>
+          Change
+        </MDBBtn>
       </div>
 
 

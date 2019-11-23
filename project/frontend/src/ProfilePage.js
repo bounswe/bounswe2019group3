@@ -121,7 +121,7 @@ export default class FormPage extends React.Component {
                     </MDBRow>
                   </MDBCol>
                   <MDBCol md="6">
-                    <img className="profilePic topMargined marginedleft50" src={this.state.information.avatar} alt="." />
+                    <img className="profilePic topMargined marginedleft50" src={"http://18.184.207.248/" + this.state.information.avatar} alt="." />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>

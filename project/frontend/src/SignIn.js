@@ -41,7 +41,9 @@ export default class FormPage extends React.Component {
 
         }
 
-      })
+      }).catch(error => {
+        alert("invalid information")
+    });
 
   };
 
@@ -78,6 +80,7 @@ export default class FormPage extends React.Component {
                   validate
                   error="wrong"
                   success="right"
+              
 
                 />
 
@@ -88,6 +91,7 @@ export default class FormPage extends React.Component {
                   group
                   type="password"
                   validate
+                
                 />
 
               </div>
