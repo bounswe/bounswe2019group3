@@ -33,7 +33,7 @@ export default class FormPage extends React.Component {
       for (let i = 0; i < this.state.response.length; i++) {
         row[i] = (
           <tr >
-            <th className="Messagebox" scope="row">{i + 1}</th>
+            <td className="Messagebox" scope="row">{i + 1}</td>
             <td className="Messagebox" onClick={this.go_user_profile.bind(this, this.state.response[i].username)}>
               {this.state.response[i].username}
             </td>
@@ -110,10 +110,10 @@ export default class FormPage extends React.Component {
                     <table id="tablePreview" className="table">
                       <thead>
                         <tr>
-                          <th></th>
-                          <td className="Messagebox">
+                          <th className = "Messagebox"><b>result #</b></th>
+                          <th className="Messagebox">
                             <b>{this.state.searched_type}</b>
-                          </td>
+                          </th>
                         </tr>
                       </thead>
                       <tbody>

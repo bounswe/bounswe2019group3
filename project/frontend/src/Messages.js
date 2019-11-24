@@ -80,6 +80,7 @@ export default class Messages extends React.Component {
         const msg = {
             message: document.getElementById("message_to_send").value
         }
+        document.getElementById("message_to_send").value = "";
 
         axios.post(('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person')), msg, { withCredentials: true })
             .then(res => {
