@@ -281,6 +281,17 @@ input[type="radio"]:checked:after {
 input:focus{
   outline:none;
 }
+
+.Messagebox{ 
+  border: 1px solid #555;
+  padding: 10px;
+  margin-top: 1%;
+  margin-right: 1%;
+  margin-left: 1%;
+  background-color: #ffe1cf;
+  border-radius: 5%
+}
+
 .messagehistory{
   display:block;
   width:100%;
