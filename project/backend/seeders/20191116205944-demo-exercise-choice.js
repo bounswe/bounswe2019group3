@@ -124,6 +124,130 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
+
+      {
+        question_id: 6,
+        desc: "advise young people about how to get to university.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 6,
+        desc: "tell young people about the options available.",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 6,
+        desc: " advise young people to stay in education.",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 6,
+        desc: "all of them",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        question_id: 7,
+        desc: " go to university immediately.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 7,
+        desc: "stay at the same school for two more years.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 7,
+        desc: "go to high school for two more years, then get a degree.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 7,
+        desc: "make a trip to China",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 8,
+        desc: "good exam results. ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 8,
+        desc: "facilities.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 8,
+        desc: " humanities and sciences.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 8,
+        desc: "all of these",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        question_id: 9,
+        desc: " pay tuition fees.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 9,
+        desc: "pass an exam.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 9,
+        desc: "study both humanities and sciences.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 9,
+        desc: "none of these",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 10,
+        desc: "pass an exam.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 10,
+        desc: "are a boy. " ,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 10,
+        desc: "can afford the tuition fees.",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 10,
+        desc: "are less than 17 years old",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+    
     
     ]);
   },
