@@ -15,7 +15,7 @@ module.exports = {
         title: "Reading Exercise-Sample",
         lang_abbr: "en",
         exercise_type: "reading",
-        level: "C1",
+        level: "A2",
         createdAt: new Date(),
         updatedAt: new Date()
       },

@@ -68,7 +68,7 @@ module.exports = {
       },
 
 
-
+/*
       {
         desc: "You’re 16 and finally you can leave school!  By now, you’re probably sick of teachers, desks, tests and exams.  But don’t just run for the exit. You need to think carefully about what to do next."+
         "If you want a professional career, you will need to go to university and get a degree. To do that, you need to stay at high school for another two years.  But you needn’t stay at the same place. There are several options in the district of Northacre."+
@@ -149,6 +149,55 @@ module.exports = {
         updatedAt: new Date()
       },
 
+*/
+      {
+        desc: " Which word or phrase CANNOT complete the sentence?…"+
+        "The match was cancelled ____ the rain.",
+        lang_abbr: "en",
+        exercise_id: 3,
+        answer_id: 41,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        desc: " Complete the sentence."+
+        "Alex ___ late. He’s stuck in traffic.",
+        lang_abbr: "en",
+        exercise_id: 3,
+        answer_id: 45,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        desc: 
+        "What would you do if there _____ an earthquake?",
+        lang_abbr: "en",
+        exercise_id: 3,
+        answer_id: 51,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        desc: 
+        "Do you know how tall ____?",
+        lang_abbr: "en",
+        exercise_id: 3,
+        answer_id: 53,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        desc: 
+        "Which sentence uses too incorrectly?",
+        lang_abbr: "en",
+        exercise_id: 3,
+        answer_id: 57,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
 
     ]);
   },

@@ -247,8 +247,126 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-    
-    
+      {
+        question_id: 11,
+        desc: "because of ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 11,
+        desc: "due to ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 11,
+        desc: "because",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 11,
+        desc: "instead",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 12,
+        desc: "could be  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 12,
+        desc: "would be     ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 12,
+        desc: "were ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 12,
+        desc: "will be",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 13,
+        desc: " they are? ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 13,
+        desc: "is it? ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 13,
+        desc: " he’s? ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 13,
+        desc: "she's?",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 14,
+        desc: "Jemma is too beautiful. She’s the prettiest girl I know. ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 14,
+        desc: "Change your clothes! Those clothes are too dirty.  ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 14,
+        desc: "Don’t drive too fast. You’ll have an accident. ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 14,
+        desc: "none of them",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 15,
+        desc: " will be arriving ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 15,
+        desc: "will arriving",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 15,
+        desc: " will be arrive ",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        question_id: 15,
+        desc: "is will to arrive",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
     ]);
   },
 
