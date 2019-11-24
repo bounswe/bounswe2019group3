@@ -4,7 +4,7 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("Exercises", [
       {
-        title: "Listening Exercise-1",
+        title: "Listening Exercise- Sample",
         lang_abbr: "en",
         exercise_type: "reading",
         level: "B2",
@@ -12,10 +12,18 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        title: "Reading Exercise-1",
+        title: "Reading Exercise-Sample",
         lang_abbr: "en",
         exercise_type: "reading",
         level: "C1",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        title: "Grammar Exercise-Sample",
+        lang_abbr: "en",
+        exercise_type: "grammar",
+        level: "B1",
         createdAt: new Date(),
         updatedAt: new Date()
       },
