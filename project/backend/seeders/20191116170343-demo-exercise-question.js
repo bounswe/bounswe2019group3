@@ -4,41 +4,30 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.bulkInsert("ExerciseQuestions", [
       {
-        desc: "Sample Question Description 1",
+        desc: "You hear a hotel manager talking about the staff who work for her.What does she say about them?",
         lang_abbr: "en",
         exercise_id: 1,
         answer_id: 1,
-        media_url: "http://someurl.com/material",
-        media_type: "MP4",
-        media_start_time: 0,
-        media_end_time: 47,
+        media_url: "https://www.youtube.com/watch?v=ZoUCAGV0UeQ",
+        media_type: "youtube",
+        media_start_time: 51,
+        media_end_time: 84,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        desc: "Sample Question Description 2",
+        desc: "You hear a student talking on the phone.What does he say about life at college",
         lang_abbr: "en",
         exercise_id: 1,
         answer_id: 6,
-        media_url: "http://someurl.com/material",
-        media_type: "MP3",
-        media_start_time: 0,
-        media_end_time: 33,
+        media_url: "https://www.youtube.com/watch?v=ZoUCAGV0UeQ",
+        media_type: "youtube",
+        media_start_time: 88,
+        media_end_time: 116,
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        desc: "Sample Question Description 3",
-        lang_abbr: "de",
-        exercise_id: 2,
-        answer_id: 8,
-        media_url: "http://someurl.com/material",
-        media_type: "MP4",
-        media_start_time: 0,
-        media_end_time: 38,
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
+
     ]);
   },
 

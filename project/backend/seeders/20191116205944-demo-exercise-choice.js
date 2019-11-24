@@ -5,58 +5,41 @@ module.exports = {
     return queryInterface.bulkInsert("ExerciseChoices", [
       {
         question_id: 1,
-        desc: "Sample Choice 1",
+        desc: "They get to do a range of tasks",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         question_id: 1,
-        desc: "Sample Choice 2",
+        desc: "They often suggest new idead ",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         question_id: 1,
-        desc: "Sample Choice 3",
+        desc: "They sometimes arrive late",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         question_id: 2,
-        desc: "Sample Choice 4",
+        desc: "He's made a lot of new friends.",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         question_id: 2,
-        desc: "Sample Choice 5",
+        desc: "His teachers are pleased with hi progress",
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         question_id: 2,
-        desc: "Sample Choice 6",
+        desc: "He find his accommodation is very convenient",
         createdAt: new Date(),
         updatedAt: new Date()
       },
-      {
-        question_id: 3,
-        desc: "Sample Choice 7",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        question_id: 3,
-        desc: "Sample Choice 8",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      },
-      {
-        question_id: 3,
-        desc: "Sample Choice 9",
-        createdAt: new Date(),
-        updatedAt: new Date()
-      }
+    
     ]);
   },
 
