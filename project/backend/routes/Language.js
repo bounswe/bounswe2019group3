@@ -172,17 +172,17 @@ router.post("/:language_abbr/exam/evaluate", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/language/:language_abbr/exercises return all exercise of type
+ * @api {get} /api/language/:language_abbr/exercise return all exercise of type
  * @apiGroup language
  * @apiPermission User
- * @apiSuccess {Object[]} exercises                 exercises
- * @apiSuccess {Integer}   exercises.exersice_id              exercise id
- * @apiSuccess {String}   exercises.title            exercise title
- * @apiSuccess {String} exercises.language_abbr         exercise language abbreviation
- * @apiSuccess {Stirng} exercises.exercise_type    exercise exercise type
- * @apiSuccess {String} exercises.level   exercise level
+ * @apiSuccess {Object[]} exercise                 exercises
+ * @apiSuccess {Integer}   exercise.exersice_id              exercise id
+ * @apiSuccess {String}   exercise.title            exercise title
+ * @apiSuccess {String} exercise.language_abbr         exercise language abbreviation
+ * @apiSuccess {Stirng} exercise.exercise_type    exercise exercise type
+ * @apiSuccess {String} exercise.level   exercise level
  */
-router.get("/:language_abbr/exercises", (req, res, next) => {
+router.get("/:language_abbr/exercise", (req, res, next) => {
   let db = req.db;
   let likeOp = db.Sequelize.Op.like;
   let exercise_type = req.query.exercise_type;
