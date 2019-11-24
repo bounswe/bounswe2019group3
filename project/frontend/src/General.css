@@ -142,8 +142,8 @@ h8{
 .rightaligned{
   text-align: right;
 }
+
 .Scrollbar {
-  
   overflow-y:scroll;
   height: 72vh;
   border: 2px solid #787878;
@@ -281,6 +281,17 @@ input[type="radio"]:checked:after {
 input:focus{
   outline:none;
 }
+
+.Messagebox{ 
+  border: 1px solid #555;
+  padding: 10px;
+  margin-top: 1%;
+  margin-right: 1%;
+  margin-left: 1%;
+  background-color: #ffe1cf;
+  border-radius: 5%
+}
+
 .messagehistory{
   display:block;
   width:100%;
@@ -288,12 +299,26 @@ input:focus{
   
   }
   
-  .Messagebox{ 
-    border: 1px solid #555;
-    padding: 10px;
-    margin-top: 1%;
-    margin-right: 1%;
-    margin-left: 1%;
-    background-color: #ffe1cf;
-    border-radius: 5%
+  #tablePreview {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #eeeeee55;
+  }
+  
+  #tablePreview td, #tablePreview th {
+    border: 1px solid #164464 ;
+    padding: 8px;
+  }
+  
+  #tablePreview tr:nth-child(even){background-color: #f2f2f255;}
+  
+  #tablePreview tr:hover {background-color: white;}
+  
+  #tablePreview th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #069;
+    color: white;
   }

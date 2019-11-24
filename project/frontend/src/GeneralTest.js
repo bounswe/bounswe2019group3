@@ -125,7 +125,8 @@ export default class GeneralTest extends React.Component {
             '<li id="chld"><a href="/writing">Send Writing</a></li>' +
             '<li id="chld"><a href="/messages">Messages</a></li>' +
             '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-            '<li id="chld" style="float:right";><a >Settings</a></li>');
+            '<li id="chld" style="float:right";><a >Settings</a></li>' +
+            '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
         }
       }
 

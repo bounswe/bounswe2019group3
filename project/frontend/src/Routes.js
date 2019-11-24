@@ -9,6 +9,9 @@ import Writing from './Writing';
 import Logout from './Logout';
 import Messages from './Messages';
 import Settings from './Settings';
+import UserProfile from './UserProfile';
+import Search from './Search';
+import SearchResult from './SearchResult'
 
 class Routes extends React.Component {
 
@@ -28,6 +31,9 @@ class Routes extends React.Component {
           <Route path='/logout' component={Logout} />
           <Route path='/messages' component={Messages} />
           <Route path='/settings' component={Settings} />
+          <Route path='/user' component={UserProfile} />
+          <Route path='/search' component={Search} />
+          <Route path='/searchResult' component = {SearchResult} />
         </Switch>
       );
   }

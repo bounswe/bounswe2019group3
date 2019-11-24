@@ -94,7 +94,8 @@ export default class FormPage extends React.Component {
     '<li id="chld"><a href="/writing">Send Writing</a></li>'+
     '<li id="chld"><a href="/messages">Messages</a></li>' +
     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
-    '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+    '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>'+
+    '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
   }
 
   render() {
@@ -120,7 +121,7 @@ export default class FormPage extends React.Component {
                     </MDBRow>
                   </MDBCol>
                   <MDBCol md="6">
-                    <img className="profilePic topMargined marginedleft50" src={this.state.information.avatar} alt="." />
+                    <img className="profilePic topMargined marginedleft50" src={"http://18.184.207.248/" + this.state.information.avatar} alt="." />
                   </MDBCol>
                 </MDBRow>
                 <MDBRow>
