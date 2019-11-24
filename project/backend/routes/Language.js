@@ -200,9 +200,9 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
         model: db.Exercise,
         as: "exercises",
         attributes: [
-          "exersice_id",
+          "exercise_id",
           "title",
-          "language_abbr",
+          "lang_abbr",
           "exercise_type",
           "level"
         ],
