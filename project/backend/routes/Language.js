@@ -172,15 +172,15 @@ router.post("/:language_abbr/exam/evaluate", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/language/:language_abbr/exercise/exercise_type/ return all exercise of type
+ * @api {get} /api/language/:language_abbr/exercise return all exercise of type
  * @apiGroup language
  * @apiPermission User
- * @apiParam (Request body(JSON)) {Object[]} exercise                    list of exercise
- * @apiParam (Request body(JSON)) {Integer}   exercise.exersice_id       exercise id
- * @apiParam (Request body(JSON)) {String} exersice.lang_abbr        exersice language abbreviation
- * @apiParam (Request body(JSON)) {String} exersice.exercise_type        exersice type
- * @apiParam (Request body(JSON)) {String} exersice.level        exersice level
- * @apiParam (Request body(JSON)) {String} exersice.lang_abbr        exersice language abbreviation
+ * @apiSuccess {Object[]} exercise                 exercises
+ * @apiSuccess {Integer}   exercise.exersice_id              exercise id
+ * @apiSuccess {String}   exercise.title            exercise title
+ * @apiSuccess {String} exercise.language_abbr         exercise language abbreviation
+ * @apiSuccess {Stirng} exercise.exercise_type    exercise exercise type
+ * @apiSuccess {String} exercise.level   exercise level
  */
 router.get("/:language_abbr/exercise", (req, res, next) => {
   let db = req.db;
@@ -199,7 +199,13 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
       {
         model: db.Exercise,
         as: "exercises",
-        attributes: ["title", "exercise_type", "level"],
+        attributes: [
+          "exersice_id",
+          "title",
+          "language_abbr",
+          "exercise_type",
+          "level"
+        ],
         where: {
           lang_abbr: req.params.language_abbr,
           exercise_type: {
@@ -222,23 +228,18 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/language/:language_abbr/exercise/exercise_type/:exersice_id/questions return the exercise
+ * @api {get} /api/language/:language_abbr/exercise/:exersice_id/questions return the exercise
  * @apiGroup language
  * @apiPermission User
- * @apiParam (Request body(JSON)) {String} question_id                    question id
- * @apiParam (Request body(JSON)) {String} desc                    question description
- * @apiParam (Request body(JSON)) {Object[]} media                    media related to question (e.g. listening material) (optional)
- * @apiParam (Request body(JSON)) {String} media.url                    media url
- * @apiParam (Request body(JSON)) {String} media.type                    media type
- * @apiParam (Request body(JSON)) {String} end_time                    media end time
- * @apiParam (Request body(JSON)) {Object[]} choices                     answer choices (optional: not available for writing)
- * @apiParam (Request body(JSON)) {String} choices.id                    choice id
- * @apiParam (Request body(JSON)) {String} choices.desc                    choice description
- * @apiSuccess {Integer}   nb_correct_answers   number of correct answers
- * @apiSuccess {Integer}   nb_questions   number of questions
- * @apiParam (Request body(JSON)) {Object[]} answers                    media related to question (e.g. listening material) (optional)
- * @apiParam (Request body(JSON)) {Integer} answers.question_id                  question id
- * @apiParam (Request body(JSON)) {Integer} answers.choices_id                 correct choices id
+ * @apiSuccess (Request body(JSON)) {String} question_id                    question id
+ * @apiSuccess (Request body(JSON)) {String} desc                    question description
+ * @apiSuccess (Request body(JSON)) {String} media_url                    media url related to question (optional)
+ * @apiSuccess (Request body(JSON)) {String} media_type                    media type related to question (optional)
+ * @apiSuccess (Request body(JSON)) {String} media_start_time                    media start time related to question (optional)
+ * @apiSuccess (Request body(JSON)) {String} media_end_time                    media end time related to question (optional)
+ * @apiSuccess (Request body(JSON)) {Object[]} choices                     answer choices (optional: not available for writing)
+ * @apiSuccess (Request body(JSON)) {String} choices.id                    choice id
+ * @apiSuccess (Request body(JSON)) {String} choices.desc                    choice description
  */
 router.get(
   "/:language_abbr/exercise/:exercise_id/questions",
@@ -275,13 +276,18 @@ router.get(
 );
 
 /**
- * @api {post} /api/language/:language_abbr/exercise/exercise_type/:exersice_id/questions evaluate the exercise
+ * @api {post} /api/language/:language_abbr/exercise/:exersice_id/evaluate evaluate the exercise
  * @apiGroup language
  * @apiPermission User
  * @apiParam {Object[]}   answers
  * @apiParam {Integer}   answers.question_id                      answer question id
- * @apiParam {Integer}   answers.choices_id                       answer choice id
+ * @apiParam {Integer}   answers.choice_id                       answer choice id
  * @apiParam {String}   answers.text                              (optional: only available for writing)
+ * @apiSuccess {Integer}   nb_correct_answers   number of correct answers
+ * @apiSuccess {Integer}   nb_questions   number of questions
+ * @apiSuccess {Object[]} answers                    media related to question (e.g. listening material) (optional)
+ * @apiSuccess {Integer} answers.question_id                  question id
+ * @apiSuccess {Integer} answers.choice_id                 correct choices id
  */
 router.post(
   "/:language_abbr/exercise/:exercise_id/evaluate",
