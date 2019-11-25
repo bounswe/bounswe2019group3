@@ -178,7 +178,7 @@ module.exports = {
         "Do you know how tall ____?",
         lang_abbr: "en",
         exercise_id: 3,
-        answer_id: 53,
+        answer_id: 55,
         createdAt: new Date(),
         updatedAt: new Date()
       },
