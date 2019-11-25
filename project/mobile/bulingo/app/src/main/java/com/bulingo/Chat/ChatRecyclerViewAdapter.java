@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -82,7 +83,11 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
         Chat.History c = mDataset.get(position);
         from.setText(c.username);
         newMessage.setText(c.last);
-        number.setText(String.valueOf(c.newMessages));
+        if(c.newMessages == 0){
+            number.setVisibility(View.INVISIBLE);
+        } else {
+            number.setText(String.valueOf(c.newMessages));
+        }
         getDetails(c.username, image);
     }
 

@@ -66,10 +66,8 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
         requestPermissions(new String[] { Manifest.permission.READ_EXTERNAL_STORAGE });
     }
 
-
-
     @Override
-    protected void onActivityResult(int reqCode, int resultCode, Intent data) {
+    public void onActivityResult(int reqCode, int resultCode, Intent data) {
         super.onActivityResult(reqCode, resultCode, data);
         ImageView imageView = findViewById(R.id.image);
 

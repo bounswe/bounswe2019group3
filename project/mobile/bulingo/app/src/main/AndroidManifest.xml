@@ -18,9 +18,7 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Exercises.ExerciseSelection"></activity>
-        <activity
-            android:name=".Profile.EditProfile"
-            android:noHistory="true"></activity>
+        <activity android:name=".Profile.EditProfile"></activity>
         <activity android:name=".Chat.ChatHistory" />
         <activity android:name=".Search.SearchActivity" />
         <activity
