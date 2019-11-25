@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER
     },
     desc: {
-      type: DataTypes.STRING
+      type: DataTypes.TEXT
     },
     media_url: {
       type: DataTypes.STRING

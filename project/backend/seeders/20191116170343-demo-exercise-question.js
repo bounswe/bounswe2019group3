@@ -16,7 +16,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        desc: "You hear a student talking on the phone.What does he say about life at college",
+        desc: "You hear a student talking on the phone.What does he say about life at college?",
         lang_abbr: "en",
         exercise_id: 1,
         answer_id: 7,
@@ -66,9 +66,6 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-
-
-/*
       {
         desc: "You’re 16 and finally you can leave school!  By now, you’re probably sick of teachers, desks, tests and exams.  But don’t just run for the exit. You need to think carefully about what to do next."+
         "If you want a professional career, you will need to go to university and get a degree. To do that, you need to stay at high school for another two years.  But you needn’t stay at the same place. There are several options in the district of Northacre."+
@@ -144,12 +141,9 @@ module.exports = {
         lang_abbr: "en",
         exercise_id: 2,
         answer_id: 37,
-
         createdAt: new Date(),
         updatedAt: new Date()
       },
-
-*/
       {
         desc: " Which word or phrase CANNOT complete the sentence?…"+
         "The match was cancelled ____ the rain.",
