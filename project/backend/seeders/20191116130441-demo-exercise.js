@@ -6,7 +6,7 @@ module.exports = {
       {
         title: "Listening Exercise- Sample",
         lang_abbr: "en",
-        exercise_type: "reading",
+        exercise_type: "listening",
         level: "B2",
         createdAt: new Date(),
         updatedAt: new Date()
