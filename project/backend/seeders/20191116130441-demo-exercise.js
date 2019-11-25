@@ -8,7 +8,7 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "listening",
         level: "B2",
-        tags: "ted,school,talk,phone,general",
+        tags: "phone, conversation, documentary",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -17,7 +17,7 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "reading",
         level: "A2",
-        tags: "general",
+        tags: "school, career, youth",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -26,7 +26,17 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "grammar",
         level: "B1",
-        tags: "general",
+        tags: "conditionals,future tense,past tense",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
+      {
+        title: "Writing Exercise-Sample",
+        lang_abbr: "en",
+        exercise_type: "writing",
+        level: "B1",
+        tags: "animal,zoo",
         createdAt: new Date(),
         updatedAt: new Date()
       },
