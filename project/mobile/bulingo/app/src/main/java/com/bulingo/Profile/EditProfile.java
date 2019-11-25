@@ -22,6 +22,7 @@ import com.bulingo.Database.APIInterface;
 import com.bulingo.PermissionRequestingActivity;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.File;
@@ -53,6 +54,8 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
         ImageView avatar = findViewById(R.id.image);
         Glide.with(getApplicationContext())
                 .load(oldImagePath)
+                .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                 .into(avatar);
         this.setOnPermissionsGrantedListener(this);
@@ -76,6 +79,8 @@ public class EditProfile extends PermissionRequestingActivity implements Permiss
             //Set Image with glide
             Glide.with(getApplicationContext())
                     .load(imageUri)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                     .into(imageView);
 

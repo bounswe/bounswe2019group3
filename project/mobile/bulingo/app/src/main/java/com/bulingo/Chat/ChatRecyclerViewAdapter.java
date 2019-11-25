@@ -20,6 +20,7 @@ import com.bulingo.Database.Chat;
 import com.bulingo.Database.User;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -117,6 +118,8 @@ public class ChatRecyclerViewAdapter extends RecyclerView.Adapter<ChatRecyclerVi
                     }
                     Glide.with(context)
                             .load(imagePath)
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .bitmapTransform(new CropCircleTransformation(context))
                             .into(imageView);
                 }

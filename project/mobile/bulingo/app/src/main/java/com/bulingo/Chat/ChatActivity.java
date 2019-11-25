@@ -56,8 +56,8 @@ public class ChatActivity extends AppCompatActivity {
         adapter = new MessageRecyclerViewAdapter(messages, sender);
         recyclerView.setAdapter(adapter);
 
-        getMessages(receiver, 0);
 
+        getMessages(receiver, 0);
     }
 
     private void getMessages(String receiver, int skip) {

@@ -15,6 +15,7 @@ package com.bulingo.Search;
         import com.bulingo.Database.User;
         import com.bulingo.R;
         import com.bumptech.glide.Glide;
+        import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
         import java.util.List;
 
@@ -104,6 +105,8 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
                     }
                     Glide.with(context)
                             .load(imagePath)
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .bitmapTransform(new CropCircleTransformation(context))
                             .into(imageView);
                     rating.setText(String.format("%s / 5", u.rating));

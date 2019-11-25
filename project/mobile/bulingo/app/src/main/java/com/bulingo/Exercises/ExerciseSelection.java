@@ -170,5 +170,6 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         Intent intent = new Intent(getApplicationContext(), Exercise.class);
         intent.putExtra("abbr", this.lang);
         startActivity(intent);
+        finish();
     }
 }
