@@ -181,6 +181,7 @@ router.post("/:language_abbr/exam/evaluate", (req, res, next) => {
  * @apiSuccess {String} exercise.language_abbr         exercise language abbreviation
  * @apiSuccess {Stirng} exercise.exercise_type    exercise exercise type
  * @apiSuccess {String} exercise.level   exercise level
+ * @apiSuccess {String} exercise.tags   exercise tags
  */
 router.get("/:language_abbr/exercise", (req, res, next) => {
   let db = req.db;
@@ -204,7 +205,8 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
           "title",
           "lang_abbr",
           "exercise_type",
-          "level"
+          "level",
+          "tags"
         ],
         where: {
           lang_abbr: req.params.language_abbr,

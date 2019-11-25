@@ -18,6 +18,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     level: {
       type: DataTypes.STRING
+    },
+    tags: {
+      type: DataTypes.TEXT
     }
   });
   Exercise.associate = function(models) {

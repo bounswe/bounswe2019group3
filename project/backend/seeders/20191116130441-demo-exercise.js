@@ -8,6 +8,7 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "listening",
         level: "B2",
+        tags: "ted,school,talk,phone,general",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -16,6 +17,7 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "reading",
         level: "A2",
+        tags: "general",
         createdAt: new Date(),
         updatedAt: new Date()
       },
@@ -24,6 +26,7 @@ module.exports = {
         lang_abbr: "en",
         exercise_type: "grammar",
         level: "B1",
+        tags: "general",
         createdAt: new Date(),
         updatedAt: new Date()
       },
