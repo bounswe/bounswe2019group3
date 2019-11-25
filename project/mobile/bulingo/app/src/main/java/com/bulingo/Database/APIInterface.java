@@ -5,12 +5,17 @@ import com.google.gson.JsonObject;
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface APIInterface {
 
@@ -52,5 +57,26 @@ public interface APIInterface {
     @GET("/api/user/{username}/comments/")
     Call<List<Comment>> doGetUserComments(@Path("username") String username);
 
+    @GET("/api/chat/{username}/")
+    Call<List<Message>> doGetMessages(@Path("username") String username, @Query("skip") String skip, @Query("limit") String limit);
+
+    @POST("/api/chat/{username}/")
+    Call<Void> doSendMessage(@Path("username") String username, @Body JsonObject params);
+
+    @GET("/api/chat/")
+    Call<Chat> doGetChats();
+
+    @GET("/api/search")
+    Call<List<SearchResult>> doSearch(@Query("text") String text, @Query("type") String type);
+
+    @POST("/api/user/{username}/comments/")
+    Call<Void> doAddComment(@Path("username") String username, @Body JsonObject params);
+
+    @Multipart
+    @POST("/api/user/{username}")
+    Call<Void> doUpdateProfile(@Path("username") String username, @Part("bio") RequestBody bio, @Part MultipartBody.Part file);
+
+    @GET("/api/language/{abbr}/exercise")
+    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("type") String type, @Query("level") String level);
 
 }
