@@ -114,13 +114,21 @@ export default class Messages extends React.Component {
     sendcomment() {
         const cmmnt = {
             text: document.getElementById("comment_to_send").value,
+            rating : 5
         }
+
+        axios.post(('http://18.184.207.248/api/user/' + username_ +'/comments'), cmmnt, { withCredentials: true })
+            .then(res => {
+                this.setState({ is_comment_send: true })
+            });
+
         console.log(cmmnt)
     }
     sendmessage() {
 
         const msg = {
             message: document.getElementById("message_to_send").value
+
         }
         axios.post(('http://18.184.207.248/api/chat/' + username_), msg, { withCredentials: true })
             .then(res => {
@@ -137,13 +145,13 @@ export default class Messages extends React.Component {
                 }}
             />);
         }
-        // if(this.state.is_comment_send){
-        //     return (<Redirect
-        //         to={{
-        //           pathname: "/profile",
-        //         }}
-        //       />);
-        // }
+        if(this.state.is_comment_send){
+            return (<Redirect
+                to={{
+                  pathname: "/profile",
+                }}
+              />);
+        }
         if (this.state.returnToMessages) {
             return (<Redirect
                 push to={{
