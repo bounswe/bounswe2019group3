@@ -28,6 +28,7 @@ import com.bulingo.Database.Language;
 import com.bulingo.Database.User;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.JsonObject;
@@ -185,8 +186,11 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
                         imagePath = "http://18.184.207.248/" + imagePath;
                     }
                    imagePathEdit = imagePath;
+                    Log.w("path", imagePath);
                     Glide.with(getApplicationContext())
                             .load(imagePath)
+                            .skipMemoryCache(true)
+                            .diskCacheStrategy(DiskCacheStrategy.NONE)
                             .bitmapTransform(new CropCircleTransformation(getApplicationContext()))
                             .into(avatar);
                 } else {
