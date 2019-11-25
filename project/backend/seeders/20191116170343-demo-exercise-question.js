@@ -193,6 +193,15 @@ module.exports = {
         updatedAt: new Date()
       },
 
+      {
+        desc: 
+        "Discuss some of the arguments for and against keeping animals in zoos.",
+        lang_abbr: "en",
+        exercise_id: 4,
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+
     ]);
   },
 
