@@ -22,7 +22,7 @@ export default class FormPage extends React.Component {
       choosed_person: "",
       is_go_user_profile: false,
       searched_type: Cookies.get('search_type'),
-      response: ""
+      response: []
     }
     //this.onChangeOption = this.onChangeOption.bind(this);
   }

@@ -11,11 +11,19 @@ export default class Messages extends React.Component {
         super(props);
         axios.get('http://18.184.207.248/api/chat/', { withCredentials: true })
             .then(res => {
-                console.log(res.data.history);
+                //console.log(res.status)
+                //console.log(res.data.history);
                 this.setState({ 
                     last_messages: res.data.history,
                 });
-                Cookies.set('message_to_person', res.data.history[0].username)
+                if(res.status === 200){
+                    try{
+                        Cookies.set('message_to_person', res.data.history[0].username)
+                    }catch (e){ 
+                        console.log(e)
+                    }
+                }
+                
             })
             
         this.state = {
