@@ -343,29 +343,5 @@ router.post(
   }
 );
 
-/**
- * @api {get} /api/language/:language_abbr/progress get language progress
- * @apiGroup language
- * @apiPermission User
- * @apiSuccess {Integer}   progress   language progress of user
- */
-router.get("/:language_abbr/progress", 
-  (req, res, next) => {
-    res.sendStatus(501);
-  }
-);
-
-/**
- * @api {get} /api/language/:language_abbr/exercise/:exercise_id/progress get exercise progress
- * @apiGroup language
- * @apiPermission User
- * @apiSuccess {Integer}   progress   exercise progress of user
- */
-router.get("/:language_abbr/exercise/:exercise_id/progress", 
-  (req, res, next) => {
-    res.sendStatus(501);
-  }
-);
-
 
 module.exports = { router };

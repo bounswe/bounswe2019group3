@@ -7,6 +7,10 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       type: DataTypes.INTEGER
     },
+    username: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     lang_abbr: {
       allowNull: false,
       type: DataTypes.STRING
