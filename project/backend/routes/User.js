@@ -181,7 +181,8 @@ router.get("/:username/language/level", (req, res, next) => {
  * @apiPermission User
  * @apiSuccess {String}     username        username of user
  * @apiSuccess {String}     lang_abbr       language abbreviation
- * @apiSuccess {Integer}    progress        language progress of user
+ * @apiSuccess {Integer}    exercise_done   number of completed exercises
+ * @apiSuccess {Integer}    exercises       number of all exercises
  * @apiSuccess {String}     updatedAt       last created or updated time
  */
 router.get("/:username/language/:language_abbr/progress", 
@@ -191,7 +192,7 @@ router.get("/:username/language/:language_abbr/progress",
         where: { username: req.params.username },
     }).then(function (user) {
         db.LanguageProgress.findAll({
-            attributes: ['username', 'lang_abbr', 'progress', 'updatedAt' ],
+            attributes: ['username', 'lang_abbr', 'exercise_done', 'exercises', 'updatedAt' ],
             where: { 
                 username : user.username,
                 lang_abbr : req.params.language_abbr
@@ -209,7 +210,8 @@ router.get("/:username/language/:language_abbr/progress",
  * @apiPermission User
  * @apiSuccess {String}     username        username of user
  * @apiSuccess {Integer}    exercise_id     exercise id
- * @apiSuccess {Integer}    progress        exercise progress of user
+ * @apiSuccess {Integer}    question_done   number of questions answered correctly
+ * @apiSuccess {Integer}    questions       number of all questions
  * @apiSuccess {String}     updatedAt       last created or updated time
  */
 router.get("/:username/exercise/:exercise_id/progress", 
@@ -219,7 +221,7 @@ router.get("/:username/exercise/:exercise_id/progress",
         where: { username: req.params.username },
     }).then(function (user) {
         db.ExerciseProgress.findAll({
-            attributes: ['username', 'exercise_id', 'progress', 'updatedAt' ],
+            attributes: ['username', 'exercise_id', 'question_done', 'questions', 'updatedAt' ],
             where: { 
                 username    : user.username,
                 exercise_id : req.params.exercise_id

@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
-    progress: {
+    question_done: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    questions: {
       allowNull: false,
       type: DataTypes.INTEGER
     }

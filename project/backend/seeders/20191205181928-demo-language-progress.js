@@ -6,28 +6,32 @@ module.exports = {
       {
           username:   'lazyostrich850',
           lang_abbr:  'en',
-          progress:   30,
+          exercise_done:   3,
+          exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'lazyostrich850',
           lang_abbr:  'de',
-          progress:   20,
+          exercise_done:   2,
+          exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'angrydog556',
           lang_abbr:  'en',
-          progress:   60,
+          exercise_done:   2,
+          exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'angrydog556',
           lang_abbr:  'de',
-          progress:   10,
+          exercise_done:   4,
+          exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
       }

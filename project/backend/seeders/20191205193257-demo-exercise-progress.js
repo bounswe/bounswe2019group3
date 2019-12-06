@@ -6,28 +6,32 @@ module.exports = {
       {
           username:   'lazyostrich850',
           exercise_id:  1,
-          progress:   30,
+          question_done:  3,
+          questions:  5,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'lazyostrich850',
           exercise_id:  2,
-          progress:   20,
+          question_done:  4,
+          questions:  5,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'angrydog556',
           exercise_id:  3,
-          progress:   60,
+          question_done:  2,
+          questions:  5,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
       {
           username:   'angrydog556',
           exercise_id:  4,
-          progress:   10,
+          question_done:  5,
+          questions:  5,
           createdAt:  new Date(),
           updatedAt:  new Date()
       }
