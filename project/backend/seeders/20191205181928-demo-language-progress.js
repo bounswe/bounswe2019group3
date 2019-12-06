@@ -6,7 +6,7 @@ module.exports = {
       {
           username:   'lazyostrich850',
           lang_abbr:  'en',
-          exercise_done:   3,
+          exercise_done:   [1,2],
           exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
@@ -14,7 +14,7 @@ module.exports = {
       {
           username:   'lazyostrich850',
           lang_abbr:  'de',
-          exercise_done:   2,
+          exercise_done:   [4],
           exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
@@ -22,7 +22,7 @@ module.exports = {
       {
           username:   'angrydog556',
           lang_abbr:  'en',
-          exercise_done:   2,
+          exercise_done:   [2],
           exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()
@@ -30,7 +30,7 @@ module.exports = {
       {
           username:   'angrydog556',
           lang_abbr:  'de',
-          exercise_done:   4,
+          exercise_done:   [3,4],
           exercises:       4,
           createdAt:  new Date(),
           updatedAt:  new Date()

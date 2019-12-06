@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     exercise_done: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.ARRAY(DataTypes.INTEGER)
     },
     exercises: {
       allowNull: false,

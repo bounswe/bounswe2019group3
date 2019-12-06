@@ -294,51 +294,103 @@ router.get(
 router.post(
   "/:language_abbr/exercise/:exercise_id/evaluate",
   (req, res, next) => {
-    const db = req.db;
-    let bad_req = false;
-    for (let i = 0; i < req.body.length; i++) {
-      if (
-        req.body[i].question_id == "" ||
-        req.body[i].question_id == undefined
-      ) {
-        bad_req = true;
-        break;
-      }
+    if (!req.session.user) {
+      res.sendStatus(403);
     }
-    if (bad_req) {
-      res.sendStatus(400);
-    } else {
-      db.ExerciseQuestion.findAll({
-        where: db.Sequelize.or({
-          lang_abbr: req.params.language_abbr,
-          exercise_id: req.params.exercise_id
-        })
-      }).then(question => {
-        let counter = 0;
-        let hashAnswers = {};
-        question.forEach(q => {
-          hashAnswers[q.question_id] = q.answer_id;
-        });
-        for (let i = 0; i < req.body.length; i++) {
-          if (hashAnswers[req.body[i].question_id] == req.body[i].choice_id) {
-            counter++;
+    else {
+      const db = req.db;
+      let bad_req = false;
+      for (let i = 0; i < req.body.length; i++) {
+        if (
+          req.body[i].question_id == "" ||
+          req.body[i].question_id == undefined
+        ) {
+          bad_req = true;
+          break;
+        }
+      }
+      if (bad_req) {
+        res.sendStatus(400);
+      } else {
+        db.ExerciseQuestion.findAll({
+          where: db.Sequelize.or({
+            lang_abbr: req.params.language_abbr,
+            exercise_id: req.params.exercise_id
+          })
+        }).then(question => {
+          let counter = 0;
+          let hashAnswers = {};
+          question.forEach(q => {
+            hashAnswers[q.question_id] = q.answer_id;
+          });
+          for (let i = 0; i < req.body.length; i++) {
+            if (hashAnswers[req.body[i].question_id] == req.body[i].choice_id) {
+              counter++;
+            }
           }
-        }
-        let response = {};
-        response.nb_correct_answers = counter;
-        response.nb_questions = question.length;
-        const keys = Object.keys(hashAnswers);
-        const values = Object.values(hashAnswers);
-        let answers = [];
-        for (let i = 0; i < keys.length; i++) {
-          answers[i] = {
-            question_id: keys[i],
-            choice_id: values[i]
-          };
-        }
-        response.answers = answers;
-        res.send(response);
-      });
+          let response = {};
+          response.nb_correct_answers = counter;
+          response.nb_questions = question.length;
+          const keys = Object.keys(hashAnswers);
+          const values = Object.values(hashAnswers);
+          let answers = [];
+          for (let i = 0; i < keys.length; i++) {
+            answers[i] = {
+              question_id: keys[i],
+              choice_id: values[i]
+            };
+          }
+          response.answers = answers;
+          // Update Exercise Progress
+          db.ExerciseProgress.update(
+            {
+              question_done: response.nb_correct_answers,
+              updatedAt: new Date()
+            },
+            {
+              where: {
+                username: req.session.user.username,
+                exercise_id: req.params.exercise_id
+              }
+            }
+          ).then(function([change]) {
+              if(!change){
+                db.ExerciseProgress.create({
+                  username: req.session.user.username,
+                  exercise_id: req.params.exercise_id,
+                  question_done: response.nb_correct_answers,
+                  questions: response.nb_questions,
+                  createdAt: new Date(),
+                  updatedAt: new Date()
+                });
+              }
+          });
+          // Update Language Progress
+          db.LanguageProgress.findOne(
+            {
+              where: {
+                username: req.session.user.username,
+                lang_abbr: req.params.language_abbr
+              }
+            }
+          ).then(function(change) {
+            if(!change.dataValues.exercise_done.includes(Number(req.params.exercise_id)))
+                  db.LanguageProgress.update(
+                    {
+                      exercise_done: db.Sequelize.fn('array_append', db.Sequelize.col('exercise_done'), req.params.exercise_id),
+                      updatedAt: new Date()
+                    },
+                    {
+                      where: {
+                        username: req.session.user.username,
+                        lang_abbr: req.params.language_abbr
+                      }
+                    }
+                  )
+          });
+          res.send(response);
+        });
+      }
     }
   }
 );

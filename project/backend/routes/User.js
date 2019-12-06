@@ -198,6 +198,7 @@ router.get("/:username/language/:language_abbr/progress",
                 lang_abbr : req.params.language_abbr
             }
         }).then(function (progress){
+            progress[0].exercise_done = progress[0].exercise_done.length
             res.send(progress);
         })
     });
