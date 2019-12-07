@@ -322,3 +322,7 @@ input:focus{
     background-color: #069;
     color: white;
   }
+.clickable{
+    cursor: pointer;
+    margin: 15px 0;
+}

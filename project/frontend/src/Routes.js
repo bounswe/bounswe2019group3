@@ -12,6 +12,9 @@ import Settings from './Settings';
 import UserProfile from './UserProfile';
 import Search from './Search';
 import SearchResult from './SearchResult'
+import ExerciseList from './ExerciseList'
+import Exercises from './Exercises'
+import Exercise from './Exercise'
 
 class Routes extends React.Component {
 
@@ -34,6 +37,9 @@ class Routes extends React.Component {
           <Route path='/user' component={UserProfile} />
           <Route path='/search' component={Search} />
           <Route path='/searchResult' component = {SearchResult} />
+          <Route path='/exerciseList' component = {ExerciseList} />
+          <Route path='/exercises' component = {Exercises} />
+          <Route path='/exercise' component = {Exercise} />
         </Switch>
       );
   }

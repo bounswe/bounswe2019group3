@@ -22,7 +22,8 @@ export default class FormPage extends React.Component {
       choosed_person: "",
       is_go_user_profile: false,
       searched_type: Cookies.get('search_type'),
-      response: []
+      response: [],
+      goToProfile : false
     }
     //this.onChangeOption = this.onChangeOption.bind(this);
   }
@@ -34,7 +35,7 @@ export default class FormPage extends React.Component {
         row[i] = (
           <tr >
             <td className="Messagebox" scope="row">{i + 1}</td>
-            <td className="Messagebox" onClick={this.go_user_profile.bind(this, this.state.response[i].username)}>
+            <td className="Messagebox clickable" onClick={this.go_user_profile.bind(this, this.state.response[i].username)}>
               {this.state.response[i].username}
             </td>
           </tr>
@@ -79,7 +80,14 @@ export default class FormPage extends React.Component {
   }
 
   render() {
-
+    /*if (this.state.goToProfile) {
+      return (<Redirect
+        push to={{
+          pathname: "/user",
+          data_: this.state.choosed_person
+        }}
+      />);
+    }*/
     if (this.state.is_go_user_profile) {
       if (this.state.is_myself) {
         return (<Redirect
@@ -107,7 +115,7 @@ export default class FormPage extends React.Component {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBRow>
-                    <table id="tablePreview" className="table">
+                    <table id="tablePreview" className="Messagebox">
                       <thead>
                         <tr>
                           <th className = "Messagebox"><b>result #</b></th>

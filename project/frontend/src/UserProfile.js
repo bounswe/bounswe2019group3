@@ -148,7 +148,8 @@ export default class Messages extends React.Component {
         if(this.state.is_comment_send){
             return (<Redirect
                 to={{
-                  pathname: "/profile",
+                    pathname: "/user", 
+                    //state : this.state                   
                 }}
               />);
         }

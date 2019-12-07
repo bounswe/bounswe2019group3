@@ -13,7 +13,8 @@ export default class FormPage extends React.Component {
       isUser: false,
       isExercise: false,
       response: "",
-      isSearched: false
+      isSearched: false,
+      goToProfile : false
     }
     //this.onChangeOption = this.onChangeOption.bind(this);
   }
@@ -90,6 +91,16 @@ export default class FormPage extends React.Component {
   }
 
   render() {
+    /*if (this.state.goToProfile) {
+      return (<Redirect
+        push to={{
+          pathname: "/user",
+          state: {
+            username : Cookies.get('search_context'),
+          }
+        }}
+      />);
+    }*/
     if (this.state.isSearched) {
       var type = "";
       if(this.state.isUser){
