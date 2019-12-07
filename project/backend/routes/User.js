@@ -175,4 +175,63 @@ router.get("/:username/language/level", (req, res, next) => {
     });
 });
 
+/**
+ * @api {get} /api/user/:username/language/:language_abbr/progress returns language progress
+ * @apiGroup user
+ * @apiPermission User
+ * @apiSuccess {String}     username        username of user
+ * @apiSuccess {String}     lang_abbr       language abbreviation
+ * @apiSuccess {Integer}    exercise_done   number of completed exercises
+ * @apiSuccess {Integer}    exercises       number of all exercises
+ * @apiSuccess {String}     updatedAt       last created or updated time
+ */
+router.get("/:username/language/:language_abbr/progress", 
+  (req, res, next) => {
+    const db = req.db;
+    db.User.findOne({
+        where: { username: req.params.username },
+    }).then(function (user) {
+        db.LanguageProgress.findAll({
+            attributes: ['username', 'lang_abbr', 'exercise_done', 'exercises', 'updatedAt' ],
+            where: { 
+                username : user.username,
+                lang_abbr : req.params.language_abbr
+            }
+        }).then(function (progress){
+            progress[0].exercise_done = progress[0].exercise_done.length
+            res.send(progress);
+        })
+    });
+  }
+);
+
+/**
+ * @api {get} /api/user/:username/exercise/:exercise_id/progress returns exercise progress
+ * @apiGroup user
+ * @apiPermission User
+ * @apiSuccess {String}     username        username of user
+ * @apiSuccess {Integer}    exercise_id     exercise id
+ * @apiSuccess {Integer}    question_done   number of questions answered correctly
+ * @apiSuccess {Integer}    questions       number of all questions
+ * @apiSuccess {String}     updatedAt       last created or updated time
+ */
+router.get("/:username/exercise/:exercise_id/progress", 
+  (req, res, next) => {
+    const db = req.db;
+    db.User.findOne({
+        where: { username: req.params.username },
+    }).then(function (user) {
+        db.ExerciseProgress.findAll({
+            attributes: ['username', 'exercise_id', 'question_done', 'questions', 'updatedAt' ],
+            where: { 
+                username    : user.username,
+                exercise_id : req.params.exercise_id
+            }
+        }).then(function (progress){
+            res.send(progress);
+        })
+    });
+  }
+);
+
 module.exports = {router};

@@ -129,6 +129,7 @@ router.get("/:username", (req, res, next) => {
       order: [["id", "DESC"]]
     }).then(messages => {
       if (messages.length > 0)
+      console.log("TCL: messages", messages)
         db.Message.update(
           {
             new: false,
@@ -136,9 +137,6 @@ router.get("/:username", (req, res, next) => {
           },
           {
             where: {
-              id: {
-                [Op.lte]: messages[messages.length - 1].id
-              },
               to_username: {
                 [Op.eq]: req.session.user.username
               },

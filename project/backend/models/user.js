@@ -29,6 +29,16 @@ module.exports = (sequelize, DataTypes) => {
         as: 'comments',
         constraints: false
     });
+    models.User.hasMany(models.LanguageProgress, {
+        foreignKey: 'username',
+        as: 'language_progresses',
+        constraints: false
+    });
+    models.User.hasMany(models.ExerciseProgress, {
+        foreignKey: 'username',
+        as: 'exercise_progress',
+        constraints: false
+    });
     models.User.hasMany(models.Level, {
       foreignKey: 'belongs_to',
       as: 'grade',
