@@ -6,4 +6,10 @@ public class SearchResult {
 
     @SerializedName("username")
     public String username;
+
+    @SerializedName("type")
+    public String type;
+
+    @SerializedName("title")
+    public String title;
 }

@@ -2,6 +2,7 @@ package com.bulingo.Search;
 
         import android.content.Context;
         import android.view.LayoutInflater;
+        import android.view.View;
         import android.view.ViewGroup;
         import android.widget.ImageView;
         import android.widget.LinearLayout;
@@ -72,11 +73,18 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
         // - replace the contents of the view with that element
         holder.setIsRecyclable(false);
         TextView name = holder.linearLayout.findViewById(R.id.name);
-        TextView rating = holder.linearLayout.findViewById(R.id.rating);
         ImageView image = holder.linearLayout.findViewById(R.id.imageView);
-        SearchResult r = mDataset.get(position);
-        name.setText(r.username);
-        getDetails(r.username, image, rating);
+        TextView rating = holder.linearLayout.findViewById(R.id.rating);
+        if(mDataset.get(position).username != null){
+            SearchResult r = mDataset.get(position);
+            name.setText(r.username);
+            getDetails(r.username, image, rating);
+        } else {
+            name.setText(mDataset.get(position).title);
+            image.setVisibility(View.GONE);
+            rating.setVisibility(View.GONE);
+        }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

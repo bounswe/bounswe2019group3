@@ -69,6 +69,9 @@ public interface APIInterface {
     @GET("/api/search")
     Call<List<SearchResult>> doSearch(@Query("text") String text, @Query("type") String type);
 
+    @GET("/api/search")
+    Call<List<SearchResult>> doSearchExercise(@Query("text") String text, @Query("type") String type, @Query("lang_abbr") String abbr, @Query("level") String level, @Query("exercise_type") String exercise);
+
     @POST("/api/user/{username}/comments/")
     Call<Void> doAddComment(@Path("username") String username, @Body JsonObject params);
 
