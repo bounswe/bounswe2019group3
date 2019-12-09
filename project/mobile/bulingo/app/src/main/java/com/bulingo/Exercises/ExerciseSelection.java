@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bulingo.Chat.RecyclerItemClickListener;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.ExerciseItem;
@@ -65,6 +66,20 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         exerciseRecycler.setLayoutManager(layoutManager);
         adapter = new ExerciseRecyclerViewAdapter(exercises);
         exerciseRecycler.setAdapter(adapter);
+        exerciseRecycler.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, exerciseRecycler ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
+                        intent.putExtra("abbr", exercises.get(position).abbr);
+                        intent.putExtra("id", exercises.get(position).id + "");
+                        startActivity(intent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
         spinner = (Spinner)findViewById(R.id.spinnerLanguage);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,paths) {

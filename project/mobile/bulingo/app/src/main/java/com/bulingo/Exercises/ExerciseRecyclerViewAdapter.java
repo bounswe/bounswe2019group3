@@ -13,6 +13,8 @@ import java.util.List;
 
 public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRecyclerViewAdapter.ExerciseViewHolder>{
     private List<ExerciseItem> mDataset;
+    private OnExerciseClickListener onExerciseClickListener;
+
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -51,6 +53,11 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
         TextView level = holder.linearLayout.findViewById(R.id.exerciseLevel);
         name.setText(mDataset.get(position).title);
         level.setText(mDataset.get(position).level);
+        holder.linearLayout.setOnClickListener((v) -> {
+            if(onExerciseClickListener != null) {
+                onExerciseClickListener.onExeriseClick(mDataset.get(position));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -58,5 +65,15 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public void setOnExerciseClickListener(OnExerciseClickListener onExerciseClickListener) {
+        this.onExerciseClickListener = onExerciseClickListener;
+    }
+
+    public interface OnExerciseClickListener {
+        void onExeriseClick(ExerciseItem exercise);
+
+    }
+
 }
 

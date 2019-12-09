@@ -13,7 +13,7 @@ public class ExerciseResult {
     public int numberOfQuestions;
 
     @SerializedName("answers")
-    public List<Answer> choices;
+    public List<Answer> answers;
 
     public class Answer {
         @SerializedName("question_id")

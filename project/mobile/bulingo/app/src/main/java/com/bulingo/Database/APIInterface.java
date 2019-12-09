@@ -83,6 +83,6 @@ public interface APIInterface {
     Call<List<ExerciseQuestion>> doGetQuestionsOfExercise(@Path("abbr") String abbr, @Path("id") String id);
 
     @POST("/api/language/{abbr}/exercise/{id}/evaluate")
-    Call<ExerciseResult> doGetAnswersOfExercise(@Path("abbr") String abbr, @Path("id") String id);
+    Call<ExerciseResult> doGetAnswersOfExercise(@Path("abbr") String abbr, @Path("id") String id, @Body JsonArray params);
 
 }

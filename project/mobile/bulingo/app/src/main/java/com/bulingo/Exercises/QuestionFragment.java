@@ -9,23 +9,28 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.bulingo.Database.Question;
+import com.bulingo.Database.ExerciseQuestion;
+import com.bulingo.Database.ExerciseResult;
+
 import com.bulingo.R;
 import com.google.android.material.button.MaterialButton;
+
+import java.util.Objects;
 
 public class QuestionFragment extends Fragment {
 
     private QuestionFragment.OnClickAnswerListener onClickAnswerListener;
-    private static final String ARG_QUESTION = "com.bulingo.Exercises.ExerciseFragment.arg_question";
-    private static final String ARG_QUESTION_ID = "com.bulingo.Exercises.ExerciseFragment.arg_question_id";
-    private static final String ARG_ANSWER_1 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_1";
-    private static final String ARG_ANSWER_2 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_2";
-    private static final String ARG_ANSWER_3 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_3";
-    private static final String ARG_ANSWER_4 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_4";
-    private static final String ARG_ANSWER_ID_1 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_id_1";
-    private static final String ARG_ANSWER_ID_2 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_id_2";
-    private static final String ARG_ANSWER_ID_3 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_id_3";
-    private static final String ARG_ANSWER_ID_4 = "com.bulingo.Exercises.ExerciseFragment.arg_answer_id_4";
+    private static final String ARG_QUESTION = "com.bulingo.Exercises.QuestionFragment.arg_question";
+    private static final String ARG_QUESTION_ID = "com.bulingo.Exercises.QuestionFragment.arg_question_id";
+    private static final String ARG_ANSWER_1 = "com.bulingo.Exercises.QuestionFragment.arg_answer_1";
+    private static final String ARG_ANSWER_2 = "com.bulingo.Exercises.QuestionFragment.arg_answer_2";
+    private static final String ARG_ANSWER_3 = "com.bulingo.Exercises.QuestionFragment.arg_answer_3";
+    private static final String ARG_ANSWER_4 = "com.bulingo.Exercises.QuestionFragment.arg_answer_4";
+    private static final String ARG_ANSWER_ID_1 = "com.bulingo.Exercises.QuestionFragment.arg_answer_id_1";
+    private static final String ARG_ANSWER_ID_2 = "com.bulingo.Exercises.QuestionFragment.arg_answer_id_2";
+    private static final String ARG_ANSWER_ID_3 = "com.bulingo.Exercises.QuestionFragment.arg_answer_id_3";
+    private static final String ARG_ANSWER_ID_4 = "com.bulingo.Exercises.QuestionFragment.arg_answer_id_4";
+    private static final String ARG_RIGHT_ANSWER = "com.bulingo.Exercises.QuestionFragment.arg_answer_right";
     private String question;
     private int question_id;
     private String ans1;
@@ -36,6 +41,11 @@ public class QuestionFragment extends Fragment {
     private int ansId2;
     private int ansId3;
     private int ansId4;
+    private int rightAns;
+    private int red = 0xff6363;
+    private int green = 0x75F096;
+    private boolean isPressedOnce;
+    private int selection = -1;
 
 
 
@@ -46,7 +56,7 @@ public class QuestionFragment extends Fragment {
     private MaterialButton skipButton;
 
 
-    public static QuestionFragment newInstance(Question question, int count) {
+    public static QuestionFragment newInstance(ExerciseQuestion question, ExerciseResult.Answer answer, int count) {
         Bundle args = new Bundle();
         args.putString(ARG_QUESTION, question.desc);
         args.putInt(ARG_QUESTION_ID, count);
@@ -59,6 +69,7 @@ public class QuestionFragment extends Fragment {
             args.putInt(ARG_ANSWER_ID_3, question.choices.get(2).id);
             args.putString(ARG_ANSWER_4, question.choices.get(3).desc);
             args.putInt(ARG_ANSWER_ID_4, question.choices.get(3).id);
+            args.putInt(ARG_RIGHT_ANSWER, answer.choiceId);
         }
 
         QuestionFragment frag = new QuestionFragment();
@@ -85,6 +96,7 @@ public class QuestionFragment extends Fragment {
             ansId2 = args.getInt(ARG_ANSWER_ID_2);
             ansId3 = args.getInt(ARG_ANSWER_ID_3);
             ansId4 = args.getInt(ARG_ANSWER_ID_4);
+            rightAns = args.getInt(ARG_RIGHT_ANSWER);
         }
 
     }
@@ -109,29 +121,76 @@ public class QuestionFragment extends Fragment {
         answer3Button.setText(ans3);
         answer4Button.setText(ans4);
 
+        MaterialButton rightAnswer;
+
+        if(ansId1 == rightAns) {
+            rightAnswer = answer1Button;
+        } else if (ansId2 == rightAns) {
+            rightAnswer = answer2Button;
+        } else if (ansId3 == rightAns) {
+            rightAnswer = answer3Button;
+        } else {
+            rightAnswer = answer4Button;
+        }
+
         answer1Button.setOnClickListener((v1) -> {
-            if (this.onClickAnswerListener != null) {
-                this.onClickAnswerListener.onClickAnswer(ansId1);
+            if(!isPressedOnce) {
+                if (this.onClickAnswerListener != null) {
+                    rightAnswer.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                    if (ansId1 != rightAns) {
+                        answer1Button.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+                    }
+                    isPressedOnce = true;
+                    selection = ansId1;
+                }
             }
         });
         answer2Button.setOnClickListener((v1) -> {
-            if (this.onClickAnswerListener != null) {
-                this.onClickAnswerListener.onClickAnswer(ansId2);
+            if(!isPressedOnce) {
+                if (this.onClickAnswerListener != null) {
+                    rightAnswer.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                    if (ansId2 != rightAns) {
+                        answer2Button.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+                    }
+                    isPressedOnce = true;
+                    selection = ansId2;
+                }
             }
         });
         answer3Button.setOnClickListener((v1) -> {
-            if (this.onClickAnswerListener != null) {
-                this.onClickAnswerListener.onClickAnswer(ansId3);
+            if(!isPressedOnce) {
+                if (this.onClickAnswerListener != null) {
+                    rightAnswer.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                    if (ansId3 != rightAns) {
+                        answer3Button.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+                    }
+                    isPressedOnce = true;
+                    selection = ansId3;
+                }
             }
         });
         answer4Button.setOnClickListener((v1) -> {
-            if (this.onClickAnswerListener != null) {
-                this.onClickAnswerListener.onClickAnswer(ansId4);
+            if(!isPressedOnce) {
+                if (this.onClickAnswerListener != null) {
+                    rightAnswer.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                    if (ansId4 != rightAns) {
+                        answer4Button.setBackgroundTintList(getResources().getColorStateList(R.color.colorRed));
+                    }
+                    isPressedOnce = true;
+                    selection = ansId4;
+                }
             }
         });
         skipButton.setOnClickListener((v1 -> {
-            if (this.onClickAnswerListener != null) {
-                this.onClickAnswerListener.onClickAnswer(-1);
+            if(!isPressedOnce) {
+                if (this.onClickAnswerListener != null) {
+                    rightAnswer.setBackgroundTintList(getResources().getColorStateList(R.color.colorGreen));
+                }
+                isPressedOnce = true;
+            } else {
+                if (this.onClickAnswerListener != null) {
+                    this.onClickAnswerListener.onClickAnswer(selection);
+                }
             }
         }));
 
@@ -144,7 +203,6 @@ public class QuestionFragment extends Fragment {
 
     public interface OnClickAnswerListener {
         void onClickAnswer(int answerId);
-
 
     }
 }

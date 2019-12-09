@@ -6,5 +6,8 @@
     <color name="colorAccentTransparent">#27F08C00</color>
     <color name="buttonTextColor">#616161</color>
     <color name="colorLightGray">#f0f0f0</color>
+    <color name="colorGreen">#75F096</color>
+    <color name="colorRed">#ff6363</color>
+
 </resources>
 

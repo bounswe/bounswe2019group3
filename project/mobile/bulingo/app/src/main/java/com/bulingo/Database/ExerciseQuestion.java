@@ -25,7 +25,7 @@ public class ExerciseQuestion {
     public List<Choice> choices;
 
     public class Choice {
-        @SerializedName("id")
+        @SerializedName("choice_id")
         public int id;
         @SerializedName("desc")
         public String desc;
