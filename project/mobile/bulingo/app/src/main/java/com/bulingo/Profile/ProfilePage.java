@@ -260,8 +260,8 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
 
     public void userInfo(){
         AlertDialog ad = new AlertDialog.Builder(this).setMessage(
-                "From least to most successful, language levels are ordered like this: \n\nA1 - Beginner\nA2 - Elementary\nB1 - Intermediate" +
-                        "\nB2 - Upper Intermediate\nC1 - Advanced\nC2 - Proficient").setTitle(
+                "Language levels are ordered like this: \n\nA1 - Beginner\nA2 - Elementary\nB1 - Intermediate" +
+                        "\nB2 - Upper Intermediate\nC1 - Advanced\nC2 - Proficiency").setTitle(
                 "Level Information").setCancelable(true)
                 .setPositiveButton(android.R.string.ok,
                         new DialogInterface.OnClickListener() {

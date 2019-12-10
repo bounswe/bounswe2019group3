@@ -94,12 +94,18 @@ public class SearchActivity extends AppCompatActivity {
         rg.setOnCheckedChangeListener((group, checkedId) -> {
             switch(checkedId){
                 case R.id.radioButtonUser:
+                    results.clear();
+                    adapter.notifyDataSetChanged();
                     isExerciseButtonSelected = false;
                     ll.setVisibility(View.GONE);
+                    getResults(textQuery, "user");
                     break;
                 case R.id.radioButtonExercise:
+                    results.clear();
+                    adapter.notifyDataSetChanged();
                     isExerciseButtonSelected = true;
                     ll.setVisibility(View.VISIBLE);
+                    getExercises(textQuery, currentLanguageFilter, currentTypeFilter, currentLevelFilter, "exercise");
                     break;
             }
         });
@@ -147,10 +153,10 @@ public class SearchActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        currentTypeFilter = "en";
+                        currentLanguageFilter = "en";
                         break;
                     case 1:
-                        currentTypeFilter = "de";
+                        currentLanguageFilter = "de";
                         break;
                 }
                 getExercises(textQuery, currentLanguageFilter, currentTypeFilter, currentLevelFilter, "exercise");

@@ -81,7 +81,7 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             getDetails(r.username, image, rating);
         } else {
             name.setText(mDataset.get(position).title);
-            image.setVisibility(View.GONE);
+            image.setVisibility(View.INVISIBLE);
             rating.setVisibility(View.GONE);
         }
 

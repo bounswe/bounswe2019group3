@@ -84,7 +84,7 @@
 
             <Spinner
                 android:id="@+id/spinnerLanguage"
-                android:layout_width="116dp"
+                android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -93,7 +93,7 @@
 
             <Spinner
                 android:id="@+id/spinnerType"
-                android:layout_width="116dp"
+                android:layout_width="125dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
@@ -102,7 +102,7 @@
 
             <Spinner
                 android:id="@+id/spinnerLevel"
-                android:layout_width="116dp"
+                android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
