@@ -117,7 +117,7 @@ public class QuestionActivity extends AppCompatActivity  {
             mediaPlayer.release();
             mediaPlayer = null;
         }
-        
+
         if(questionCounter >= exerciseQuestions.size()) {
 
             Intent intent = new Intent(this, ResultActivity.class);
@@ -137,21 +137,20 @@ public class QuestionActivity extends AppCompatActivity  {
             return;
         }
 
-        QuestionFragment e = QuestionFragment.newInstance(exerciseQuestions.get(questionCounter), answerKey.get(questionCounter), ++questionCounter);
+        QuestionFragment e = QuestionFragment.newInstance(exerciseQuestions.get(questionCounter), answerKey.get(questionCounter), questionCounter+1);
         if(exerciseQuestions.get(questionCounter).media_url != null) {
             mediaPlayer = new MediaPlayer();
             mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
             isPlaying = false;
             try {
-          //      mediaPlayer.setDataSource(exerciseQuestions.get(questionCounter).media_url);
-                mediaPlayer.setDataSource("https://all-birds.com/Sound/white%20geese%20shrt.wav");
+                mediaPlayer.setDataSource("http://ec2-18-184-207-248.eu-central-1.compute.amazonaws.com/"+exerciseQuestions.get(questionCounter).media_url);
+            //    mediaPlayer.setDataSource("https://all-birds.com/Sound/white%20geese%20shrt.wav");
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(mp -> {
                 isLoaded = true;
-                toast("Media is ready.");
                 e.onReady();
             });
         }
@@ -163,11 +162,11 @@ public class QuestionActivity extends AppCompatActivity  {
         e.setOnClickPlayListener(play -> {
             if(isLoaded) {
                 if(!isPlaying){
-                    //mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
+                    mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
                     mediaPlayer.start();
-                    handler.postDelayed(stopPlayerTask, 12000);
+                    //handler.postDelayed(stopPlayerTask, 12000);
                     isPlaying = true;
-                    //handler.postDelayed(stopPlayerTask, Integer.parseInt(exerciseQuestions.get(questionCounter).media_end_time*1000));
+                    handler.postDelayed(stopPlayerTask, (Integer.parseInt(exerciseQuestions.get(questionCounter).media_end_time) - Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time))*1000);
                 }
             } else {
                 toast("Media is not ready yet.");
@@ -178,7 +177,7 @@ public class QuestionActivity extends AppCompatActivity  {
             if(isLoaded) {
                 if(isPlaying){
                     mediaPlayer.pause();
-                    //    mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
+                    mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
                     mediaPlayer.seekTo(0);
                     isPlaying = false;
                 }
@@ -186,6 +185,7 @@ public class QuestionActivity extends AppCompatActivity  {
                 toast("Media is not ready yet.");
             }
         });
+        questionCounter ++;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.questionFrag, e).commit();
 

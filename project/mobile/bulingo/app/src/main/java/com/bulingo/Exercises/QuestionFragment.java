@@ -173,7 +173,7 @@ public class QuestionFragment extends Fragment {
             v = inflater.inflate(R.layout.question_fragment, container, false);
         }
 
-        ((TextView) v.findViewById(R.id.questionNumber)).setText("Question " + question_id);
+        ((TextView) v.findViewById(R.id.questionNumber)).setText("Question " + question_id + " ");
         ((TextView) v.findViewById(R.id.question)).setText(question);
 
         answer1Button = v.findViewById(R.id.answer1);
