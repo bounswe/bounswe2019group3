@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="32dp"
             android:text="A1"
             android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -91,28 +91,40 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/select"
+            android:layout_width="wrap_content"
+            android:textSize="16sp"
+            android:layout_height="wrap_content"
+            android:text="Check out other levels : "
+            app:layout_constraintBottom_toTopOf="@id/progressText"
+            app:layout_constraintEnd_toStartOf="@id/spinnerLanguage"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/level" />
+
+        <TextView
+            android:id="@+id/progressText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/select"
-            android:text="Select another level : "
-            app:layout_constraintTop_toBottomOf="@id/currentLevel"
+            android:layout_marginEnd="8dp"
+            android:textSize="16sp"
+            android:text="Language overall progress : "
             app:layout_constraintBottom_toTopOf="@id/exam"
+            app:layout_constraintEnd_toStartOf="@id/progressBar"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/spinnerLanguage"/>
+            app:layout_constraintTop_toBottomOf="@id/select" />
 
         <Spinner
             android:id="@+id/spinnerLanguage"
             android:layout_width="116dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="8dp"
             android:backgroundTint="@color/colorAccent"
             android:spinnerMode="dropdown"
-            app:layout_constraintTop_toBottomOf="@id/currentLevel"
-            app:layout_constraintBottom_toTopOf="@id/exam"
-            app:layout_constraintStart_toEndOf="@id/select"
+            app:layout_constraintBottom_toTopOf="@id/progressText"
             app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/level"
+            app:layout_constraintStart_toEndOf="@id/select"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/exam"
@@ -128,10 +140,22 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/select"
+            app:layout_constraintTop_toBottomOf="@id/progressText"
             app:rippleColor="@color/colorAccent"
             app:strokeColor="@color/colorAccent"
             app:strokeWidth="2dp" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/exam"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/select"
+            app:layout_constraintStart_toEndOf="@id/progressText"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

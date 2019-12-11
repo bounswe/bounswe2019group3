@@ -88,4 +88,8 @@ public interface APIInterface {
     @POST("/api/language/{abbr}/exercise/{id}/evaluate")
     Call<ExerciseResult> doGetAnswersOfExercise(@Path("abbr") String abbr, @Path("id") String id, @Body JsonArray params);
 
+    @GET("/api/user/{username}/language/{abbr}/progress")
+    Call<LanguageProgress> doGetLanguageProgress(@Path("abbr") String abbr, @Path("username") String username);
+
+
 }

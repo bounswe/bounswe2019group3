@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.bulingo.Chat.RecyclerItemClickListener;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.ExerciseItem;
+import com.bulingo.Database.LanguageProgress;
 import com.bulingo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -43,6 +45,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
     String languageName = "";
     String currentLevel = "";
     String type = "";
+    String username = "";
     private Spinner spinner;
     private static final String[] paths = {"A1", "A2", "B1", "B2", "C1", "C2", "Levels"};
 
@@ -53,6 +56,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         lang = getIntent().getStringExtra("abbr");
         languageName = getIntent().getStringExtra("name");
         currentLevel = getIntent().getStringExtra("currentLevel");
+        username = getIntent().getStringExtra("username");
         TextView title = findViewById(R.id.title);
         TextView level = findViewById(R.id.currentLevel);
         level.setText(currentLevel);
@@ -80,6 +84,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                     }
                 })
         );
+        getProgress(lang);
         spinner = (Spinner)findViewById(R.id.spinnerLanguage);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,paths) {
@@ -167,6 +172,32 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
 
             @Override
             public void onFailure(Call<List<ExerciseItem>> call, Throwable t) {
+                Log.d("request", t.toString());
+                toast();
+            }
+
+        });
+    }
+
+    public void getProgress(String abbr) {
+        Call<LanguageProgress> responseCall = apiInterface.doGetLanguageProgress(abbr, username);
+
+        responseCall.enqueue(new Callback<LanguageProgress>() {
+            @Override
+            public void onResponse(Call<LanguageProgress> call, Response<LanguageProgress> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200 && response.body() != null) {
+                    LanguageProgress progress = response.body();
+                    int percentage = 100*progress.done/progress.allExercises;
+                    ProgressBar progressBar = findViewById(R.id.progressBar);
+                    progressBar.setProgress(percentage);
+                } else {
+                    toast();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LanguageProgress> call, Throwable t) {
                 Log.d("request", t.toString());
                 toast();
             }
