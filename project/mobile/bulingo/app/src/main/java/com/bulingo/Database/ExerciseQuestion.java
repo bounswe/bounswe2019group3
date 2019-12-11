@@ -16,7 +16,7 @@ public class ExerciseQuestion {
     public String media_url;
 
     @SerializedName("media_start_time")
-    public String media_start_type;
+    public String media_start_time;
 
     @SerializedName("media_end_time")
     public String media_end_time;

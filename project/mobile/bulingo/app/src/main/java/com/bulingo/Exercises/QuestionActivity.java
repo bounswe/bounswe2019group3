@@ -5,9 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
@@ -17,6 +22,7 @@ import com.bulingo.Database.Question;
 import com.bulingo.R;
 import com.google.gson.JsonArray;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,14 +30,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class QuestionActivity extends AppCompatActivity {
+public class QuestionActivity extends AppCompatActivity  {
 
     private List<Integer> answers = new ArrayList<>();
     private List<Integer> questions = new ArrayList<>();
     private List<ExerciseResult.Answer> answerKey = new ArrayList<>();
     private int questionCounter = 0;
     private List<ExerciseQuestion> exerciseQuestions =  new ArrayList<ExerciseQuestion>();
+    private boolean isLoaded = false;
+    private boolean isPlaying = false;
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
+    MediaPlayer mediaPlayer = null;
+    Handler handler = new Handler();
+    Runnable stopPlayerTask = (() -> {
+        if(mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();
+        }
+    });
 
     String abbr;
     String id;
@@ -45,6 +60,7 @@ public class QuestionActivity extends AppCompatActivity {
         abbr = i.getStringExtra("abbr");
         id = i.getStringExtra("id");
         getResults();
+
 
     }
 
@@ -94,7 +110,16 @@ public class QuestionActivity extends AppCompatActivity {
     }
 
     public void nextQuestion() {
+        isLoaded = false;
+
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
+        
         if(questionCounter >= exerciseQuestions.size()) {
+
             Intent intent = new Intent(this, ResultActivity.class);
             int[] arr = new int[answers.size()];
             int[] arr2 = new int[answers.size()];
@@ -111,14 +136,71 @@ public class QuestionActivity extends AppCompatActivity {
             finish();
             return;
         }
+
         QuestionFragment e = QuestionFragment.newInstance(exerciseQuestions.get(questionCounter), answerKey.get(questionCounter), ++questionCounter);
+        if(exerciseQuestions.get(questionCounter).media_url != null) {
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioStreamType(AudioManager.STREAM_MUSIC);
+            isPlaying = false;
+            try {
+          //      mediaPlayer.setDataSource(exerciseQuestions.get(questionCounter).media_url);
+                mediaPlayer.setDataSource("https://all-birds.com/Sound/white%20geese%20shrt.wav");
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            mediaPlayer.prepareAsync();
+            mediaPlayer.setOnPreparedListener(mp -> {
+                isLoaded = true;
+                toast("Media is ready.");
+                e.onReady();
+            });
+        }
+
         e.setOnClickAnswerListener(answerId -> {
             answers.add(answerId);
             nextQuestion();
         });
+        e.setOnClickPlayListener(play -> {
+            if(isLoaded) {
+                if(!isPlaying){
+                    //mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
+                    mediaPlayer.start();
+                    handler.postDelayed(stopPlayerTask, 12000);
+                    isPlaying = true;
+                    //handler.postDelayed(stopPlayerTask, Integer.parseInt(exerciseQuestions.get(questionCounter).media_end_time*1000));
+                }
+            } else {
+                toast("Media is not ready yet.");
+            }
+        });
+        e.setOnClickResetListener(reset -> {
+            handler.removeCallbacks(stopPlayerTask);
+            if(isLoaded) {
+                if(isPlaying){
+                    mediaPlayer.pause();
+                    //    mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
+                    mediaPlayer.seekTo(0);
+                    isPlaying = false;
+                }
+            } else {
+                toast("Media is not ready yet.");
+            }
+        });
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.questionFrag, e).commit();
 
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        handler.removeCallbacks(stopPlayerTask);
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override
@@ -149,6 +231,8 @@ public class QuestionActivity extends AppCompatActivity {
                         }).show();
     }
 
-
+    public void toast(String toast){
+        Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
+    }
 
 }
