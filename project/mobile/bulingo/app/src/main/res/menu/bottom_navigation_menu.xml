@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Reading"
+        android:id="@+id/readingMenu"
+        android:icon="@drawable/reading_icon"/>
+    <item android:title="Listening"
+        android:id="@+id/listeningMenu"
+        android:icon="@drawable/listening_icon"/>
+    <item android:title="Vocabulary"
+        android:id="@+id/vocabMenu"
+        android:icon="@drawable/vocab_icon"/>
+    <item android:title="Grammar"
+        android:id="@+id/grammarMenu"
+        android:icon="@drawable/grammar_icon"/>
+    <item android:title="Writing"
+        android:id="@+id/writingMenu"
+        android:icon="@drawable/writing_icon"/>
+</menu>

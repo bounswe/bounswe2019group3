@@ -70,7 +70,7 @@
         app:layout_constraintBottom_toTopOf="@id/profileButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/floatingActionButton" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/profileButton"
@@ -121,6 +121,7 @@
         android:layout_height="70dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="onClickLogOutBtn"
         android:text="@string/log_out"
         android:textColor="@color/colorAccent"
@@ -134,6 +135,30 @@
         app:rippleColor="@color/colorAccent"
         app:strokeColor="@color/colorAccent"
         app:strokeWidth="5dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="openChat"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/floatingActionButton2"
+            app:srcCompat="@android:drawable/ic_dialog_email" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:onClick="openSearch"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/floatingActionButton"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@android:drawable/ic_menu_search" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

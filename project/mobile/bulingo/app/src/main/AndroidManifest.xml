@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.bulingo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +15,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".Profile.ProfilePage"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Exercises.ExerciseSelection"></activity>
+        <activity android:name=".Profile.EditProfile"></activity>
+        <activity android:name=".Chat.ChatHistory" />
+        <activity android:name=".Search.SearchActivity" />
+        <activity
+            android:name=".Chat.ChatActivity"
             android:noHistory="true" />
+        <activity android:name=".Profile.ProfilePage" />
         <activity android:name=".Exercises.ResultActivity" />
         <activity
             android:name=".Exercises.LanguageSelection"

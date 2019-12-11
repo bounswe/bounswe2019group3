@@ -72,7 +72,7 @@ body {
   color : #555;
 }
 .commentsec_title{
-  font-size: 24px;
+  font-size: 20px;
   font-family: 'roboto';
   font-weight: bold;
   color : #555;
@@ -136,7 +136,6 @@ h8{
 }
 .sendmessage {  
   overflow-y:scroll;
-  height: 72vh;
   border: 2px solid #787878;
   padding: 1px;
   border-radius: 1%;
@@ -279,3 +278,4 @@ input:focus{
     background-color: #ffe1cf;
     border-radius: 5%
   }
+  tr:hover {background-color: #f5f5f5;}

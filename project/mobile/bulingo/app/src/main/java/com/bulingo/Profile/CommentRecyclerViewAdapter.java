@@ -56,7 +56,7 @@ public class CommentRecyclerViewAdapter extends RecyclerView.Adapter<CommentRecy
         rating.setText(String.format("%s/5", mDataset.get(position).rating));
         body.setText(mDataset.get(position).text);
         date.setText(mDataset.get(position).created_at.substring(0,10));
-    }
+}
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
