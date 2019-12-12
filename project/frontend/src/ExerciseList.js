@@ -29,23 +29,26 @@ export default class FormPage extends React.Component {
     var row = [];
     
       for (let i = 0; i < this.state.response.length; i++) {
-        row[i] = (
-          <tr >
-            <td className="Messagebox">{this.state.response[i].exercise_id}</td>
-            <td className="Messagebox clickable" onClick={this.go_exercise.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr)}>{this.state.response[i].title}</td>
-            <td className="Messagebox">{this.state.response[i].exercise_type}</td>
-            <td className="Messagebox">{this.state.response[i].level}</td>
-            <td className="Messagebox">{this.state.response[i].tags}</td>
-          </tr>
-        );
+        if(this.state.response[i].level === Cookies.get(Cookies.get('selectedLanguageAbbr')+"level")){
+          row[i] = (
+            <tr >
+              <td className="Messagebox">{this.state.response[i].exercise_id}</td>
+              <td className="Messagebox clickable" onClick={this.go_exercise.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr, this.state.response[i].exercise_type)}>{this.state.response[i].title}</td>
+              <td className="Messagebox">{this.state.response[i].exercise_type}</td>
+              <td className="Messagebox">{this.state.response[i].level}</td>
+              <td className="Messagebox">{this.state.response[i].tags}</td>
+            </tr>
+          );
+        }
       }   
     return row;
   }
 
-  go_exercise(id,abbr){
+  go_exercise(id,abbr,type){
     console.log(id +""+ abbr);
     Cookies.set('selectedExerciseId', id);
     Cookies.set('selectedLanguageAbbr', abbr);
+    Cookies.set('selectedType', type);
     this.setState({clicked: true});
   }
   componentDidMount() {

@@ -46,7 +46,8 @@
 		text-decoration: none;
 		font-weight: bold;
 		color: #069;
-		border-right: 1px solid #ccc; }
+    border-right: 1px solid #ccc;
+     }
 
 .row-margin{
   margin-top:-150px ;
@@ -62,7 +63,8 @@
   top: 0px;
 }
 body {
-   background-color: #ffc19a; 
+   /*background-color: #ffc19a; */
+   background-color: #eeeeee; 
 }
 .margined{
   margin-top: 60px;
@@ -82,18 +84,23 @@ body {
 .text{
   font-family: 'roboto';
   font-size: 24px;
-  color : #fff5ec;
+  color : #FFA500;
 }
 .commentsec_usrname{
   font-family: 'roboto';
   font-size: 20px;
-  color : #555;
+  color : black;
+}
+.readingQuestion{
+  font-family: 'roboto';
+  font-size: 20px;
+  color : black;
 }
 .commentsec_title{
   font-size: 24px;
   font-family: 'roboto';
   font-weight: bold;
-  color : #555;
+  color : black;
 }
 .answerstext{
   font-size: 18px;
@@ -149,7 +156,8 @@ h8{
   border: 2px solid #787878;
   padding: 1px;
   border-radius: 1%;
-  background-color: #ffe1cf55;
+  background-color:  #ffe1cf55;
+  
   box-shadow: 5px 10px #55555555;
 }
 .sendmessage {  
@@ -168,7 +176,7 @@ h8{
   margin-top: 1%;
   margin-right: 1%;
   margin-left: 1%;
-  background-color: #ffe1cf55;
+  background-color: #FFA50055;
   border-radius: 5%
 }
 .Status{
@@ -239,7 +247,9 @@ h8{
   border-radius: 20px;  
   background: rgb(218, 87, 11);  
 }
-
+.negative_left{
+  margin-left: -5vw;
+}
 input[type="radio"] {
  
   border-radius: 1px;

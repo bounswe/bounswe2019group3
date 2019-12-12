@@ -51,23 +51,24 @@ export default class FormPage1 extends React.Component {
         <MDBRow>
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
-            <img src=".\earth3.png" alt="." width="100%" />
+            <img className = "negative_left" src=".\earth4.png" alt="." width="100%" />
           </MDBCol>
           <MDBCol className="margined" md="4">
 
 
             <form>
               <p className="text text-center mb-4">SIGN UP</p>
-              <div className="white-text">
+              <div className="orange-text">
                 <MDBInput
                   id="usr"
                   label="Username"
-                  icon="user"
+                  icon="user"                  
                   group
                   type="text"
                   validate
                   error="wrong"
                   success="right"
+                  
 
                 />
                 <MDBInput

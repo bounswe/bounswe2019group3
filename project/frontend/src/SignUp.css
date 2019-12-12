@@ -13,7 +13,9 @@
 .mx-md-m6{
   margin-top: 150px;
 }
-
+.negative_left{
+  margin-left: -5vw;
+}
 #nav {
 	width: 100%;
 	float: left;

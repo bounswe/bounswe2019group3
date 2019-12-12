@@ -22,8 +22,10 @@ export default class FormPage extends React.Component {
     const frm = {
       id: document.getElementById("usr").value,
       password: document.getElementById("pass").value,
+      
 
     };
+    
     //console.log(JSON.stringify(frm));
     var responseStatus;
     axios.post('http://18.184.207.248/api/auth/login', frm, { withCredentials: true })
@@ -65,12 +67,12 @@ export default class FormPage extends React.Component {
         <MDBRow >
           <MDBCol md="1"></MDBCol>
           <MDBCol md="7">
-            <img src=".\earth3.png" alt="." width="100%" />
+            <img src=".\earth4.png" alt="." width="100%" />
           </MDBCol>
           <MDBCol className="margined" md="4">
             <form>
               <p className="text text-center mb-4">LOGIN</p>
-              <div className="white-text">
+              <div className="orange-text">
                 <MDBInput
                   id="usr"
                   label="Username"
