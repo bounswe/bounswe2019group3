@@ -5,8 +5,6 @@ import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import './General.css';
-import { Player } from 'video-react';
-import "../node_modules/video-react/dist/video-react.css"; // import css
 
 export default class GeneralTest extends React.Component {
     
@@ -51,18 +49,11 @@ export default class GeneralTest extends React.Component {
 
                 
                 <div className="ExamBox">
+                     <audio id={"myaudio"+i} controls>
+                    <source src={'http://18.184.207.248/'+this.state.questions[i].media_url} type="video/mp4"/>
+                    Your browser does not support the audio element.
+                    </audio>
                     <form>
-                        
-                        
-                        <Player
-                        ref={(player) => { this.player = player }}></Player>
-                        
-                        playsInline
-                        startTime = {this.state.questions[i].media_start_time}
-                        src={'http://18.184.207.248/'+this.state.questions[i].media_url}
-
-                        
-                        />
                         <fieldset className="question"><p className="Question">{(i + 1) + ". " + this.state.questions[i].desc}</p>
                             <div className="answers radio-toolbar" >
                                 <div className="answerstext">
@@ -220,7 +211,24 @@ export default class GeneralTest extends React.Component {
             '<li id="chld" style="float:right";><a >Settings</a></li>' +
             '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
         }
-      }
+    }
+
+    componentDidUpdate(){
+        if(Cookies.get('selectedType') === 'listening'){
+            for (let i = 0; i < this.state.questions.length; i++) {
+                const audio = document.getElementById("myaudio" + i);
+                const start_time = this.state.questions[i].media_start_time;
+                const end_time = this.state.questions[i].media_end_time;
+                audio.currentTime = start_time;
+                audio.addEventListener('timeupdate', (event) => {
+                    if(audio.currentTime < start_time || audio.currentTime > end_time){
+                        audio.pause();
+                        audio.currentTime = start_time;
+                    }
+                });
+            }
+        }
+    }
 
 
     render() {
