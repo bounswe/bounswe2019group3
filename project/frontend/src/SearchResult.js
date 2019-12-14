@@ -63,8 +63,8 @@ export default class FormPage extends React.Component {
       first_line[0] = (
         <tr>
           <th className="Messagebox"><b>result #</b></th>
+          <th className="Messagebox"><b>title</b></th>
           <th className="Messagebox"><b>exercise_id </b></th>
-          <th className="Messagebox"><b>title </b></th>
           <th className="Messagebox"><b>language </b></th>
           <th className="Messagebox"><b>type </b></th>
           <th className="Messagebox"><b>level </b></th>

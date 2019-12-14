@@ -27,6 +27,12 @@ export default class FormPage extends React.Component {
                     Cookies.remove('search_context');
                     Cookies.remove('search_type');
                     Cookies.remove('chat_messages');
+                    Cookies.remove('selectedType');
+                    Cookies.remove('selectedLanguageAbbr');
+                    Cookies.remove('selectedLanguage');
+                    Cookies.remove('delevel');
+                    Cookies.remove('enlevel');
+                    Cookies.remove('selectedExerciseId');
 
                     this.setState({
                         isLogout: true
