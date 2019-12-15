@@ -144,6 +144,7 @@ router.get("/:username/comments/", (req, res, next) => {
         db.Comment.findAll({
             attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
             where: { comment_to : user.username }
+
         }).then(function (comments){
             res.send(comments);
         })
@@ -233,5 +234,73 @@ router.get("/:username/exercise/:exercise_id/progress",
     });
   }
 );
+
+
+/**
+ * @api {post} /api/user/:username/writing/ save writing by username
+ * @apiName create,save new writing
+ * @apiGroup user
+ * @apiPermission User
+ * @apiParam (Request body(JSON)) {Object} writing
+ * @apiParam (Request body(JSON)) {String} writing.text  
+ * @apiParam (Request body(JSON)) {String} writing.title  
+ * @apiParam (Request body(JSON)) {String} writing.assignee assignee username
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 204 OK
+ */
+ 
+router.post("/:username/writing/", (req, res, next) => {
+    if (!req.session.user) {
+        res.sendStatus(401);
+        return;
+    }
+    const db = req.db;
+    db.User.findOne({
+        attributes: ["username"],
+        where: { username: req.params.username }
+      }).then(user => {
+        if (!user) {
+          res.sendStatus(400);
+          return;
+        }
+        db.Writing.create({
+          written_by: req.params.username,
+          assignee: req.body.assignee,
+          text: req.body.text,
+          new: true
+        }).then(msg => {
+          res.sendStatus(204);
+        });
+      });
+    });
+
+
+/**
+ * @api {get} /api/user/:username/comments returns user comments
+ * @apiName user comments
+ * @apiGroup user
+ * @apiPermission User
+ * @apiSuccess {Object[]} comments                     comments
+ * @apiSuccess {String}   comments.text                comment text
+ * @apiSuccess {String}   comments.rating              comment rating
+ * @apiSuccess {String}   comments.comment_by          author of comment
+ * @apiSuccess {String}   comments.comment_to          target of comment
+ * @apiSuccess {String}   comments.createdAt           creation time of comment 
+ */
+router.get("/:username/comments/", (req, res, next) => {
+    const db = req.db;
+    db.User.findOne({
+        where: { username: req.params.username },
+    }).then(function (user) {
+        db.Comment.findAll({
+            attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
+            where: { comment_to : user.username }
+
+        }).then(function (comments){
+            res.send(comments);
+        })
+    });
+});
+
 
 module.exports = {router};

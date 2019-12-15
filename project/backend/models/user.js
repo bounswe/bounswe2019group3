@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     rating: {
       type: DataTypes.FLOAT,
       allowNull: true
-    }
+    },
+    
+
   });
   User.associate = function(models) {
     models.User.hasMany(models.Comment, {
