@@ -33,6 +33,9 @@ export default class FormPage extends React.Component {
                     Cookies.remove('delevel');
                     Cookies.remove('enlevel');
                     Cookies.remove('selectedExerciseId');
+                    Cookies.remove('search_exercise_language');
+                    Cookies.remove('search_exercise_level');
+                    Cookies.remove('search_exercise_type');
 
                     this.setState({
                         isLogout: true

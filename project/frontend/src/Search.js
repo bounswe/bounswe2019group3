@@ -97,8 +97,8 @@ export default class FormPage extends React.Component {
           <select className="browser-default custom-select" id="search_type"  onClick={this.onChangeOption.bind(this)}>
             <option value="reading" >Reading</option>
             <option value="listening">Listening</option>
-            <option value="grammer">Grammer</option>
-            <option value="vocabulary">Vocabulary</option>
+            <option value="grammar">Grammar</option>
+            <option value="writing">Writing</option>
           </select>
         </div>
       )
