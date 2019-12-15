@@ -197,9 +197,38 @@ router.get("/:username/language/:language_abbr/progress",
                 username : user.username,
                 lang_abbr : req.params.language_abbr
             }
-        }).then(function (progress){
-            progress[0].exercise_done = progress[0].exercise_done.length
-            res.send(progress);
+        }).then(function ([progress]){
+            if(progress){
+                progress.exercise_done = progress.exercise_done.length
+                res.send(progress);
+            }
+            else{
+                let current_exercises = 0;
+                db.Exercise.findAll({
+                    where: {
+                      lang_abbr: req.params.language_abbr
+                    }
+                  }).then(exercises => {
+                    if (!exercises) {
+                      res.sendStatus(400);
+                    } else {
+                      current_exercises = exercises.length;
+                    }
+                  }).then(function () {
+                    db.LanguageProgress.create({
+                        username: req.params.username,
+                        lang_abbr: req.params.language_abbr,
+                        exercise_done: [],
+                        exercises: current_exercises,
+                        createdAt:  new Date(),
+                        updatedAt:  new Date()
+                      }).then(function (new_progress) {
+                        new_progress.exercise_done = 0;
+                        res.send(new_progress);
+                      });
+                  })
+                
+            }
         })
     });
   }
@@ -227,8 +256,47 @@ router.get("/:username/exercise/:exercise_id/progress",
                 username    : user.username,
                 exercise_id : req.params.exercise_id
             }
-        }).then(function (progress){
-            res.send(progress);
+        }).then(function ([progress]){
+            if(progress){
+                res.send(progress);
+            }
+            else{
+                let current_questions = 0;
+                db.ExerciseQuestion.findAll({
+                    where: {
+                      exercise_id: req.params.exercise_id
+                    }
+                  }).then(questions => {
+                    if (!questions) {
+                      res.sendStatus(400);
+                    } else {
+                        current_questions = questions.length;
+                    }
+                  }).then(function () {
+                    db.Exercise.findOne(
+                        {
+                          where: {
+                            exercise_id : req.params.exercise_id
+                          }
+                        }
+                      ).then(function (exercise) {
+                        db.ExerciseProgress.create({
+                            username: req.params.username,
+                            exercise_id: req.params.exercise_id,
+                            lang_abbr: exercise.lang_abbr,
+                            question_done: 0,
+                            questions: current_questions,
+                            createdAt:  new Date(),
+                            updatedAt:  new Date()
+                          }).then(function (new_progress) {
+                            res.send(new_progress);
+                          });
+                      })
+
+                    
+                  })
+                
+            }
         })
     });
   }
