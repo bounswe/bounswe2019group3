@@ -26,6 +26,7 @@ import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.ExerciseItem;
 import com.bulingo.Database.Language;
 import com.bulingo.Database.SearchResult;
+import com.bulingo.Exercises.QuestionActivity;
 import com.bulingo.Profile.ProfilePage;
 import com.bulingo.R;
 
@@ -74,10 +75,18 @@ public class SearchActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
-                        intent.putExtra("sender", sender);
-                        intent.putExtra("username", results.get(position).username);
-                        startActivity(intent);
+                        if(isExerciseButtonSelected) {
+                            Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
+                            intent.putExtra("abbr", results.get(position).abbr);
+                            intent.putExtra("id", results.get(position).exercise_id + "");
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), ProfilePage.class);
+                            intent.putExtra("sender", sender);
+                            intent.putExtra("username", results.get(position).username);
+                            startActivity(intent);
+                        }
+
                     }
 
                     @Override

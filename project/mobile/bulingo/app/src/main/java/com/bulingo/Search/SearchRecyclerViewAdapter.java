@@ -81,7 +81,21 @@ public class SearchRecyclerViewAdapter extends RecyclerView.Adapter<SearchRecycl
             getDetails(r.username, image, rating);
         } else {
             name.setText(mDataset.get(position).title);
-            image.setVisibility(View.INVISIBLE);
+            String type = mDataset.get(position).exercise_type;
+            image.setPadding(16, 16, 16, 16);
+            if(type.equals("writing")) {
+                image.setImageResource(R.drawable.writing_icon_search);
+            } else if(type.equals("reading")) {
+                image.setImageResource(R.drawable.reading_icon_search);
+            } else if(type.equals("vocabulary")) {
+                image.setImageResource(R.drawable.vocab_icon_search);
+            } else if(type.equals("grammar")) {
+                image.setImageResource(R.drawable.grammer_icon_search);
+            } else if(type.equals("listening")) {
+                image.setImageResource(R.drawable.listening_icon_search);
+            } else {
+                image.setVisibility(View.INVISIBLE);
+            }
             rating.setVisibility(View.GONE);
         }
 

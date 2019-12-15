@@ -68,7 +68,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         exerciseRecycler = findViewById(R.id.exerciseRecyclerview);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         exerciseRecycler.setLayoutManager(layoutManager);
-        adapter = new ExerciseRecyclerViewAdapter(exercises);
+        adapter = new ExerciseRecyclerViewAdapter(exercises, this, username);
         exerciseRecycler.setAdapter(adapter);
         exerciseRecycler.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, exerciseRecycler ,new RecyclerItemClickListener.OnItemClickListener() {
@@ -117,7 +117,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                         newLevel = "C2";
                         break;
                 }
-                getExercises(lang, type, newLevel);
+                if(!newLevel.equals(""))
+                    getExercises(lang, type, newLevel);
             }
 
             @Override
@@ -129,6 +130,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(listener);
         spinner.setSelection(6);
+
     }
 
     @Override
@@ -190,7 +192,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                     LanguageProgress progress = response.body();
                     int percentage = 100*progress.done/progress.allExercises;
                     ProgressBar progressBar = findViewById(R.id.progressBar);
-                    progressBar.setProgress(percentage);
+                    runOnUiThread(() -> progressBar.setProgress(percentage));
                 } else {
                     toast();
                 }

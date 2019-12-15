@@ -80,7 +80,7 @@ public interface APIInterface {
     Call<Void> doUpdateProfile(@Path("username") String username, @Part("bio") RequestBody bio, @Part MultipartBody.Part file);
 
     @GET("/api/language/{abbr}/exercise")
-    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("type") String type, @Query("level") String level);
+    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("exercise_type") String type, @Query("level") String level);
 
     @GET("/api/language/{abbr}/exercise/{id}/questions")
     Call<List<ExerciseQuestion>> doGetQuestionsOfExercise(@Path("abbr") String abbr, @Path("id") String id);
@@ -90,6 +90,9 @@ public interface APIInterface {
 
     @GET("/api/user/{username}/language/{abbr}/progress")
     Call<LanguageProgress> doGetLanguageProgress(@Path("abbr") String abbr, @Path("username") String username);
+
+    @GET("/api/user/{username}/exercise/{id}/progress")
+    Call<ExerciseProgress> doGetExerciseProgress(@Path("id") int id, @Path("username") String username);
 
 
 }
