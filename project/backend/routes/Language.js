@@ -374,7 +374,30 @@ router.post(
               }
             }
           ).then(function(change) {
-            if(!change.dataValues.exercise_done.includes(Number(req.params.exercise_id)))
+            if(change === null){
+              let current_exercises = 0;
+              db.Exercise.findAll({
+                  where: {
+                    lang_abbr: req.params.language_abbr
+                  }
+                }).then(exercises => {
+                  if (!exercises) {
+                    res.sendStatus(400);
+                  } else {
+                    current_exercises = exercises.length;
+                  }
+                }).then(function () {
+                  db.LanguageProgress.create({
+                      username: req.session.user.username,
+                      lang_abbr: req.params.language_abbr,
+                      exercise_done: [req.params.exercise_id],
+                      exercises: current_exercises,
+                      createdAt:  new Date(),
+                      updatedAt:  new Date()
+                    })
+                })
+            }
+            else if(!change.dataValues.exercise_done.includes(Number(req.params.exercise_id)))
                   db.LanguageProgress.update(
                     {
                       exercise_done: db.Sequelize.fn('array_append', db.Sequelize.col('exercise_done'), req.params.exercise_id),
