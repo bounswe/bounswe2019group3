@@ -178,18 +178,28 @@ public class QuestionActivity extends AppCompatActivity  {
                 if(isPlaying){
                     mediaPlayer.pause();
                     mediaPlayer.seekTo(Integer.parseInt(exerciseQuestions.get(questionCounter).media_start_time)*1000);
-                    mediaPlayer.seekTo(0);
+                //    mediaPlayer.seekTo(0);
                     isPlaying = false;
                 }
             } else {
                 toast("Media is not ready yet.");
             }
         });
-        questionCounter ++;
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.questionFrag, e).commit();
 
 
+    }
+
+    public void onFragmentDetach() {
+        questionCounter ++;
+        if(handler != null)
+            handler.removeCallbacks(stopPlayerTask);
+        if(mediaPlayer != null) {
+            mediaPlayer.stop();
+            mediaPlayer.release();
+            mediaPlayer = null;
+        }
     }
 
     @Override

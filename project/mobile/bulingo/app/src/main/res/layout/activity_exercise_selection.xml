@@ -160,6 +160,46 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/sent"
+                style="@style/language_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="Sent WRITINGS"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                app:backgroundTint="@android:color/white"
+                app:cornerRadius="600dp"
+                android:onClick="sentWritings"
+                android:layout_marginEnd="32dp"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/received"
+                style="@style/language_button"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="RECEIVED WRITINGS"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                app:backgroundTint="@android:color/white"
+                app:cornerRadius="600dp"
+                android:onClick="receivedWritings"
+                app:rippleColor="@color/colorAccent"
+                app:strokeColor="@color/colorAccent"
+                app:strokeWidth="2dp" />
+
+        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exerciseRecyclerview"
             android:layout_width="fill_parent"

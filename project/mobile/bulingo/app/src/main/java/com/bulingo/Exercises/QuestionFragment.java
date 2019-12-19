@@ -255,6 +255,7 @@ public class QuestionFragment extends Fragment {
                 isPressedOnce = true;
             } else {
                 if (this.onClickAnswerListener != null) {
+                    ((QuestionActivity)getActivity()).onFragmentDetach();
                     this.onClickAnswerListener.onClickAnswer(selection);
                 }
             }
@@ -298,4 +299,5 @@ public class QuestionFragment extends Fragment {
         }
 
     }
+
 }

@@ -25,6 +25,7 @@ import com.bulingo.Database.ExerciseItem;
 import com.bulingo.Database.LanguageProgress;
 import com.bulingo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,6 +47,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
     String currentLevel = "";
     String type = "";
     String username = "";
+    MaterialButton sent;
+    MaterialButton received;
     private Spinner spinner;
     private static final String[] paths = {"A1", "A2", "B1", "B2", "C1", "C2", "Levels"};
 
@@ -84,6 +87,10 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                     }
                 })
         );
+        sent = findViewById(R.id.sent);
+        received = findViewById(R.id.received);
+        sent.setVisibility(View.GONE);
+        received.setVisibility(View.GONE);
         getProgress(lang);
         spinner = (Spinner)findViewById(R.id.spinnerLanguage);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
@@ -138,6 +145,10 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         if(spinner != null){
             spinner.setSelection(6);
         }
+        if(sent != null && received != null) {
+            sent.setVisibility(View.GONE);
+            received.setVisibility(View.GONE);
+        }
         if(item.getItemId() == R.id.readingMenu) {
             this.type = "reading";
         } else if(item.getItemId() == R.id.listeningMenu) {
@@ -148,6 +159,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
             this.type = "grammar";
         } else if(item.getItemId() == R.id.writingMenu) {
             this.type = "writing";
+            sent.setVisibility(View.VISIBLE);
+            received.setVisibility(View.VISIBLE);
         } else {
             return false;
         }
