@@ -33,6 +33,8 @@ dependencies {
 
     implementation 'com.jakewharton:butterknife:10.2.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.android.support:appcompat-v7:29.+'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
 
     androidTestImplementation 'androidx.test:runner:1.1.1'
