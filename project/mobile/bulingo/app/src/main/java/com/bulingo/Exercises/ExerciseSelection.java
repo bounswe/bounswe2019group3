@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -47,8 +48,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
     String currentLevel = "";
     String type = "";
     String username = "";
-    MaterialButton sent;
-    MaterialButton received;
+    LinearLayout buttons;
     private Spinner spinner;
     private static final String[] paths = {"A1", "A2", "B1", "B2", "C1", "C2", "Levels"};
 
@@ -76,10 +76,18 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         exerciseRecycler.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, exerciseRecycler ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
-                        intent.putExtra("abbr", exercises.get(position).abbr);
-                        intent.putExtra("id", exercises.get(position).id + "");
-                        startActivity(intent);
+                        if(type.equals("writing")) {
+                            Intent intent = new Intent(getApplicationContext(), WritingActivity.class);
+                            intent.putExtra("username", username);
+                            intent.putExtra("abbr", exercises.get(position).abbr);
+                            intent.putExtra("id", exercises.get(position).id + "");
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
+                            intent.putExtra("abbr", exercises.get(position).abbr);
+                            intent.putExtra("id", exercises.get(position).id + "");
+                            startActivity(intent);
+                        }
                     }
 
                     @Override public void onLongItemClick(View view, int position) {
@@ -87,10 +95,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                     }
                 })
         );
-        sent = findViewById(R.id.sent);
-        received = findViewById(R.id.received);
-        sent.setVisibility(View.GONE);
-        received.setVisibility(View.GONE);
+        buttons = findViewById(R.id.buttonsLayout);
+        buttons.setVisibility(View.GONE);
         getProgress(lang);
         spinner = (Spinner)findViewById(R.id.spinnerLanguage);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
@@ -145,9 +151,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         if(spinner != null){
             spinner.setSelection(6);
         }
-        if(sent != null && received != null) {
-            sent.setVisibility(View.GONE);
-            received.setVisibility(View.GONE);
+        if(buttons != null) {
+            buttons.setVisibility(View.GONE);
         }
         if(item.getItemId() == R.id.readingMenu) {
             this.type = "reading";
@@ -159,8 +164,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
             this.type = "grammar";
         } else if(item.getItemId() == R.id.writingMenu) {
             this.type = "writing";
-            sent.setVisibility(View.VISIBLE);
-            received.setVisibility(View.VISIBLE);
+            buttons.setVisibility(View.VISIBLE);
         } else {
             return false;
         }

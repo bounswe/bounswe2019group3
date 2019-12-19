@@ -31,7 +31,7 @@
                 android:text="Question"
                 android:textColor="@color/colorAccent"
                 android:textAlignment="center"
-                android:textSize="25sp"
+                android:textSize="24sp"
                 android:fontFamily="@font/ubuntu_medium_italic"
                 app:layout_constraintBottom_toTopOf="@+id/question"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +45,7 @@
                 android:layout_marginTop="20dp"
                 android:text="This is a question"
                 android:textAlignment="center"
-                android:textSize="40sp"
+                android:textSize="28sp"
                 app:layout_constraintBottom_toTopOf="@id/radioGroup"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,7 +62,7 @@
                 android:paddingBottom="16dp"
                 android:layout_margin="4dp"
                 android:checkedButton="@id/radioButtonText"
-                app:layout_constraintBottom_toTopOf="@id/writingText"
+                app:layout_constraintBottom_toTopOf="@id/writingTitle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/question"
@@ -81,23 +81,40 @@
                     android:id="@+id/radioButtonImage"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.25"
                     android:text="Upload Image"
                     android:textColor="@color/buttonTextColor"
                     android:textSize="18sp" />
             </RadioGroup>
 
             <EditText
+                android:id="@+id/writingTitle"
+                android:background="@drawable/writing_drawable"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="12dp"
+                android:inputType="text"
+                android:gravity="top"
+                android:layout_margin="16dp"
+                android:hint="Title"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/radioGroup"/>
+
+            <EditText
                 android:id="@+id/writingText"
                 android:background="@drawable/writing_drawable"
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
+                android:padding="12dp"
                 android:inputType="text|textMultiLine"
                 android:gravity="top"
                 android:layout_margin="16dp"
+                android:scrollbars="vertical"
+                android:hint="Write an essay."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/radioGroup"/>
+                app:layout_constraintTop_toBottomOf="@id/writingTitle"/>
 
             <TextView
                 android:id="@+id/avatarText"
@@ -109,7 +126,7 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toTopOf="@+id/imageLayout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -126,8 +143,8 @@
 
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_width="175dp"
-                    android:layout_height="175dp"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                     android:src="@drawable/orange_world" />
@@ -140,6 +157,8 @@
                     android:layout_alignEnd="@+id/image"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/fab_border"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="24dp"
                     android:padding="3dp">
 
                     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -163,6 +182,7 @@
                 android:textAllCaps="false"
                 android:textSize="30sp"
                 android:text="Send Writing"
+                android:onClick="sendWriting"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingStart="16dp"

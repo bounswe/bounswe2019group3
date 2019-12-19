@@ -94,5 +94,8 @@ public interface APIInterface {
     @GET("/api/user/{username}/exercise/{id}/progress")
     Call<ExerciseProgress> doGetExerciseProgress(@Path("id") int id, @Path("username") String username);
 
+    @POST("/api/user/{username}/writing")
+    Call<Void> doPostWriting(@Path("username") String username, @Body JsonObject params);
+
 
 }

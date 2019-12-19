@@ -22,6 +22,7 @@
             android:name=".Exercises.QuestionActivity"
             android:noHistory="true" />
         <activity android:name=".Exercises.ExerciseSelection" />
+        <activity android:name=".Exercises.WritingActivity" />
         <activity android:name=".Profile.EditProfile" />
         <activity android:name=".Chat.ChatHistory" />
         <activity android:name=".Search.SearchActivity" />
