@@ -1,5 +1,5 @@
 import React from "react";
-import './SignUp.css';
+import './General.css';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from "axios";
@@ -22,7 +22,12 @@ export default class FormPage extends React.Component {
                     Cookies.remove('username');
                     Cookies.remove('selectedExamLanguage');
                     Cookies.remove('selectedExamGrade');
-                    Cookies.remove('selectedExamLanguageAbbr')
+                    Cookies.remove('selectedExamLanguageAbbr');
+                    Cookies.remove('message_to_person');
+                    Cookies.remove('search_context');
+                    Cookies.remove('search_type');
+                    Cookies.remove('chat_messages');
+
                     this.setState({
                         isLogout: true
                     });

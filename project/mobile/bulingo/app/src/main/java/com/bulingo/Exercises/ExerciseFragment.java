@@ -48,6 +48,7 @@ public class ExerciseFragment extends Fragment {
     private MaterialButton answer2Button;
     private MaterialButton answer3Button;
     private MaterialButton answer4Button;
+    private MaterialButton skipButton;
 
 
     public static ExerciseFragment newInstance(Question question, int count) {
@@ -106,6 +107,7 @@ public class ExerciseFragment extends Fragment {
         answer2Button = v.findViewById(R.id.answer2);
         answer3Button = v.findViewById(R.id.answer3);
         answer4Button = v.findViewById(R.id.answer4);
+        skipButton = v.findViewById(R.id.skip);
 
         answer1Button.setText(ans1);
         answer2Button.setText(ans2);
@@ -132,6 +134,11 @@ public class ExerciseFragment extends Fragment {
                 this.onClickAnswerListener.onClickAnswer(ansId4);
             }
         });
+        skipButton.setOnClickListener((v1 -> {
+            if (this.onClickAnswerListener != null) {
+                this.onClickAnswerListener.onClickAnswer(-1);
+            }
+        }));
 
         return v;
     }
@@ -141,7 +148,8 @@ public class ExerciseFragment extends Fragment {
     }
 
     public interface OnClickAnswerListener {
-        public void onClickAnswer(int answerId);
+        void onClickAnswer(int answerId);
+
 
     }
 

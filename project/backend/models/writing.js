@@ -7,11 +7,11 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         type: DataTypes.INTEGER
     },
-    author: {
+    written_by: {
       allowNull: false,
       type: DataTypes.STRING
     },
-    reviewer: {
+    assignee: {
       allowNull: false,
       type: DataTypes.STRING
     },
@@ -24,11 +24,11 @@ module.exports = (sequelize, DataTypes) => {
     },
   });
   Writing.associate = function(models) {
-    models.writing.belongsTo(models.User, {
+    models.Writing.belongsTo(models.User, {
       foreignKey: 'written_by',
       as: 'author',
       constraints: false
-    });
+  });
   };
   return Writing;
 };

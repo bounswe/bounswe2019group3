@@ -1,6 +1,6 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBInput } from 'mdbreact';
-import './SignUp.css';
+import './General.css';
 import { Redirect, NavLink } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import axios from 'axios';
@@ -41,7 +41,9 @@ export default class FormPage extends React.Component {
 
         }
 
-      })
+      }).catch(error => {
+        alert("invalid information")
+    });
 
   };
 
@@ -78,6 +80,7 @@ export default class FormPage extends React.Component {
                   validate
                   error="wrong"
                   success="right"
+              
 
                 />
 
@@ -88,6 +91,7 @@ export default class FormPage extends React.Component {
                   group
                   type="password"
                   validate
+                
                 />
 
               </div>

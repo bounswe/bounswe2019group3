@@ -8,6 +8,8 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
+    volumes:
+      - ./../../uploads:/backend/uploads
 
   postgres:
     image: postgres:11.2-alpine

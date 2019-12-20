@@ -1,9 +1,7 @@
 import React from 'react';
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon, MDBInput } from 'mdbreact';
-import './SignUp.css';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBIcon } from 'mdbreact';
+import './General.css';
 import { Redirect } from 'react-router-dom';
-import axios from 'axios';
-import Cookies from 'js-cookie'
 
 export default class ExaminationPage extends React.Component {
   constructor(props) {
@@ -38,19 +36,12 @@ export default class ExaminationPage extends React.Component {
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
         '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
-        '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>');
+        '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' +
+        '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
     }
   }
 
   render() {
-    if (this.state.isLogout) {
-      return (<Redirect
-        push to={{
-          pathname: "/"
-        }}
-      />);
-    }
-
     if(this.state.isSended) {
       return (<Redirect
         push to={{

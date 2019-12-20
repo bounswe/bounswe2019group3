@@ -2,5 +2,6 @@
 <network-security-config>
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">ec2-18-184-207-248.eu-central-1.compute.amazonaws.com</domain>
+        <domain includeSubdomains="true">18.184.207.248</domain>
     </domain-config>
 </network-security-config>

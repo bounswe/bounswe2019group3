@@ -4,7 +4,7 @@ import Popup from './Popup';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
 import Cookies from 'js-cookie'
-import './SignUp.css';
+import './General.css';
 
 export default class GeneralTest extends React.Component {
     constructor(props) {
@@ -125,7 +125,8 @@ export default class GeneralTest extends React.Component {
             '<li id="chld"><a href="/writing">Send Writing</a></li>' +
             '<li id="chld"><a href="/messages">Messages</a></li>' +
             '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-            '<li id="chld" style="float:right";><a >Settings</a></li>');
+            '<li id="chld" style="float:right";><a >Settings</a></li>' +
+            '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
         }
       }
 

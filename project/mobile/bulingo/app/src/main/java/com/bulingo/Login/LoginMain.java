@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -12,14 +11,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bulingo.Chat.ChatHistory;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Exercises.Exercise;
-import com.bulingo.Exercises.ExerciseInfo;
 import com.bulingo.Exercises.LanguageSelection;
 import com.bulingo.MainActivity;
 import com.bulingo.Profile.ProfilePage;
 import com.bulingo.R;
+import com.bulingo.Search.SearchActivity;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -57,16 +57,9 @@ public class LoginMain extends AppCompatActivity {
         userLogout();
     }
 
-    public void onClickExercise(View view) {
-        Intent intent = new Intent(this, Exercise.class);
-        //We need user's currently selected language here.
-        ExerciseInfo info = new ExerciseInfo(ExerciseInfo.ExerciseLanguage.FRENCH, ExerciseInfo.ExerciseType.PRACTICE);
-        intent.putExtra("info", info);
-        startActivity(intent);
-    }
-
     public void onClickLanguageSelect(View view) {
         Intent intent = new Intent(this, LanguageSelection.class);
+        intent.putExtra("username", username);
         startActivity(intent);
     }
 
@@ -110,6 +103,18 @@ public class LoginMain extends AppCompatActivity {
 
     public void onClickProfilePage(View view) {
         Intent intent = new Intent(this, ProfilePage.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void openChat(View view) {
+        Intent intent = new Intent(this, ChatHistory.class);
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void openSearch(View view) {
+        Intent intent = new Intent(this, SearchActivity.class);
         intent.putExtra("username", username);
         startActivity(intent);
     }
