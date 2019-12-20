@@ -344,28 +344,30 @@ router.post("/:username/writing/", (req, res, next) => {
 
 
 /**
- * @api {get} /api/user/:username/comments returns user comments
- * @apiName user comments
+ * @api {get} /api/user/:username/writings/ list writing by username
+ * @apiName list writings of user
  * @apiGroup user
  * @apiPermission User
- * @apiSuccess {Object[]} comments                     comments
- * @apiSuccess {String}   comments.text                comment text
- * @apiSuccess {String}   comments.rating              comment rating
- * @apiSuccess {String}   comments.comment_by          author of comment
- * @apiSuccess {String}   comments.comment_to          target of comment
- * @apiSuccess {String}   comments.createdAt           creation time of comment 
+ * @apiSuccess {Object[]} writings                   writings
+ * @apiSuccess {Integer}  writings.writing_id        writing id
+ * @apiSuccess {String}   writings.title             title
+ * @apiSuccess {String}   writings.text              text
+ * @apiSuccess {String}   writings.written_by        author of writing
+ * @apiSuccess {String}   writings.assignee          assignee
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 204 OK
  */
-router.get("/:username/comments/", (req, res, next) => {
+router.get("/:username/writings/", (req, res, next) => {
     const db = req.db;
     db.User.findOne({
         where: { username: req.params.username },
     }).then(function (user) {
-        db.Comment.findAll({
-            attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
-            where: { comment_to : user.username }
+        db.Writing.findAll({
+            attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title' ],
+            where: { written_by : user.username }
 
-        }).then(function (comments){
-            res.send(comments);
+        }).then(function (writings){
+            res.send(writings);
         })
     });
 });
