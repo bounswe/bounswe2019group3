@@ -11,6 +11,7 @@ const User = require('./User');
 const Language = require('./Language');
 const Chat = require('./Chat');
 const Search = require('./Search');
+const Annotation = require('./Annotation');
 
 const db = require('../models/index');
 
@@ -67,6 +68,8 @@ router.use('/language', Language.router);
 router.use('/chat', Chat.router);
 
 router.use('/search', Search.router);
+
+router.use('/annotation', Annotation.router);
 
 // return the router
 module.exports = {router};
