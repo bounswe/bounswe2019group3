@@ -111,17 +111,33 @@ router.post("/:username/comments/", (req, res, next) => {
           res.sendStatus(400);
           return;
         }
-        db.Comment.create({
+        return db.Comment.create({
           comment_to: req.params.username,
           rating: req.body.rating,
           text: req.body.text,
           comment_by: req.session.user.username,
           new: true
-        }).then(msg => {
-          res.sendStatus(204);
         });
+      }).then(() => {
+        return db.Comment.findAll({
+          attributes: ['text', 'rating', 'comment_by', 'comment_to', 'createdAt' ],
+          where: { comment_to : req.params.username }
+        })
+      }).then((comments) => {
+        let overall_rating = 0;
+        comments.forEach(element => {
+          overall_rating += element.rating;
+        });
+        return overall_rating / comments.length; 
+      }).then((rating) => {
+        return db.User.update(
+          { rating: rating },
+          { where: { username: req.params.username } 
+        });
+      }).then(() => {
+          res.sendStatus(204);
       });
-    });
+});
 
 
 /**
