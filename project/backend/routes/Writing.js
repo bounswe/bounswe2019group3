@@ -175,30 +175,5 @@ router.put("/:id/assignee/:assignee_username", (req, res, next) => {
     });
 });
 
-router.get("/:id/recommendation", (req, res, next) => {
-    if (!req.params.id){
-        res.sendStatus(400);
-        return;
-    }
-    if (!req.session.user) {
-        res.sendStatus(401);
-        return;
-    }
-    const username = req.session.user.username;
-    const db = req.db;
-    db.Writing.findOne({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title' ],
-        where: {
-            writing_id: req.params.id
-        }
-    }).then(function (writings){
-        if(writings.written_by != username){
-            res.sendStatus(403);
-        }else{
-            //FILL HERE WITH THE RECOMMENDATION ALGORITHM  
-        }
-    });
-});
-
 
 module.exports = {router};
