@@ -435,7 +435,6 @@ router.get("/:language_abbr/recommendation", (req, res, next) => {
       res.sendStatus(401);
       return;
   }
-  const username = req.session.user.username;
   const db = req.db;
   db.User.findAll({
     attributes: ['username','rating'],

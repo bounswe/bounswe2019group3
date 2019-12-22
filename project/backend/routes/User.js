@@ -252,6 +252,75 @@ router.get("/:username/language/:language_abbr/progress",
 );
 
 /**
+ * @api {get} /:username/language/:language_abbr/radar get language radar data
+ * @apiGroup user
+ * @apiPermission User
+ * @apiSuccess {Object}     radar               
+ * @apiSuccess {Integer}    radar.listening    listening point (over 100)
+ * @apiSuccess {Integer}    radar.reading      reading point (over 100)
+ * @apiSuccess {Integer}    radar.grammer      grammer point (over 100)
+ * @apiSuccess {Integer}    radar.vocabulary   vocabulary point (over 100)
+ * @apiSuccess {Integer}    radar.writing      writing point (over 100)
+ */
+const level_to_point = {
+  "A1": 0,
+  "A2": 20,
+  "B1": 40,
+  "B2": 60,
+  "C1": 80,
+  "C2": 100,
+};
+router.get("/:username/language/:language_abbr/radar", 
+  (req, res, next) => {
+    if(!req.params.username || !req.params.language_abbr){
+      res.sendStatus(400);
+      return;
+    }
+    const db = req.db;
+    let radar;
+    db.Level.findOne({
+      where: {
+        belongs_to: req.params.username,
+        lang_abbr: req.params.language_abbr
+      }
+    }).then((level)=>{
+      radar = {
+        "listening": level_to_point[level.grade],
+        "reading": level_to_point[level.grade],
+        "grammer": level_to_point[level.grade],
+        "vocabulary": level_to_point[level.grade],
+        "writing": level_to_point[level.grade],
+      };
+      return db.LanguageProgress.findOne({
+        where: {
+          username: req.params.username,
+          lang_abbr: req.params.language_abbr
+        }
+      })
+    }).then((lang_prog) => {
+        return db.Exercise.findAll({
+          where: {
+            exercise_id: {[db.Sequelize.Op.in]: lang_prog.exercise_done}
+          }
+        });
+      }).then((exercises) => {
+        exercises.forEach((e) => {
+          radar[e.exercise_type] += 5;
+        });
+        return db.Writing.findAll({
+          where: {
+            written_by: req.params.username,
+            lang_abbr: req.params.language_abbr
+          }
+        });
+      }).then((writings) => {
+        if(writings)
+          radar["writing"] += (writings.length)*5;
+        
+        res.send(radar);
+      });
+});
+/**
  * @api {get} /api/user/:username/exercise/:exercise_id/progress returns exercise progress
  * @apiGroup user
  * @apiPermission User
