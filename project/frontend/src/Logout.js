@@ -7,9 +7,9 @@ import axios from "axios";
 export default class FormPage extends React.Component {
 
 
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state={
+        this.state = {
             isLogout: false
         }
     }
@@ -36,6 +36,8 @@ export default class FormPage extends React.Component {
                     Cookies.remove('search_exercise_language');
                     Cookies.remove('search_exercise_level');
                     Cookies.remove('search_exercise_type');
+                    Cookies.remove('selected_writing_abbr');
+                    Cookies.remove('selected_writing_assignee');
 
                     this.setState({
                         isLogout: true
@@ -51,7 +53,7 @@ export default class FormPage extends React.Component {
     render() {
         if (true) {
             this.onLogout();
-            return(<Redirect
+            return (<Redirect
                 to={{
                     pathname: "/"
                 }}
