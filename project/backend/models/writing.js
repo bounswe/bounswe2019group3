@@ -25,7 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.STRING,
     }
-  }
 
   });
   Writing.associate = function(models) {
