@@ -17,7 +17,11 @@ export default class FormPage extends React.Component {
   fill_writing_table() {
     var row = [];
         row[0] = (
-            <div className="ExamBox"> {content} </div>
+            <div>
+                <div className="ExamBox"> {content.title} </div>
+                <div className="ExamBox"> {content.text} </div>
+            </div>
+            
         );
     return row;
   }
@@ -53,7 +57,7 @@ export default class FormPage extends React.Component {
           <MDBCol md="8">
             <div className="marginedleft20">
               <MDBRow>
-                <MDBCol md="6">
+                <MDBCol md="12">
                   <MDBRow>
                         {this.fill_writing_table()}
                   </MDBRow>

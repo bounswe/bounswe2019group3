@@ -9,9 +9,9 @@ export default class FormPage extends React.Component {
   constructor(props) {
     super(props);
 
-    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/writings', { withCredentials: true })
+    axios.get('http://18.184.207.248/api/writing?written_by='+Cookies.get('username'), { withCredentials: true })
       .then(res => {
-        //console.log(res.data);
+        console.log(res.data);
         this.setState({ writings: res.data });
         console.log(this.state.writings);
       })
@@ -56,7 +56,7 @@ export default class FormPage extends React.Component {
         row[i] = (
           <tr >
             <td className="Messagebox" scope="row">{i + 1}</td>
-            <td className="Messagebox clickable" onClick={this.go_selected_writing.bind(this, this.state.writings[i].writing_id, this.state.writings[i].text)}>
+            <td className="Messagebox clickable" onClick={this.go_selected_writing.bind(this, this.state.writings[i].writing_id, this.state.writings[i])}>
               {this.state.writings[i].title}
             </td>
             <td className="Messagebox" >
@@ -106,7 +106,6 @@ export default class FormPage extends React.Component {
         }}
       />);
     }*/
-    console.log(this.props);
     if(this.state.is_go_selected_writing){
       return (<Redirect
         to={{
