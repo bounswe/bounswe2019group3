@@ -18,9 +18,10 @@ export default class FormPage extends React.Component {
             .then(res => {
                 //console.log(res.data)
                 languages = res.data
-                             
-                
-
+                this.setState({                                        
+                    lang : languages,  
+                                                          
+                })       
                 for (let index = 0; index < languages.length; index++) {
                     //console.log('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + this.state.languages[index].abbr + '/progress')
                     axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + languages[index].abbr + '/progress', { withCredentials: true })
@@ -44,25 +45,22 @@ export default class FormPage extends React.Component {
                                     .then(res => {
                                         //console.log(res.data)
                                         exerciseProgress[i] = res.data;
-                                    })
-
-                            }
-                           
-
-
-                        })
-                    
-                }
-                console.log("here")
-                this.setState({
-                    lang : languages,
-                    languageProg : languageProgress,
-                    exerciseProg : exerciseProgress,
-                })
-
-            })
-
-
+                                        this.setState({                                        
+                                            exerciseProg : exerciseProgress,  
+                                                                                  
+                                        }) 
+                                    }) 
+                                    this.setState({                                        
+                                        languageProg : languageProgress,  
+                                                                              
+                                    })     
+                                                                    
+                            }                               
+                        })                    
+                } 
+                
+                               
+            })            
         this.state = {
             lang: [],
             languageProg : [],
@@ -71,20 +69,21 @@ export default class FormPage extends React.Component {
             id: "",
             abbr: ""
         }
+        
 
     }
 
     fill_languages_table() {
         var row = [];
-
-        for (let i = 0; i < languageProgress.length; i++) {
+        
+        for (let i = 0; i < this.state.languageProg.length; i++) {
 
             row[i] = (
                 <tr >
-                    <td className="Messagebox">{languageProgress[i].lang_abbr}</td>
-                    <td className="Messagebox">{languageProgress[i].exercise_done}</td>
-                    <td className="Messagebox">{languageProgress[i].exercises}</td>
-                    <td className="Messagebox">{languageProgress[i].updatedAt}</td>
+                    <td className="Messagebox">{this.state.languageProg[i].lang_abbr}</td>
+                    <td className="Messagebox">{this.state.languageProg[i].exercise_done}</td>
+                    <td className="Messagebox">{this.state.languageProg[i].exercises}</td>
+                    <td className="Messagebox">{this.state.languageProg[i].updatedAt}</td>
 
                 </tr>
             );
@@ -97,15 +96,15 @@ export default class FormPage extends React.Component {
         //console.log(exerciseProgress)
         var row = [];
         //console.log(exerciseProgress.length)
-        for (let i = 0; i < exerciseProgress.length; i++) {
+        for (let i = 0; i < this.state.exerciseProg.length; i++) {
             
             if (this.state.exerciseProg[i] !== undefined) {
                 row[i] = (
                     <tr >
-                        <td className="Messagebox">{exerciseProgress[i].exercise_id}</td>
-                        <td className="Messagebox">{exerciseProgress[i].question_done}</td>
-                        <td className="Messagebox">{exerciseProgress[i].questions}</td>
-                        <td className="Messagebox">{exerciseProgress[i].updatedAt}</td>
+                        <td className="Messagebox">{this.state.exerciseProg[i].exercise_id}</td>
+                        <td className="Messagebox">{this.state.exerciseProg[i].question_done}</td>
+                        <td className="Messagebox">{this.state.exerciseProg[i].questions}</td>
+                        <td className="Messagebox">{this.state.exerciseProg[i].updatedAt}</td>
 
                     </tr>
                 );
@@ -135,10 +134,10 @@ export default class FormPage extends React.Component {
     }
 
     render() {
-
+            
              //console.log(exerciseProgress);
              //console.log(languageProgress);
-             console.log(this.state.exerciseProg[0]);
+             console.log(this.state.exerciseProg);
              console.log(this.state.languageProg);
         return (
             <MDBContainer fluid>
@@ -160,7 +159,7 @@ export default class FormPage extends React.Component {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {this.fill_languages_table.bind(this)}
+                                                {this.fill_languages_table()}
                                             </tbody>
                                         </table>
                                     </MDBRow>
