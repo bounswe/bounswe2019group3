@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     id: {
         type: DataTypes.STRING,
     },
+    value: {
+        type: DataTypes.TEXT,
+    },
     source: {
         type: DataTypes.STRING,
     },
