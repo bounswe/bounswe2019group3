@@ -122,6 +122,7 @@ export default class FormPage extends React.Component {
     }
     if (e.target.id === "search_type") {
       Cookies.set('search_exercise_type',e.target.value);
+      Cookies.set('selectedType',e.target.value);
     }
 
     if (e.target.value === "user") {
