@@ -29,7 +29,7 @@ router.post("/", writing_upload.single('image'), (req, res, next) => {
     }
     let file_path = undefined;
     if(req.file) {
-        file_path = req.file.path
+        file_path = 'api/uploads/writings/' +req.file.filename
     }
 
     const db = req.db;
