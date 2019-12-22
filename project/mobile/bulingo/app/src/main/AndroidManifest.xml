@@ -17,7 +17,9 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".SendSearchActivity"></activity>
+        <activity android:name=".Exercises.SendReceiveWriting"
+            android:noHistory="true" />
+        <activity android:name=".SendSearchActivity" />
         <activity
             android:name=".Exercises.QuestionActivity"
             android:noHistory="true" />
