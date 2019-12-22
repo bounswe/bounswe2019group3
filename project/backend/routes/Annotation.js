@@ -91,8 +91,8 @@ router.get("/", (req, res, next) => {
     if(req.query.target_creator){
         target_where.creator = req.query.target_creator;
     }
-    if(req.query.target_id){
-        target_where.id = req.query.target_id;
+    if(req.query.target_source){
+        target_where.source = req.query.target_source;
     }
     const db = req.db;
     db.Annotation.findAll({
