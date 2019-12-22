@@ -4,8 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 
@@ -21,9 +24,13 @@ import com.bulingo.R;
 import com.bulingo.Search.SearchRecyclerViewAdapter;
 import com.google.gson.JsonObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -40,6 +47,7 @@ public class RecommendationActivity extends AppCompatActivity {
     Boolean isImage;
     Uri imageUri;
     String abbr;
+    File imageFile;
 
     private String textQuery = "";
 
@@ -53,10 +61,10 @@ public class RecommendationActivity extends AppCompatActivity {
             username = getIntent().getStringExtra("username");
             isImage = getIntent().getBooleanExtra("isImage", false);
             abbr = getIntent().getStringExtra("abbr");
+            title = getIntent().getStringExtra("title");
             if(isImage) {
                 imageUri = Uri.parse(getIntent().getStringExtra("imageUri"));
             } else {
-                title = getIntent().getStringExtra("title");
                 text = getIntent().getStringExtra("text");
             }
             apiInterface = APICLient.getClient(getApplicationContext()).create(APIInterface.class);
@@ -70,7 +78,7 @@ public class RecommendationActivity extends AppCompatActivity {
                         @Override
                         public void onItemClick(View view, int position) {
                             if(isImage) {
-
+                                postWritingImage(title, results.get(position).username);
                             } else {
                                 postWriting(title, text, results.get(position).username);
                             }
@@ -126,9 +134,58 @@ public class RecommendationActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Log.d("request", t.toString());
+                toast("Writing text sending failed.");
             }
 
+        });
+    }
+
+    public void postWritingImage(String title, String assignee) {
+        toast(imageUri.toString());
+        final String docId = DocumentsContract.getDocumentId(imageUri);
+        Uri contentUri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
+        final String selection = "_id=?";
+        final String[] selectionArgs = { docId.split(":")[1] };
+
+        final String column = "_data";
+        final String[] projection = { column };
+        String path = null;
+        try (Cursor cursor = this.getContentResolver().query(contentUri, projection, selection,
+                selectionArgs, null)) {
+            if(cursor != null && cursor.moveToFirst()) {
+                final int index = cursor.getColumnIndexOrThrow(column);
+                path = cursor.getString(index);
+            }
+        }
+
+        if(path != null) {
+            imageFile = new File(path);
+        }
+
+        if(imageFile == null || imageFile.length() == 0){
+            finish();
+            return;
+        }
+
+        RequestBody body1 = RequestBody.create(title, MediaType.parse("text/plain"));
+        RequestBody body2 = RequestBody.create(assignee, MediaType.parse("text/plain"));
+        RequestBody body3 = RequestBody.create(abbr, MediaType.parse("text/plain"));
+        RequestBody fileReqBody = RequestBody.create(imageFile, MediaType.parse("image/*"));
+        MultipartBody.Part part = MultipartBody.Part.createFormData("image", imageFile.getName(), fileReqBody);
+
+        Call<Void> responseCall = apiInterface.doPostWritingImage(body1, body2, body3, part);
+
+        responseCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                toast("Writing image sent successfully.");
+                finish();
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                toast("Writing image sending failed.");
+            }
         });
     }
 

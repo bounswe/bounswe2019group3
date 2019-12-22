@@ -97,6 +97,10 @@ public interface APIInterface {
     @POST("/api/writing")
     Call<Void> doPostWriting(@Body JsonObject params);
 
+    @Multipart
+    @POST("/api/writing")
+    Call<Void> doPostWritingImage(@Part("title") RequestBody title, @Part("assignee") RequestBody assignee, @Part("lang_abbr") RequestBody abbr, @Part MultipartBody.Part file);
+
     @GET("/api/writing")
     Call<List<Writing>> doGetSentWriting(@Query("written_by") String username);
 
@@ -111,5 +115,7 @@ public interface APIInterface {
 
     @GET("/api/language/{language_abbr}/recommendation")
     Call<List<RecommendationResult>> doGetRecommendation(@Path("language_abbr") String abbr);
+
+
 
 }

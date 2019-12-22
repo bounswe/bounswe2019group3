@@ -17,7 +17,8 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Exercises.AnnotateWriting"></activity>
+        <activity android:name=".Exercises.AnnotateImageWriting"></activity>
+        <activity android:name=".Exercises.AnnotateWriting" />
         <activity android:name=".Exercises.SendReceiveWriting" />
         <activity android:name=".Exercises.RecommendationActivity" />
         <activity

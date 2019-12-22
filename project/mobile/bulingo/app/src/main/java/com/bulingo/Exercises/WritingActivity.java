@@ -69,14 +69,12 @@ public class WritingActivity extends PermissionRequestingActivity implements Per
                 case R.id.radioButtonText:
                     isImage = false;
                     writingText.setVisibility(View.VISIBLE);
-                    writingTitle.setVisibility(View.VISIBLE);
                     rl.setVisibility(View.INVISIBLE);
                     imageText.setVisibility(View.INVISIBLE);
                     break;
                 case R.id.radioButtonImage:
                     isImage = true;
                     writingText.setVisibility(View.INVISIBLE);
-                    writingTitle.setVisibility(View.INVISIBLE);
                     rl.setVisibility(View.VISIBLE);
                     imageText.setVisibility(View.VISIBLE);
                     break;
@@ -149,11 +147,11 @@ public class WritingActivity extends PermissionRequestingActivity implements Per
         intent.putExtra("username", this.username);
         intent.putExtra("isImage", isImage);
         intent.putExtra("abbr", abbr);
+        intent.putExtra("title", title);
         if(isImage) {
             intent.putExtra("imageUri", this.imUri);
         } else {
             intent.putExtra("text", text);
-            intent.putExtra("title", title);
         }
         startActivity(intent);
         finish();

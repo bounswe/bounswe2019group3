@@ -59,8 +59,12 @@ public class SendReceiveWriting extends AppCompatActivity {
                         intent.putExtra("isSent", isSent);
                         intent.putExtra("id", writings.get(position).id + "");
                         intent.putExtra("username", username);
+                        if(writings.get(position).image != null) {
+                            intent.putExtra("image", writings.get(position).image);
+                        } else {
+                            intent.putExtra("textBody", writings.get(position).text);
+                        }
                         intent.putExtra("textTitle", writings.get(position).title);
-                        intent.putExtra("textBody", writings.get(position).text);
                         intent.putExtra("assignee", writings.get(position).assignee);
                         intent.putExtra("writtenBy", writings.get(position).writer);
                         startActivity(intent);

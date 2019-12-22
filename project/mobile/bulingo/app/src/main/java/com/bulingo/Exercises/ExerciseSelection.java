@@ -251,4 +251,10 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         intent.putExtra("username", username);
         startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProgress(lang);
+    }
 }

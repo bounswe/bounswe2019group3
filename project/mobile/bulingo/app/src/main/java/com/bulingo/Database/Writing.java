@@ -13,7 +13,10 @@ public class Writing {
     public String title;
 
     @SerializedName("text")
-   public String text;
+    public String text;
+
+    @SerializedName("image")
+    public String image;
 
     @SerializedName("written_by")
     public String writer;
