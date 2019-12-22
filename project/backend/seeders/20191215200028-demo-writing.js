@@ -13,6 +13,7 @@ module.exports = {
           "You can only attend Knowle Grammar School if you…",
           written_by:  'lazyostrich850',
           assignee: 'angrydog556',
+          lang_abbr:'en',
           createdAt:  new Date(),
           updatedAt:  new Date(),
       }

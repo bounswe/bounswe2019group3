@@ -20,7 +20,13 @@ module.exports = (sequelize, DataTypes) => {
     },
     assignee: {
       type: DataTypes.STRING
+    },
+    lang_abbr:{
+      allowNull: false,
+      type: DataTypes.STRING,
     }
+  }
+
   });
   Writing.associate = function(models) {
   //   models.Writing.belongsTo(models.User, {
