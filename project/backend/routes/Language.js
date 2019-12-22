@@ -229,6 +229,51 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
   });
 });
 
+router.post("/:language_abbr/exercise", (req, res, next) => {
+  // if (!req.session.user) {
+  //   res.sendStatus(401);
+  //   return;
+  // }
+  let exercise_questions = req.body.exercise_questions.map((q) => {
+    let x = JSON.parse(JSON.stringify(q));
+    x.lang_abbr = req.params.language_abbr;
+    return x;
+  })
+  const db = req.db;
+  db.Exercise.create(
+    {
+      title: req.body.title,
+      lang_abbr: req.params.language_abbr,
+      exercise_type: req.body.exercise_type,
+      level: req.body.level,
+      tags: req.body.tags,
+      exercise_questions: exercise_questions
+    },
+    {
+      include: [
+        {
+          model: db.ExerciseQuestion,
+          as: "exercise_questions",
+          include: [
+            {
+              model: db.ExerciseChoice,
+              as: "choices"
+            }
+          ]
+        }
+      ]
+    }
+  ).then((e) => {
+    e.exercise_questions.forEach((q) => {
+      let q2 = exercise_questions.find((q2) => q2.desc == q.desc);
+      q.answer_id = q.choices.find((c) => c.desc == q2.choices[q2.answer].desc).choice_id;
+    })
+    return e.save();
+  }).then((e) => {
+    res.send(e);
+  })
+});
+
 /**
  * @api {get} /api/language/:language_abbr/exercise/:exersice_id/questions return the exercise
  * @apiGroup language
