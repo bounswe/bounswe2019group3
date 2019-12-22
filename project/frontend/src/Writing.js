@@ -17,7 +17,6 @@ export default class ExaminationPage extends React.Component {
 
     this.state = {
       isSended: false,
-      isLogout: false,
       selectedFile: undefined,
       assignees: [],
       languages: [],
@@ -30,6 +29,31 @@ export default class ExaminationPage extends React.Component {
 
   onClickd() {
     console.log(this.state);
+    
+
+
+    if (this.state.isUploadfile) {
+      const data = new FormData();
+      data.append("image", this.state.image);
+      data.append("lang_abbr", document.getElementById("abbr").value);
+      data.append("assignee", document.getElementById("assignee").value);
+      data.append("title","Hand-Written");
+      axios.post(('http://18.184.207.248/api/writing'),
+        data,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        }).then((res) => {
+          if (res.status === 204) {
+            console.log(res);
+            this.setState({
+              isSended: true
+            });
+          }
+        });
+    }else{
       const frm = {
         title: document.getElementById("title").value,
         text: document.getElementById("text").value,
@@ -37,20 +61,23 @@ export default class ExaminationPage extends React.Component {
         assignee: document.getElementById("assignee").value
       }
       axios.post('http://18.184.207.248/api/writing', frm, { withCredentials: true })
-        .then(res => {
-          if (res.status === 204) {
-          }
-        }).catch(error => {
-          alert("invalid information")
-        });
-
-      
-
-      Cookies.remove('selected_writing_abbr');
-      Cookies.remove('selected_writing_assignee');
-      this.setState({
-        isSended: true
+      .then(res => {
+        if (res.status === 204) {
+          console.log(res);
+          this.setState({
+            isSended: true
+          });
+        }
+      }).catch(error => {
+        alert("invalid information")
       });
+    }
+    
+
+
+
+    Cookies.remove('selected_writing_abbr');
+    Cookies.remove('selected_writing_assignee');
 
   }
 
@@ -126,6 +153,12 @@ export default class ExaminationPage extends React.Component {
     return lang;
   }
 
+  handleFileupload(ev) {
+    this.setState({
+      image: ev.target.files[0]
+    });
+  }
+
   fill_page() {
     var page = [];
     if (this.state.isWriteEssay) {
@@ -171,7 +204,7 @@ export default class ExaminationPage extends React.Component {
           </MDBFormInline>
 
           <div className="mt-4">
-            <MDBBtn color="orange" onClick={this.onClickd.bind(this)} background type="submit">
+            <MDBBtn color="orange" onClick={this.onClickd.bind(this)} background >
               SEND
                 <MDBIcon far icon="paper-plane" className="ml-2" />
             </MDBBtn>
@@ -192,7 +225,7 @@ export default class ExaminationPage extends React.Component {
             <input
               type="file"
               className="custom-file-input"
-              onChange={this.handleFileupload}
+              onChange={this.handleFileupload.bind(this)}
               id="file"
 
             />
@@ -222,7 +255,7 @@ export default class ExaminationPage extends React.Component {
           </MDBFormInline>
 
           <div className="mt-4">
-            <MDBBtn color="orange" onClick={this.onClickd.bind(this)} background type="submit">
+            <MDBBtn color="orange" onClick={this.onClickd.bind(this)} >
               SEND
                 <MDBIcon far icon="paper-plane" className="ml-2" />
             </MDBBtn>
@@ -238,7 +271,7 @@ export default class ExaminationPage extends React.Component {
     if (this.state.isSended) {
       return (<Redirect
         push to={{
-          pathname: "/writing"
+          pathname: "/writingsList"
         }}
       />);
     }
