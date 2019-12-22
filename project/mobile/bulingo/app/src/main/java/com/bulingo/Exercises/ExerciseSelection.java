@@ -237,4 +237,18 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         startActivity(intent);
         finish();
     }
+
+    public void sentWritings(View view) {
+        Intent intent = new Intent(getApplicationContext(), SendReceiveWriting.class);
+        intent.putExtra("action", "sent");
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void receivedWritings(View view) {
+        Intent intent = new Intent(getApplicationContext(), SendReceiveWriting.class);
+        intent.putExtra("action", "received");
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
 }

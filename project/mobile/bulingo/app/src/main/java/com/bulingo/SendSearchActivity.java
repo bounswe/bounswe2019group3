@@ -124,9 +124,7 @@ public class SendSearchActivity extends AppCompatActivity {
         paramObject.addProperty("text", body);
         paramObject.addProperty("title", title);
         paramObject.addProperty("assignee", assignee);
-        JsonObject writingObject = new JsonObject();
-        writingObject.add("writing", paramObject);
-        Call<Void> responseCall = apiInterface.doPostWriting(username, writingObject);
+        Call<Void> responseCall = apiInterface.doPostWriting(username, paramObject);
 
         responseCall.enqueue(new Callback<Void>() {
             @Override

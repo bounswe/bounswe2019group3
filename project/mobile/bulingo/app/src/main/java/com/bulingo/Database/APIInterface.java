@@ -97,5 +97,11 @@ public interface APIInterface {
     @POST("/api/user/{username}/writing")
     Call<Void> doPostWriting(@Path("username") String username, @Body JsonObject params);
 
+    @GET("/api/writing")
+    Call<List<Writing>> doGetSentWriting(@Query("written_by") String username);
+
+    @GET("/api/writing")
+    Call<List<Writing>> doGetReceivedWriting(@Query("assignee") String username);
+
 
 }
