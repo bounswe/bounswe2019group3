@@ -1,7 +1,5 @@
 package com.bulingo.Exercises;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -18,11 +15,9 @@ import android.widget.Toast;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
-import com.bulingo.Database.ExerciseItem;
 import com.bulingo.Database.ExerciseQuestion;
 import com.bulingo.PermissionRequestingActivity;
 import com.bulingo.R;
-import com.bulingo.SendSearchActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
@@ -150,7 +145,7 @@ public class WritingActivity extends PermissionRequestingActivity implements Per
             toast("Please provide content.");
             return;
         }
-        Intent intent = new Intent(getApplicationContext(), SendSearchActivity.class);
+        Intent intent = new Intent(getApplicationContext(), RecommendationActivity.class);
         intent.putExtra("username", this.username);
         intent.putExtra("isImage", isImage);
         intent.putExtra("abbr", abbr);

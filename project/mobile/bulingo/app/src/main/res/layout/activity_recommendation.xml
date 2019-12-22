@@ -60,7 +60,7 @@
                 android:id="@+id/chatRecyclerview"
                 android:layout_height="0dip"
                 android:layout_weight="1"
-                tools:listitem="@layout/search_result">
+                tools:listitem="@layout/recommendation">
 
             </androidx.recyclerview.widget.RecyclerView>
 

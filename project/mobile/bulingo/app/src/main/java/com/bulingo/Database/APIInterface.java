@@ -109,5 +109,7 @@ public interface APIInterface {
     @POST("/api/annotation")
     Call<Annotation> doPostAnnotation(@Body JsonObject params);
 
+    @GET("/api/language/{language_abbr}/recommendation")
+    Call<List<RecommendationResult>> doGetRecommendation(@Path("language_abbr") String abbr);
 
 }
