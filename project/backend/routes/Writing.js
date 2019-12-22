@@ -1,33 +1,43 @@
 const router = require('express').Router();
 const multer = require('multer');
-const avatar_upload = multer({dest: '/backend/uploads/avatars'});
+const writing_upload = multer({dest: '/backend/uploads/writings'});
 const fs = require('fs');
 const path = require('path');
 
 /**
  * @api {post} /api/writing/ save writing
  * @apiName create,save new writing
- * @apiGroup user
- * @apiPermission User
- * @apiParam (Request body(JSON)) {Object} writing
- * @apiParam (Request body(JSON)) {String} writing.text  
- * @apiParam (Request body(JSON)) {String} writing.lang_abbr
- * @apiParam (Request body(JSON)) {String} writing.title  (optional)
- * @apiParam (Request body(JSON)) {String} writing.assignee assignee username (optional)
+ * @apiGroup writing
+ * @apiPermission Writing
+ * @apiParam (Request body) {Object} writing
+ * @apiParam (Request body) {String} writing.text  
+ * @apiParam (Request body) {File}   writing.image   
+ * @apiParam (Request body {String} writing.lang_abbr
+ * @apiParam (Request body) {String} writing.title  (optional)
+ * @apiParam (Request body) {String} writing.assignee assignee username (optional)
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 204 OK
  */
  
-router.post("/", (req, res, next) => {
+router.post("/", writing_upload.single('image'), (req, res, next) => {
     if (!req.session.user) {
+        if(req.file) {
+            fs.unlinkSync(req.file.path)
+        }
         res.sendStatus(401);
         return;
     }
+    let file_path = undefined;
+    if(req.file) {
+        file_path = req.file.path
+    }
+
     const db = req.db;
     db.Writing.create({
           written_by: req.session.user.username,
           assignee: req.body.assignee,
           text: req.body.text,
+          image: file_path,
           title: req.body.title,
           lang_abbr: req.body.lang_abbr
         }).then(msg => {
@@ -39,12 +49,13 @@ router.post("/", (req, res, next) => {
 /**
  * @api {get} /api/writing/ list writing
  * @apiName list writings by (query) written_by and/or assignee
- * @apiGroup user
- * @apiPermission User
+ * @apiGroup writing
+ * @apiPermission Writing
  * @apiSuccess {Object[]} writings                   writings
  * @apiSuccess {Integer}  writings.writing_id        writing id
  * @apiSuccess {String}   writings.title             title
  * @apiSuccess {String}   writings.text              text
+ * @apiSuccess {String}   writings.image             image
  * @apiSuccess {String}   writings.lang_abbr         lang_abbr
  * @apiSuccess {String}   writings.written_by        author of writing
  * @apiSuccess {String}   writings.assignee          assignee
@@ -74,7 +85,7 @@ router.get("/", (req, res, next) => {
     }
     const db = req.db;
     db.Writing.findAll({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title', 'lang_abbr' ],
+        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'image', 'title', 'lang_abbr' ],
         where: where
     }).then(function (writings){
         res.send(writings);
@@ -84,12 +95,13 @@ router.get("/", (req, res, next) => {
 /**
  * @api {get} /api/writing/:id get writing by id
  * @apiName get writing by id
- * @apiGroup user
- * @apiPermission User
+ * @apiGroup writing
+ * @apiPermission Writing
  * @apiSuccess {Object}   writing                    writing
  * @apiSuccess {Integer}  writing.writing_id         writing id
  * @apiSuccess {String}   writing.title              title
  * @apiSuccess {String}   writing.text               text
+ * @apiSuccess {String}   writing.image              image
  * @apiSuccess {String}   writing.lang_abbr          lang_abbr
  * @apiSuccess {String}   writing.written_by         author of writing
  * @apiSuccess {String}   writing.assignee           assignee
@@ -108,7 +120,7 @@ router.get("/:id", (req, res, next) => {
     const username = req.session.user.username;
     const db = req.db;
     db.Writing.findOne({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title', 'lang_abbr' ],
+        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'image', 'title', 'lang_abbr' ],
         where: {
             writing_id: req.params.id
         }
@@ -124,10 +136,10 @@ router.get("/:id", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/writing/:id/assignee set assignee
+ * @api {get} /api/writing/:id/assignee/:assignee_username set assignee
  * @apiName set assignee of the writing
- * @apiGroup user
- * @apiPermission User
+ * @apiGroup writing
+ * @apiPermission Writing
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 204 OK
  */
@@ -143,7 +155,6 @@ router.put("/:id/assignee/:assignee_username", (req, res, next) => {
     const username = req.session.user.username;
     const db = req.db;
     db.Writing.findOne({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title' ],
         where: {
             writing_id: req.params.id
         }

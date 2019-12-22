@@ -11,7 +11,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     text: {
-      allowNull: false,
+      type: DataTypes.TEXT
+    },
+    image: {
       type: DataTypes.TEXT
     },
     written_by: {
@@ -22,7 +24,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     lang_abbr:{
-      allowNull: false,
       type: DataTypes.STRING,
     }
 
