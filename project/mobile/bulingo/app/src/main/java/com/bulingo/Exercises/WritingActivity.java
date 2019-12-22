@@ -153,6 +153,7 @@ public class WritingActivity extends PermissionRequestingActivity implements Per
         Intent intent = new Intent(getApplicationContext(), SendSearchActivity.class);
         intent.putExtra("username", this.username);
         intent.putExtra("isImage", isImage);
+        intent.putExtra("abbr", abbr);
         if(isImage) {
             intent.putExtra("imageUri", this.imUri);
         } else {

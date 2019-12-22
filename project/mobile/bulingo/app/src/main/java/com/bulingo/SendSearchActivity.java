@@ -51,6 +51,7 @@ public class SendSearchActivity extends AppCompatActivity {
     String text = "";
     Boolean isImage;
     Uri imageUri;
+    String abbr;
 
     private String textQuery = "";
 
@@ -63,6 +64,7 @@ public class SendSearchActivity extends AppCompatActivity {
             
             username = getIntent().getStringExtra("username");
             isImage = getIntent().getBooleanExtra("isImage", false);
+            abbr = getIntent().getStringExtra("abbr");
             if(isImage) {
                 imageUri = Uri.parse(getIntent().getStringExtra("imageUri"));
             } else {
@@ -124,11 +126,13 @@ public class SendSearchActivity extends AppCompatActivity {
         paramObject.addProperty("text", body);
         paramObject.addProperty("title", title);
         paramObject.addProperty("assignee", assignee);
-        Call<Void> responseCall = apiInterface.doPostWriting(username, paramObject);
+        paramObject.addProperty("lang_abbr", this.abbr);
+        Call<Void> responseCall = apiInterface.doPostWriting(paramObject);
 
         responseCall.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                toast("Writing sent successfully.");
                 finish();
             }
 

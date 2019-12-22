@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bulingo.Chat.RecyclerItemClickListener;
 import com.bulingo.Database.APICLient;
@@ -54,6 +55,15 @@ public class SendReceiveWriting extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(getApplicationContext(), AnnotateWriting.class);
+                        intent.putExtra("isSent", isSent);
+                        intent.putExtra("id", writings.get(position).id + "");
+                        intent.putExtra("username", username);
+                        intent.putExtra("textTitle", writings.get(position).title);
+                        intent.putExtra("textBody", writings.get(position).text);
+                        intent.putExtra("assignee", writings.get(position).assignee);
+                        intent.putExtra("writtenBy", writings.get(position).writer);
+                        startActivity(intent);
                     }
                     @Override public void onLongItemClick(View view, int position) {
                         // do whatever
@@ -120,5 +130,9 @@ public class SendReceiveWriting extends AppCompatActivity {
             }
 
         });
+    }
+
+    public void toast(String toast){
+        Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
     }
 }

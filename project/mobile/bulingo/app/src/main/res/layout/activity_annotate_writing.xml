@@ -30,28 +30,16 @@
             android:textSize="26dp"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:clickable="true"
-        android:focusable="true"
-        app:maxImageSize="64dp"
-        app:fabCustomSize="56dp"
-        app:srcCompat="@android:drawable/ic_menu_add" />
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="?attr/actionBarSize">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".Exercises.AnnotateWriting"
-        android:layout_marginTop="?attr/actionBarSize">
+        >
 
         <LinearLayout
             android:id="@+id/annotateLayout"
@@ -95,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:textAllCaps="false"
                 android:textSize="30sp"
-                android:text="Send Your Review"
+                android:text="Finish Your Review"
+                android:onClick="finishReview"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
                 android:paddingStart="16dp"

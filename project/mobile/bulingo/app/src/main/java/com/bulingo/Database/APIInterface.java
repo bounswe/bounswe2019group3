@@ -94,14 +94,20 @@ public interface APIInterface {
     @GET("/api/user/{username}/exercise/{id}/progress")
     Call<ExerciseProgress> doGetExerciseProgress(@Path("id") int id, @Path("username") String username);
 
-    @POST("/api/user/{username}/writing")
-    Call<Void> doPostWriting(@Path("username") String username, @Body JsonObject params);
+    @POST("/api/writing")
+    Call<Void> doPostWriting(@Body JsonObject params);
 
     @GET("/api/writing")
     Call<List<Writing>> doGetSentWriting(@Query("written_by") String username);
 
     @GET("/api/writing")
     Call<List<Writing>> doGetReceivedWriting(@Query("assignee") String username);
+
+    @GET("/api/annotation")
+    Call<List<Annotation>> doGetAnnotations(@Query("target_source") String target_id);
+
+    @POST("/api/annotation")
+    Call<Annotation> doPostAnnotation(@Body JsonObject params);
 
 
 }
