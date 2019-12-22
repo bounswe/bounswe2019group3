@@ -11,6 +11,7 @@ const path = require('path');
  * @apiPermission User
  * @apiParam (Request body(JSON)) {Object} writing
  * @apiParam (Request body(JSON)) {String} writing.text  
+ * @apiParam (Request body(JSON)) {String} writing.lang_abbr
  * @apiParam (Request body(JSON)) {String} writing.title  (optional)
  * @apiParam (Request body(JSON)) {String} writing.assignee assignee username (optional)
  * @apiSuccessExample Success-Response:
@@ -27,7 +28,8 @@ router.post("/", (req, res, next) => {
           written_by: req.session.user.username,
           assignee: req.body.assignee,
           text: req.body.text,
-          title: req.body.title
+          title: req.body.title,
+          lang_abbr: req.body.lang_abbr
         }).then(msg => {
           res.sendStatus(204);
     });
@@ -43,6 +45,7 @@ router.post("/", (req, res, next) => {
  * @apiSuccess {Integer}  writings.writing_id        writing id
  * @apiSuccess {String}   writings.title             title
  * @apiSuccess {String}   writings.text              text
+ * @apiSuccess {String}   writings.lang_abbr         lang_abbr
  * @apiSuccess {String}   writings.written_by        author of writing
  * @apiSuccess {String}   writings.assignee          assignee
  * @apiSuccessExample Success-Response:
@@ -71,7 +74,7 @@ router.get("/", (req, res, next) => {
     }
     const db = req.db;
     db.Writing.findAll({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title' ],
+        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title', 'lang_abbr' ],
         where: where
     }).then(function (writings){
         res.send(writings);
@@ -87,6 +90,7 @@ router.get("/", (req, res, next) => {
  * @apiSuccess {Integer}  writing.writing_id         writing id
  * @apiSuccess {String}   writing.title              title
  * @apiSuccess {String}   writing.text               text
+ * @apiSuccess {String}   writing.lang_abbr          lang_abbr
  * @apiSuccess {String}   writing.written_by         author of writing
  * @apiSuccess {String}   writing.assignee           assignee
  * @apiSuccessExample Success-Response:
@@ -104,7 +108,7 @@ router.get("/:id", (req, res, next) => {
     const username = req.session.user.username;
     const db = req.db;
     db.Writing.findOne({
-        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title' ],
+        attributes: ['writing_id', 'written_by', 'assignee', 'text', 'title', 'lang_abbr' ],
         where: {
             writing_id: req.params.id
         }
