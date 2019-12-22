@@ -419,4 +419,63 @@ router.post(
 );
 
 
+/**
+ * @api {get} /api/language/:language_abbr/recommendation/:id return recommendation
+ * @apiGroup language
+ * @apiPermission User
+ * @apiSuccess (Request body(JSON)) {Object[]}   recommendation
+ * @apiSuccess (Request body(JSON)) {String} recommendation.username                    username
+ * @apiSuccess (Request body(JSON)) {String} recommendation.rating                      rating
+ * @apiSuccess (Request body(JSON)) {Object[]} recommendation.grade                     grade
+ * @apiSuccess (Request body(JSON)) {String} recommendation.grade.lang_abbr             language abbreviation
+ * @apiSuccess (Request body(JSON)) {String} recommendation.grade.grade                 grade
+ */
+router.get("/:language_abbr/recommendation", (req, res, next) => {
+  if (!req.session.user) {
+      res.sendStatus(401);
+      return;
+  }
+  const username = req.session.user.username;
+  const db = req.db;
+  db.User.findAll({
+    attributes: ['username','rating'],
+    order: [
+        ['rating', 'DESC'],
+    ],
+    include: [
+        {   model: db.Level,
+            as: "grade",
+            attributes: ['grade'],
+            where: { lang_abbr: req.params.language_abbr }
+        }
+    ]
+}).then(function (users) {
+    db.Level.findOne({
+        where: {
+            belongs_to: req.session.user.username,
+            lang_abbr: req.params.language_abbr
+        }
+    }).then(function (user_grade){
+        users.filter((user) => user.grade[0].grade < user_grade);
+        users.sort((a,b) => {
+            if(a.rating == b.rating)
+                return 0;
+            if(a.rating > b.rating)
+                return -1;
+            if(a.rating < b.rating)
+                return 1;
+        });
+        users = users.slice(0,5);
+        
+        users = users.map((user) => {
+          let x = JSON.parse(JSON.stringify(user));
+          x.grade = x.grade[0].grade;
+          return x;
+        });
+        res.send(users);
+    })
+});
+});
+
+
 module.exports = { router };
