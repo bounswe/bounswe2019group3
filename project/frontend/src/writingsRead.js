@@ -28,11 +28,12 @@ export default class FormPage extends React.Component {
                     }
                 }
                 this.setState({
-                    text_anno_data:temp_data
+                    value:temp_data
                 })                
             })
         this.state ={
-            text_anno_data:[]
+            value:[],
+            tag: ''
         }
 
   }
@@ -41,7 +42,8 @@ export default class FormPage extends React.Component {
   }
   textWriting() {
     console.log([this.state.text_anno_data]);
-    
+    const state = this.state;
+    const setState = this.setState.bind(this);
     var row = [];
     
     row[0] = (
@@ -49,8 +51,6 @@ export default class FormPage extends React.Component {
         <center> <div className="commentsec_title "> {content.title}  </div></center>
         <MDBRow>
           <br />
-          <State initial={{ value: [this.state.text_anno_data], tag: '' }}>
-            {({ state, setState }) => (
               <Card className="topMargined">
 
                 <textarea onChange={e => setState({ tag: e.target.value })} onFocus={this.myonFocus.bind(this)}
@@ -73,8 +73,6 @@ export default class FormPage extends React.Component {
                   />
                 </div>
               </Card>
-            )}
-          </State>
         </MDBRow>
       </div>
 
