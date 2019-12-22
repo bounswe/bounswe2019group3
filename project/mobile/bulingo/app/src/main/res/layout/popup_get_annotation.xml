@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="300dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@android:color/white">
+    android:background="@android:color/transparent">
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/popup"
+        style="@style/language_button"
+        android:minWidth="160dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/annotationShow"
-        android:text="this is an annotation"
-        android:layout_gravity="center"
-        android:textSize="24dp"
-        android:layout_margin="24dp"
-        />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:padding="24dp"
+        android:textAllCaps="false"
+        android:fontFamily="@font/ubuntu_medium_italic"
+        android:layout_marginBottom="64dp"
+        app:autoSizeTextType="uniform"
+        app:autoSizeMinTextSize="10sp"
+        app:autoSizeMaxTextSize="20sp"
+        app:autoSizeStepGranularity="1sp"
+        android:text="This This This This This This This This"
+        app:cornerRadius="600dp"
+        app:backgroundTint="@android:color/white"
+        app:rippleColor="@color/colorAccent"
+        app:strokeColor="@color/colorAccent"
+        app:strokeWidth="6dp"
+        android:clickable="false" />
 
 </LinearLayout>

@@ -100,8 +100,10 @@ public class SendReceiveWriting extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Writing>> call, Response<List<Writing>> response) {
                 writings.clear();
-                writings.addAll(response.body());
-                adapter.notifyDataSetChanged();
+                if(response.body() != null){
+                    writings.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -120,8 +122,10 @@ public class SendReceiveWriting extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<Writing>> call, Response<List<Writing>> response) {
                 writings.clear();
-                writings.addAll(response.body());
-                adapter.notifyDataSetChanged();
+                if(response.body() != null){
+                    writings.addAll(response.body());
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override

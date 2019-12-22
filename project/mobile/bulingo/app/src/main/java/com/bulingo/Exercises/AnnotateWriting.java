@@ -32,6 +32,7 @@ import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Annotation;
 import com.bulingo.R;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonObject;
 
@@ -95,10 +96,6 @@ public class AnnotateWriting extends AppCompatActivity implements ActionMode.Cal
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
         start = mTextView.getSelectionStart();
         end = mTextView.getSelectionEnd();
-        //    Spannable textToSpan = (Spannable) mTextView.getText();
-
-        //    textToSpan.setSpan(new BackgroundColorSpan(Color.YELLOW), start, end, 0);
-        //    mTextView.setText(textToSpan);
 
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -235,8 +232,26 @@ public class AnnotateWriting extends AppCompatActivity implements ActionMode.Cal
                 public void onClick(View textView) {
                     Spanned s = (Spanned) mTextView.getText();
                     int clickStart = s.getSpanStart(this);
-                    toast((annotationMap.get(clickStart) == null)? "error" : annotationMap.get(clickStart).body.value);
+                    if(annotationMap.get(clickStart) != null){
+                        //--------------Popup stuff---------------
+                        LayoutInflater inflater = (LayoutInflater)
+                                getSystemService(LAYOUT_INFLATER_SERVICE);
+                        popupView = inflater.inflate(R.layout.popup_get_annotation, null);
+                        MaterialButton button  = popupView.findViewById(R.id.popup);
+                        button.setText(annotationMap.get(clickStart).body.value + " ");
+                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        popupWindow = new PopupWindow(popupView, width, height, true);
+                        popupWindow.showAtLocation(mTextView, Gravity.BOTTOM, 0,0);
+                        View container = popupWindow.getContentView().getRootView();
+                        WindowManager wm = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+                        WindowManager.LayoutParams p = (WindowManager.LayoutParams) container.getLayoutParams();
+                        p.flags |= WindowManager.LayoutParams.FLAG_DIM_BEHIND;
+                        p.dimAmount = 0.27f;
+                        wm.updateViewLayout(container, p);
+                    }
                 }
+
                 @Override
                 public void updateDrawState(TextPaint ds) {
                     super.updateDrawState(ds);
