@@ -4,24 +4,26 @@ import './General.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'
-var languageProgress = []
-var exerciseProgress = []
+var languageProgress;
+var exerciseProgress;
+var languages
 export default class FormPage extends React.Component {
     constructor(props) {
         super(props);
+        languageProgress = []
+        exerciseProgress = []
+        languages = []
         //api/language/
         axios.get('http://18.184.207.248/api/language', { withCredentials: true })
             .then(res => {
                 //console.log(res.data)
-                this.setState({
-                    languages: res.data
-
-                })                
+                languages = res.data
+                             
                 
 
-                for (let index = 0; index < this.state.languages.length; index++) {
+                for (let index = 0; index < languages.length; index++) {
                     //console.log('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + this.state.languages[index].abbr + '/progress')
-                    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + this.state.languages[index].abbr + '/progress', { withCredentials: true })
+                    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + languages[index].abbr + '/progress', { withCredentials: true })
                         .then(res => {
                             //console.log('here3')
                             //console.log(res.data)
@@ -30,14 +32,13 @@ export default class FormPage extends React.Component {
                         )
                     //api/language/:language_abbr/exercise
                     //console.log('http://18.184.207.248/api/language/' + this.state.languages[index].abbr + '/exercise')
-                    axios.get('http://18.184.207.248/api/language/' + this.state.languages[index].abbr + '/exercise', { withCredentials: true })
+                    axios.get('http://18.184.207.248/api/language/' + languages[index].abbr + '/exercise', { withCredentials: true })
                         .then(res => {
                             //console.log(res.data);
                             var exercisesOfAbbr = res.data;
                             //console.log(exercisesOfAbbr);
                             for (let i = 0; i < exercisesOfAbbr.length; i++) {
                                 //api/user/:username/exercise/:exercise_id/progress
-
                                 //console.log('http://18.184.207.248/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id +'/progress')
                                 axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id + '/progress', { withCredentials: true })
                                     .then(res => {
@@ -52,14 +53,20 @@ export default class FormPage extends React.Component {
                         })
                     
                 }
-
+                console.log("here")
+                this.setState({
+                    lang : languages,
+                    languageProg : languageProgress,
+                    exerciseProg : exerciseProgress,
+                })
 
             })
 
 
         this.state = {
-            languages: [],
-            
+            lang: [],
+            languageProg : [],
+            exerciseProg : [],
             clicked: false,
             id: "",
             abbr: ""
@@ -87,9 +94,9 @@ export default class FormPage extends React.Component {
     }
     fill_exercise_table() {
         
-        console.log(exerciseProgress)
+        //console.log(exerciseProgress)
         var row = [];
-        console.log(exerciseProgress.length)
+        //console.log(exerciseProgress.length)
         for (let i = 0; i < exerciseProgress.length; i++) {
             
             if (this.state.exerciseProg[i] !== undefined) {
@@ -129,7 +136,10 @@ export default class FormPage extends React.Component {
 
     render() {
 
-              
+             //console.log(exerciseProgress);
+             //console.log(languageProgress);
+             console.log(this.state.exerciseProg[0]);
+             console.log(this.state.languageProg);
         return (
             <MDBContainer fluid>
                 <MDBRow className="topMargined">
