@@ -12,7 +12,7 @@ const path = require('path');
  * @apiParam (Request body) {Object} writing
  * @apiParam (Request body) {String} writing.text  
  * @apiParam (Request body) {File}   writing.image   
- * @apiParam (Request body {String} writing.lang_abbr
+ * @apiParam (Request body) {String} writing.lang_abbr
  * @apiParam (Request body) {String} writing.title  (optional)
  * @apiParam (Request body) {String} writing.assignee assignee username (optional)
  * @apiSuccessExample Success-Response:
@@ -136,7 +136,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 /**
- * @api {get} /api/writing/:id/assignee/:assignee_username set assignee
+ * @api {put} /api/writing/:id/assignee/:assignee_username set assignee
  * @apiName set assignee of the writing
  * @apiGroup writing
  * @apiPermission Writing
