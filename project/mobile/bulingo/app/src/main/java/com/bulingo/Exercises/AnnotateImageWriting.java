@@ -72,5 +72,8 @@ public class AnnotateImageWriting extends AppCompatActivity {
                 .into(imageView);
     }
 
+    public void finishReview(View view) {
+        finish();
+    }
 
 }

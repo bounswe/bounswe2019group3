@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -14,6 +15,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -99,7 +101,7 @@ public interface APIInterface {
 
     @Multipart
     @POST("/api/writing")
-    Call<Void> doPostWritingImage(@Part("title") RequestBody title, @Part("assignee") RequestBody assignee, @Part("lang_abbr") RequestBody abbr, @Part MultipartBody.Part file);
+    Call<Void> doPostWritingImage(@PartMap Map<String, RequestBody> params, @Part MultipartBody.Part file);
 
     @GET("/api/writing")
     Call<List<Writing>> doGetSentWriting(@Query("written_by") String username);

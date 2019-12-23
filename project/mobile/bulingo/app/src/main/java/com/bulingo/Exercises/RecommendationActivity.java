@@ -26,7 +26,9 @@ import com.google.gson.JsonObject;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -167,13 +169,15 @@ public class RecommendationActivity extends AppCompatActivity {
             return;
         }
 
-        RequestBody body1 = RequestBody.create(title, MediaType.parse("text/plain"));
-        RequestBody body2 = RequestBody.create(assignee, MediaType.parse("text/plain"));
-        RequestBody body3 = RequestBody.create(abbr, MediaType.parse("text/plain"));
+        Map<String, RequestBody> map = new HashMap<>();
+        map.put("title", toRequestBody(title));
+        map.put("assignee", toRequestBody(assignee));
+        map.put("lang_abbr", toRequestBody(abbr));
+
         RequestBody fileReqBody = RequestBody.create(imageFile, MediaType.parse("image/*"));
         MultipartBody.Part part = MultipartBody.Part.createFormData("image", imageFile.getName(), fileReqBody);
 
-        Call<Void> responseCall = apiInterface.doPostWritingImage(body1, body2, body3, part);
+        Call<Void> responseCall = apiInterface.doPostWritingImage(map, part);
 
         responseCall.enqueue(new Callback<Void>() {
             @Override
@@ -187,6 +191,11 @@ public class RecommendationActivity extends AppCompatActivity {
                 toast("Writing image sending failed.");
             }
         });
+    }
+
+    public static RequestBody toRequestBody (String value) {
+        RequestBody body = RequestBody.create(MediaType.parse("text/plain"), value);
+        return body ;
     }
 
 
