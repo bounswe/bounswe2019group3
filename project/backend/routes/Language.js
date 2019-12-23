@@ -348,6 +348,7 @@ router.post(
       for (let i = 0; i < req.body.length; i++) {
         if (
           req.body[i].question_id == "" ||
+          req.body[i].question_id == "undefined" ||
           req.body[i].question_id == undefined
         ) {
           bad_req = true;
