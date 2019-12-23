@@ -8,7 +8,7 @@ module.exports = {
           email:      "email1",
           bio:        "Anonymous",
           avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
-          rating:     5.0,
+          rating:     1.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
@@ -17,7 +17,7 @@ module.exports = {
           email:      "email2",
           bio:        "Anonymous",
           avatar:     "https://randomuser.me/api/portraits/lego/2.jpg",
-          rating:     5.0,
+          rating:     1.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
@@ -26,7 +26,7 @@ module.exports = {
           email:      "robby.vanbaren@example.com",
           bio:        "I am Robby Van Baren, and I live in Wessem, Netherlands.I want to learn foreign languages.",
           avatar:     "https://randomuser.me/api/portraits/men/57.jpg",
-          rating:     5.0,
+          rating:     3.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
@@ -44,7 +44,7 @@ module.exports = {
           email:      "lily.edwards@example.com",
           bio:        "I am Lily Edwards, and I live in Whangarei, New Zealand.I want to learn foreign languages.",
           avatar:     "https://randomuser.me/api/portraits/women/82.jpg",
-          rating:     5.0,
+          rating:     4.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
       },
@@ -53,7 +53,7 @@ module.exports = {
           email:      "elza.vieira@example.com",
           bio:        "I am Elza Vieira, and I live in Poços de Caldas, Brazil.I want to learn foreign languages.",
           avatar:     "https://randomuser.me/api/portraits/women/72.jpg",
-          rating:     5.0,
+          rating:     2.0,
           createdAt:  new Date(),
           updatedAt:  new Date()
       }

@@ -1,0 +1,12 @@
+{
+    "development": {
+      "domain": "http://localhost/api/"
+    },
+    "test": {
+      "domain": "http://localhost/api/"
+    },
+    "production": {
+      "domain": "http://18.184.207.248/api/"
+    }
+  }
+  

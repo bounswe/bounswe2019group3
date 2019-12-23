@@ -30,7 +30,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       },
-
+      
       {
         title: "Writing Exercise-Sample",
         lang_abbr: "en",

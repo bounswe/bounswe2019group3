@@ -8,6 +8,9 @@ services:
     ports:
       - "3000:3000"
       - "9229:9229"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
     volumes:
       - ./../../uploads:/backend/uploads
 

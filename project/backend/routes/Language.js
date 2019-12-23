@@ -229,6 +229,51 @@ router.get("/:language_abbr/exercise", (req, res, next) => {
   });
 });
 
+router.post("/:language_abbr/exercise", (req, res, next) => {
+  // if (!req.session.user) {
+  //   res.sendStatus(401);
+  //   return;
+  // }
+  let exercise_questions = req.body.exercise_questions.map((q) => {
+    let x = JSON.parse(JSON.stringify(q));
+    x.lang_abbr = req.params.language_abbr;
+    return x;
+  })
+  const db = req.db;
+  db.Exercise.create(
+    {
+      title: req.body.title,
+      lang_abbr: req.params.language_abbr,
+      exercise_type: req.body.exercise_type,
+      level: req.body.level,
+      tags: req.body.tags,
+      exercise_questions: exercise_questions
+    },
+    {
+      include: [
+        {
+          model: db.ExerciseQuestion,
+          as: "exercise_questions",
+          include: [
+            {
+              model: db.ExerciseChoice,
+              as: "choices"
+            }
+          ]
+        }
+      ]
+    }
+  ).then((e) => {
+    e.exercise_questions.forEach((q) => {
+      let q2 = exercise_questions.find((q2) => q2.desc == q.desc);
+      q.answer_id = q.choices.find((c) => c.desc == q2.choices[q2.answer].desc).choice_id;
+    })
+    return e.save();
+  }).then((e) => {
+    res.send(e);
+  })
+});
+
 /**
  * @api {get} /api/language/:language_abbr/exercise/:exersice_id/questions return the exercise
  * @apiGroup language
@@ -294,53 +339,187 @@ router.get(
 router.post(
   "/:language_abbr/exercise/:exercise_id/evaluate",
   (req, res, next) => {
-    const db = req.db;
-    let bad_req = false;
-    for (let i = 0; i < req.body.length; i++) {
-      if (
-        req.body[i].question_id == "" ||
-        req.body[i].question_id == undefined
-      ) {
-        bad_req = true;
-        break;
-      }
+    if (!req.session.user) {
+      res.sendStatus(403);
     }
-    if (bad_req) {
-      res.sendStatus(400);
-    } else {
-      db.ExerciseQuestion.findAll({
-        where: db.Sequelize.or({
-          lang_abbr: req.params.language_abbr,
-          exercise_id: req.params.exercise_id
-        })
-      }).then(question => {
-        let counter = 0;
-        let hashAnswers = {};
-        question.forEach(q => {
-          hashAnswers[q.question_id] = q.answer_id;
-        });
-        for (let i = 0; i < req.body.length; i++) {
-          if (hashAnswers[req.body[i].question_id] == req.body[i].choice_id) {
-            counter++;
+    else {
+      const db = req.db;
+      let bad_req = false;
+      for (let i = 0; i < req.body.length; i++) {
+        if (
+          req.body[i].question_id == "" ||
+          req.body[i].question_id == undefined
+        ) {
+          bad_req = true;
+          break;
+        }
+      }
+      if (bad_req) {
+        res.sendStatus(400);
+      } else {
+        db.ExerciseQuestion.findAll({
+          where: db.Sequelize.or({
+            lang_abbr: req.params.language_abbr,
+            exercise_id: req.params.exercise_id
+          })
+        }).then(question => {
+          let counter = 0;
+          let hashAnswers = {};
+          question.forEach(q => {
+            hashAnswers[q.question_id] = q.answer_id;
+          });
+          for (let i = 0; i < req.body.length; i++) {
+            if (hashAnswers[req.body[i].question_id] == req.body[i].choice_id) {
+              counter++;
+            }
           }
-        }
-        let response = {};
-        response.nb_correct_answers = counter;
-        response.nb_questions = question.length;
-        const keys = Object.keys(hashAnswers);
-        const values = Object.values(hashAnswers);
-        let answers = [];
-        for (let i = 0; i < keys.length; i++) {
-          answers[i] = {
-            question_id: keys[i],
-            choice_id: values[i]
-          };
-        }
-        response.answers = answers;
-        res.send(response);
-      });
+          let response = {};
+          response.nb_correct_answers = counter;
+          response.nb_questions = question.length;
+          const keys = Object.keys(hashAnswers);
+          const values = Object.values(hashAnswers);
+          let answers = [];
+          for (let i = 0; i < keys.length; i++) {
+            answers[i] = {
+              question_id: keys[i],
+              choice_id: values[i]
+            };
+          }
+          response.answers = answers;
+          // Update Exercise Progress
+          db.ExerciseProgress.update(
+            {
+              question_done: response.nb_correct_answers,
+              updatedAt: new Date()
+            },
+            {
+              where: {
+                username: req.session.user.username,
+                exercise_id: req.params.exercise_id
+              }
+            }
+          ).then(function([change]) {
+              if(!change){
+                db.ExerciseProgress.create({
+                  username: req.session.user.username,
+                  exercise_id: req.params.exercise_id,
+                  question_done: response.nb_correct_answers,
+                  questions: response.nb_questions,
+                  createdAt: new Date(),
+                  updatedAt: new Date()
+                });
+              }
+          });
+          // Update Language Progress
+          db.LanguageProgress.findOne(
+            {
+              where: {
+                username: req.session.user.username,
+                lang_abbr: req.params.language_abbr
+              }
+            }
+          ).then(function(change) {
+            if(change === null){
+              let current_exercises = 0;
+              db.Exercise.findAll({
+                  where: {
+                    lang_abbr: req.params.language_abbr
+                  }
+                }).then(exercises => {
+                  if (!exercises) {
+                    res.sendStatus(400);
+                  } else {
+                    current_exercises = exercises.length;
+                  }
+                }).then(function () {
+                  db.LanguageProgress.create({
+                      username: req.session.user.username,
+                      lang_abbr: req.params.language_abbr,
+                      exercise_done: [req.params.exercise_id],
+                      exercises: current_exercises,
+                      createdAt:  new Date(),
+                      updatedAt:  new Date()
+                    })
+                })
+            }
+            else if(!change.dataValues.exercise_done.includes(Number(req.params.exercise_id)))
+                  db.LanguageProgress.update(
+                    {
+                      exercise_done: db.Sequelize.fn('array_append', db.Sequelize.col('exercise_done'), req.params.exercise_id),
+                      updatedAt: new Date()
+                    },
+                    {
+                      where: {
+                        username: req.session.user.username,
+                        lang_abbr: req.params.language_abbr
+                      }
+                    }
+                  )
+          });
+          res.send(response);
+        });
+      }
     }
   }
 );
+
+
+/**
+ * @api {get} /api/language/:language_abbr/recommendation/:id return recommendation
+ * @apiGroup language
+ * @apiPermission User
+ * @apiSuccess (Request body(JSON)) {Object[]}   recommendation
+ * @apiSuccess (Request body(JSON)) {String} recommendation.username                    username
+ * @apiSuccess (Request body(JSON)) {String} recommendation.rating                      rating
+ * @apiSuccess (Request body(JSON)) {Object[]} recommendation.grade                     grade
+ * @apiSuccess (Request body(JSON)) {String} recommendation.grade.lang_abbr             language abbreviation
+ * @apiSuccess (Request body(JSON)) {String} recommendation.grade.grade                 grade
+ */
+router.get("/:language_abbr/recommendation", (req, res, next) => {
+  if (!req.session.user) {
+      res.sendStatus(401);
+      return;
+  }
+  const db = req.db;
+  db.User.findAll({
+    attributes: ['username','rating'],
+    order: [
+        ['rating', 'DESC'],
+    ],
+    include: [
+        {   model: db.Level,
+            as: "grade",
+            attributes: ['grade'],
+            where: { lang_abbr: req.params.language_abbr }
+        }
+    ]
+}).then(function (users) {
+    db.Level.findOne({
+        where: {
+            belongs_to: req.session.user.username,
+            lang_abbr: req.params.language_abbr
+        }
+    }).then(function (user_grade){
+        users.filter((user) => user.grade[0].grade < user_grade);
+        users.sort((a,b) => {
+            if(a.rating == b.rating)
+                return 0;
+            if(a.rating > b.rating)
+                return -1;
+            if(a.rating < b.rating)
+                return 1;
+        });
+        users = users.slice(0,5);
+        
+        users = users.map((user) => {
+          let x = JSON.parse(JSON.stringify(user));
+          x.grade = x.grade[0].grade;
+          return x;
+        });
+        res.send(users);
+    })
+});
+});
+
 
 module.exports = { router };
