@@ -1,8 +1,21 @@
 const router = require('express').Router();
 const multer = require('multer');
-const writing_upload = multer({dest: '/backend/uploads/writings'});
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+
+const writing_upload_storage = multer.diskStorage({
+    destination: '/backend/uploads/writings',
+    filename: function (req, file, cb) {
+      crypto.pseudoRandomBytes(16, function (err, raw) {
+        if (err) return cb(err)
+  
+        cb(null, raw.toString('hex') + path.extname(file.originalname))
+      })
+    }
+});
+
+const writing_upload = multer({ storage: writing_upload_storage });
 
 /**
  * @api {post} /api/writing/ save writing
@@ -29,7 +42,7 @@ router.post("/", writing_upload.single('image'), (req, res, next) => {
     }
     let file_path = undefined;
     if(req.file) {
-        file_path = 'api/uploads/writings/' + req.file.filename + path.extname(req.file.originalname);
+        file_path = 'api/uploads/writings/' + req.file.filename;
     }
 
     const db = req.db;
