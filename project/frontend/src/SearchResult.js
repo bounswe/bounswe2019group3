@@ -9,22 +9,70 @@ export default class FormPage extends React.Component {
   constructor(props) {
     super(props);
 
-    axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
-      .then(res => {
-        console.log(res.data)
-        this.setState({
-          response: res.data
+
+    if (Cookies.get('search_type') === "user") {
+      axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
+        .then(res => {
+          console.log(res.data)
+          this.setState({
+            response: res.data
+          })
         })
-      })
+    } else {
+
+      axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') +
+        '&type=' + Cookies.get('search_type') +
+        '&lang_abbr=' + Cookies.get('search_exercise_language') +
+        '&level=' + Cookies.get('search_exercise_level')
+        + '&exercise_type=' + Cookies.get('search_exercise_type'), { withCredentials: true })
+        .then(res => {
+          console.log(res.data)
+          this.setState({
+            response: res.data
+          })
+        })
+
+
+    }
 
     this.state = {
       is_myself: false,
       choosed_person: "",
       is_go_user_profile: false,
+      is_go_exercise_page : false,
       searched_type: Cookies.get('search_type'),
-      response: []
+      response: [],
+      goToProfile: false
     }
     //this.onChangeOption = this.onChangeOption.bind(this);
+  }
+
+  fill_search_table_head() {
+    var first_line = [];
+    if (this.state.searched_type === "user") {
+      first_line[0] = (
+        <tr>
+          <th className="Messagebox"><b>result #</b></th>
+          <th className="Messagebox">
+            <b>{this.state.searched_type}</b>
+          </th>
+        </tr>
+      )
+    }
+    else{
+      first_line[0] = (
+        <tr>
+          <th className="Messagebox"><b>result #</b></th>
+          <th className="Messagebox"><b>title</b></th>
+          <th className="Messagebox"><b>exercise_id </b></th>
+          <th className="Messagebox"><b>language </b></th>
+          <th className="Messagebox"><b>type </b></th>
+          <th className="Messagebox"><b>level </b></th>
+        </tr>
+      )
+    }
+
+    return first_line;
   }
 
   fill_search_table() {
@@ -34,14 +82,35 @@ export default class FormPage extends React.Component {
         row[i] = (
           <tr >
             <td className="Messagebox" scope="row">{i + 1}</td>
-            <td className="Messagebox" onClick={this.go_user_profile.bind(this, this.state.response[i].username)}>
+            <td className="Messagebox clickable" onClick={this.go_user_profile.bind(this, this.state.response[i].username)}>
               {this.state.response[i].username}
             </td>
           </tr>
         );
       }
     } else {  // if searched type is excersise 
-
+      for (let i = 0; i < this.state.response.length; i++) {
+        row[i] = (
+          <tr >
+            <td className="Messagebox" scope="row">{i + 1}</td>
+            <td className="Messagebox clickable" onClick={this.go_exercise_page.bind(this, this.state.response[i].exercise_id)}>
+              {this.state.response[i].title}
+            </td>
+            <td className="Messagebox" >
+              {this.state.response[i].exercise_id}
+            </td>
+            <td className="Messagebox" >
+              {this.state.response[i].lang_abbr}
+            </td>
+            <td className="Messagebox" >
+              {this.state.response[i].exercise_type}
+            </td>
+            <td className="Messagebox" >
+              {this.state.response[i].level}
+            </td>
+          </tr>
+        );
+      }
     }
 
     return row;
@@ -59,6 +128,14 @@ export default class FormPage extends React.Component {
     })
   }
 
+  go_exercise_page(exercise_id){
+    Cookies.set('selectedLanguageAbbr' , Cookies.get('search_exercise_language'));
+    Cookies.set('selectedExerciseId', exercise_id)
+    this.setState({
+      is_go_exercise_page: true
+    })
+  }
+
   componentDidMount() {
     var _navbar = document.getElementById("nav");
     if (_navbar.childNodes.length > 2) {
@@ -70,6 +147,7 @@ export default class FormPage extends React.Component {
         '<li id="chld"><a href="/profile">Profile</a></li>');
       _nav.insertAdjacentHTML('afterend',
         '<li id="chld"><a href="/exam">Exam</a></li>' +
+        '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
         '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
@@ -79,7 +157,14 @@ export default class FormPage extends React.Component {
   }
 
   render() {
-
+    /*if (this.state.goToProfile) {
+      return (<Redirect
+        push to={{
+          pathname: "/user",
+          data_: this.state.choosed_person
+        }}
+      />);
+    }*/
     if (this.state.is_go_user_profile) {
       if (this.state.is_myself) {
         return (<Redirect
@@ -96,7 +181,14 @@ export default class FormPage extends React.Component {
       />);
     }
 
-    console.log(this.state)
+    if(this.state.is_go_exercise_page){
+      return (<Redirect
+        to={{
+          pathname: "/exercise",
+        }}
+      />);
+    }
+
     return (
       <MDBContainer fluid>
         <MDBRow className="topMargined">
@@ -107,14 +199,9 @@ export default class FormPage extends React.Component {
               <MDBRow>
                 <MDBCol md="6">
                   <MDBRow>
-                    <table id="tablePreview" className="table">
+                    <table id="tablePreview" className="Messagebox">
                       <thead>
-                        <tr>
-                          <th className = "Messagebox"><b>result #</b></th>
-                          <th className="Messagebox">
-                            <b>{this.state.searched_type}</b>
-                          </th>
-                        </tr>
+                        {this.fill_search_table_head()}
                       </thead>
                       <tbody>
                         {this.fill_search_table()}

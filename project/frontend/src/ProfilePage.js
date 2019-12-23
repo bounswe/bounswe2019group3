@@ -67,13 +67,18 @@ export default class FormPage extends React.Component {
 
   languagesWithLevels() {
     var lan = [];
+    
     for (let i = 0; i < this.state.languages.length; i++) {
+      Cookies.set(this.state.languages[i].lang_abbr+"level", this.state.languages[i].grade);
       lan[i] = (
         <MDBCol md="4" className="topMargined commentsec_usrname">
           <div >
             <p > {this.state.languages[i].lang_abbr} -> {this.state.languages[i].grade}  </p>
-          </div>
+           
+         </div>
+         
         </MDBCol>
+
       );
     }
     return lan;
@@ -91,6 +96,7 @@ export default class FormPage extends React.Component {
     '<li id="chld"><a href="/profile">Profile</a></li>');
     _nav.insertAdjacentHTML('afterend',
     '<li id="chld"><a href="/exam">Exam</a></li>'+
+    '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
     '<li id="chld"><a href="/writing">Send Writing</a></li>'+
     '<li id="chld"><a href="/messages">Messages</a></li>' +
     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>'+
@@ -102,7 +108,7 @@ export default class FormPage extends React.Component {
     return (
       <MDBContainer fluid>
         <MDBRow>
-          <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
+          <center><img className="backpicture" src=".\earth4.png" alt="." width="80%" /></center>
           <MDBCol md="4">
             <div className="fixedsizebio">
               <div className="marginedleft20">
@@ -110,12 +116,12 @@ export default class FormPage extends React.Component {
                   <MDBCol md="6">
                     <MDBRow>
                       <MDBCol>
-                        <div > <p className="commentsec_usrname topMargined" >{this.state.information.username}</p> </div>
+                        <div > <p className="topMargined commentsec_title" >{this.state.information.username}</p> </div>
                         <StarRatingComponent
                           editing={false}
                           starCount={5}
                           value={this.state.information.rating}
-                          size="50px"
+                          
                         />
                       </MDBCol>
                     </MDBRow>
