@@ -62,6 +62,7 @@ export default class FormPage extends React.Component {
                 })
             })
         this.state = {
+            isSended: false,
             value: [],
             tag: '',
             image_annotations: [],
@@ -156,6 +157,9 @@ export default class FormPage extends React.Component {
 
             }
         }
+        this.setState({
+            isSended:true
+        })
     }
     myonFocus(element) {
         element.target.value = "";
@@ -248,6 +252,13 @@ export default class FormPage extends React.Component {
     }
 
     render() {
+        if(this.state.isSended){
+            return (<Redirect
+                push to={{
+                  pathname: "/writingsList"
+                }}
+              />);
+        }
 
         if (content.image === null) {
             return (
