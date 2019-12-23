@@ -207,7 +207,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                 Log.d("request", response.toString());
                 if(response.code() == 200 && response.body() != null) {
                     LanguageProgress progress = response.body();
-                    int percentage = 100*progress.done/progress.allExercises;
+                    int percentage = (progress.allExercises == 0)? 0 : 100*progress.done/progress.allExercises;
                     ProgressBar progressBar = findViewById(R.id.progressBar);
                     runOnUiThread(() -> progressBar.setProgress(percentage));
                 } else {
