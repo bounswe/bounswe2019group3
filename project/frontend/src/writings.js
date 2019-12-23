@@ -157,7 +157,12 @@ export default class FormPage extends React.Component {
                             <MDBRow>
                                 <MDBCol md="6">
                                     <MDBRow>
-                                        My Writing
+                                        <div className="commentsec_title">
+                                            <center>
+                                                My Writings
+                                        </center>
+                                        </div>
+
                                     </MDBRow>
                                     <MDBRow>
                                         <table id="tablePreview" className="Messagebox">
@@ -170,7 +175,11 @@ export default class FormPage extends React.Component {
                                         </table>
                                     </MDBRow>
                                     <MDBRow>
-                                        Writing that assign to me
+                                        <div className="commentsec_title">
+                                            <center>
+                                                Assigned Writings
+                                        </center>
+                                        </div>
                                     </MDBRow>
                                     <MDBRow>
                                         <table id="tablePreview" className="Messagebox">

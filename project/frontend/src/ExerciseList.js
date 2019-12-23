@@ -29,17 +29,30 @@ export default class FormPage extends React.Component {
     var row = [];
     
       for (let i = 0; i < this.state.response.length; i++) {
-        if(this.state.response[i].level === Cookies.get(Cookies.get('selectedLanguageAbbr')+"level")){
+        if(!Cookies.get('username')){
           row[i] = (
             <tr >
               <td className="Messagebox">{this.state.response[i].exercise_id}</td>
-              <td className="Messagebox clickable" onClick={this.go_exercise.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr, this.state.response[i].exercise_type)}>{this.state.response[i].title}</td>
+              <td className="Messagebox" onClick={this.go_exercise.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr, this.state.response[i].exercise_type)}>{this.state.response[i].title}</td>
               <td className="Messagebox">{this.state.response[i].exercise_type}</td>
               <td className="Messagebox">{this.state.response[i].level}</td>
               <td className="Messagebox">{this.state.response[i].tags}</td>
             </tr>
           );
+        }else{
+          if(this.state.response[i].level === Cookies.get(Cookies.get('selectedLanguageAbbr')+"level")){
+            row[i] = (
+              <tr >
+                <td className="Messagebox">{this.state.response[i].exercise_id}</td>
+                <td className="Messagebox clickable" onClick={this.go_exercise.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr, this.state.response[i].exercise_type)}>{this.state.response[i].title}</td>
+                <td className="Messagebox">{this.state.response[i].exercise_type}</td>
+                <td className="Messagebox">{this.state.response[i].level}</td>
+                <td className="Messagebox">{this.state.response[i].tags}</td>
+              </tr>
+            );
+          }
         }
+        
       }   
     return row;
   }
@@ -52,27 +65,30 @@ export default class FormPage extends React.Component {
     this.setState({clicked: true});
   }
   componentDidMount() {
-    var _navbar = document.getElementById("nav");
-    if (_navbar.childNodes.length > 2) {
-      return;
-    } else {
-      _navbar.removeChild(_navbar.childNodes[0]);
-      var _nav = document.getElementById("last_item");
-      _nav.insertAdjacentHTML('beforebegin',
-        '<li id="chld"><a href="/profile">Profile</a></li>');
-      _nav.insertAdjacentHTML('afterend',
-        '<li id="chld"><a href="/exam">Exam</a></li>' +
-        '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
-        '<li id="chld"><a href="/writing">Send Writing</a></li>' +
-        '<li id="chld"><a href="/messages">Messages</a></li>' +
-        '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-        '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' +
-        '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
+
+    if(Cookies.get('username')){
+        var _navbar = document.getElementById("nav");
+        if (_navbar.childNodes.length > 2) {
+            return;
+        } else {
+            _navbar.removeChild(_navbar.childNodes[0]);
+            var _nav = document.getElementById("last_item");
+            _nav.insertAdjacentHTML('beforebegin',
+                '<li id="chld"><a href="/profile">Profile</a></li>');
+            _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/exam">Exam</a></li>' +
+                '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+                '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+                '<li id="chld"><a href="/messages">Messages</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Settings">Settings</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
+        }
     }
-  }
+}
 
   render() {  
-    if(this.state.clicked){      
+    if(this.state.clicked && Cookies.get('username')){      
         return (<Redirect
             push to={{
                 pathname: "/exercise",
