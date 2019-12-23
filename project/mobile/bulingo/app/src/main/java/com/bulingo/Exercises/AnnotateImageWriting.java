@@ -69,8 +69,6 @@ public class AnnotateImageWriting extends AppCompatActivity {
         }
         Glide.with(this)
                 .load(imageUrl)
-                .skipMemoryCache(true)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .into(imageView);
     }
 

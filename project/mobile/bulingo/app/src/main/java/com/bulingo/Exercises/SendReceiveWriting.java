@@ -55,15 +55,18 @@ public class SendReceiveWriting extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
-                        Intent intent = new Intent(getApplicationContext(), AnnotateWriting.class);
+                        Intent intent;
+
+                        if(writings.get(position).image != null) {
+                            intent = new Intent(getApplicationContext(), AnnotateImageWriting.class);
+                            intent.putExtra("image", writings.get(position).image);
+                        } else {
+                            intent = new Intent(getApplicationContext(), AnnotateWriting.class);
+                            intent.putExtra("textBody", writings.get(position).text);
+                        }
                         intent.putExtra("isSent", isSent);
                         intent.putExtra("id", writings.get(position).id + "");
                         intent.putExtra("username", username);
-                        if(writings.get(position).image != null) {
-                            intent.putExtra("image", writings.get(position).image);
-                        } else {
-                            intent.putExtra("textBody", writings.get(position).text);
-                        }
                         intent.putExtra("textTitle", writings.get(position).title);
                         intent.putExtra("assignee", writings.get(position).assignee);
                         intent.putExtra("writtenBy", writings.get(position).writer);
