@@ -1,5 +1,5 @@
 import React from "react";
-import { MDBInput,MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBRow, MDBCol } from 'mdbreact';
+import { MDBInput, MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBRow, MDBCol } from 'mdbreact';
 import Popup from './Popup';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
@@ -46,9 +46,9 @@ export default class GeneralTest extends React.Component {
                             <div className="answers radio-toolbar" >
                                 <div className="answerstext" >
                                     <input type="radio" name={i} value={0} />
-                                    <input  type="text" id={"q" + i + "a0"} />
+                                    <input type="text" id={"q" + i + "a0"} />
                                 </div>
-                                <div  className="answerstext" >
+                                <div className="answerstext" >
                                     <input type="radio" name={i} value={1} />
                                     <input type="text" id={"q" + i + "a1"} />
                                 </div>
@@ -79,6 +79,7 @@ export default class GeneralTest extends React.Component {
                 title: document.getElementById("title").value,
                 lang_abbr: document.getElementById("lang_abbr").value,
                 level: document.getElementById("level").value,
+                tags:document.getElementById("tags").value,
                 exercise_type: document.getElementById("exercise_type").value,
                 exercise_questions: []
             };
@@ -105,13 +106,11 @@ export default class GeneralTest extends React.Component {
             }
             document.getElementById("");
             console.log('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
-            axios.post('http://18.184.207.248/api/language/' + frm.lang_abbr  + '/exercise',  frm, { withCredentials: true })
+            axios.post('http://18.184.207.248/api/language/' + frm.lang_abbr + '/exercise', frm, { withCredentials: true })
                 .then(res => {
                     if (res.status === 200) {
                         console.log(res.data);
-
-
-
+                        this.setState({ submitted: true })
                     }
                 })
         } catch{
@@ -181,25 +180,15 @@ export default class GeneralTest extends React.Component {
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth4.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
-                        <MDBCol md="8">
-                            <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                                <MDBModalHeader toggle={this.toggle}>Answers</MDBModalHeader>
-                                <MDBModalBody>
-                                    (...)
-                                </MDBModalBody>
-                                <MDBModalFooter>
-                                    <MDBBtn color="orange" onClick={this.toggle}>Close</MDBBtn>
-                                </MDBModalFooter>
-                            </MDBModal>
+                        <MDBCol md="8">                            
                             <MDBInput
                                 id="title"
                                 label="Title"
-
-                                type="text"
-
-
-
-                            />
+                                type="text" />
+                            <MDBInput
+                                id="tags"
+                                label="Tags"
+                                type="text" />
 
                             <div>
                                 <select id="lang_abbr" class="browser-default custom-select mb-4">
