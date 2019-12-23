@@ -6,12 +6,18 @@ import ProfilePage from './ProfilePage';
 import ExaminationPage from './ExaminationPage';
 import GeneralTest from './GeneralTest';
 import Writing from './Writing';
+import writings from './writings';
+import writingsRead from './writingsRead'
 import Logout from './Logout';
 import Messages from './Messages';
 import Settings from './Settings';
 import UserProfile from './UserProfile';
 import Search from './Search';
 import SearchResult from './SearchResult'
+import ExerciseList from './ExerciseList'
+import Exercises from './Exercises'
+import Exercise from './Exercise'
+import progress from './Progress'
 
 class Routes extends React.Component {
 
@@ -34,6 +40,12 @@ class Routes extends React.Component {
           <Route path='/user' component={UserProfile} />
           <Route path='/search' component={Search} />
           <Route path='/searchResult' component = {SearchResult} />
+          <Route path='/exerciseList' component = {ExerciseList} />
+          <Route path='/exercises' component = {Exercises} />
+          <Route path='/exercise' component = {Exercise} />
+          <Route path='/progress' component = {progress} />
+          <Route path='/writingsList' component = {writings} />
+          <Route path='/writings' component = {writingsRead} />
         </Switch>
       );
   }

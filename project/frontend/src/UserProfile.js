@@ -100,6 +100,7 @@ export default class Messages extends React.Component {
             '<li id="chld"><a href="/profile">Profile</a></li>');
         _nav.insertAdjacentHTML('afterend',
             '<li id="chld"><a href="/exam">Exam</a></li>' +
+            '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
             '<li id="chld"><a href="/writing">Send Writing</a></li>' +
             '<li id="chld"><a href="/messages">Messages</a></li>' +
             '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
@@ -148,7 +149,8 @@ export default class Messages extends React.Component {
         if(this.state.is_comment_send){
             return (<Redirect
                 to={{
-                  pathname: "/profile",
+                    pathname: "/user", 
+                    //state : this.state                   
                 }}
               />);
         }

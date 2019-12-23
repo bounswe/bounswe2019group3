@@ -25,7 +25,7 @@ class App extends Component {
         <MDBRow id="navbar">
           <ul id="nav">
             <li id="home"><a href="/">Home</a></li>
-            <li id="last_item"><a href="#">Exercise</a></li>
+            <li id="last_item"><a href="/exercises">Exercise</a></li>
           </ul>
         </MDBRow>
         <MDBRow >
