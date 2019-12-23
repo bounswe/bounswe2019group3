@@ -1,79 +1,143 @@
-import React from 'react';
-import { Card, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import React, { Component } from 'react'
+import { MDBBtn, Card, MDBContainer, MDBRow, MDBCol } from 'mdbreact';
 import './General.css';
 import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 import { TokenAnnotator, TextAnnotator } from 'react-text-annotate'
 import { State, Toggle } from 'react-powerplug'
-
+import Annotation from 'react-image-annotation';
 
 var content;
 export default class FormPage extends React.Component {
   constructor(props) {
-    super(props);    
+    super(props);
     content = this.props.location._data;
     //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
     axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
-            .then(res => {
-                console.log(res.data.length);
-                var temp_data = [];
-                for (let i = 0; i < res.data.length; i++) {
-                    var temp = res.data[i].target.selector.value.substring(5);
-                    temp_data[i] = 
-                         {
-                            start: parseInt(temp.split(',')[0]),
-                            end: parseInt(temp.split(',')[1]),
-                            tag: res.data[i].body.value
-                    }
-                }
-                this.setState({
-                    value:temp_data
-                })                
-            })
-        this.state ={
-            value:[],
-            tag: ''
+      .then(res => {
+        console.log(res.data);
+        var temp_data = [];
+        for (let i = 0; i < res.data.length; i++) {
+          var temp = res.data[i].target.selector.value.substring(5);
+          temp_data[i] =
+          {
+            start: parseInt(temp.split(',')[0]),
+            end: parseInt(temp.split(',')[1]),
+            tag: res.data[i].body.value
+          }
         }
+        this.setState({
+          value: temp_data
+        })
+      })
+    this.state = {
+      value: [],
+      tag: '',
+      image_annotations: [],
+      image_annotation: {}
+    }
 
+  }
+
+
+  image_onChange = (image_annotation) => {
+    this.setState({ image_annotation })
+  }
+
+  image_onSubmit = (image_annotation) => {
+    console.log(image_annotation);
+    const { geometry, data } = image_annotation
+
+    this.setState({
+        image_annotation: {},
+        image_annotations: this.state.image_annotations.concat({
+        geometry,
+        data: {
+          ...data,
+          id: Math.random()
+        }
+      })
+    })
+  }
+
+  submit(annotations) {
+    for (let i = 0; i < annotations.value.length; i++) {
+      const element = annotations.value[i];
+
+      if (element.color === 'yellow') {
+        console.log(element);
+        const frm = {
+          "@context": "http://www.w3.org/ns/anno.jsonld",
+          type: "Annotation",
+          body: {
+            type: "TextualBody",
+            value: element.tag,
+            format: "text/plain"
+          },
+          target: {
+            source: "http://18.184.207.248/api/writing/" + content.writing_id,
+            creator: Cookies.get('username'),
+            type: "Text",
+            selector: {
+              type: "FragmentSelector",
+              conformsTo: "http://tools.ietf.org/rfc/rfc5147",
+              value: "char=" + element.start + "," + element.end,
+            }
+          }
+        };
+        axios.post('http://18.184.207.248/api/annotation', frm, { withCredentials: true })
+          .then(res => {
+            console.log(res);
+            if (res.status === 200) {
+              console.log(element.tag);
+            }
+          })
+
+      }
+    }
   }
   myonFocus(element) {
     element.target.value = "";
   }
   textWriting() {
-    console.log([this.state.text_anno_data]);
+    //console.log([this.state.text_anno_data]);
     const state = this.state;
     const setState = this.setState.bind(this);
     var row = [];
-    
+
     row[0] = (
       <div>
         <center> <div className="commentsec_title "> {content.title}  </div></center>
         <MDBRow>
           <br />
-              <Card className="topMargined">
+          <Card className="topMargined">
 
-                <textarea onChange={e => setState({ tag: e.target.value })} onFocus={this.myonFocus.bind(this)}
-                  class="form-control rounded-0" id="anno" rows="3" placeholder="annotation"></textarea>
-                <div className="topMargined">
-                  <TextAnnotator
-                    style={{
-                      maxWidth: 500,
-                      lineHeight: 1.5,
-                    }}
-                    content={content.text}
-                    value={state.value}
-                    onChange={value => setState({ value })}
-                    getSpan={span => ({
-                      ...span,
-                      tag: state.tag,
-                      color: "yellow",
-                      value: "",
-                    })}
-                  />
-                </div>
-              </Card>
+            <textarea onChange={e => setState({ tag: e.target.value })} onFocus={this.myonFocus.bind(this)}
+              class="form-control rounded-0" id="anno" rows="3" placeholder="annotation"></textarea>
+            <div className="topMargined">
+              <TextAnnotator
+                style={{
+                  maxWidth: 500,
+                  lineHeight: 1.5,
+                }}
+                content={content.text}
+                value={state.value}
+                onChange={value => setState({ value })}
+                getSpan={span => ({
+                  ...span,
+                  tag: state.tag,
+                  color: "yellow",
+                  value: "",
+                })}
+              />
+            </div>
+          </Card>
         </MDBRow>
+        <MDBRow><MDBBtn color="blue" onClick={this.submit.bind(this, state)} className="text2"> Send Annotation</MDBBtn></MDBRow>
+
+
+
       </div>
 
     );
@@ -82,17 +146,26 @@ export default class FormPage extends React.Component {
   }
   imageWriting() {
     var row = [];
-        row[0] = (
-            <div>
-                <img className="topMargined marginedleft50" src={'http://18.184.207.248/'+content.image} alt="." />
-                <div className="ExamBox"> {content.title} </div>
+    row[0] = (
+      <div>
+        <div className="ExamBox"> {content.title} </div>
+        <Annotation
+          src={"http://18.184.207.248/" + content.image}
+          alt='.'
 
-            </div>
+          annotations={this.state.image_annotations}
 
-        );
+          type={this.state.type}
+          value={this.state.image_annotation}
+          onChange={this.image_onChange}
+          onSubmit={this.image_onSubmit}
+        />
+      </div>
+
+    );
 
     return row;
-        
+
   }
   componentDidMount() {
 
@@ -117,9 +190,9 @@ export default class FormPage extends React.Component {
   }
 
   render() {
-      console.log(this.state);
+   // console.log(this.state);
 
-    if(content.image === null){
+    if (content.image === null) {
       return (
         <MDBContainer fluid>
           <MDBRow className="topMargined">
@@ -139,7 +212,7 @@ export default class FormPage extends React.Component {
         </MDBContainer >
       );
     }
-    else{
+    else {
       return (
         <MDBContainer fluid>
           <MDBRow className="topMargined">
@@ -149,7 +222,18 @@ export default class FormPage extends React.Component {
                 <MDBRow>
                   <MDBCol>
                     <MDBRow><center>
-                      {this.imageWriting()}
+                      <div className="ExamBox"> {content.title} </div>
+                        <Annotation
+                          src={"http://18.184.207.248/" + content.image}
+                          alt='.'
+
+                          annotations={this.state.image_annotations}
+
+                          type={this.state.type}
+                          value={this.state.image_annotation}
+                          onChange={this.image_onChange}
+                          onSubmit={this.image_onSubmit}
+                        />
                     </center></MDBRow>
                   </MDBCol>
                 </MDBRow>

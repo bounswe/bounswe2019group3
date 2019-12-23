@@ -115,12 +115,17 @@ export default class Messages extends React.Component {
     sendcomment() {
         const cmmnt = {
             text: document.getElementById("comment_to_send").value,
-            rating : 5
+            rating : this.state.rating
         }
 
         axios.post(('http://18.184.207.248/api/user/' + username_ +'/comments'), cmmnt, { withCredentials: true })
             .then(res => {
-                this.setState({ is_comment_send: true })
+                document.getElementById("comment_to_send").value = "";
+                cmmnt.comment_by = Cookies.get('username');
+                cmmnt.createdAt = new Date();
+                let comments = this.state.comments;
+                comments.push(cmmnt);
+                this.setState({ comments:comments })
             });
 
         console.log(cmmnt)
@@ -139,18 +144,12 @@ export default class Messages extends React.Component {
     }
 
     render() {
-        if (this.props.location.data_ === undefined) {
-            return (<Redirect
-                push to={{
-                    pathname: "/search"
-                }}
-            />);
-        }
+        
         if(this.state.is_comment_send){
             return (<Redirect
                 to={{
                     pathname: "/user", 
-                    //state : this.state                   
+                    data_: username_         
                 }}
               />);
         }
@@ -225,7 +224,7 @@ export default class Messages extends React.Component {
                                 id="comment_to_send"
                             />
                             <div className="" >
-                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} type="submit">
+                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} >
                                     SEND COMMENT
                                     <MDBIcon far icon="paper-plane" className="ml-2" />
                                 </MDBBtn>
