@@ -471,9 +471,7 @@ router.post(
  * @apiSuccess (Request body(JSON)) {Object[]}   recommendation
  * @apiSuccess (Request body(JSON)) {String} recommendation.username                    username
  * @apiSuccess (Request body(JSON)) {String} recommendation.rating                      rating
- * @apiSuccess (Request body(JSON)) {Object[]} recommendation.grade                     grade
- * @apiSuccess (Request body(JSON)) {String} recommendation.grade.lang_abbr             language abbreviation
- * @apiSuccess (Request body(JSON)) {String} recommendation.grade.grade                 grade
+ * @apiSuccess (Request body(JSON)) {String} recommendation.grade                       grade
  */
 router.get("/:language_abbr/recommendation", (req, res, next) => {
   if (!req.session.user) {
@@ -501,14 +499,6 @@ router.get("/:language_abbr/recommendation", (req, res, next) => {
         }
     }).then(function (user_grade){
         users.filter((user) => user.grade[0].grade < user_grade);
-        users.sort((a,b) => {
-            if(a.rating == b.rating)
-                return 0;
-            if(a.rating > b.rating)
-                return -1;
-            if(a.rating < b.rating)
-                return 1;
-        });
         users = users.slice(0,5);
         
         users = users.map((user) => {
