@@ -298,27 +298,31 @@ router.get("/:username/language/:language_abbr/radar",
         }
       })
     }).then((lang_prog) => {
+      if(lang_prog){
         return db.Exercise.findAll({
           where: {
             exercise_id: {[db.Sequelize.Op.in]: lang_prog.exercise_done}
           }
         });
-      }).then((exercises) => {
+      }
+    }).then((exercises) => {
+      if(exercises){
         exercises.forEach((e) => {
           radar[e.exercise_type] += 5;
         });
-        return db.Writing.findAll({
-          where: {
-            written_by: req.params.username,
-            lang_abbr: req.params.language_abbr
-          }
-        });
-      }).then((writings) => {
-        if(writings)
-          radar["writing"] += (writings.length)*5;
-        
-        res.send(radar);
+      }
+      return db.Writing.findAll({
+        where: {
+          written_by: req.params.username,
+          lang_abbr: req.params.language_abbr
+        }
       });
+    }).then((writings) => {
+      if(writings)
+        radar["writing"] += (writings.length)*5;
+      
+      res.send(radar);
+    });
 });
 /**
  * @api {get} /api/user/:username/exercise/:exercise_id/progress returns exercise progress
