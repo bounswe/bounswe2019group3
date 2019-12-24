@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?android:attr/selectableItemBackground">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/layoutWithImage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@id/layoutForLevel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/chat_border">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/infoLayout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/staticLayout"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/writingFrom"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="User"
+                android:textSize="22sp"
+                app:autoSizeMinTextSize="12sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/writingText"
+                android:layout_width="220dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Title"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/staticLayout"
+            android:layout_marginStart="24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/infoLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/whereStatic"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:text="Where: "
+                android:textSize="22sp"
+                app:autoSizeMinTextSize="12sp"
+                android:textStyle="bold"
+                />
+            <TextView
+                android:id="@+id/titleStatic"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:singleLine="true"
+                android:text="Title: "
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

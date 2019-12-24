@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Map;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -14,6 +15,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -69,6 +71,9 @@ public interface APIInterface {
     @GET("/api/search")
     Call<List<SearchResult>> doSearch(@Query("text") String text, @Query("type") String type);
 
+    @GET("/api/search")
+    Call<List<SearchResult>> doSearchExercise(@Query("text") String text, @Query("type") String type, @Query("lang_abbr") String abbr, @Query("level") String level, @Query("exercise_type") String exercise);
+
     @POST("/api/user/{username}/comments/")
     Call<Void> doAddComment(@Path("username") String username, @Body JsonObject params);
 
@@ -77,6 +82,42 @@ public interface APIInterface {
     Call<Void> doUpdateProfile(@Path("username") String username, @Part("bio") RequestBody bio, @Part MultipartBody.Part file);
 
     @GET("/api/language/{abbr}/exercise")
-    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("type") String type, @Query("level") String level);
+    Call<List<ExerciseItem>> doGetExercisesOfType(@Path("abbr") String abbr, @Query("exercise_type") String type, @Query("level") String level);
+
+    @GET("/api/language/{abbr}/exercise/{id}/questions")
+    Call<List<ExerciseQuestion>> doGetQuestionsOfExercise(@Path("abbr") String abbr, @Path("id") String id);
+
+    @POST("/api/language/{abbr}/exercise/{id}/evaluate")
+    Call<ExerciseResult> doGetAnswersOfExercise(@Path("abbr") String abbr, @Path("id") String id, @Body JsonArray params);
+
+    @GET("/api/user/{username}/language/{abbr}/progress")
+    Call<LanguageProgress> doGetLanguageProgress(@Path("abbr") String abbr, @Path("username") String username);
+
+    @GET("/api/user/{username}/exercise/{id}/progress")
+    Call<ExerciseProgress> doGetExerciseProgress(@Path("id") int id, @Path("username") String username);
+
+    @POST("/api/writing")
+    Call<Void> doPostWriting(@Body JsonObject params);
+
+    @Multipart
+    @POST("/api/writing")
+    Call<Void> doPostWritingImage(@PartMap Map<String, RequestBody> params, @Part MultipartBody.Part file);
+
+    @GET("/api/writing")
+    Call<List<Writing>> doGetSentWriting(@Query("written_by") String username);
+
+    @GET("/api/writing")
+    Call<List<Writing>> doGetReceivedWriting(@Query("assignee") String username);
+
+    @GET("/api/annotation")
+    Call<List<Annotation>> doGetAnnotations(@Query("target_source") String target_id);
+
+    @POST("/api/annotation")
+    Call<Annotation> doPostAnnotation(@Body JsonObject params);
+
+    @GET("/api/language/{language_abbr}/recommendation")
+    Call<List<RecommendationResult>> doGetRecommendation(@Path("language_abbr") String abbr);
+
+
 
 }

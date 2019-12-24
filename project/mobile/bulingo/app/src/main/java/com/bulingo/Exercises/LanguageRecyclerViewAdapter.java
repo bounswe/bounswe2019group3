@@ -3,6 +3,7 @@ package com.bulingo.Exercises;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +20,12 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
     public static class ButtonViewHolder extends RecyclerView.ViewHolder {
         public View buttonView;
         MaterialButton button;
-        public ButtonViewHolder(View v) {
-            super(v);
-            buttonView = v;
-            button = v.findViewById(R.id.language);
+        public LinearLayout linearLayout;
+        public ButtonViewHolder(LinearLayout l) {
+            super(l);
+            linearLayout = l;
+        //    buttonView = v;
+        //    button = v.findViewById(R.id.language);
         }
     }
 
@@ -38,7 +41,7 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
     public LanguageRecyclerViewAdapter.ButtonViewHolder onCreateViewHolder(ViewGroup parent,
                                                      int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
+        LinearLayout v = (LinearLayout) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.language_button, parent, false);
         ButtonViewHolder vh = new ButtonViewHolder(v);
         return vh;
@@ -50,8 +53,9 @@ public class LanguageRecyclerViewAdapter extends RecyclerView.Adapter<LanguageRe
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         Language lang = mDataset.get(position);
-        holder.button.setText(lang.name);
-        holder.button.setOnClickListener((v) -> {
+        MaterialButton button = holder.linearLayout.findViewById(R.id.language);
+        button.setText(lang.name);
+        button.setOnClickListener((v) -> {
             if(onLanguageClickListener != null) {
                 onLanguageClickListener.onLanguageClick(lang);
             }

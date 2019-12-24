@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
+import com.bulingo.Database.ExerciseResult;
 import com.bulingo.Database.Grade;
 import com.bulingo.Login.LoginMain;
 import com.bulingo.R;
@@ -26,6 +27,8 @@ public class ResultActivity extends AppCompatActivity {
     private int[] answers;
     private int[] questions;
     String abbr;
+    String mode;
+    String id;
     APIInterface apiInterface = APICLient.getClient(this).create(APIInterface.class);
 
     @Override
@@ -35,11 +38,41 @@ public class ResultActivity extends AppCompatActivity {
         answers = getIntent().getIntArrayExtra("answers");
         questions = getIntent().getIntArrayExtra("questions");
         abbr = getIntent().getStringExtra("abbr");
-        getResult(abbr);
+        mode = getIntent().getStringExtra("mode");
+        if(mode.equals("exam")) {
+            getExamResult(abbr);
+        } else {
+            id = getIntent().getStringExtra("id");
+            getResults();
+        }
 
     }
 
-    public void getResult(String abbr){
+    public void getResults(){
+        JsonArray paramArray = answersToJsonArray(answers, questions);
+        Call<ExerciseResult> responseCall = apiInterface.doGetAnswersOfExercise(abbr, id, paramArray);
+        responseCall.enqueue(new Callback<ExerciseResult>() {
+            @Override
+            public void onResponse(Call<ExerciseResult> call, Response<ExerciseResult> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200) {
+                    ExerciseResult res = response.body();
+                    TextView result = findViewById(R.id.examResult);
+                    TextView detail = findViewById(R.id.examDetailResult);
+                    result.setVisibility(View.GONE);
+                    detail.setText(calculateRateForExercise(res.correct, res.numberOfQuestions));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExerciseResult> call, Throwable t) {
+                Log.d("request", t.toString());
+            }
+
+        });
+    }
+
+    public void getExamResult(String abbr){
 
         JsonArray paramArray = answersToJsonArray(answers, questions);
 
@@ -69,6 +102,10 @@ public class ResultActivity extends AppCompatActivity {
     private String calculateRate(String grade) {
         return String.format("You have correctly solved %d%s of the questions.", (grade.charAt(0) - 'A') * 40 +
                 (Integer.parseInt(String.valueOf(grade.charAt(1))) - 1) * 20, "%");
+    }
+
+    private String calculateRateForExercise(int right, int questions) {
+        return String.format("You have correctly solved %d out of %d questions.", right, questions);
     }
 
     public static JsonArray answersToJsonArray(int[] answers, int[] questions) {

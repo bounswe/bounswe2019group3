@@ -13,15 +13,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bulingo.Chat.RecyclerItemClickListener;
 import com.bulingo.Database.APICLient;
 import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.ExerciseItem;
+import com.bulingo.Database.LanguageProgress;
 import com.bulingo.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,6 +47,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
     String languageName = "";
     String currentLevel = "";
     String type = "";
+    String username = "";
+    LinearLayout buttons;
     private Spinner spinner;
     private static final String[] paths = {"A1", "A2", "B1", "B2", "C1", "C2", "Levels"};
 
@@ -52,6 +59,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         lang = getIntent().getStringExtra("abbr");
         languageName = getIntent().getStringExtra("name");
         currentLevel = getIntent().getStringExtra("currentLevel");
+        username = getIntent().getStringExtra("username");
         TextView title = findViewById(R.id.title);
         TextView level = findViewById(R.id.currentLevel);
         level.setText(currentLevel);
@@ -63,8 +71,33 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         exerciseRecycler = findViewById(R.id.exerciseRecyclerview);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         exerciseRecycler.setLayoutManager(layoutManager);
-        adapter = new ExerciseRecyclerViewAdapter(exercises);
+        adapter = new ExerciseRecyclerViewAdapter(exercises, this, username);
         exerciseRecycler.setAdapter(adapter);
+        exerciseRecycler.addOnItemTouchListener(
+                new RecyclerItemClickListener(this, exerciseRecycler ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        if(type.equals("writing")) {
+                            Intent intent = new Intent(getApplicationContext(), WritingActivity.class);
+                            intent.putExtra("username", username);
+                            intent.putExtra("abbr", exercises.get(position).abbr);
+                            intent.putExtra("id", exercises.get(position).id + "");
+                            startActivity(intent);
+                        } else {
+                            Intent intent = new Intent(getApplicationContext(), QuestionActivity.class);
+                            intent.putExtra("abbr", exercises.get(position).abbr);
+                            intent.putExtra("id", exercises.get(position).id + "");
+                            startActivity(intent);
+                        }
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+        buttons = findViewById(R.id.buttonsLayout);
+        buttons.setVisibility(View.GONE);
+        getProgress(lang);
         spinner = (Spinner)findViewById(R.id.spinnerLanguage);
         ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item,paths) {
@@ -97,7 +130,8 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
                         newLevel = "C2";
                         break;
                 }
-                getExercises(lang, type, newLevel);
+                if(!newLevel.equals(""))
+                    getExercises(lang, type, newLevel);
             }
 
             @Override
@@ -109,12 +143,16 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         spinner.setAdapter(spinnerAdapter);
         spinner.setOnItemSelectedListener(listener);
         spinner.setSelection(6);
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(spinner != null){
             spinner.setSelection(6);
+        }
+        if(buttons != null) {
+            buttons.setVisibility(View.GONE);
         }
         if(item.getItemId() == R.id.readingMenu) {
             this.type = "reading";
@@ -126,6 +164,7 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
             this.type = "grammar";
         } else if(item.getItemId() == R.id.writingMenu) {
             this.type = "writing";
+            buttons.setVisibility(View.VISIBLE);
         } else {
             return false;
         }
@@ -159,6 +198,32 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         });
     }
 
+    public void getProgress(String abbr) {
+        Call<LanguageProgress> responseCall = apiInterface.doGetLanguageProgress(abbr, username);
+
+        responseCall.enqueue(new Callback<LanguageProgress>() {
+            @Override
+            public void onResponse(Call<LanguageProgress> call, Response<LanguageProgress> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200 && response.body() != null) {
+                    LanguageProgress progress = response.body();
+                    int percentage = (progress.allExercises == 0)? 0 : 100*progress.done/progress.allExercises;
+                    ProgressBar progressBar = findViewById(R.id.progressBar);
+                    runOnUiThread(() -> progressBar.setProgress(percentage));
+                } else {
+                    toast();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LanguageProgress> call, Throwable t) {
+                Log.d("request", t.toString());
+                toast();
+            }
+
+        });
+    }
+
     public void toast(){
         String toast = "The exercises are can not be displayed right now. Please try again.";
         Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
@@ -171,5 +236,25 @@ public class ExerciseSelection extends AppCompatActivity implements BottomNaviga
         intent.putExtra("abbr", this.lang);
         startActivity(intent);
         finish();
+    }
+
+    public void sentWritings(View view) {
+        Intent intent = new Intent(getApplicationContext(), SendReceiveWriting.class);
+        intent.putExtra("action", "sent");
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    public void receivedWritings(View view) {
+        Intent intent = new Intent(getApplicationContext(), SendReceiveWriting.class);
+        intent.putExtra("action", "received");
+        intent.putExtra("username", username);
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getProgress(lang);
     }
 }

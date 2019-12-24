@@ -1,18 +1,36 @@
 package com.bulingo.Exercises;
+import android.app.Activity;
+import android.content.Context;
+import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bulingo.Database.APICLient;
+import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.ExerciseItem;
+import com.bulingo.Database.ExerciseProgress;
+import com.bulingo.Database.LanguageProgress;
 import com.bulingo.R;
 
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRecyclerViewAdapter.ExerciseViewHolder>{
     private List<ExerciseItem> mDataset;
+    private OnExerciseClickListener onExerciseClickListener;
+    APIInterface apiInterface;
+    private String username;
+    Handler handler;
+    Context context;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -27,8 +45,13 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ExerciseRecyclerViewAdapter(List<ExerciseItem> myDataset) {
+    public ExerciseRecyclerViewAdapter(List<ExerciseItem> myDataset, Activity context, String username) {
+        apiInterface = APICLient.getClient(context).create(APIInterface.class);
         mDataset = myDataset;
+        this.username = username;
+        this.context = context;
+        handler = new Handler();
+
     }
 
     // Create new views (invoked by the layout manager)
@@ -51,6 +74,12 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
         TextView level = holder.linearLayout.findViewById(R.id.exerciseLevel);
         name.setText(mDataset.get(position).title);
         level.setText(mDataset.get(position).level);
+    //    getProgress(holder, mDataset.get(position).id);
+        holder.linearLayout.setOnClickListener((v) -> {
+            if(onExerciseClickListener != null) {
+                onExerciseClickListener.onExeriseClick(mDataset.get(position));
+            }
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -58,5 +87,47 @@ public class ExerciseRecyclerViewAdapter extends RecyclerView.Adapter<ExerciseRe
     public int getItemCount() {
         return mDataset.size();
     }
+
+    public void setOnExerciseClickListener(OnExerciseClickListener onExerciseClickListener) {
+        this.onExerciseClickListener = onExerciseClickListener;
+    }
+
+    public interface OnExerciseClickListener {
+        void onExeriseClick(ExerciseItem exercise);
+
+    }
+
+    public void getProgress(ExerciseViewHolder holder, int id) {
+        Call<ExerciseProgress> responseCall = apiInterface.doGetExerciseProgress(id, this.username);
+
+        responseCall.enqueue(new Callback<ExerciseProgress>() {
+            @Override
+            public void onResponse(Call<ExerciseProgress> call, Response<ExerciseProgress> response) {
+                Log.d("request", response.toString());
+                if(response.code() == 200 && response.body() != null) {
+                    ExerciseProgress progress = response.body();
+                    int percentage;
+                    if(progress.done == 0) {
+                        percentage = 0;
+                    } else {
+                        percentage = 100*progress.done/progress.all;
+                    }
+
+//                    ((Activity)context).runOnUiThread(() -> {
+//                            ProgressBar progressBar = holder.linearLayout.findViewById(R.id.progressBar);
+//                            progressBar.setProgress(percentage);
+//                    });
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ExerciseProgress> call, Throwable t) {
+                Log.d("request", t.toString());
+            }
+
+        });
+    }
+
 }
 
