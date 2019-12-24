@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.net.URL;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -64,6 +66,8 @@ public class AnnotateImageWriting extends AppCompatActivity {
     private Paint paint;
     private ImageView markingImage;
     private ImageView baseImage;
+    private int original_height;
+    private int original_width;
     private Map<ArrayList<Integer>, Annotation> annotationMap = new HashMap<>();
 
 
@@ -97,9 +101,26 @@ public class AnnotateImageWriting extends AppCompatActivity {
             imageUrl = "http://18.184.207.248/" + imageUrl;
         }
         Glide.with(this)
-                .load(imageUrl)
-                .into(baseImage);
+                 .load(imageUrl)
+                 .into(baseImage);
 
+        Thread thread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try  {
+                    URL url = new URL(imageUrl);
+                    Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
+                    original_width = bmp.getWidth();
+                    original_height = bmp.getHeight();
+                    Log.d("width", ""+original_width);
+                    Log.d("heigh", ""+original_height);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
 
         baseImage.setOnTouchListener(new View.OnTouchListener() {
                 @Override
@@ -184,13 +205,14 @@ public class AnnotateImageWriting extends AppCompatActivity {
             EditText annotationText = popupView.findViewById(R.id.annotationText);
 
             String value = annotationText.getText().toString();
-            sendAnnotation(value, x, y, baseImage.getWidth(), baseImage.getHeight());
+
+            sendAnnotation(value, (float)x/baseImage.getWidth()*original_width, (float)y/baseImage.getHeight()*original_height, (float)90/baseImage.getWidth()*original_width, (float)54/baseImage.getHeight()*original_height);
         });
 
         return false;
     }
 
-    public void sendAnnotation(String value, float x, float y, int width, int height) {
+    public void sendAnnotation(String value, float x, float y, float width, float height) {
         JsonObject params = new JsonObject();
         params.addProperty("@context", "http://www.w3.org/ns/anno.jsonld");
         params.addProperty("type", "Annotation");
@@ -206,7 +228,7 @@ public class AnnotateImageWriting extends AppCompatActivity {
         JsonObject selector = new JsonObject();
         selector.addProperty("type", "FragmentSelector");
         selector.addProperty("conformsTo", "http://www.w3.org/TR/media-frags/");
-        selector.addProperty("value", "xywh=" + (int)x + "," + (int)y + "," + width + "," + height);
+        selector.addProperty("value", "xywh=" + (int)(x-45) + "," + (int)(y-27) + "," + (int)width + "," + (int)height);
         target.add("selector", selector);
         params.add("target", target);
 
@@ -240,6 +262,8 @@ public class AnnotateImageWriting extends AppCompatActivity {
                     String s = val.substring(val.indexOf(",")+1);
                     int y = (int)Double.parseDouble(s.substring(0,s.indexOf(",")));
                     ArrayList<Integer> list = new ArrayList<>();
+                    x = (int)(x*baseImage.getWidth()/original_width);
+                    y = (int)(y*baseImage.getHeight()/original_height);
                     list.add(x);
                     list.add(y);
                     annotationMap.put(list, a);
@@ -277,7 +301,7 @@ public class AnnotateImageWriting extends AppCompatActivity {
         for(ArrayList<Integer> list : annotationMap.keySet()){
             int x = list.get(0);
             int y = list.get(1);
-            canvas.drawRoundRect(x-45, y-27, x+45,y+27,5.0f,5.0f, paint);
+            canvas.drawRoundRect(x, y, x+90,y+54,5.0f,5.0f, paint);
             markingImage.setImageBitmap(bitmap);
         }
     }
