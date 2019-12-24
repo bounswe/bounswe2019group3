@@ -31,55 +31,59 @@ export default class Messages extends React.Component {
                 //console.log(res.data);
                 this.setState({ languages: res.data });
             })
-       
-            axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
+
+        axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
             .then(res => {
-              //console.log(res.data);
-              this.setState({ radarde: res.data });
-              console.log(this.state.radarde)
-              this.setState({ dataRadar: {
-                labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
-                datasets: [
-                  {
-                    
-                    label: "english",
-                    backgroundColor: "rgba(245, 74, 85, 0.5)",
-                    data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
-                  },
-                  {
-                    label: "german",
-                    backgroundColor: "rgba(90, 173, 246, 0.5)",
-                    data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
-                  }
-                ]
-              }})
+                //console.log(res.data);
+                this.setState({ radarde: res.data });
+                console.log(this.state.radarde)
+                this.setState({
+                    dataRadar: {
+                        labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+                        datasets: [
+                            {
+
+                                label: "english",
+                                backgroundColor: "rgba(245, 74, 85, 0.5)",
+                                data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+                            },
+                            {
+                                label: "german",
+                                backgroundColor: "rgba(90, 173, 246, 0.5)",
+                                data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+                            }
+                        ]
+                    }
+                })
             })
-            axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
+        axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
             .then(res => {
-              //console.log(res.data);
-              this.setState({ radaren: res.data });
-              console.log(this.state.radaren)
-              this.setState({ dataRadar: {
-                labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
-                datasets: [
-                  {
-                    
-                    label: "english",
-                    backgroundColor: "rgba(245, 74, 85, 0.5)",
-                    data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
-                  },
-                  {
-                    label: "german",
-                    backgroundColor: "rgba(90, 173, 246, 0.5)",
-                    data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
-                  }
-                ]
-              }})
+                //console.log(res.data);
+                this.setState({ radaren: res.data });
+                console.log(this.state.radaren)
+                this.setState({
+                    dataRadar: {
+                        labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+                        datasets: [
+                            {
+
+                                label: "english",
+                                backgroundColor: "rgba(245, 74, 85, 0.5)",
+                                data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+                            },
+                            {
+                                label: "german",
+                                backgroundColor: "rgba(90, 173, 246, 0.5)",
+                                data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+                            }
+                        ]
+                    }
+                })
             })
         this.state = {
             _data: "",
-            radaren:[],
-            radarde:[],
+            radaren: [],
+            radarde: [],
             is_comment_send: false,
             returnToMessages: false,
             username: "",
@@ -88,8 +92,8 @@ export default class Messages extends React.Component {
             information: [],
             exercises: false,
             writing: false,
-            rating: 4 ,
-        
+            rating: 4,
+
         }
     }
     commentField() {
@@ -131,8 +135,9 @@ export default class Messages extends React.Component {
         _nav.insertAdjacentHTML('beforebegin',
             '<li id="chld"><a href="/profile">Profile</a></li>');
         _nav.insertAdjacentHTML('afterend',
+            '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
             '<li id="chld"><a href="/exam">Exam</a></li>' +
-            '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+            '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
             '<li id="chld"><a href="/writing">Send Writing</a></li>' +
             '<li id="chld"><a href="/messages">Messages</a></li>' +
             '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
@@ -147,10 +152,10 @@ export default class Messages extends React.Component {
     sendcomment() {
         const cmmnt = {
             text: document.getElementById("comment_to_send").value,
-            rating : 5
+            rating: 5
         }
 
-        axios.post(('http://18.184.207.248/api/user/' + username_ +'/comments'), cmmnt, { withCredentials: true })
+        axios.post(('http://18.184.207.248/api/user/' + username_ + '/comments'), cmmnt, { withCredentials: true })
             .then(res => {
                 this.setState({ is_comment_send: true })
             });
@@ -180,13 +185,13 @@ export default class Messages extends React.Component {
                 }}
             />);
         }
-        if(this.state.is_comment_send){
+        if (this.state.is_comment_send) {
             return (<Redirect
                 to={{
-                    pathname: "/user", 
+                    pathname: "/user",
                     //state : this.state                   
                 }}
-              />);
+            />);
         }
         if (this.state.returnToMessages) {
             return (<Redirect
@@ -280,7 +285,7 @@ export default class Messages extends React.Component {
                             id="message_to_send"
                         />
                         <div className="" >
-                            <MDBBtn color="orange" onClick={this.sendmessage.bind(this)}  type="submit">
+                            <MDBBtn color="orange" onClick={this.sendmessage.bind(this)} type="submit">
                                 SEND MESSAGE
                                     <MDBIcon far icon="envelope" className="ml-2" />
                             </MDBBtn>

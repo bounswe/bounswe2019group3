@@ -46,7 +46,7 @@ export default class ExaminationPage extends React.Component {
 
     componentDidMount() {
 
-        if(Cookies.get('username')){
+        if (Cookies.get('username')) {
             var _navbar = document.getElementById("nav");
             if (_navbar.childNodes.length > 2) {
                 return;
@@ -56,8 +56,10 @@ export default class ExaminationPage extends React.Component {
                 _nav.insertAdjacentHTML('beforebegin',
                     '<li id="chld"><a href="/profile">Profile</a></li>');
                 _nav.insertAdjacentHTML('afterend',
+                    '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
+                    '<li id="chld"><a href="/progress">Progress</a></li>'+
                     '<li id="chld"><a href="/exam">Exam</a></li>' +
-                    '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+                    '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                     '<li id="chld"><a href="/writing">Send Writing</a></li>' +
                     '<li id="chld"><a href="/messages">Messages</a></li>' +
                     '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
@@ -65,7 +67,7 @@ export default class ExaminationPage extends React.Component {
                     '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
             }
         }
-        
+
     }
 
 
@@ -73,7 +75,7 @@ export default class ExaminationPage extends React.Component {
         if (this.state.selectedLanguage !== "") {
             return (<Redirect
                 push to={{
-                    pathname: "/exerciseList",                    
+                    pathname: "/exerciseList",
                 }}
             />);
         }

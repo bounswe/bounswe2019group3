@@ -96,7 +96,7 @@ export default class FormPage extends React.Component {
             <option value="C1">C1</option>
             <option value="C2">C2</option>
           </select>
-          <select className="browser-default custom-select" id="search_type"  onClick={this.onChangeOption.bind(this)}>
+          <select className="browser-default custom-select" id="search_type" onClick={this.onChangeOption.bind(this)}>
             <option value={undefined} >Exercise Type</option>
             <option value="reading" >Reading</option>
             <option value="listening">Listening</option>
@@ -121,11 +121,11 @@ export default class FormPage extends React.Component {
       Cookies.set('search_exercise_level', e.target.value)
     }
     if (e.target.id === "search_language") {
-      Cookies.set('search_exercise_language',e.target.value);
+      Cookies.set('search_exercise_language', e.target.value);
     }
     if (e.target.id === "search_type") {
-      Cookies.set('search_exercise_type',e.target.value);
-      Cookies.set('selectedType',e.target.value);
+      Cookies.set('search_exercise_type', e.target.value);
+      Cookies.set('selectedType', e.target.value);
     }
 
     if (e.target.value === "user") {
@@ -151,8 +151,9 @@ export default class FormPage extends React.Component {
       _nav.insertAdjacentHTML('beforebegin',
         '<li id="chld"><a href="/profile">Profile</a></li>');
       _nav.insertAdjacentHTML('afterend',
+        '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
         '<li id="chld"><a href="/exam">Exam</a></li>' +
-        '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+        '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
         '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +

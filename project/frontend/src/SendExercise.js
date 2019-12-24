@@ -79,7 +79,7 @@ export default class GeneralTest extends React.Component {
                 title: document.getElementById("title").value,
                 lang_abbr: document.getElementById("lang_abbr").value,
                 level: document.getElementById("level").value,
-                tags:document.getElementById("tags").value,
+                tags: document.getElementById("tags").value,
                 exercise_type: document.getElementById("exercise_type").value,
                 exercise_questions: []
             };
@@ -136,6 +136,7 @@ export default class GeneralTest extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
                 '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
@@ -180,7 +181,7 @@ export default class GeneralTest extends React.Component {
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth4.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
-                        <MDBCol md="8">                            
+                        <MDBCol md="8">
                             <MDBInput
                                 id="title"
                                 label="Title"
