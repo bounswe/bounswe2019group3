@@ -6,15 +6,23 @@
     android:background="@android:color/white"
     android:layout_margin="3dp"
     >
-
+  <!--  <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        android:layout_gravity="center|start"
+        android:indeterminate="false"
+        style="?android:attr/progressBarStyle"
+        android:progress="0"
+        android:max="100"/> -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Exercise 0 "
         android:id="@+id/exerciseName"
-        android:layout_gravity="center|start"
+        android:layout_gravity="center"
         android:fontFamily="@font/ubuntu_medium_italic"
         android:textSize="20sp"/>
+
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -24,7 +32,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/exerciseLevel"
         android:text="A1"
-        android:layout_gravity="end"
+        android:layout_gravity="center|end"
         android:textSize="18sp"/>
 
 

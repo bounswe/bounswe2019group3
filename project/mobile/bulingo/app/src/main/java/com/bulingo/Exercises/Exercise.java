@@ -55,6 +55,7 @@ public class Exercise extends AppCompatActivity {
             intent.putExtra("answers", arr);
             intent.putExtra("questions", arr2);
             intent.putExtra("abbr", abbr);
+            intent.putExtra("mode", "exam");
             startActivity(intent);
             finish();
             return;

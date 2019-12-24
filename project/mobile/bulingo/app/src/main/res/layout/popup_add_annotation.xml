@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <EditText
+        android:id="@+id/annotationText"
+        android:background="@drawable/writing_drawable"
+        android:layout_width="250dp"
+        android:layout_height="150dp"
+        android:padding="12dp"
+        android:inputType="text|textMultiLine"
+        android:gravity="top"
+        android:layout_margin="16dp"
+        android:scrollbars="vertical"
+        android:hint="Add a comment..."
+        android:layout_gravity="center"
+        />
+
+    <Button
+        android:id="@+id/sendAnnotationButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="125dp"
+        android:layout_height="45dp"
+        android:text="Comment"
+        android:textSize="18sp"
+        app:cornerRadius="100dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="4dp"
+        />
+
+</LinearLayout>

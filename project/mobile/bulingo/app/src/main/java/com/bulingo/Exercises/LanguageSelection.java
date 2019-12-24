@@ -69,6 +69,7 @@ public class LanguageSelection extends AppCompatActivity {
                     intent.putExtra("abbr", abbr);
                     intent.putExtra("name", language.name);
                     intent.putExtra("currentLevel", grade);
+                    intent.putExtra("username", username);
                 } else {
                     intent = new Intent(getApplicationContext(), Exercise.class);
                     intent.putExtra("abbr", abbr);
