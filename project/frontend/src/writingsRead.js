@@ -11,15 +11,27 @@ import {
     RectangleSelector
 } from 'react-image-annotation/lib/selectors'
 
+function getImageSize(url, callback) {
+    var img = new Image();
+    img.src = url;
+    img.onload = function() { callback(this.width, this.height); }
+}
+
 var content;
+var image_width;
+var image_height;
 export default class FormPage extends React.Component {
     constructor(props) {
         super(props);
         content = this.props.location._data;
-        //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
-        axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
+        getImageSize("http://18.184.207.248/" + content.image, (w,h)=>{
+            image_width=w;
+            image_height=h;
+            //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
+            axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
             .then(res => {
                 console.log(res.data.length);
+                console.log(image_height, image_width);
                 var temp_data = [];
 
                 for (let i = 0; i < res.data.length; i++) {
@@ -44,10 +56,10 @@ export default class FormPage extends React.Component {
                             },
                             geometry: {
                                 type: "RECTANGLE",
-                                x: parseInt(temp.split(',')[0]),
-                                y: parseInt(temp.split(',')[1]),
-                                width: parseInt(temp.split(',')[2]),
-                                height: parseInt(temp.split(',')[3]),
+                                x: (parseInt(temp.split(',')[0]))*100 / image_width,
+                                y: (parseInt(temp.split(',')[1]))*100 / image_height,
+                                width: (parseInt(temp.split(',')[2]))*100 / image_width,
+                                height: (parseInt(temp.split(',')[3]))*100 / image_height,
                             },
                             data: {
                                 text: res.data[i].body.value
@@ -56,11 +68,13 @@ export default class FormPage extends React.Component {
                     }
 
                 }
+                console.log(temp_data);
                 this.setState({
                     value: temp_data,
                     image_annotations: temp_data
                 })
-            })
+            });
+        });
         this.state = {
             isSended: false,
             value: [],
@@ -97,7 +111,7 @@ export default class FormPage extends React.Component {
                     selector: {
                         type: "FragmentSelector",
                         conformsTo: "http://tools.ietf.org/rfc/rfc5147",
-                        value: "xywh=" + element.geometry.x + "," + element.geometry.y + ","+ element.geometry.width + ","+ element.geometry.height ,
+                        value: "xywh=" + Math.round(element.geometry.x/100*image_width) + "," + Math.round(element.geometry.y/100*image_height) + ","+ Math.round(element.geometry.width/100*image_width) + ","+ Math.round(element.geometry.height/100*image_height) ,
                     }
                 }
             };
