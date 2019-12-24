@@ -86,7 +86,7 @@ export default class ExaminationPage extends React.Component {
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                     <MDBCol md="2"></MDBCol>
                     <MDBCol md="6">
-                        <div><p>Select Exercise Language</p></div>
+                        <div className="boldfont"><p>Select Exercise Language</p></div>
                     </MDBCol>
                     <MDBCol md="1"></MDBCol>
                     <MDBCol md="2">
