@@ -120,6 +120,7 @@ export default class FormPage extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
                 '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
@@ -157,7 +158,12 @@ export default class FormPage extends React.Component {
                             <MDBRow>
                                 <MDBCol md="6">
                                     <MDBRow>
-                                        My Writing
+                                        <div className="commentsec_title">
+                                            <center>
+                                                My Writings
+                                        </center>
+                                        </div>
+
                                     </MDBRow>
                                     <MDBRow>
                                         <table id="tablePreview" className="Messagebox">
@@ -170,7 +176,11 @@ export default class FormPage extends React.Component {
                                         </table>
                                     </MDBRow>
                                     <MDBRow>
-                                        Writing that assign to me
+                                        <div className="commentsec_title">
+                                            <center>
+                                                Assigned Writings
+                                        </center>
+                                        </div>
                                     </MDBRow>
                                     <MDBRow>
                                         <table id="tablePreview" className="Messagebox">

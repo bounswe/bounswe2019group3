@@ -26,28 +26,61 @@ export default class FormPage extends React.Component {
         //console.log(res.data);
         this.setState({ languages: res.data });
       })
+       
+      axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
+      .then(res => {
+        //console.log(res.data);
+        this.setState({ radarde: res.data });
+        console.log(this.state.radarde)
+        this.setState({ dataRadar: {
+          labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+          datasets: [
+            {
+              
+              label: "english",
+              backgroundColor: "rgba(245, 74, 85, 0.5)",
+              data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+            },
+            {
+              label: "german",
+              backgroundColor: "rgba(90, 173, 246, 0.5)",
+              data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+            }
+          ]
+        }})
+      })
+      axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
+      .then(res => {
+        //console.log(res.data);
+        this.setState({ radaren: res.data });
+        console.log(this.state.radaren)
+        this.setState({ dataRadar: {
+          labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+          datasets: [
+            {
+              
+              label: "english",
+              backgroundColor: "rgba(245, 74, 85, 0.5)",
+              data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+            },
+            {
+              label: "german",
+              backgroundColor: "rgba(90, 173, 246, 0.5)",
+              data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+            }
+          ]
+        }})
+      })
 
     this.state = {
       comments: [],
       languages: [],
+      radaren:[],
+      radarde:[],
       information: [],
       exercises: false,
       writing: false,
-      dataRadar: {
-        labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
-        datasets: [
-          {
-            label: "english",
-            backgroundColor: "rgba(245, 74, 85, 0.5)",
-            data: [3.25, 7, 6, 5, 5]
-          },
-          {
-            label: "german",
-            backgroundColor: "rgba(90, 173, 246, 0.5)",
-            data: [2.7, 4, 4.3, 7, 4]
-          }
-        ]
-      }
+      
     }
   }
 
@@ -74,7 +107,7 @@ export default class FormPage extends React.Component {
         <MDBCol md="4" className="topMargined commentsec_usrname">
           <div >
             <p > {this.state.languages[i].lang_abbr} -> {this.state.languages[i].grade}  </p>
-           
+
          </div>
          
         </MDBCol>
@@ -95,6 +128,7 @@ export default class FormPage extends React.Component {
     _nav.insertAdjacentHTML('beforebegin',
     '<li id="chld"><a href="/profile">Profile</a></li>');
     _nav.insertAdjacentHTML('afterend',
+    '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>'+
     '<li id="chld"><a href="/exam">Exam</a></li>'+
     '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
     '<li id="chld"><a href="/writing">Send Writing</a></li>'+
@@ -105,6 +139,8 @@ export default class FormPage extends React.Component {
   }
 
   render() {
+    console.log(this.state.radaren.listening);
+    console.log(this.state.radarde.listening);
     return (
       <MDBContainer fluid>
         <MDBRow>

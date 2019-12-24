@@ -45,23 +45,29 @@ export default class ExaminationPage extends React.Component {
     }
 
     componentDidMount() {
-        var _navbar = document.getElementById("nav");
-        if (_navbar.childNodes.length > 2) {
-            return;
-        } else {
-            _navbar.removeChild(_navbar.childNodes[0]);
-            var _nav = document.getElementById("last_item");
-            _nav.insertAdjacentHTML('beforebegin',
-                '<li id="chld"><a href="/profile">Profile</a></li>');
-            _nav.insertAdjacentHTML('afterend',
-                '<li id="chld"><a href="/exam">Exam</a></li>' +
-                '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
-                '<li id="chld"><a href="/writing">Send Writing</a></li>' +
-                '<li id="chld"><a href="/messages">Messages</a></li>' +
-                '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-                '<li id="chld" style="float:right";><a href="/Settings">Settings</a></li>' +
-                '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
+
+        if (Cookies.get('username')) {
+            var _navbar = document.getElementById("nav");
+            if (_navbar.childNodes.length > 2) {
+                return;
+            } else {
+                _navbar.removeChild(_navbar.childNodes[0]);
+                var _nav = document.getElementById("last_item");
+                _nav.insertAdjacentHTML('beforebegin',
+                    '<li id="chld"><a href="/profile">Profile</a></li>');
+                _nav.insertAdjacentHTML('afterend',
+                    '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
+                    '<li id="chld"><a href="/progress">Progress</a></li>'+
+                    '<li id="chld"><a href="/exam">Exam</a></li>' +
+                    '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
+                    '<li id="chld"><a href="/writing">Send Writing</a></li>' +
+                    '<li id="chld"><a href="/messages">Messages</a></li>' +
+                    '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
+                    '<li id="chld" style="float:right";><a href="/Settings">Settings</a></li>' +
+                    '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
+            }
         }
+
     }
 
 
@@ -69,7 +75,7 @@ export default class ExaminationPage extends React.Component {
         if (this.state.selectedLanguage !== "") {
             return (<Redirect
                 push to={{
-                    pathname: "/exerciseList",                    
+                    pathname: "/exerciseList",
                 }}
             />);
         }
@@ -82,7 +88,7 @@ export default class ExaminationPage extends React.Component {
                     <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                     <MDBCol md="2"></MDBCol>
                     <MDBCol md="6">
-                        <div><p>Select Exercise Language</p></div>
+                        <div className="boldfont"><p>Select Exercise Language</p></div>
                     </MDBCol>
                     <MDBCol md="1"></MDBCol>
                     <MDBCol md="2">

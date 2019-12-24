@@ -20,11 +20,22 @@ export default class FormPage extends React.Component {
         })
     } else {
 
+      var result = "";
+      if (Cookies.get('search_type')) {
+        result += '&type=' + Cookies.get('search_type');
+      }
+      if (Cookies.get('search_exercise_language')) {
+        result += '&lang_abbr=' + Cookies.get('search_exercise_language');
+      }
+      if (Cookies.get('search_exercise_level')) {
+        result += '&level=' + Cookies.get('search_exercise_level');
+      }
+      if (Cookies.get('search_exercise_type')) {
+        result += '&exercise_type=' + Cookies.get('search_exercise_type');
+      }
+
       axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') +
-        '&type=' + Cookies.get('search_type') +
-        '&lang_abbr=' + Cookies.get('search_exercise_language') +
-        '&level=' + Cookies.get('search_exercise_level')
-        + '&exercise_type=' + Cookies.get('search_exercise_type'), { withCredentials: true })
+        result, { withCredentials: true })
         .then(res => {
           console.log(res.data)
           this.setState({
@@ -39,7 +50,7 @@ export default class FormPage extends React.Component {
       is_myself: false,
       choosed_person: "",
       is_go_user_profile: false,
-      is_go_exercise_page : false,
+      is_go_exercise_page: false,
       searched_type: Cookies.get('search_type'),
       response: [],
       goToProfile: false
@@ -59,7 +70,7 @@ export default class FormPage extends React.Component {
         </tr>
       )
     }
-    else{
+    else {
       first_line[0] = (
         <tr>
           <th className="Messagebox"><b>result #</b></th>
@@ -93,7 +104,7 @@ export default class FormPage extends React.Component {
         row[i] = (
           <tr >
             <td className="Messagebox" scope="row">{i + 1}</td>
-            <td className="Messagebox clickable" onClick={this.go_exercise_page.bind(this, this.state.response[i].exercise_id)}>
+            <td className="Messagebox clickable" onClick={this.go_exercise_page.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr)}>
               {this.state.response[i].title}
             </td>
             <td className="Messagebox" >
@@ -128,8 +139,8 @@ export default class FormPage extends React.Component {
     })
   }
 
-  go_exercise_page(exercise_id){
-    Cookies.set('selectedLanguageAbbr' , Cookies.get('search_exercise_language'));
+  go_exercise_page(exercise_id, abbr) {
+    Cookies.set('selectedLanguageAbbr', abbr);
     Cookies.set('selectedExerciseId', exercise_id)
     this.setState({
       is_go_exercise_page: true
@@ -146,8 +157,9 @@ export default class FormPage extends React.Component {
       _nav.insertAdjacentHTML('beforebegin',
         '<li id="chld"><a href="/profile">Profile</a></li>');
       _nav.insertAdjacentHTML('afterend',
+        '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
         '<li id="chld"><a href="/exam">Exam</a></li>' +
-        '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+        '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +
         '<li id="chld"><a href="/messages">Messages</a></li>' +
         '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
@@ -181,7 +193,7 @@ export default class FormPage extends React.Component {
       />);
     }
 
-    if(this.state.is_go_exercise_page){
+    if (this.state.is_go_exercise_page) {
       return (<Redirect
         to={{
           pathname: "/exercise",

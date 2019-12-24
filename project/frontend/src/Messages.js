@@ -13,24 +13,24 @@ export default class Messages extends React.Component {
             .then(res => {
                 //console.log(res.status)
                 //console.log(res.data.history);
-                this.setState({ 
+                this.setState({
                     last_messages: res.data.history,
                 });
-                if(res.status === 200){
-                    try{
+                if (res.status === 200) {
+                    try {
                         Cookies.set('message_to_person', res.data.history[0].username)
-                    }catch (e){ 
+                    } catch (e) {
                         console.log(e)
                     }
                 }
-                
+
             })
-            
+
         this.state = {
             last_clicked_person: "",
             last_messages: [],
             chat_messages: [],
-            flag:false
+            flag: false
         }
 
     }
@@ -56,7 +56,7 @@ export default class Messages extends React.Component {
     }
 
     fillChatWindow(person) {
-        Cookies.set('message_to_person',person);
+        Cookies.set('message_to_person', person);
         var chat = [];
         for (let i = 0; i < this.state.chat_messages.length; i++) {
             //console.log(this.state.chat_messages[i].from_username)
@@ -92,11 +92,11 @@ export default class Messages extends React.Component {
 
         axios.post(('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person')), msg, { withCredentials: true })
             .then(res => {
-                
+
             });
 
         this.setState({
-            flag : true
+            flag: true
         })
     }
 
@@ -105,13 +105,13 @@ export default class Messages extends React.Component {
 
         setInterval(() => {
             axios.get('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person'), { withCredentials: true })
-            .then(res => {
-                //console.log(res.data);
-                if(this.state.chat_messages !== res.data){
-                    this.setState({ chat_messages: res.data  })
-                }
-                Cookies.set('chat_messages', res.data);
-            })
+                .then(res => {
+                    //console.log(res.data);
+                    if (this.state.chat_messages !== res.data) {
+                        this.setState({ chat_messages: res.data })
+                    }
+                    Cookies.set('chat_messages', res.data);
+                })
         }, 2000);
 
         var _navbar = document.getElementById("nav");
@@ -123,17 +123,18 @@ export default class Messages extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
-                '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
+                '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
                 '<li id="chld"><a href="/messages">Messages</a></li>' +
                 '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-                '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' + 
+                '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' +
                 '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
         }
     }
 
-   
+
 
     render() {
         //console.log(this.state.chat_messages)
@@ -150,7 +151,7 @@ export default class Messages extends React.Component {
                     <MDBCol md="7">
                         <MDBRow>
                             <div className="messagehistory Scrollbar">
-                                {this.fillChatWindow( Cookies.get('message_to_person') )}
+                                {this.fillChatWindow(Cookies.get('message_to_person'))}
                             </div>
                         </MDBRow>
                         <MDBRow>
