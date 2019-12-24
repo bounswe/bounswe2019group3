@@ -70,7 +70,7 @@ export default class GeneralTest extends React.Component {
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
-                                        {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
+                                        {this.state.questions[i].choices[2].desc}</label>
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
@@ -115,7 +115,7 @@ export default class GeneralTest extends React.Component {
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
-                                        {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
+                                        {this.state.questions[i].choices[2].desc }</label>
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
@@ -159,7 +159,7 @@ export default class GeneralTest extends React.Component {
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
-                                        {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
+                                        {this.state.questions[i].choices[2].desc}</label>
                                 </div>
                                 <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
