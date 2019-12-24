@@ -9,14 +9,11 @@ import java.net.URL;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -33,7 +30,6 @@ import com.bulingo.Database.APIInterface;
 import com.bulingo.Database.Annotation;
 import com.bulingo.R;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.button.MaterialButton;
 import com.google.gson.JsonObject;
 
@@ -42,7 +38,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import jp.wasabeef.glide.transformations.CropCircleTransformation;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -131,7 +126,8 @@ public class AnnotateImageWriting extends AppCompatActivity {
                             float currentX = event.getX();
                             float currentY = event.getY();
                             for(ArrayList<Integer> list : annotationMap.keySet()){
-                                if(Math.abs(currentX-list.get(0))<45 && Math.abs(currentY-list.get(1))<30){
+                                if(currentX-list.get(0)>-5 && currentX-list.get(0)<85 &&
+                                        currentY-list.get(1)<50 && currentY-list.get(1)>-5){
                                     popupAnno(annotationMap.get(list).body.value);
                                     resFound = true;
                                 }
@@ -169,8 +165,7 @@ public class AnnotateImageWriting extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),toast, Toast.LENGTH_SHORT).show();
     }
 
-
-    public boolean addAnnotation(float x, float y) {
+    public void addAnnotation(float x, float y) {
         LayoutInflater inflater = (LayoutInflater)
                 getSystemService(LAYOUT_INFLATER_SERVICE);
         popupView = inflater.inflate(R.layout.popup_add_annotation, null);
@@ -208,8 +203,6 @@ public class AnnotateImageWriting extends AppCompatActivity {
 
             sendAnnotation(value, (float)x/baseImage.getWidth()*original_width, (float)y/baseImage.getHeight()*original_height, (float)90/baseImage.getWidth()*original_width, (float)54/baseImage.getHeight()*original_height);
         });
-
-        return false;
     }
 
     public void sendAnnotation(String value, float x, float y, float width, float height) {
