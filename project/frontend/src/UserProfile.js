@@ -31,9 +31,55 @@ export default class Messages extends React.Component {
                 //console.log(res.data);
                 this.setState({ languages: res.data });
             })
-
+       
+            axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
+            .then(res => {
+              //console.log(res.data);
+              this.setState({ radarde: res.data });
+              console.log(this.state.radarde)
+              this.setState({ dataRadar: {
+                labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+                datasets: [
+                  {
+                    
+                    label: "english",
+                    backgroundColor: "rgba(245, 74, 85, 0.5)",
+                    data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+                  },
+                  {
+                    label: "german",
+                    backgroundColor: "rgba(90, 173, 246, 0.5)",
+                    data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+                  }
+                ]
+              }})
+            })
+            axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
+            .then(res => {
+              //console.log(res.data);
+              this.setState({ radaren: res.data });
+              console.log(this.state.radaren)
+              this.setState({ dataRadar: {
+                labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
+                datasets: [
+                  {
+                    
+                    label: "english",
+                    backgroundColor: "rgba(245, 74, 85, 0.5)",
+                    data: [this.state.radaren.listening, this.state.radaren.reading, this.state.radaren.writing, this.state.radaren.vocabulary, this.state.radaren.grammer]
+                  },
+                  {
+                    label: "german",
+                    backgroundColor: "rgba(90, 173, 246, 0.5)",
+                    data: [this.state.radarde.listening, this.state.radarde.reading, this.state.radarde.writing, this.state.radarde.vocabulary, this.state.radarde.grammer]
+                  }
+                ]
+              }})
+            })
         this.state = {
             _data: "",
+            radaren:[],
+            radarde:[],
             is_comment_send: false,
             returnToMessages: false,
             username: "",
@@ -43,21 +89,7 @@ export default class Messages extends React.Component {
             exercises: false,
             writing: false,
             rating: 4 ,
-            dataRadar: {
-                labels: ["Listening", "Reading", "Writing", "Vocabulary", "Grammar"],
-                datasets: [
-                    {
-                        label: "english",
-                        backgroundColor: "rgba(245, 74, 85, 0.5)",
-                        data: [3.25, 7, 6, 5, 5]
-                    },
-                    {
-                        label: "german",
-                        backgroundColor: "rgba(90, 173, 246, 0.5)",
-                        data: [2.7, 4, 4.3, 7, 4]
-                    }
-                ]
-            }
+        
         }
     }
     commentField() {
@@ -115,17 +147,12 @@ export default class Messages extends React.Component {
     sendcomment() {
         const cmmnt = {
             text: document.getElementById("comment_to_send").value,
-            rating : this.state.rating
+            rating : 5
         }
 
         axios.post(('http://18.184.207.248/api/user/' + username_ +'/comments'), cmmnt, { withCredentials: true })
             .then(res => {
-                document.getElementById("comment_to_send").value = "";
-                cmmnt.comment_by = Cookies.get('username');
-                cmmnt.createdAt = new Date();
-                let comments = this.state.comments;
-                comments.push(cmmnt);
-                this.setState({ comments:comments })
+                this.setState({ is_comment_send: true })
             });
 
         console.log(cmmnt)
@@ -144,12 +171,20 @@ export default class Messages extends React.Component {
     }
 
     render() {
-        
+        console.log(this.state.radaren.listening);
+        console.log(this.state.radarde.grammer);
+        if (this.props.location.data_ === undefined) {
+            return (<Redirect
+                push to={{
+                    pathname: "/search"
+                }}
+            />);
+        }
         if(this.state.is_comment_send){
             return (<Redirect
                 to={{
                     pathname: "/user", 
-                    data_: username_         
+                    //state : this.state                   
                 }}
               />);
         }
@@ -224,7 +259,7 @@ export default class Messages extends React.Component {
                                 id="comment_to_send"
                             />
                             <div className="" >
-                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} >
+                                <MDBBtn color="orange" onClick={this.sendcomment.bind(this)} type="submit">
                                     SEND COMMENT
                                     <MDBIcon far icon="paper-plane" className="ml-2" />
                                 </MDBBtn>
