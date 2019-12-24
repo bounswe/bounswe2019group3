@@ -14,7 +14,7 @@ import {
 function getImageSize(url, callback) {
     var img = new Image();
     img.src = url;
-    img.onload = function() { callback(this.width, this.height); }
+    img.onload = function () { callback(this.width, this.height); }
 }
 
 var content;
@@ -24,56 +24,70 @@ export default class FormPage extends React.Component {
     constructor(props) {
         super(props);
         content = this.props.location._data;
-        getImageSize("http://18.184.207.248/" + content.image, (w,h)=>{
-            image_width=w;
-            image_height=h;
-            //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
-            axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
-            .then(res => {
-                console.log(res.data.length);
-                console.log(image_height, image_width);
-                var temp_data = [];
 
-                for (let i = 0; i < res.data.length; i++) {
-                    if (res.data[i].target.type === "Text") {
-                        var temp = res.data[i].target.selector.value.substring(5);
-                        temp_data[i] =
-                        {
-                            start: parseInt(temp.split(',')[0]),
-                            end: parseInt(temp.split(',')[1]),
-                            tag: res.data[i].body.value
-                        }
-                    } else {
-                        var temp = res.data[i].target.selector.value.substring(5);
-                        console.log(temp);
-                        temp_data[i] =
-                        {
-                            selection: {
-                                mode: "EDITING",
-                                anchorX: parseInt(temp.split(',')[0]),
-                                anchorY: parseInt(temp.split(',')[1]),
-                                showEditor: true
-                            },
-                            geometry: {
-                                type: "RECTANGLE",
-                                x: (parseInt(temp.split(',')[0]))*100 / image_width,
-                                y: (parseInt(temp.split(',')[1]))*100 / image_height,
-                                width: (parseInt(temp.split(',')[2]))*100 / image_width,
-                                height: (parseInt(temp.split(',')[3]))*100 / image_height,
-                            },
-                            data: {
-                                text: res.data[i].body.value
+        axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
+                .then(res => {
+                    var temp_data = [];
+
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i].target.type !== "Image") {
+
+                            var temp = res.data[i].target.selector.value.substring(5);
+                            temp_data[i] =
+                            {
+                                
+                                start: parseInt(temp.split(',')[0]),
+                                end: parseInt(temp.split(',')[1]),
+                                tag: res.data[i].body.value
                             }
                         }
-                    }
 
-                }
-                console.log(temp_data);
-                this.setState({
-                    value: temp_data,
-                    image_annotations: temp_data
-                })
-            });
+                    }
+                    this.setState({
+                        value: temp_data,
+                        image_annotations: temp_data
+                    })
+                });
+
+        getImageSize("http://18.184.207.248/" + content.image, (w, h) => {
+            image_width = w;
+            image_height = h;
+            //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
+            axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
+                .then(res => {
+                    var temp_data = [];
+
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i].target.type === "Image") {
+
+                            var temp = res.data[i].target.selector.value.substring(5);
+                            temp_data[i] =
+                            {
+                                selection: {
+                                    mode: "EDITING",
+                                    anchorX: parseInt(temp.split(',')[0]),
+                                    anchorY: parseInt(temp.split(',')[1]),
+                                    showEditor: true
+                                },
+                                geometry: {
+                                    type: "RECTANGLE",
+                                    x: (parseInt(temp.split(',')[0])) * 100 / image_width,
+                                    y: (parseInt(temp.split(',')[1])) * 100 / image_height,
+                                    width: (parseInt(temp.split(',')[2])) * 100 / image_width,
+                                    height: (parseInt(temp.split(',')[3])) * 100 / image_height,
+                                },
+                                data: {
+                                    text: res.data[i].body.value
+                                }
+                            }
+                        }
+
+                    }
+                    this.setState({
+                        value: temp_data,
+                        image_annotations: temp_data
+                    })
+                });
         });
         this.state = {
             isSended: false,
@@ -93,35 +107,35 @@ export default class FormPage extends React.Component {
     image_onSubmit = (image_annotation) => {
         const { geometry, data } = image_annotation
 
-            const element = image_annotation
+        const element = image_annotation
 
-            console.log(element);
-            const frm = {
-                "@context": "http://www.w3.org/ns/anno.jsonld",
-                type: "Annotation",
-                body: {
-                    type: "TextualBody",
-                    value: element.data.text,
-                    format: "text/plain"
-                },
-                target: {
-                    source: "http://18.184.207.248/api/writing/" + content.writing_id,
-                    creator: Cookies.get('username'),
-                    type: "Image",
-                    selector: {
-                        type: "FragmentSelector",
-                        conformsTo: "http://tools.ietf.org/rfc/rfc5147",
-                        value: "xywh=" + Math.round(element.geometry.x/100*image_width) + "," + Math.round(element.geometry.y/100*image_height) + ","+ Math.round(element.geometry.width/100*image_width) + ","+ Math.round(element.geometry.height/100*image_height) ,
-                    }
+        console.log(element);
+        const frm = {
+            "@context": "http://www.w3.org/ns/anno.jsonld",
+            type: "Annotation",
+            body: {
+                type: "TextualBody",
+                value: element.data.text,
+                format: "text/plain"
+            },
+            target: {
+                source: "http://18.184.207.248/api/writing/" + content.writing_id,
+                creator: Cookies.get('username'),
+                type: "Image",
+                selector: {
+                    type: "FragmentSelector",
+                    conformsTo: "http://tools.ietf.org/rfc/rfc5147",
+                    value: "xywh=" + Math.round(element.geometry.x / 100 * image_width) + "," + Math.round(element.geometry.y / 100 * image_height) + "," + Math.round(element.geometry.width / 100 * image_width) + "," + Math.round(element.geometry.height / 100 * image_height),
                 }
-            };
-            axios.post('http://18.184.207.248/api/annotation', frm, { withCredentials: true })
-                .then(res => {
-                    console.log(res);
-                    if (res.status === 200) {
-                        console.log(element.tag);
-                    }
-                })
+            }
+        };
+        axios.post('http://18.184.207.248/api/annotation', frm, { withCredentials: true })
+            .then(res => {
+                console.log(res);
+                if (res.status === 200) {
+                    console.log(element.tag);
+                }
+            })
 
 
         this.setState({
@@ -172,7 +186,7 @@ export default class FormPage extends React.Component {
             }
         }
         this.setState({
-            isSended:true
+            isSended: true
         })
     }
     myonFocus(element) {
@@ -255,6 +269,7 @@ export default class FormPage extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
                 '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
@@ -266,12 +281,12 @@ export default class FormPage extends React.Component {
     }
 
     render() {
-        if(this.state.isSended){
+        if (this.state.isSended) {
             return (<Redirect
                 push to={{
-                  pathname: "/writingsList"
+                    pathname: "/writingsList"
                 }}
-              />);
+            />);
         }
 
         if (content.image === null) {
