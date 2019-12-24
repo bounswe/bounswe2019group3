@@ -25,7 +25,14 @@
   float: right; 
   background-color:lightgreen !important;
 }
+.green {
+  background-color:lightgreen !important;
+  font-weight:bold;
+}
+.boldfont {
+  font-weight:bold;
 
+}
 .chat_message_left {
   width: 525px; 
   float: left; 

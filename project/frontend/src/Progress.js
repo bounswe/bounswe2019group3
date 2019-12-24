@@ -124,11 +124,14 @@ export default class FormPage extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
+                '<li id="chld"><a href="/progress">Progress</a></li>'+
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
+                '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
                 '<li id="chld"><a href="/messages">Messages</a></li>' +
                 '<li id="chld" style="float:right";><a href="/Logout">Logout</a></li>' +
-                '<li id="chld" style="float:right";><a href="/Settings" >Settings</a></li>' +
+                '<li id="chld" style="float:right";><a href="/Settings">Settings</a></li>' +
                 '<li id="chld" style="float:right";><a href="/Search" >Search</a></li>');
         }
     }

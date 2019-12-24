@@ -25,8 +25,9 @@ export default class GeneralTest extends React.Component {
             submitted: false,
             showPopup: false,
             grade: undefined,
-            modal:false
-
+            modal:false,
+            nb_correct_answers: undefined,
+            nb_questions: undefined
         }
     }
 
@@ -43,7 +44,7 @@ export default class GeneralTest extends React.Component {
         var ques = [];
 
         for (let i = 0; i < this.state.questions.length; i++) {
-            ans[i] = { question_id: "" + this.state.questions[i].id, choice_id: undefined };
+            ans[i] = { question_id: "" + this.state.questions[i].question_id, choice_id: undefined };
         }
 
         for (let i = 0; i < this.state.questions.length; i++) {
@@ -59,19 +60,19 @@ export default class GeneralTest extends React.Component {
                     <form>
                         <fieldset className="question"><p className="Question">{(i + 1) + ". " + this.state.questions[i].desc}</p>
                             <div className="answers radio-toolbar" >
-                                <div className="answerstext">
+                            <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[0].choice_id ? 'green' : '')}>
                                     <label for="a"><input type="radio" id="1" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[0].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[0].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[1].choice_id ? 'green' : '')}>
                                     <label for="b"><input type="radio" id="2" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[1].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[1].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
-                                        {this.state.questions[i].choices[2].desc}</label>
+                                        {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[3].desc}</label>
                                 </div>
@@ -92,11 +93,11 @@ export default class GeneralTest extends React.Component {
         var ques = [];
 
         for (let i = 0; i < this.state.questions.length; i++) {
-            ans[i] = { question_id: "" + this.state.questions[i].id, choice_id: undefined };
+            ans[i] = { question_id: "" + this.state.questions[i].question_id, choice_id: undefined };
         }
 
         for (let i = 0; i < this.state.questions.length; i++) {
-
+            console.log(i, this.state.questions[i].answer_id);
             ques[i] = (
 
 
@@ -104,19 +105,19 @@ export default class GeneralTest extends React.Component {
                     <form>
                         <fieldset className="reading_question"><p className="readingQuestion">{(i + 1) + ". " + this.state.questions[i].desc}</p>
                             <div className="answers radio-toolbar" >
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[0].choice_id ? 'green' : '')}>
                                     <label for="a"><input type="radio" id="1" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[0].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[0].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[1].choice_id ? 'green' : '')}>
                                     <label for="b"><input type="radio" id="2" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[1].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[1].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[3].desc}</label>
                                 </div>
@@ -133,10 +134,11 @@ export default class GeneralTest extends React.Component {
     generateQuestions(ans) {
 
         var ques = [];
-
+        
         for (let i = 0; i < this.state.questions.length; i++) {
-            ans[i] = { question_id: "" + this.state.questions[i].id, choice_id: undefined };
+            ans[i] = { question_id: "" + this.state.questions[i].question_id, choice_id: undefined };
         }
+        
 
         for (let i = 0; i < this.state.questions.length; i++) {
 
@@ -147,19 +149,19 @@ export default class GeneralTest extends React.Component {
                     <form>
                         <fieldset className="question"><p className="commentsec_title">{(i + 1) + ". " + this.state.questions[i].desc}</p>
                             <div className="answers radio-toolbar" >
-                                <div className="answerstext">
+                            <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[0].choice_id ? 'green' : '')}>
                                     <label for="a"><input type="radio" id="1" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[0].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[0].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[1].choice_id ? 'green' : '')}>
                                     <label for="b"><input type="radio" id="2" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[1].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[1].desc}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[2].choice_id ? 'green' : '')}>
                                     <label for="c"><input type="radio" id="3" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[2].choice_id, this.state.questions[i].question_id, ans, i)} />
-                                        {this.state.questions[i].choices[2].desc}</label>
+                                        {this.state.questions[i].choices[2].desc + this.state.questions[i].choices[2].id}</label>
                                 </div>
-                                <div className="answerstext">
+                                <div className={"answerstext " + (this.state.questions[i].answer_id == this.state.questions[i].choices[3].choice_id ? 'green' : '')}>
                                     <label for="d"><input type="radio" id="4" name={i} onClick={this.onClickd.bind(this, this.state.questions[i].choices[3].choice_id, this.state.questions[i].question_id, ans, i)} />
                                         {this.state.questions[i].choices[3].desc}</label>
                                 </div>
@@ -180,9 +182,19 @@ export default class GeneralTest extends React.Component {
         
         console.log('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
         axios.post('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate', ans, { withCredentials: true })
-            .then(res => {
+            .then(res => {              
                 if (res.status === 200) {
-                    //console.log(ans);
+                 
+                    let q_answers = res.data.answers;
+                    let questions = this.state.questions;
+                    questions = questions.map(q => {
+                        q = JSON.parse(JSON.stringify(q));
+                        q.answer_id = q_answers.find(a => a.question_id == q.question_id).choice_id;
+                        return q;
+                    });
+                   
+                    this.setState({questions: questions,nb_questions: res.data.nb_questions, nb_correct_answers: res.data.nb_correct_answers});
+                    console.log(ans);
                     console.log(res.data);
                     this.show_result(res.data);
                     this.toggle();   
@@ -191,14 +203,32 @@ export default class GeneralTest extends React.Component {
 
     };
 
-    close() {
-        this.setState({
-            submitted: true
-        });
-    };
-
     show_result(result){
+        var correct_ans = [];
 
+        for(let i=0; i< result.answers.length; i++){        
+         // console.log(result.answers[i].choice_id)
+         for(let j=0; j < 4; j++){
+          if(result.answers[i].choice_id===this.state.questions[i].choices[j].choice_id){
+              console.log(result.answers[i].choice_id)
+              console.log(this.state.questions[i].choices[j].desc)
+            
+              correct_ans[i] = (
+
+
+                <div className="ExamBox">
+                    <form>
+                       <p>{this.state.questions[i].choices[j].desc}</p>
+                    </form>
+                </div>
+
+            );
+          } 
+          
+        }
+          
+        }
+        return correct_ans;
     }
 
     componentDidMount() {
@@ -211,6 +241,7 @@ export default class GeneralTest extends React.Component {
             _nav.insertAdjacentHTML('beforebegin',
                 '<li id="chld"><a href="/profile">Profile</a></li>');
             _nav.insertAdjacentHTML('afterend',
+                '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>'+
                 '<li id="chld"><a href="/exam">Exam</a></li>' +
                 '<li id="chld"><a href="/writingsList">My Writings</a></li>'+
                 '<li id="chld"><a href="/writing">Send Writing</a></li>' +
@@ -246,6 +277,7 @@ export default class GeneralTest extends React.Component {
 
 
     render() {
+        console.log(this.state.questions)
         if (this.state.submitted) {
             return (<Redirect
                 push to={{
@@ -259,26 +291,16 @@ export default class GeneralTest extends React.Component {
             //console.log (Cookies.get('selectedType') + ' in listening');
             return (
 
-                <MDBContainer fluid>
-                    <div>
-                        {this.state.showPopup ?
-                            <Popup
-                                text={Cookies.get('selectedLanguageAbbr') + ": " + this.state.grade}
-                                closePopup={this.close.bind(this)}
-                            />
-                            : null
-                        }
-                    </div>
-
+                <MDBContainer fluid>                
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
 
                         <MDBCol md="8">
                         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                                <MDBModalHeader toggle={this.toggle}>Answers</MDBModalHeader>
+                                <MDBModalHeader toggle={this.toggle}>Result</MDBModalHeader>
                                 <MDBModalBody>
-                                    (...)
+                                You knew {this.state.nb_correct_answers} correct answer!
                                 </MDBModalBody>
                                 <MDBModalFooter>
                                     <MDBBtn color="orange" onClick={this.toggle}>Close</MDBBtn>                                    
@@ -297,17 +319,7 @@ export default class GeneralTest extends React.Component {
             //console.log (Cookies.get('selectedType') + ' in writing');
             return (
 
-                <MDBContainer fluid>
-                    <div>
-                        {this.state.showPopup ?
-                            <Popup
-                                text={Cookies.get('selectedLanguageAbbr') + ": " + this.state.grade}
-                                closePopup={this.close.bind(this)}
-                            />
-                            : null
-                        }
-                    </div>
-
+                <MDBContainer fluid>     
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
@@ -327,26 +339,17 @@ export default class GeneralTest extends React.Component {
             //console.log (Cookies.get('selectedType') + ' in else');
             return (
 
-                <MDBContainer fluid>
-                    <div>
-                        {this.state.showPopup ?
-                            <Popup
-                                text={Cookies.get('selectedLanguageAbbr') + ": " + this.state.grade}
-                                closePopup={this.close.bind(this)}
-                            />
-                            : null
-                        }
-                    </div>
-
+                <MDBContainer fluid>                  
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth3.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
 
                         <MDBCol md="8">
                         <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                                <MDBModalHeader toggle={this.toggle}>Answers</MDBModalHeader>
+                                <MDBModalHeader toggle={this.toggle}>Result</MDBModalHeader>
                                 <MDBModalBody>
-                                    (...)
+                                You knew {this.state.nb_correct_answers} correct answer!
+                                
                                 </MDBModalBody>
                                 <MDBModalFooter>
                                     <MDBBtn color="orange" onClick={this.toggle}>Close</MDBBtn>                                    
@@ -364,26 +367,16 @@ export default class GeneralTest extends React.Component {
         else {
             return (
 
-                <MDBContainer fluid>
-                    <div>
-                        {this.state.showPopup ?
-                            <Popup
-                                text={Cookies.get('selectedLanguageAbbr') + ": " + this.state.grade}
-                                closePopup={this.close.bind(this)}
-                            />
-                            : null
-                        }
-                    </div>
-
+                <MDBContainer fluid>              
                     <MDBRow>
                         <center><img className="backpicture" src=".\earth4.png" alt="." width="80%" /></center>
                         <MDBCol md="2"></MDBCol>
 
                         <MDBCol md="8">
                             <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                                <MDBModalHeader toggle={this.toggle}>Answers</MDBModalHeader>
+                                <MDBModalHeader toggle={this.toggle}>Result</MDBModalHeader>
                                 <MDBModalBody>
-                                    (...)
+                                You knew {this.state.nb_correct_answers} correct answer!
                                 </MDBModalBody>
                                 <MDBModalFooter>
                                     <MDBBtn color="orange" onClick={this.toggle}>Close</MDBBtn>                                    

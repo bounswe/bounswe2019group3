@@ -29,7 +29,7 @@ export default class ExaminationPage extends React.Component {
 
   onClickd() {
     console.log(this.state);
-    
+
 
 
     if (this.state.isUploadfile) {
@@ -37,7 +37,7 @@ export default class ExaminationPage extends React.Component {
       data.append("image", this.state.image);
       data.append("lang_abbr", document.getElementById("abbr").value);
       data.append("assignee", document.getElementById("assignee").value);
-      data.append("title","Hand-Written");
+      data.append("title", "Hand-Written");
       axios.post(('http://18.184.207.248/api/writing'),
         data,
         {
@@ -53,7 +53,7 @@ export default class ExaminationPage extends React.Component {
             });
           }
         });
-    }else{
+    } else {
       const frm = {
         title: document.getElementById("title").value,
         text: document.getElementById("text").value,
@@ -61,18 +61,18 @@ export default class ExaminationPage extends React.Component {
         assignee: document.getElementById("assignee").value
       }
       axios.post('http://18.184.207.248/api/writing', frm, { withCredentials: true })
-      .then(res => {
-        if (res.status === 204) {
-          console.log(res);
-          this.setState({
-            isSended: true
-          });
-        }
-      }).catch(error => {
-        alert("invalid information")
-      });
+        .then(res => {
+          if (res.status === 204) {
+            console.log(res);
+            this.setState({
+              isSended: true
+            });
+          }
+        }).catch(error => {
+          alert("invalid information")
+        });
     }
-    
+
 
 
 
@@ -91,6 +91,7 @@ export default class ExaminationPage extends React.Component {
       _nav.insertAdjacentHTML('beforebegin',
         '<li id="chld"><a href="/profile">Profile</a></li>');
       _nav.insertAdjacentHTML('afterend',
+        '<li id="chld"><a href="/sendexercise">Send Exercise</a></li>' +
         '<li id="chld"><a href="/exam">Exam</a></li>' +
         '<li id="chld"><a href="/writingsList">My Writings</a></li>' +
         '<li id="chld"><a href="/writing">Send Writing</a></li>' +

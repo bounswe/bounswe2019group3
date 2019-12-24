@@ -19,6 +19,8 @@ import Exercises from './Exercises'
 import Exercise from './Exercise'
 import progress from './Progress'
 
+import SendExercise from './SendExercise'
+
 class Routes extends React.Component {
 
   
@@ -46,6 +48,7 @@ class Routes extends React.Component {
           <Route path='/progress' component = {progress} />
           <Route path='/writingsList' component = {writings} />
           <Route path='/writings' component = {writingsRead} />
+          <Route path='/sendexercise' component = {SendExercise} />
         </Switch>
       );
   }
