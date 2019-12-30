@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.bulingo">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Exercises.AnnotateImageWriting"></activity>
+        <activity android:name=".Exercises.AnnotateWriting" />
+        <activity android:name=".Exercises.SendReceiveWriting" />
+        <activity android:name=".Exercises.RecommendationActivity" />
+        <activity
+            android:name=".Exercises.QuestionActivity"
+            android:noHistory="true" />
+        <activity android:name=".Exercises.ExerciseSelection" />
+        <activity android:name=".Exercises.WritingActivity" />
+        <activity android:name=".Profile.EditProfile" />
+        <activity android:name=".Chat.ChatHistory" />
+        <activity android:name=".Search.SearchActivity" />
+        <activity
+            android:name=".Chat.ChatActivity"
+            android:noHistory="true" />
+        <activity android:name=".Profile.ProfilePage" />
+        <activity android:name=".Exercises.ResultActivity" />
+        <activity
+            android:name=".Exercises.LanguageSelection"
+            android:noHistory="true" />
+        <activity
+            android:name=".Exercises.Exercise"
+            android:noHistory="true" />
+        <activity
+            android:name=".Login.Register"
+            android:noHistory="true" />
+        <activity android:name=".Login.LoginMain" />
+        <activity
+            android:name=".MainActivity"
+            android:noHistory="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+    </application>
+
+</manifest>
