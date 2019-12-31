@@ -12,7 +12,7 @@ You need to install
 	
 Installing<br>
  To download 
-JDK : https://www.oracle.com/technetwork/java/javase/downloads/index.html
+JDK : https://www.oracle.com/technetwork/java/javase/downloads/index.html   <br>
 Android Studio : https://developer.android.com/studio/install.html
 
 Built<br>
