@@ -1,6 +1,6 @@
 <h2>BULINGO ANDROID</h2>
 
-Android application of the project “Language Learning Platform”. Bulingo for Android is free and open source. Bulingo has been made for you to learn a new language
+Android application of the project “Language Learning Platform”. Bulingo for Android is free and open source. Bulingo has been made for you to learn a new language.
 
 **Getting Started** <br>
 These instructions will get you a copy of the project up and running on your local machine and device.
