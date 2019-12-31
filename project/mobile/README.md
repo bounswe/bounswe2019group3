@@ -2,20 +2,20 @@ BULINGO ANDROID
 
 Android application of the project “Language Learning Platform”. Bulingo for Android is free and open source. Bulingo has been made for you to learn a new language
 
-Getting Started
+Getting Started <br>
 These instructions will get you a copy of the project up and running on your local machine and device.
 
-Prerequisities
+Prerequisities<br>
 You need to install
 	Java Development Kit (JDK)
 	Android Studio (with gradle)
 	
-Installing
+Installing<br>
  To download 
 JDK : https://www.oracle.com/technetwork/java/javase/downloads/index.html
 Android Studio : https://developer.android.com/studio/install.html
 
-Built
+Built<br>
 After you set up the environment you can import our project. Clone our project from 
 https://github.com/bounswe/bounswe2019group3.git
 
@@ -30,6 +30,6 @@ https://developer.android.com/studio/run/device.html
 
 After completing these, you can connect your device and run the app on it. This is same as launching Bulingo on emulator.
 
-Versioning
+Versioning<br>
 We use our github repository for versioning. Now, Bulingo 1.0 is available.
 
