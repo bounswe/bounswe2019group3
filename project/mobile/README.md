@@ -1,4 +1,4 @@
-<h2>**BULINGO ANDROID**</h2>
+<h2>BULINGO ANDROID</h2>
 
 Android application of the project “Language Learning Platform”. Bulingo for Android is free and open source. Bulingo has been made for you to learn a new language
 
