@@ -104,7 +104,7 @@ export default class FormPage extends React.Component {
         row[i] = (
           <tr >
             <td className="Messagebox" scope="row">{i + 1}</td>
-            <td className="Messagebox clickable" onClick={this.go_exercise_page.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr)}>
+            <td className="Messagebox clickable" onClick={this.go_exercise_page.bind(this, this.state.response[i].exercise_id, this.state.response[i].lang_abbr, this.state.response[i].exercise_type)}>
               {this.state.response[i].title}
             </td>
             <td className="Messagebox" >
@@ -139,9 +139,10 @@ export default class FormPage extends React.Component {
     })
   }
 
-  go_exercise_page(exercise_id, abbr) {
+  go_exercise_page(exercise_id, abbr,type) {
     Cookies.set('selectedLanguageAbbr', abbr);
-    Cookies.set('selectedExerciseId', exercise_id)
+    Cookies.set('selectedExerciseId', exercise_id);
+    Cookies.set('selectedType', type);
     this.setState({
       is_go_exercise_page: true
     })
