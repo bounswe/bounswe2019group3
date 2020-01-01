@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "backend project",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon --inspect=0.0.0.0:9229 index.js",
@@ -41,5 +42,8 @@
   },
   "devDependencies": {
     "chai-match": "^1.1.1"
+  },
+  "pkg": {
+    "assets": "frontend/**/*"
   }
 }
