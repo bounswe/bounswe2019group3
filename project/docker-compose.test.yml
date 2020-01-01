@@ -1,6 +1,7 @@
 version: "2.4"
 services:
   backend:
+    container_name: bulingo_backend
     build: ./backend
     restart: always
     depends_on:
@@ -16,6 +17,7 @@ services:
     command: npm test
   
   postgres:
+    container_name: bulingo_database
     image: postgres:11.2-alpine
     environment:
       POSTGRES_PASSWORD: postgres

@@ -1,7 +1,7 @@
 
 const router = require('express').Router();
 const multer = require('multer');
-const avatar_upload = multer({dest: '/backend/uploads/avatars'});
+const avatar_upload = multer({dest: __dirname + '/../uploads/avatars'});
 const fs = require('fs');
 const path = require('path');
 
@@ -42,7 +42,7 @@ router.post("/:username/", avatar_upload.single('avatar'), (req, res, next) => {
     let file_path = undefined;
     if(req.file) {
         file_path = "/uploads/avatars/" + req.session.user.username + path.extname(req.file.originalname);
-        fs.renameSync(req.file.path, "/backend/" + file_path);
+        fs.renameSync(req.file.path, __dirname + '/..' + file_path);
     }
     const db = req.db;
     const update = {};

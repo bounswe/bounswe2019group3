@@ -1,44 +1,53 @@
-# backend
+# Backend
+## 1. System Manual
 
-nodeJS, expressJS, postgresql, Sequelize (ORM)
+### 1.1 Requirements
+* NodeJS 10
+* NPM
+* PostgreSQL
 
-## Example Model Generation
-execute the following from project directory
-```
-node_modules/.bin/sequelize model:generate --name User --attributes firstName:string,lastName:string,email:string:password:string,role:integer
-```
-```
-node_modules/.bin/sequelize db:migrate
-```
+### 1.2 Setup
+1. Clone the project from Github Repository.
+2. Change directory to the backend folder (bounswe2019group3/project/backend)
+3. Install dependencies using the following command: ```npm install```
+4. Start PostgreSQL database server
+5. Database Setup - Initialize the database from the dump using one of the following commands:
+- SQL:```psql -U postgres bulingo < db_dump.sql```
+- TAR ```pg_restore -d bulingo db_dump.tar -c -U postgres```
 
-## Models
-### auth table:
-- username (id)
-- email
-- password_hash
-- user_type
+### 1.3 Run the project
+1. Run the following command to start the backend server: ```npm start```
+2. Access the backend server on http://localhost:3000
 
-## Install Dependecies:
+## 2. Run Tests
 ```
-npm install
-```
-
-
-## Run:
-```
-npm start
+npm test
 ```
 
-## API Docs
-### URL: /api/docs
-### Generate:
+## 3. Run Development Environment
 ```
-npm run generate-api-docs
+npm run start:dev
 ```
-restart server after generating api docs
 
-## Dummy Data Insertion & Deletion
+## 4. DB Dump Details
+#### Export
+##### SQL
 ```
-node_modules/.bin/sequelize db:seed:all
-node_modules/.bin/sequelize db:seed:undo:all
+pg_dump -U postgres -w -F p bulingo > db_dump.sql
+```
+
+##### TAR
+```
+pg_dump -U postgres -w -F t bulingo > db_dump.tar
+```
+
+#### Import
+##### SQL
+```
+psql -U postgres bulingo < db_dump.sql
+```
+
+##### TAR 
+```
+pg_restore -d bulingo db_dump.tar -c -U postgres
 ```

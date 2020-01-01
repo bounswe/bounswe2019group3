@@ -1,7 +1,7 @@
 const router = require("express").Router();
 
 const env = process.env.NODE_ENV || 'development';
-const domain = require(__dirname + '/../config/domain.json')[env].domain;
+const domain = require('./../config/domain.json')[env].domain;
 
 const annotation_include_config = (db, body_where={}, target_where={}) => { 
     return [

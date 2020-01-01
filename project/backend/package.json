@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "backend project",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "node index.js",
     "start:dev": "nodemon --inspect=0.0.0.0:9229 index.js",
@@ -10,7 +11,7 @@
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "generate-api-docs": "node_modules/apidoc/bin/apidoc -e '(node_modules|public)' -o api-docs",
     "sequelize": "node_modules/.bin/sequelize",
-    "test": "./node_modules/.bin/mocha tests/*.js --exit"
+    "test": "./node_modules/.bin/mocha --recursive tests/ --exit"
   },
   "repository": {
     "type": "git",
@@ -41,5 +42,8 @@
   },
   "devDependencies": {
     "chai-match": "^1.1.1"
+  },
+  "pkg": {
+    "assets": "frontend/**/*"
   }
 }
