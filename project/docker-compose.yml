@@ -1,6 +1,7 @@
 version: "2.4"
 services:
   backend:
+    container_name: bulingo_backend
     build: ./backend
     restart: always
     depends_on:
@@ -15,26 +16,30 @@ services:
       - ./../../uploads:/backend/uploads
 
   postgres:
+    container_name: bulingo_database
     image: postgres:11.2-alpine
     environment:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: bulingo
     volumes:
       - ./../../db-data:/var/lib/postgresql/data
+      - .:/home
 
   frontend:
+    container_name: bulingo_frontend_builder
     build: ./frontend
     volumes:
       - ./../../frontend-output/:/frontend/build
 
   android:
+    container_name: bulingo_android_builder
     build: ./mobile
     volumes:
       - ./../../android-output/:/mobile/bulingo/app/build/outputs/apk
     cpus: 0.02
 
   nginx:
-   container_name: nginx
+   container_name: bulingo_nginx
    image: nginx:1.13
    restart: always
    ports:

@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../index');
+const app = require('../../index');
 
 chai.use(chaiHttp);
 chai.use(require('chai-match'));
@@ -9,28 +9,24 @@ chai.should();
 let cookie = undefined;
 
 describe("Testing: User API", function () {
-    this.timeout(40000); 
-    before((done) => {
-        console.log("waiting for db to be ready");
-        setTimeout(() => {
-            done()
-        }, 35000);
+    before(function(done) {
+        chai.request(app)
+                .post('/api/auth/login')
+                // set headers 
+                .set('content-type', 'application/json')
+                // send request body
+                .send({  
+                    id: 'lazyostrich850',
+                    password: 'pass'
+                })
+                .end((err, res) => {
+                    cookie = res.header['set-cookie'];
+                    res.should.have.status(200);
+                    res.body.username.should.be.eql('lazyostrich850');
+                    res.body.email.should.be.eql('robby.vanbaren@example.com');
+                    done();
+                });
     });
-    chai.request(app)
-            .post('/api/auth/login')
-            // set headers 
-            .set('content-type', 'application/json')
-            // send request body
-            .send({  
-                id: 'lazyostrich850',
-                password: 'pass'
-            })
-            .end((err, res) => {
-                cookie = res.header['set-cookie'];
-                res.should.have.status(200);
-                res.body.username.should.be.eql('lazyostrich850');
-                res.body.email.should.be.eql('robby.vanbaren@example.com');
-            });
     it("GET: /api/user/", done => {
         chai.request(app)
             .get('/api/user/')
@@ -49,7 +45,7 @@ describe("Testing: User API", function () {
                 res.body.email.should.be.eql('robby.vanbaren@example.com');
                 res.body.bio.should.be.eql('I am Robby Van Baren, and I live in Wessem, Netherlands.I want to learn foreign languages.');
                 res.body.avatar.should.be.eql('https://randomuser.me/api/portraits/men/57.jpg');
-                res.body.rating.should.be.eql(5);
+                res.body.rating.should.be.eql(3);
                 res.should.has.status(200);
                 done();
             });

@@ -10,7 +10,7 @@
     "db:seed": "node_modules/.bin/sequelize db:seed:all",
     "generate-api-docs": "node_modules/apidoc/bin/apidoc -e '(node_modules|public)' -o api-docs",
     "sequelize": "node_modules/.bin/sequelize",
-    "test": "./node_modules/.bin/mocha tests/*.js --exit"
+    "test": "./node_modules/.bin/mocha --recursive tests/ --exit"
   },
   "repository": {
     "type": "git",

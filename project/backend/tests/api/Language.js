@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const app = require('../index');
+const app = require('../../index');
 
 chai.use(chaiHttp);
 chai.use(require('chai-match'));
@@ -9,28 +9,24 @@ chai.should();
 let cookie = undefined;
 
 describe("Testing: Language API", function () {
-    this.timeout(40000); 
-    before((done) => {
-        console.log("waiting for db to be ready");
-        setTimeout(() => {
-            done()
-        }, 35000);
+    before(function(done) {
+        chai.request(app)
+                .post('/api/auth/login')
+                // set headers 
+                .set('content-type', 'application/json')
+                // send request body
+                .send({  
+                    id: 'admin',
+                    password: 'pass'
+                })
+                .end((err, res) => {
+                    cookie = res.header['set-cookie'];
+                    res.should.have.status(200);
+                    res.body.username.should.be.eql('admin');
+                    res.body.email.should.be.eql('email1');
+                    done();
+                });
     });
-    chai.request(app)
-            .post('/api/auth/login')
-            // set headers 
-            .set('content-type', 'application/json')
-            // send request body
-            .send({  
-                id: 'admin',
-                password: 'pass'
-            })
-            .end((err, res) => {
-                cookie = res.header['set-cookie'];
-                res.should.have.status(200);
-                res.body.username.should.be.eql('admin');
-                res.body.email.should.be.eql('email1');
-            });
     it("GET: /api/language/", done => {
         chai.request(app)
             .get('/api/language/')
