@@ -20,7 +20,7 @@ const http_server = http.createServer(app);
 // api route
 app.use('/api/', api.router);
 
-app.use(express.static('frontend'));
+app.use(express.static(path.join(__dirname, 'frontend')));
 // Handles any requests that don't match the ones above
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/frontend/index.html'));

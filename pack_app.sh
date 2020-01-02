@@ -1,7 +1,9 @@
 #!/bin/sh
-
+rm bulingo-web-*
+rm -rf project/backend/frontend
 cd project/frontend
 npm run build
-mv -r build ../backend/frontend
-cd ../..
-pkg project/backend/package.json
+mv build/ ../backend/frontend/
+cd ../backend
+pkg package.json
+mv bulingo-web-* ../../.
