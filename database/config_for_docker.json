@@ -2,16 +2,16 @@
   "development": {
     "username": "postgres",
     "password": "postgres",
-    "database": "postgres",
-    "host": "localhost",
+    "database": "bulingo",
+    "host": "postgres",
     "dialect": "postgres",
     "operatorsAliases": false
   },
   "test": {
     "username": "postgres",
     "password": "postgres",
-    "database": "postgres",
-    "host": "localhost",
+    "database": "bulingo",
+    "host": "postgres",
     "dialect": "postgres",
     "operatorsAliases": false,
     "logging": false
@@ -19,8 +19,8 @@
   "production": {
     "username": "postgres",
     "password": "postgres",
-    "database": "postgres",
-    "host": "localhost",
+    "database": "bulingo",
+    "host": "postgres",
     "dialect": "postgres",
     "operatorsAliases": false
   }
