@@ -1,0 +1,1 @@
+{  "name": "bounswe2019group3-backend",  "version": "1.0.0",  "description": "backend project",  "sampleUrl": false,  "defaultVersion": "0.0.0",  "apidoc": "0.3.0",  "generator": {    "name": "apidoc",    "time": "2020-01-02T02:04:04.089Z",    "url": "http://apidocjs.com",    "version": "0.17.7"  }}
