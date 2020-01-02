@@ -546,6 +546,46 @@ ALTER SEQUENCE public."Messages_id_seq" OWNED BY public."Messages".id;
 
 
 --
+-- Name: UserProfiles; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."UserProfiles" (
+    id integer NOT NULL,
+    username character varying(255) NOT NULL,
+    email character varying(255) NOT NULL,
+    bio character varying(255) NOT NULL,
+    avatar character varying(255) NOT NULL,
+    rating double precision NOT NULL,
+    "createdAt" timestamp with time zone NOT NULL,
+    "updatedAt" timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public."UserProfiles" OWNER TO postgres;
+
+--
+-- Name: UserProfiles_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."UserProfiles_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."UserProfiles_id_seq" OWNER TO postgres;
+
+--
+-- Name: UserProfiles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."UserProfiles_id_seq" OWNED BY public."UserProfiles".id;
+
+
+--
 -- Name: Users; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -688,6 +728,13 @@ ALTER TABLE ONLY public."Messages" ALTER COLUMN id SET DEFAULT nextval('public."
 
 
 --
+-- Name: UserProfiles id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserProfiles" ALTER COLUMN id SET DEFAULT nextval('public."UserProfiles_id_seq"'::regclass);
+
+
+--
 -- Name: Writings writing_id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -699,6 +746,8 @@ ALTER TABLE ONLY public."Writings" ALTER COLUMN writing_id SET DEFAULT nextval('
 --
 
 COPY public."AnnotationResources" (target_annotation_id, body_annotation_id, _id, id, value, source, type, format, language, "processingLanguage", "textDirection", creator, purpose, "createdAt", "updatedAt") FROM stdin;
+\N	1	1	\N	wrong word	\N	TextualBody	text/plain	\N	\N	\N	\N	\N	2020-01-01 21:32:43.563+00	2020-01-01 21:32:43.563+00
+1	\N	2	\N	\N	http://18.184.207.248/api/writing/3	Text	\N	\N	\N	\N	orangelion929	\N	2020-01-01 21:32:43.564+00	2020-01-01 21:32:43.564+00
 \.
 
 
@@ -707,6 +756,7 @@ COPY public."AnnotationResources" (target_annotation_id, body_annotation_id, _id
 --
 
 COPY public."AnnotationSelectors" (id, resource_id, type, value, "conformsTo", exact, prefix, suffix, start, "end", "createdAt", "updatedAt") FROM stdin;
+1	2	FragmentSelector	char=208,216	http://tools.ietf.org/rfc/rfc5147	\N	\N	\N	\N	\N	2020-01-01 21:32:43.575+00	2020-01-01 21:32:43.575+00
 \.
 
 
@@ -715,6 +765,7 @@ COPY public."AnnotationSelectors" (id, resource_id, type, value, "conformsTo", e
 --
 
 COPY public."Annotations" ("@context", id, type, creator, motivation, "createdAt", "updatedAt") FROM stdin;
+http://www.w3.org/ns/anno.jsonld	1	Annotation	orangelion929	\N	2020-01-01 21:32:43.535+00	2020-01-01 21:32:43.535+00
 \.
 
 
@@ -906,6 +957,14 @@ COPY public."ExerciseProgresses" (id, username, exercise_id, question_done, ques
 2	lazyostrich850	2	4	5	2020-01-01 13:59:06.901+00	2020-01-01 13:59:06.901+00
 3	angrydog556	3	2	5	2020-01-01 13:59:06.901+00	2020-01-01 13:59:06.901+00
 4	angrydog556	4	5	5	2020-01-01 13:59:06.901+00	2020-01-01 13:59:06.901+00
+5	Darth_Vader	1	0	5	2020-01-01 21:34:02.138+00	2020-01-01 21:34:02.138+00
+6	Darth_Vader	3	0	5	2020-01-01 21:34:02.158+00	2020-01-01 21:34:02.159+00
+7	Darth_Vader	2	0	5	2020-01-01 21:34:02.159+00	2020-01-01 21:34:02.159+00
+8	Darth_Vader	4	0	1	2020-01-01 21:34:02.163+00	2020-01-01 21:34:02.163+00
+9	user	1	0	5	2020-01-02 00:35:09.271+00	2020-01-02 00:35:09.271+00
+10	user	2	0	5	2020-01-02 00:35:09.275+00	2020-01-02 00:35:09.275+00
+11	user	3	0	5	2020-01-02 00:35:09.317+00	2020-01-02 00:35:09.317+00
+12	user	4	0	1	2020-01-02 00:35:09.325+00	2020-01-02 00:35:09.325+00
 \.
 
 
@@ -954,6 +1013,10 @@ COPY public."LanguageProgresses" (id, username, lang_abbr, exercise_done, exerci
 2	lazyostrich850	de	{4}	4	2020-01-01 13:59:06.898+00	2020-01-01 13:59:06.898+00
 3	angrydog556	en	{2}	4	2020-01-01 13:59:06.898+00	2020-01-01 13:59:06.898+00
 4	angrydog556	de	{3,4}	4	2020-01-01 13:59:06.898+00	2020-01-01 13:59:06.898+00
+5	Darth_Vader	en	{}	4	2020-01-01 21:34:02.03+00	2020-01-01 21:34:02.031+00
+6	Darth_Vader	de	{}	0	2020-01-01 21:34:02.043+00	2020-01-01 21:34:02.043+00
+7	user	en	{}	4	2020-01-02 00:35:09.201+00	2020-01-02 00:35:09.201+00
+8	user	de	{}	0	2020-01-02 00:35:09.249+00	2020-01-02 00:35:09.249+00
 \.
 
 
@@ -1012,9 +1075,19 @@ COPY public."Messages" (id, to_username, from_username, message, new, "createdAt
 3	angrydog556	lazyostrich850	Thanks, I'm fine.Are you expert in writing?Can you help me?	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
 4	lazyostrich850	angrydog556	Sure, if you send me your essay, I can check it.	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
 5	browncat819	orangelion929	Hi orangelion, how are you?	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
-6	orangelion929	browncat819	Hi, how are you?	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
 7	browncat819	orangelion929	Thanks, I'm fine.Are you expert in writing?Can you help me?	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
-8	orangelion929	browncat819	Sure, if you send me your essay, I can check it.I am going to wait you to send me your essay :)	t	2020-01-01 13:59:06.876+00	2020-01-01 13:59:06.876+00
+6	orangelion929	browncat819	Hi, how are you?	f	2020-01-01 13:59:06.876+00	2020-01-01 21:49:36.798+00
+8	orangelion929	browncat819	Sure, if you send me your essay, I can check it.I am going to wait you to send me your essay :)	f	2020-01-01 13:59:06.876+00	2020-01-01 21:49:36.798+00
+\.
+
+
+--
+-- Data for Name: UserProfiles; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."UserProfiles" (id, username, email, bio, avatar, rating, "createdAt", "updatedAt") FROM stdin;
+0	yusuf	yusufsabribayrakdar@gmail.com	Student at BOUN	https://avatars.githubusercontent.com/yusufbayrakdar?size=70	5	2019-10-17 02:19:37.142+00	2019-10-17 02:19:37.142+00
+1	bayrakdar	sabri.bayrakdar@boun.edu.tr	Student at BOUN	https://avatars.githubusercontent.com/yusufbayrakdar?size=70	5	2019-10-17 02:19:37.142+00	2019-10-17 02:19:37.142+00
 \.
 
 
@@ -1057,6 +1130,8 @@ orangelion929	elza.vieira@example.com	I am Elza Vieira, and I live in Poços de 
 
 COPY public."Writings" (writing_id, title, text, image, written_by, assignee, lang_abbr, "createdAt", "updatedAt") FROM stdin;
 1	No real essay	You’re 16 and finally you can leave school!  By now, you’re probably sick of teachers, desks, tests and exams.  But don’t just run for the exit. You need to think carefully about what to do next.If you want a professional career, you will need to go to university and get a degree. To do that, you need to stay at high school for another two years.  But you needn’t stay at the same place. There are several options in the district of Northacre.St. Leopold’s School has the best pass rate of all the high schools in the district. It offers a wide range of subjects in the humanities and sciences.  St Leopold’s is, of course, a private school, so may be too expensive for you. But don’t worry, there are several other options if you want to follow the academic route.  Knowle Grammar School is a state school, so there are no fees, and it has excellent tuition and facilities. It is a boys’ school from the ages of 11-16, but from 16-18 it is co-educational. But it is selective, so you’ll have to pass an exam to get in.  If you’re interested in going into Business, check out Wyle River Academy.  This school specialises in subjects like Business Studies, Management and Economics.  If you prefer the arts, look at the courses on offer at Northacre College.  Here you can study woodwork, art, textiles and much more.Northacre College also offers a wide range of vocational qualifications.  You can do a 1-year certificate or a 2-year diploma in subjects like electrics, plumbing, roofing and hairdressing.  If you’d prefer to work outdoors, look at Milldown College, where there are courses in Farm Mechanics, Land Management, Animal Management and much more.A final option is to get an apprenticeship with a local or national company.  You will get on-the-job training, gain certificates or diplomas and start earning straight away.  But be warned - places are limited!  Find out more at the Jobs Fair on 26th May at Northacre College.You can only attend Knowle Grammar School if you…	\N	lazyostrich850	angrydog556	en	2020-01-01 13:59:06.902+00	2020-01-01 13:59:06.902+00
+2	Hand-Written	\N	api/uploads/writings/28d348c8882876673aec85c023593e67.jpg	browncat819	orangelion929	en	2020-01-01 21:23:55.017+00	2020-01-01 21:23:55.017+00
+3	Narrative Essay	"Looking back on a childhood filled with events and memories, I find it rather difficult to pick one that leaves me with the fabled "warm and fuzzy feelings." As the daughter of an Air Force major, I had the pleasure of traveling across America in many moving trips. I have visited the monstrous trees of the Sequoia National Forest, stood on the edge of the Grand Canyon and have jumped on the beds at Caesar's Palace in Lake Tahoe."\n\n"The day I picked my dog up from the pound was one of the happiest days of both of our lives. I had gone to the pound just a week earlier with the idea that I would just "look" at a puppy. Of course, you can no more just look at those squiggling little faces so filled with hope and joy than you can stop the sun from setting in the evening. I knew within minutes of walking in the door that I would get a puppy… but it wasn't until I saw him that I knew I had found my puppy."\n\n"Looking for houses was supposed to be a fun and exciting process. Unfortunately, none of the ones that we saw seemed to match the specifications that we had established. They were too small, too impersonal, too close to the neighbors. After days of finding nothing even close, we began to wonder: was there really a perfect house out there for us?"	\N	lazyostrich850	orangelion929	en	2020-01-01 21:28:19.288+00	2020-01-01 21:28:19.288+00
 \.
 
 
@@ -1064,21 +1139,21 @@ COPY public."Writings" (writing_id, title, text, image, written_by, assignee, la
 -- Name: AnnotationResources__id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."AnnotationResources__id_seq"', 1, false);
+SELECT pg_catalog.setval('public."AnnotationResources__id_seq"', 2, true);
 
 
 --
 -- Name: AnnotationSelectors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."AnnotationSelectors_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."AnnotationSelectors_id_seq"', 1, true);
 
 
 --
 -- Name: Annotations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Annotations_id_seq"', 1, false);
+SELECT pg_catalog.setval('public."Annotations_id_seq"', 1, true);
 
 
 --
@@ -1113,7 +1188,7 @@ SELECT pg_catalog.setval('public."ExerciseChoices_choice_id_seq"', 60, true);
 -- Name: ExerciseProgresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."ExerciseProgresses_id_seq"', 4, true);
+SELECT pg_catalog.setval('public."ExerciseProgresses_id_seq"', 12, true);
 
 
 --
@@ -1134,7 +1209,7 @@ SELECT pg_catalog.setval('public."Exercises_exercise_id_seq"', 4, true);
 -- Name: LanguageProgresses_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."LanguageProgresses_id_seq"', 4, true);
+SELECT pg_catalog.setval('public."LanguageProgresses_id_seq"', 8, true);
 
 
 --
@@ -1145,10 +1220,17 @@ SELECT pg_catalog.setval('public."Messages_id_seq"', 8, true);
 
 
 --
+-- Name: UserProfiles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."UserProfiles_id_seq"', 1, false);
+
+
+--
 -- Name: Writings_writing_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Writings_writing_id_seq"', 1, true);
+SELECT pg_catalog.setval('public."Writings_writing_id_seq"', 3, true);
 
 
 --
@@ -1269,6 +1351,14 @@ ALTER TABLE ONLY public."Levels"
 
 ALTER TABLE ONLY public."Messages"
     ADD CONSTRAINT "Messages_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: UserProfiles UserProfiles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."UserProfiles"
+    ADD CONSTRAINT "UserProfiles_pkey" PRIMARY KEY (id, username);
 
 
 --
