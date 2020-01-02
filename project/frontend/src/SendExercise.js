@@ -105,8 +105,8 @@ export default class GeneralTest extends React.Component {
                 console.log(frm);
             }
             document.getElementById("");
-            console.log('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
-            axios.post('http://18.184.207.248/api/language/' + frm.lang_abbr + '/exercise', frm, { withCredentials: true })
+            console.log('http://localhost:3000/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
+            axios.post('http://localhost:3000/api/language/' + frm.lang_abbr + '/exercise', frm, { withCredentials: true })
                 .then(res => {
                     if (res.status === 200) {
                         console.log(res.data);

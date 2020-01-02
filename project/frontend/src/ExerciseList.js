@@ -9,7 +9,7 @@ export default class FormPage extends React.Component {
   constructor(props) {
     super(props);
 
-    axios.get('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise', { withCredentials: true })
+    axios.get('http://localhost:3000/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise', { withCredentials: true })
       .then(res => {
         console.log(res.data)
         this.setState({

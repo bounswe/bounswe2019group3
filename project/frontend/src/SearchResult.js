@@ -11,7 +11,7 @@ export default class FormPage extends React.Component {
 
 
     if (Cookies.get('search_type') === "user") {
-      axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
+      axios.get('http://localhost:3000/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
         .then(res => {
           console.log(res.data)
           this.setState({
@@ -34,7 +34,7 @@ export default class FormPage extends React.Component {
         result += '&exercise_type=' + Cookies.get('search_exercise_type');
       }
 
-      axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') +
+      axios.get('http://localhost:3000/api/search?text=' + Cookies.get('search_context') +
         result, { withCredentials: true })
         .then(res => {
           console.log(res.data)

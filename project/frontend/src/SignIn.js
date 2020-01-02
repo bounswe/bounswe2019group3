@@ -28,7 +28,7 @@ export default class FormPage extends React.Component {
 
     //console.log(JSON.stringify(frm));
     var responseStatus;
-    axios.post('http://18.184.207.248/api/auth/login', frm, { withCredentials: true })
+    axios.post('http://localhost:3000/api/auth/login', frm, { withCredentials: true })
       .then(res => {
         //applicationa (app.js) loginin başarılı olduğnu burda bildirmemiz gerekiyor.
         //propsdan bir fonsiyon alarak

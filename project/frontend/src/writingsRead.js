@@ -25,7 +25,7 @@ export default class FormPage extends React.Component {
         super(props);
         content = this.props.location._data;
 
-        axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
+        axios.get('http://localhost:3000/api/annotation/?target_source=http://localhost:3000/api/writing/' + content.writing_id, { withCredentials: true })
                 .then(res => {
                     var temp_data = [];
 
@@ -49,11 +49,11 @@ export default class FormPage extends React.Component {
                     })
                 });
 
-        getImageSize("http://18.184.207.248/" + content.image, (w, h) => {
+        getImageSize("http://localhost:3000/" + content.image, (w, h) => {
             image_width = w;
             image_height = h;
-            //http://18.184.207.248/api/annotation/?target_id=http://18.184.207.248/api/writing/213312
-            axios.get('http://18.184.207.248/api/annotation/?target_source=http://18.184.207.248/api/writing/' + content.writing_id, { withCredentials: true })
+            //http://localhost:3000/api/annotation/?target_id=http://localhost:3000/api/writing/213312
+            axios.get('http://localhost:3000/api/annotation/?target_source=http://localhost:3000/api/writing/' + content.writing_id, { withCredentials: true })
                 .then(res => {
                     var temp_data = [];
 
@@ -119,7 +119,7 @@ export default class FormPage extends React.Component {
                 format: "text/plain"
             },
             target: {
-                source: "http://18.184.207.248/api/writing/" + content.writing_id,
+                source: "http://localhost:3000/api/writing/" + content.writing_id,
                 creator: Cookies.get('username'),
                 type: "Image",
                 selector: {
@@ -129,7 +129,7 @@ export default class FormPage extends React.Component {
                 }
             }
         };
-        axios.post('http://18.184.207.248/api/annotation', frm, { withCredentials: true })
+        axios.post('http://localhost:3000/api/annotation', frm, { withCredentials: true })
             .then(res => {
                 console.log(res);
                 if (res.status === 200) {
@@ -165,7 +165,7 @@ export default class FormPage extends React.Component {
                         format: "text/plain"
                     },
                     target: {
-                        source: "http://18.184.207.248/api/writing/" + content.writing_id,
+                        source: "http://localhost:3000/api/writing/" + content.writing_id,
                         creator: Cookies.get('username'),
                         type: "Text",
                         selector: {
@@ -175,7 +175,7 @@ export default class FormPage extends React.Component {
                         }
                     }
                 };
-                axios.post('http://18.184.207.248/api/annotation', frm, { withCredentials: true })
+                axios.post('http://localhost:3000/api/annotation', frm, { withCredentials: true })
                     .then(res => {
                         console.log(res);
                         if (res.status === 200) {
@@ -241,7 +241,7 @@ export default class FormPage extends React.Component {
             <div>
                 <div className="ExamBox"> {content.title} </div>
                 <Annotation
-                    src={"http://18.184.207.248/" + content.image}
+                    src={"http://localhost:3000/" + content.image}
                     alt='.'
 
                     annotations={this.state.image_annotations}
@@ -321,7 +321,7 @@ export default class FormPage extends React.Component {
                                         <MDBRow><center>
                                             <div className="ExamBox"> {content.title} </div>
                                             <Annotation
-                                                src={"http://18.184.207.248/" + content.image}
+                                                src={"http://localhost:3000/" + content.image}
                                                 alt='.'
 
                                                 annotations={this.state.image_annotations}

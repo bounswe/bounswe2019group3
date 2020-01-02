@@ -10,7 +10,7 @@ export default class ExaminationPage extends React.Component {
     super(props);
     Cookies.remove('selected_writing_abbr');
     Cookies.remove('selected_writing_assignee');
-    axios.get('http://18.184.207.248/api/language/', { withCredentials: true })
+    axios.get('http://localhost:3000/api/language/', { withCredentials: true })
       .then(res => {
         this.setState({ languages: res.data });
       })
@@ -38,7 +38,7 @@ export default class ExaminationPage extends React.Component {
       data.append("lang_abbr", document.getElementById("abbr").value);
       data.append("assignee", document.getElementById("assignee").value);
       data.append("title", "Hand-Written");
-      axios.post(('http://18.184.207.248/api/writing'),
+      axios.post(('http://localhost:3000/api/writing'),
         data,
         {
           withCredentials: true,
@@ -60,7 +60,7 @@ export default class ExaminationPage extends React.Component {
         lang_abbr: document.getElementById("abbr").value,
         assignee: document.getElementById("assignee").value
       }
-      axios.post('http://18.184.207.248/api/writing', frm, { withCredentials: true })
+      axios.post('http://localhost:3000/api/writing', frm, { withCredentials: true })
         .then(res => {
           if (res.status === 204) {
             console.log(res);
@@ -109,7 +109,7 @@ export default class ExaminationPage extends React.Component {
     }
     if (e.target.id === "abbr") {
       Cookies.set('selected_writing_abbr', e.target.value);
-      axios.get('http://18.184.207.248/api/language/' + Cookies.get('selected_writing_abbr') + '/recommendation', { withCredentials: true })
+      axios.get('http://localhost:3000/api/language/' + Cookies.get('selected_writing_abbr') + '/recommendation', { withCredentials: true })
         .then(res => {
           this.setState({
             assignees: res.data

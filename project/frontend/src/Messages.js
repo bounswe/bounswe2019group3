@@ -9,7 +9,7 @@ import * as moment from 'moment'
 export default class Messages extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://18.184.207.248/api/chat/', { withCredentials: true })
+        axios.get('http://localhost:3000/api/chat/', { withCredentials: true })
             .then(res => {
                 //console.log(res.status)
                 //console.log(res.data.history);
@@ -90,7 +90,7 @@ export default class Messages extends React.Component {
         }
         document.getElementById("message_to_send").value = "";
 
-        axios.post(('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person')), msg, { withCredentials: true })
+        axios.post(('http://localhost:3000/api/chat/' + Cookies.get('message_to_person')), msg, { withCredentials: true })
             .then(res => {
 
             });
@@ -104,7 +104,7 @@ export default class Messages extends React.Component {
     componentDidMount() {
 
         setInterval(() => {
-            axios.get('http://18.184.207.248/api/chat/' + Cookies.get('message_to_person'), { withCredentials: true })
+            axios.get('http://localhost:3000/api/chat/' + Cookies.get('message_to_person'), { withCredentials: true })
                 .then(res => {
                     //console.log(res.data);
                     if (this.state.chat_messages !== res.data) {

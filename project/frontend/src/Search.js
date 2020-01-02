@@ -13,7 +13,7 @@ export default class FormPage extends React.Component {
     Cookies.remove('search_exercise_type');
     Cookies.remove('search_exercise_language');
     Cookies.remove('search_exercise_level');
-    axios.get('http://18.184.207.248/api/language/', { withCredentials: true })
+    axios.get('http://localhost:3000/api/language/', { withCredentials: true })
       .then(res => {
         this.setState({ languages: res.data });
       })
@@ -47,7 +47,7 @@ export default class FormPage extends React.Component {
       isSearched: true
     })
 
-    // axios.get('http://18.184.207.248/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
+    // axios.get('http://localhost:3000/api/search?text=' + Cookies.get('search_context') + '&type=' + Cookies.get('search_type'), { withCredentials: true })
     //   .then(res => {
     //     this.setState({
     //       response: res.data[0].username,

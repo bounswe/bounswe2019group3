@@ -14,7 +14,7 @@ export default class FormPage extends React.Component {
         exerciseProgress = []
         languages = []
         //api/language/
-        axios.get('http://18.184.207.248/api/language', { withCredentials: true })
+        axios.get('http://localhost:3000/api/language', { withCredentials: true })
             .then(res => {
                 //console.log(res.data)
                 languages = res.data
@@ -23,8 +23,8 @@ export default class FormPage extends React.Component {
                                                           
                 })       
                 for (let index = 0; index < languages.length; index++) {
-                    //console.log('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + this.state.languages[index].abbr + '/progress')
-                    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/' + languages[index].abbr + '/progress', { withCredentials: true })
+                    //console.log('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/' + this.state.languages[index].abbr + '/progress')
+                    axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/' + languages[index].abbr + '/progress', { withCredentials: true })
                         .then(res => {
                             //console.log('here3')
                             //console.log(res.data)
@@ -32,16 +32,16 @@ export default class FormPage extends React.Component {
                         }
                         )
                     //api/language/:language_abbr/exercise
-                    //console.log('http://18.184.207.248/api/language/' + this.state.languages[index].abbr + '/exercise')
-                    axios.get('http://18.184.207.248/api/language/' + languages[index].abbr + '/exercise', { withCredentials: true })
+                    //console.log('http://localhost:3000/api/language/' + this.state.languages[index].abbr + '/exercise')
+                    axios.get('http://localhost:3000/api/language/' + languages[index].abbr + '/exercise', { withCredentials: true })
                         .then(res => {
                             //console.log(res.data);
                             var exercisesOfAbbr = res.data;
                             //console.log(exercisesOfAbbr);
                             for (let i = 0; i < exercisesOfAbbr.length; i++) {
                                 //api/user/:username/exercise/:exercise_id/progress
-                                //console.log('http://18.184.207.248/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id +'/progress')
-                                axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id + '/progress', { withCredentials: true })
+                                //console.log('http://localhost:3000/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id +'/progress')
+                                axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/exercise/' + exercisesOfAbbr[i].exercise_id + '/progress', { withCredentials: true })
                                     .then(res => {
                                         //console.log(res.data)
                                         exerciseProgress[i] = res.data;

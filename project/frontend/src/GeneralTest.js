@@ -9,7 +9,7 @@ import './General.css';
 export default class GeneralTest extends React.Component {
     constructor(props) {
         super(props);
-        axios.get('http://18.184.207.248/api/language/' + Cookies.get('selectedExamLanguageAbbr') + '/exam/questions', { withCredentials: true })
+        axios.get('http://localhost:3000/api/language/' + Cookies.get('selectedExamLanguageAbbr') + '/exam/questions', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
                 this.setState({ questions: res.data });
@@ -84,7 +84,7 @@ export default class GeneralTest extends React.Component {
 
 
     submit(ans) {
-        axios.post('http://18.184.207.248/api/language/' + Cookies.get('selectedExamLanguageAbbr') + '/exam/evaluate', ans, { withCredentials: true })
+        axios.post('http://localhost:3000/api/language/' + Cookies.get('selectedExamLanguageAbbr') + '/exam/evaluate', ans, { withCredentials: true })
             .then(res => {
                 if (res.status === 200) {
                     console.log(ans);

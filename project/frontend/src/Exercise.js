@@ -15,7 +15,7 @@ export default class GeneralTest extends React.Component {
 
         ///api/language/:language_abbr/exercise/:exersice_id/questions
         //console.log(Cookies.get('selectedLanguageAbbr') + "  "+ Cookies.get('selectedExerciseId'));
-        axios.get('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/questions', { withCredentials: true })
+        axios.get('http://localhost:3000/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/questions', { withCredentials: true })
             .then(res => {
                 console.log(res.data);
                 this.setState({ questions: res.data });
@@ -54,7 +54,7 @@ export default class GeneralTest extends React.Component {
 
                 <div className="ExamBox">
                     <audio id={"myaudio" + i} controls>
-                        <source src={'http://18.184.207.248/' + this.state.questions[i].media_url} type="video/mp4" />
+                        <source src={'http://localhost:3000/' + this.state.questions[i].media_url} type="video/mp4" />
                         Your browser does not support the audio element.
                     </audio>
                     <form>
@@ -180,8 +180,8 @@ export default class GeneralTest extends React.Component {
 
     submit(ans) {
         
-        console.log('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
-        axios.post('http://18.184.207.248/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate', ans, { withCredentials: true })
+        console.log('http://localhost:3000/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate')
+        axios.post('http://localhost:3000/api/language/' + Cookies.get('selectedLanguageAbbr') + '/exercise/' + Cookies.get('selectedExerciseId') + '/evaluate', ans, { withCredentials: true })
             .then(res => {              
                 if (res.status === 200) {
                  

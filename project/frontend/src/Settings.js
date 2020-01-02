@@ -7,7 +7,7 @@ import { Redirect } from 'react-router-dom';
 class FormsPage extends React.Component {
   constructor(props) {
     super(props);
-    axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
+    axios.get(('http://localhost:3000/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ information: res.data });
@@ -38,7 +38,7 @@ class FormsPage extends React.Component {
       const data = new FormData();
       data.append("avatar", this.state.avatar, "wow");
       
-      const res = await axios.post(('http://18.184.207.248/api/user/' + Cookies.get('username')),
+      const res = await axios.post(('http://localhost:3000/api/user/' + Cookies.get('username')),
             data,
             { withCredentials: true, headers: {
               "Content-Type" : "multipart/form-data"
@@ -49,7 +49,7 @@ class FormsPage extends React.Component {
     // send bio
     console.log(JSON.stringify(frm));
     var responseStatus;
-    const response = await axios.post(('http://18.184.207.248/api/user/' + Cookies.get('username')),frm, { withCredentials: true })
+    const response = await axios.post(('http://localhost:3000/api/user/' + Cookies.get('username')),frm, { withCredentials: true })
       .then(res => {
      
         responseStatus = res;

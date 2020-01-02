@@ -9,14 +9,14 @@ export default class FormPage extends React.Component {
     constructor(props) {
         super(props);
 
-        axios.get('http://18.184.207.248/api/writing?written_by=' + Cookies.get('username'), { withCredentials: true })
+        axios.get('http://localhost:3000/api/writing?written_by=' + Cookies.get('username'), { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ writings: res.data });
                 //console.log(this.state.writings);
             })
 
-        axios.get('http://18.184.207.248/api/writing?assignee=' + Cookies.get('username'), { withCredentials: true })
+        axios.get('http://localhost:3000/api/writing?assignee=' + Cookies.get('username'), { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ assignee_writings: res.data });

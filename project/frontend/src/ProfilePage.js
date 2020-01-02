@@ -11,23 +11,23 @@ export default class FormPage extends React.Component {
 
   constructor(props) {
     super(props);
-    axios.get(('http://18.184.207.248/api/user/' + Cookies.get('username')), { withCredentials: true })
+    axios.get(('http://localhost:3000/api/user/' + Cookies.get('username')), { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ information: res.data });
       })
-    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/comments', { withCredentials: true })
+    axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/comments', { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ comments: res.data });
       })
-    axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/level', { withCredentials: true })
+    axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/level', { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ languages: res.data });
       })
        
-      axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
+      axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ radarde: res.data });
@@ -49,7 +49,7 @@ export default class FormPage extends React.Component {
           ]
         }})
       })
-      axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
+      axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
       .then(res => {
         //console.log(res.data);
         this.setState({ radaren: res.data });

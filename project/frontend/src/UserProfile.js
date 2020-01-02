@@ -16,23 +16,23 @@ export default class Messages extends React.Component {
         //console.log(this.props)
         username_ = this.props.location.data_;
         //console.log(this.props.location.data_)
-        axios.get(('http://18.184.207.248/api/user/' + username_), { withCredentials: true })
+        axios.get(('http://localhost:3000/api/user/' + username_), { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ information: res.data });
             })
-        axios.get('http://18.184.207.248/api/user/' + username_ + '/comments', { withCredentials: true })
+        axios.get('http://localhost:3000/api/user/' + username_ + '/comments', { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ comments: res.data });
             })
-        axios.get('http://18.184.207.248/api/user/' + username_ + '/language/level', { withCredentials: true })
+        axios.get('http://localhost:3000/api/user/' + username_ + '/language/level', { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ languages: res.data });
             })
 
-        axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
+        axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/de/radar', { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ radarde: res.data });
@@ -56,7 +56,7 @@ export default class Messages extends React.Component {
                     }
                 })
             })
-        axios.get('http://18.184.207.248/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
+        axios.get('http://localhost:3000/api/user/' + Cookies.get('username') + '/language/en/radar', { withCredentials: true })
             .then(res => {
                 //console.log(res.data);
                 this.setState({ radaren: res.data });
@@ -155,7 +155,7 @@ export default class Messages extends React.Component {
             rating : this.state.rating
         }
 
-        axios.post(('http://18.184.207.248/api/user/' + username_ + '/comments'), cmmnt, { withCredentials: true })
+        axios.post(('http://localhost:3000/api/user/' + username_ + '/comments'), cmmnt, { withCredentials: true })
             .then(res => {
                 document.getElementById("comment_to_send").value = "";
                 cmmnt.comment_by = Cookies.get('username');
@@ -173,7 +173,7 @@ export default class Messages extends React.Component {
             message: document.getElementById("message_to_send").value
 
         }
-        axios.post(('http://18.184.207.248/api/chat/' + username_), msg, { withCredentials: true })
+        axios.post(('http://localhost:3000/api/chat/' + username_), msg, { withCredentials: true })
             .then(res => {
                 this.setState({ returnToMessages: true })
             });
