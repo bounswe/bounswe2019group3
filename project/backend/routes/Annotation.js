@@ -81,7 +81,22 @@ const deserialize_annotation_resource = (r) => {
     return result;
 };
 
-
+/**
+ * @api {get} /api/annotation lists the annotations filtered by creator, target_creator, target_source
+ * @apiDescription This endpoint returns a list of annotations in the W3C Web Annotation Data Model format (https://www.w3.org/TR/annotation-model/) filtered by creator, target_creator, target_source
+ * @apiName list annotation
+ * @apiGroup annotation
+ * @apiPermission User
+ * @apiParam (Request Query) {String} creator
+ * @apiParam (Request Query) {String} target_creator
+ * @apiParam (Request Query) {String} target_source
+ * @apiSuccess (body(JSON)) {Object[]}  annotation (see W3C Web Annotation Data Model for details)
+ * @apiSuccess (body(JSON)) {String} annotation.type             
+ * @apiSuccess (body(JSON)) {Object} annotation.body
+ * @apiSuccess (body(JSON)) {Object} annotation.target 
+ * @apiSuccess (body(JSON)) {Object} annotation.creator 
+ * @apiSuccess (body(JSON)) {Object} annotation.motivation 
+ */
 router.get("/", (req, res, next) => {
     let annotation_where = {};
     let target_where = {};
@@ -113,6 +128,20 @@ router.get("/", (req, res, next) => {
     });
 });
 
+
+/**
+ * @api {post} /api/annotation create new annotation 
+ * @apiDescription This endpoint takes an annotation in the W3C Web Annotation Data Model format (https://www.w3.org/TR/annotation-model/) and saves it to the database
+ * @apiName create annotation
+ * @apiGroup annotation
+ * @apiPermission User
+ * @apiParam (Request body(JSON)) {Object}  annotation (see W3C Web Annotation Data Model for details)
+ * @apiParam (Request body(JSON)) {String} annotation.type             
+ * @apiParam (Request body(JSON)) {Object} annotation.body 
+ * @apiParam (Request body(JSON)) {Object} annotation.target 
+ * @apiParam (Request body(JSON)) {Object} annotation.motivation
+ * @apiSuccess {String}   id
+ */
 router.post("/", (req, res, next) => {
     if (!req.session.user) {
         res.sendStatus(400);
@@ -141,6 +170,21 @@ router.post("/", (req, res, next) => {
       });
 });
 
+
+/**
+ * @api {get} /api/annotation/:id returns the annotation specified by the id
+ * @apiDescription This endpoint returns the annotation specified by the id in the W3C Web Annotation Data Model format (https://www.w3.org/TR/annotation-model/)
+ * @apiName get annotation
+ * @apiGroup annotation
+ * @apiPermission User
+ * @apiParam (Request Param) {String} id
+ * @apiSuccess (body(JSON)) {Object}  annotation (see W3C Web Annotation Data Model for details)
+ * @apiSuccess (body(JSON)) {String} annotation.type             
+ * @apiSuccess (body(JSON)) {Object} annotation.body
+ * @apiSuccess (body(JSON)) {Object} annotation.target 
+ * @apiSuccess (body(JSON)) {Object} annotation.creator 
+ * @apiSuccess (body(JSON)) {Object} annotation.motivation 
+ */
 router.get("/:id/", (req, res, next) => {
     if(!req.params.id){
         res.sendStatus(400);
@@ -161,6 +205,14 @@ router.get("/:id/", (req, res, next) => {
     });
 });
 
+/**
+ * @api {delete} /api/annotation/:id deletes the annotation specified by the id
+ * @apiDescription This endpoint deletes the annotation specified by the id
+ * @apiName delete annotation
+ * @apiGroup annotation
+ * @apiPermission User
+ * @apiParam (Request Param) {String} id
+ */
 router.delete("/:id", (req, res, next) => {
     if(!req.params.id ){
         res.sendStatus(400);

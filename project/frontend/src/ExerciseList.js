@@ -88,6 +88,25 @@ export default class FormPage extends React.Component {
     }
   }
 
+
+  remark(){
+    var remark = "";
+
+    if(Cookies.get('username')){
+      return remark;
+    }
+    remark = (
+      <div className="Messagebox">
+        <p>
+          You must be a registered user to see the content of exercises !!!
+        </p>
+      </div>
+    );
+
+    return remark;
+
+  }
+
   render() {
     if (this.state.clicked && Cookies.get('username')) {
       return (<Redirect
@@ -107,22 +126,27 @@ export default class FormPage extends React.Component {
 
               <div className="marginedleft20">
                 <MDBRow>
-                  <MDBCol md="6">
+                  <MDBCol>
                     <MDBRow>
-                      <table id="tablePreview" className="Messagebox">
-                        <thead>
-                          <tr>
-                            <th className="Messagebox"><b>id</b></th>
-                            <th className="Messagebox"><b>title</b></th>
-                            <th className="Messagebox"><b>type</b></th>
-                            <th className="Messagebox"><b>level</b></th>
-                            <th className="Messagebox"><b>tags</b></th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {this.fill_search_table()}
-                        </tbody>
-                      </table>
+                      <MDBCol md="8">
+                        <table id="tablePreview" className="Messagebox">
+                          <thead>
+                            <tr>
+                              <th className="Messagebox"><b>id</b></th>
+                              <th className="Messagebox"><b>title</b></th>
+                              <th className="Messagebox"><b>type</b></th>
+                              <th className="Messagebox"><b>level</b></th>
+                              <th className="Messagebox"><b>tags</b></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {this.fill_search_table()}
+                          </tbody>
+                        </table>
+                      </MDBCol>
+                      <MDBCol md="4">
+                        {this.remark()}
+                      </MDBCol>
                     </MDBRow>
                   </MDBCol>
                 </MDBRow>
