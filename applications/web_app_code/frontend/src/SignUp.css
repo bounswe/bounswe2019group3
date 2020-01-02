@@ -1,0 +1,283 @@
+
+
+@media all and (min-width: 480px) {
+    .Login {
+      padding: 60px 0;
+    }
+  
+    .Login form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+.mx-md-m6{
+  margin-top: 150px;
+}
+.negative_left{
+  margin-left: -5vw;
+}
+#nav {
+	width: 100%;
+	float: left;
+	padding: 0;
+	list-style: none; }
+#nav li {
+	float: left; }
+
+#nav li a {
+		display: block;
+		padding: 8px 15px;
+		text-decoration: none;
+		font-weight: bold;
+		color: #069;
+		border-right: 1px solid #ccc; }
+
+.row-margin{
+  margin-top:-150px ;
+}
+
+.header-padding{
+  padding-top:150px ;
+}
+
+.header{
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+body {
+   background-color: #ffc19a; 
+}
+.margined{
+  margin-top: 60px;
+}
+.top-margined-20{
+  margin-top: 20px;
+}
+.marginedleft{
+  margin-left: 10px;
+}
+.marginedleft20{
+  margin-left: 20px;
+}
+.marginedleft50{
+  margin-left: 50px;
+}
+.text{
+  font-family: 'roboto';
+  font-size: 24px;
+  color : #fff5ec;
+}
+.commentsec_usrname{
+  font-family: 'roboto';
+  font-size: 20px;
+  color : #555;
+}
+.commentsec_title{
+  font-size: 20px;
+  font-family: 'roboto';
+  font-weight: bold;
+  color : #555;
+}
+.answerstext{
+  font-size: 18px;
+  font-family: 'roboto';
+  color : #555;
+}
+.ExamBox{
+  border: 2px solid #787878;
+  padding: 10px;
+  margin-top: 1cm;
+  background-color: #ffe1cf55;
+  border-radius: 1%;
+  box-shadow: 5px 10px #55555555;
+}
+.text2{
+  font-family: 'roboto';
+  color: #fff5ec;
+}
+h8{
+  color: blue;
+}
+.small{
+  font-size: 15px;
+}
+.fixedsizebio{
+  height: 72vh;
+  border: 2px solid #787878;
+  padding: 10px;
+  
+  background-color: #ffe1cf55;
+  border-radius: 1%;
+  box-shadow: 5px 10px #55555555;
+}
+.backpicture {
+  opacity: 0.3;
+  position: absolute;
+  top: 15%;
+  left: 10%;
+}
+.profilePic{
+  max-width: 7vw;
+  max-height: 7vw;
+  right: 0cm;
+  border-radius: 40%;
+}
+.rightaligned{
+  text-align: right;
+}
+.Scrollbar {
+  
+  overflow-y:scroll;
+  height: 72vh;
+  border: 2px solid #787878;
+  padding: 1px;
+  border-radius: 1%;
+  background-color: #ffe1cf55;
+  box-shadow: 5px 10px #55555555;
+}
+.sendmessage {  
+  overflow-y:scroll;
+  border: 2px solid #787878;
+  padding: 1px;
+  border-radius: 1%;
+  background-color: #ffe1cf55;
+  box-shadow: 5px 10px #55555555;
+}
+
+.Comment{ 
+  border: 1px solid #555;
+  padding: 10px;
+  margin-top: 1%;
+  margin-right: 1%;
+  margin-left: 1%;
+  background-color: #ffe1cf55;
+  border-radius: 5%
+}
+.Status{
+  padding: 10px;
+  margin-top: 1%;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.Bio{
+  padding: 10px;
+  margin-top: 1%;
+  margin-right: 1%;
+  margin-left: 1%;
+}
+.topMargined{
+  margin-top: 1vw;
+}
+
+.topMargined10{
+  margin-top: 5vw;
+}
+.topMargined50{
+  margin-top: 25vw;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #787878; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #555555; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #333333; 
+}
+.topMarginedSidebar1{
+  position: fixed;
+  margin-top: 8.5vw;
+  top:-25px;
+  
+}
+.popup {  
+  position: fixed;  
+  width: 100%;  
+  height: 100%;  
+  top: 0;  
+  left: 0;  
+  right: 0;  
+  bottom: 0;  
+  margin: auto;  
+  background-color: rgba(250, 157, 8, 0.418);  
+}  
+.popup\_inner {  
+  position: absolute;  
+  left: 25%;  
+  right: 25%;  
+  top: 25%;  
+  bottom: 25%;  
+  margin: auto;  
+  border-radius: 20px;  
+  background: rgb(218, 87, 11);  
+}
+
+input[type="radio"] {
+ 
+  border-radius: 1px;
+  box-shadow: inset 0 1px 1px hsla(0,0%,100%,.8),
+              0 0 0 1px hsla(0,0%,0%,.6),
+              0 2px 3px hsla(0,0%,0%,.6),
+              0 4px 3px hsla(0,0%,0%,.4),
+              0 6px 6px hsla(0,0%,0%,.2),
+              0 10px 6px hsla(0,0%,0%,.2);
+  cursor: pointer;
+  display: inline-block;
+  height: 15px;
+  margin-right: 15px;
+  position: relative;
+  width: 15px;
+  -webkit-appearance: none;
+}
+input[type="radio"]:after {
+  background-color:#eeeeee;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px hsla(0,0%,0%,.4),
+              0 1px 1px hsla(0,0%,100%,.8);
+  content: '';
+  display: block;
+  height: 10px;
+  left: 2.5px;
+  position: relative;
+  top: 2.5px;
+  width: 10px;
+ 
+}
+input[type="radio"]:checked:after {
+  background-color: #333333;
+  box-shadow: inset 0 0 0 1px hsla(0,0%,0%,.4),
+              inset 0 2px 2px hsla(0,0%,100%,.4),
+              0 1px 1px hsla(0,0%,100%,.8),
+              0 0 2px 2px hsla(0,70%,70%,.4);
+}
+input:focus{
+  outline:none;
+}
+.messagehistory{
+  display:block;
+  width:100%;
+  height:50vh;
+  
+  }
+  
+  .Messagebox{ 
+    border: 1px solid #555;
+    padding: 10px;
+    margin-top: 1%;
+    margin-right: 1%;
+    margin-left: 1%;
+    background-color: #ffe1cf;
+    border-radius: 5%
+  }
+  tr:hover {background-color: #f5f5f5;}
