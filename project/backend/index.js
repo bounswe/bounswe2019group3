@@ -2,6 +2,7 @@ const http = require('http');
 const https = require('https');
 const express = require('express');
 const app = express();
+const path = require('path');
 
 
 // import api route
@@ -19,13 +20,10 @@ const http_server = http.createServer(app);
 // api route
 app.use('/api/', api.router);
 
-app.use((err, req, res, next) => {
-	console.error(err);
-	if(err.status){
-		res.sendStatus(err.status);
-	}else {
-		res.sendStatus(500);
-	}
+app.use(express.static('frontend'));
+// Handles any requests that don't match the ones above
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/frontend/index.html'));
 });
 
 const port = process.env.PORT || 3000;

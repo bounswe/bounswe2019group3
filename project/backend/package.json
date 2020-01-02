@@ -1,7 +1,7 @@
 {
-  "name": "bounswe2019group3-backend",
+  "name": "bulingo-web",
   "version": "1.0.0",
-  "description": "backend project",
+  "description": "bulingo project",
   "main": "index.js",
   "bin": "index.js",
   "scripts": {
@@ -44,6 +44,6 @@
     "chai-match": "^1.1.1"
   },
   "pkg": {
-    "assets": "frontend/**/*"
+    "assets": ["models/**/*", "frontend/**/*"]
   }
 }
